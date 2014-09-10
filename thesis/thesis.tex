@@ -1,0 +1,62 @@
+\documentclass{../cshonours}
+\usepackage{subfiles}
+\usepackage{url}
+\usepackage{graphics}  %optional
+\usepackage{etoolbox}
+\usepackage{bibunits}
+
+\bibliographystyle{acm}
+\defaultbibliography{../references/primary}
+\defaultbibliographystyle{acm}
+
+\newcommand{\namelistlabel}[1]{\mbox{#1}\hfil}
+\newenvironment{namelist}[1]{%1
+\begin{list}{}
+    {
+        \let\makelabel\namelistlabel
+        \settowidth{\labelwidth}{#1}
+        \setlength{\leftmargin}{1.1\labelwidth}
+    }
+  }{%1
+\end{list}}
+
+\title{Developing a robust system for occupancy detection in the household}
+\author{Ash Tyndall}
+
+\keywords{keyword, keyword}
+\categories{category, category}
+
+
+\begin{document}
+\newcommand{\mainfile}{} % we use the existance of this command to see if we're compiling the whole thesis or just a chapter
+
+\maketitle
+
+\begin{abstract}
+This is the abstract.
+\end{abstract}
+
+\begin{acknowledgements}
+These are the acknowledgements.
+\end{acknowledgements}
+
+\tableofcontents
+\listoftables  %optional
+\listoffigures  %optional
+
+\subfile{../introduction/introduction}
+\subfile{../litreview/litreview}
+\subfile{../methods/methods}
+\subfile{../results/results}
+\subfile{../discussion/discussion}
+
+\appendix
+
+\chapter{Original Honours Proposal}
+\subfile{../proposal/proposal}
+
+\bibliography{../references/primary}
+
+\end{document}
+
+

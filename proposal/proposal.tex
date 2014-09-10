@@ -1,35 +1,7 @@
-\documentclass[12pt, a4paper]{article}
-\bibliographystyle{acm}
-\usepackage{url}
-
-\setlength{\oddsidemargin}{0.5cm}
-\setlength{\evensidemargin}{0.5cm}
-\setlength{\topmargin}{-1.6cm}
-\setlength{\leftmargin}{0.5cm}
-\setlength{\rightmargin}{0.5cm}
-\setlength{\textheight}{24.00cm} 
-\setlength{\textwidth}{15.00cm}
-\parindent 0pt
-\parskip 5pt
-\pagestyle{plain}
-
-\title{Research Proposal}
-\author{}
-\date{}
-
-\newcommand{\namelistlabel}[1]{\mbox{#1}\hfil}
-\newenvironment{namelist}[1]{%1
-\begin{list}{}
-    {
-        \let\makelabel\namelistlabel
-        \settowidth{\labelwidth}{#1}
-        \setlength{\leftmargin}{1.1\labelwidth}
-    }
-  }{%1
-\end{list}}
-
+\documentclass[../thesis/thesis.tex]{subfiles}
 \begin{document}
-\maketitle
+\ifcsdef{mainfile}{}{\title{Research Proposal}}
+\ifcsdef{mainfile}{}{\maketitle}
 
 \begin{namelist}{xxxxxxxxxxxx}
 \item[{\bf Title:}]
@@ -41,10 +13,13 @@
 \item[{\bf Degree:}]
 	BCompSci (24 point project)
 \item[{\bf Date:}]
-	\today
+	August 15, 2014
 \end{namelist}
 
-\section*{Background} 
+
+\begin{bibunit}
+
+\section{Background} 
 % In this section you should give some background to your
 % research area. What is the problem you are tackling, and why is it
 % worthwhile solving? Who has already done some work in this area,
@@ -59,7 +34,7 @@ Sensing techniques to determine occupancy, the detection of the presence and num
 Significant research has been performed into the occupancy field, with a focus on improving the energy efficiency of both office buildings and households. This is achieved through a variety of sensing means, including thermal arrays, \cite{beltran2013thermosense} ultrasonic sensors, \cite{hnat2012doorjamb} smart phone tracking, \cite{kleiminger2013using}\cite{balaji2013sentinel} electricity consumption, \cite{kleiminger2013occupancy} network traffic analysis, \cite{ting2013occupancy} sound, \cite{hailemariam2011real} CO2, \cite{hailemariam2011real} passive infrared, \cite{hailemariam2011real} video cameras, \cite{erickson2013poem} and various fusions of the above. \cite{yang2012multi}\cite{ting2013occupancy}
 
 
-\section*{Aim}
+\section{Aim}
 % Now state explicitly the hypothesis you aim to
 % test. Make references to the items listed in the Reference section
 % that back up your arguments for why this is a reasonable
@@ -91,7 +66,7 @@ Success in this project would involve both
 This system would be extensible, based on open standards such as REST or CoAP, \cite{guinard2012search}\cite{kovatsch2013coap} and could easily fit into a larger `smart home for the disabled' or internet-of-things system.
 
  
-\section*{Method}
+\section{Method}
 % In this section you should outline how you intend to go
 % about accomplishing the aims you have set in the previous
 % section. Try to break your grand aims down into small,
@@ -101,7 +76,7 @@ This system would be extensible, based on open standards such as REST or CoAP, \
 
 Achieving these aims involves performing research and development in several discrete phases.
 
-\subsection*{Hardware}
+\subsection{Hardware}
 A list of possible sensor candidates will be developed, and these candidates will be ranked according to their adherence to the four accessibility criteria outlined above. Primarily the sensor ranking will consider the cost, invasiveness and reliability of detection, as the sensors themselves do not form a large part of the power requirement.
 
 Similarly, a list of possible embedded boards to act as the sensor's host and data analysis platform will be created. Primarily, they will be ranked on cost, energy efficiency and reliability of programming/system stability.
@@ -110,19 +85,19 @@ Low-powered wireless protocols will also be investigated, to determine which is 
 
 Once promising candidates have been identified, components will be purchased and analysed to determine how well they can integrate.
 
-\subsection*{Classification}
+\subsection{Classification}
 Depending on the final sensor choice, relevant experiments will be performed to determine the classification algorithm with the best occupancy determination accuracy. This will involve the deployment of a prototype to perform data gathering, as well as another device/person to assess ground truth.
 
-\subsection*{Robustness / API}
+\subsection{Robustness / API}
 Once the classification algorithm and hardware are finalised, an easy to use API will be developed to allow the data the device collects to be integrated into a broader system.
 
 The finalised product will be architected into a easy-to-install software solution that will allow someone without domain knowledge to use the software and corresponding hardware in their own environment.
 
 
-\section*{Timeline}
+\section{Timeline}
 %!!! We don't actually have accurate dates for stuff in 2015
 
-\begin{tabular}{ | l | l |}
+\begin{tabular}{ | l | p{9.8cm} |}
   \hline
   Date			& Task \\ \hline
   Fri 15 August 	& \emph{Project proposal and project summary due to Coordinator} \\ \hline
@@ -145,7 +120,7 @@ The finalised product will be architected into a easy-to-install software soluti
   \hline
 \end{tabular}
 
-\section*{Software and Hardware Requirements}
+\section{Software and Hardware Requirements}
 % Outline what your specific requirements will be with regard
 % to software and hardware, but note that any special requests
 % might need to be approved by your supervisor and the Head of
@@ -170,10 +145,9 @@ A budget of up to \$300 has been allocated by my supervisor for project purchase
   
 \end{description}
 
-\newpage
+\renewcommand{\bibname}{\section{Proposal References} \vskip -1.75cm}
+\putbib
 
-
-\bibliography{../references/primary}
-
+\end{bibunit}
 
 \end{document}
