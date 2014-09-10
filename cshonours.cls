@@ -1,3 +1,5 @@
+%% Taken from http://undergraduate.csse.uwa.edu.au/year4/Current/Project/dissertation.html
+%% See LICENSE for more information.
 %%
 %% This is file `cshonours.cls' modified by Cara MacNish from
 %% `report.cls', August 1999.
