@@ -22,3 +22,5 @@
 *.out
 *.synctex.gz
 *.tex.backup
+*.bcf
+*.run.xml
