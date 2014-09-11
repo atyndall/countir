@@ -4,8 +4,67 @@
  
 As discussed in the Introduction, broadly, my research question involves investigating occupancy solutions for the ``smart home for the disabled concept''. These solutions will be compared against the aforementioned accessibility critera of low cost, non-invasiveness, energy efficiency and reliability.
 
+\section{Sensors}
+
 The area of occupancy has seen a great deal of recent research due to the popularisation of embedded platforms, and their subsequent reduction in cost. 
 
+To achieve the accessibility criteria, a wide variety of sensing approaches must be considered. \cite{teixeira2010survey} proposes a human-sensing taxonomy that is very useful in considering the broad requirements of sensors for this research.
+
+The taxonomic elements are;
+\begin{enumerate}
+ \item \emph{Presence}: Is there anyone present in the sensed area?
+ \item \emph{Count}: How many people are there in the sensed area?
+ \item \emph{Location}: Where are the people in the sensed area?
+ \item \emph{Track}: Where do the people move in the sensed area? (local identification)
+ \item \emph{Identity}: Who are the people in the sensed area? (global identification)
+\end{enumerate}
+
+These elements are particularly useful when it comes to comparing the different qualities of sensors, and to determine which sensors are useful for our particular purpose. At a fundamental level, this research project requires a sensor system that provides both Presence and Count information. Ensuring that the sensing system does not meet the Identity, and to lesser extents Track and Location, elements will help to minimise the invasiveness of the system. Similarly, minimising these elements should in most cases help to maximise the energy efficiency of the system also.
+
+\cite{teixeira2010survey} also proposes a measurable human trait taxonomy, within which we can discuss the different categories of sensor.
+
+The first set of sensors discussed are sensors detecting intrinsic traits. Intrinsic traits are those which can be sensed that are a direct property of being human. Intrinsic traits are particularly useful, as in many situations they are guaranteed to be present if a human is present. However, they do have varying degrees of detectability and differentiation between people. Two main subcategories of these sensor types are static and dynamic traits. Static traits are physiologically derived, and are present with most (alive) humans. Dynamic traits are usually products of human activity, and thus can generally only be detected when a human is physically active or in motion.
+
+A primary static/dynamic sensor fusion system in this field is the Thermosense system, \cite{erickson2013thermosense} a PIR\footnote{Passive Infrared Array} and thermal grid array\footnote{Phillips GridEYE; approx \$30} used to subdivide an area into an 8x8 grid of sections from which temperatures can be derived. This sensor system is attached to the roof on a small embedded controller which is responsible for collecting the data and transmitting it back to a larger computer via low powered wireless protocols.
+
+The Thermosense system develops a thermal background map of the room using a an exponential weighted moving average (EMWA) over a 15 minute time window (if no motion is detected). If the room remains occupied for a long period, a more complex scaling algorithm is used which considers the coldest points in the room empty, and averages them against the new background, then performs EMWA with a lower weighting.
+
+This background map is used as a baseline to calculate standard deviations of each grid area, which are then used to determine several characteristics to be used as feature vectors for a variety of classification approaches. The determination of the feature vectors was subject to experimentation, with the differences at each grid element too susceptible to individual room conditions to be used as feature vectors. Instead, a set of three different features was designed; the number of temperature anomalies in the space, the number of groups of temperature anomalies, and the size of the largest anomaly in the space. These feature vectors were compared against three classification approaches; K-Nearest Neighbors, Linear Regression and an a feed-forward Artificial Neural Network of one hidden later and 5 perceptions. All three classifiers achieved a Root Mean Squared Error (RMSE) within $0.38\pm0.04$. This final classification is subject to a final averaging process over a 4 minute window to remove the presence of independent errors from the raw classification data.
+
+Another sensor system in this area is that of CO\textsubscript{2}, which is discussed in \cite{fisk2006accuracy}
+
+\begin{table}
+\begin{tabular}{l|c*{5}{c}}
+\textbf{Sensor Types}  			& Presence & Count & Location & Track & Identity \\
+\cline{2-6}
+
+\hspace{3mm}\textit{Static} 		& \\
+\hspace{6mm}Thermal 			& \checkmark & \checkmark & \checkmark &  &  \\
+\hspace{6mm}Video			& \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+\hspace{6mm}CO\textsubscript{2}		& \checkmark & \checkmark &  &  &  \\
+
+\underline{Intrinsic} 			& \\
+\hspace{3mm}\textit{Dynamic} 		& \\
+\hspace{6mm}Ultrasonic	 		& \checkmark & \checkmark &  & \checkmark & \checkmark \\
+\hspace{6mm}PIR		 		& \checkmark &  &  &  &  \\
+
+& \\
+
+\underline{Extrinsic}			& \\
+\hspace{3mm}\textit{Instrumented} 	& \\
+\hspace{6mm}Smart phone			& \checkmark & \checkmark & & \checkmark & \checkmark \\
+\hspace{6mm}RFID 			& \checkmark & \checkmark & & \checkmark & \\
+\hspace{6mm}GPS 			& \checkmark & & & \checkmark & \\
+
+\hspace{3mm}\textit{Correlative} 	& \\
+\hspace{6mm}Electricity 		& \checkmark & & & & & \\
+\hspace{6mm}Network traffic		& \checkmark & & & & & \\
+
+\end{tabular}
+\caption{Comparison of different sensors taxonomic elements}
+\end{table}
+
+\section{Protocols}
 
 
 \ifcsdef{mainfile}{}{\bibliography{../references/primary}}
