@@ -1,16 +1,27 @@
 \documentclass{../cshonours}
 \usepackage{subfiles}
 \usepackage{url}
-\usepackage{graphics}  %optional
+\usepackage{graphics}
 \usepackage{etoolbox}
 \usepackage{bibunits}
-\usepackage{amssymb}
+\usepackage{amsfonts}
 \usepackage{fixltx2e}
+\usepackage{tabularx}
+\usepackage{accsupp}
 
+%%% BEGIN LATEX TWEAKS
+
+% Check marks and cross marks
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+\newcommand{\cmark}{\BeginAccSupp{ActualText=Yes}\checkmark\EndAccSupp{}}%
+\newcommand{\xmark}{\BeginAccSupp{ActualText=No}\ding{55}\EndAccSupp{}}%
+
+% Configure bibliography
 \bibliographystyle{acm}
 \defaultbibliography{../references/primary}
 \defaultbibliographystyle{acm}
 
+% Namelist stuff for proposal
 \newcommand{\namelistlabel}[1]{\mbox{#1}\hfil}
 \newenvironment{namelist}[1]{%1
 \begin{list}{}
@@ -21,6 +32,13 @@
     }
   }{%1
 \end{list}}
+
+% Additional table options
+\newcommand*{\csbox}[1]{\parbox[c]{1.75cm}{\centering #1}}
+\newcolumntype{"}{@{\hskip\tabcolsep\vrule width 1pt\hskip\tabcolsep}}
+
+%%% END LATEX TWEAKS
+
 
 \title{Developing a robust system for occupancy detection in the household}
 \author{Ash Tyndall}

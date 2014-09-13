@@ -1,4 +1,9 @@
-## Themes
+## Introduction
+* Discuss area
+* Discuss problems in area
+* Discuss solution and development of criteria
+
+## Sensors
 
 ### Taxonomy of sensing - teixeira2010survey
 * Presence — Is there at least one person present?
@@ -29,8 +34,11 @@
     * Network traffic - ting2013occupancy
 
 * Fusions of the above don't necessarily work better - hailemariam2011real
+
+### Thermal sensors
+* Thermosense
   
-### Wireless protocols
+### Architecture
 * Internet of Things survey - atzori2010internet
 * The whole stack - palattella2013standardized
 * CoAP - kovatsch2013coap
