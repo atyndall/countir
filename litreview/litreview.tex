@@ -1,6 +1,7 @@
 \documentclass[../thesis/thesis.tex]{subfiles}
 \begin{document}
 \chapter{Literature Review}
+\label{chap:litreview}
 
 The proportion of elderly and mobility-impaired people is predicted to grow dramatically over the next century, leaving a large proportion of the population unable to care for themselves, and consequently less people able care for these groups. \cite{chan2009smart} With this issue looming, investments are being made into a variety of technologies that can provide the support these groups need to live independent of human assistance. 
 
@@ -25,6 +26,7 @@ The goal of this research project is to devise an occupancy detection system tha
 To create a picture of what options there are in this sensing area, a literature review of the available sensor types and wireless sensor architectures is needed. From this list, proposed solutions will be compared against the aforementioned accessibility criteria to determine their suitability.
 
 \section{Sensors}
+\label{sec:litreview:sensors}
 
 To achieve the accessibility criteria, a wide variety of sensing approaches must be considered. It can be difficult to approach the board variety of sensor types in the field, so a structure must be developed through which to evaluate them. \cite{teixeira2010survey} proposes a 5-element human-sensing taxonomy that is very useful in considering the broad requirements of sensors for this research.
 
@@ -41,6 +43,9 @@ These elements are particularly useful when it comes to comparing the different 
 
 \cite{teixeira2010survey} also proposes a measurable human trait taxonomy, which we use in this literature review as a structure through which we describe different sensor types.
 
+\subsection{Intrinsic traits}
+\label{subsec:litreview:sensors:intrinsic}
+
 The first set of sensors discussed are sensors detecting intrinsic traits. Intrinsic traits are those which can be sensed that are a direct property of being human. Intrinsic traits are particularly useful, as in many situations they are guaranteed to be present if a human is present. However, they do have varying degrees of detectability and differentiation between people. Two main subcategories of these sensor types are static and dynamic traits.
 
 Static traits are physiologically derived, and are present with most (alive) humans.
@@ -49,9 +54,18 @@ One key static trait that can be used for human sensing is that of thermal emiss
 
 Another static trait is that of \cdi emissions, which, like thermal emissions, are present in both resting and active states. By measuring the buildup of \cdi within a given area, one can use a variety of mathematical models of human \cdi production to determine how many people there are likely in a space to have that amount of \cdi produced. This was trialled as part of a sensor fusion in \cite{hailemariam2011real}, within the context of an office environment, achieving a $\approx94\%$ accuracy. Such a sensing system could provide both the Presence and Count information, and exclude the Identity information as required. However, a \cdi based detection mechanism has serious drawbacks, discussed in \cite{fisk2006accuracy}; the \cdi feedback mechanism is very slow in nature, taking hours of continuous occupancy to correctly identify the presence of people. In a home environment, people are more likely to be moving between rooms than an office, so the system may have a more difficult time detecting in that situation. Similarly, such systems can be interfered with by other elements that control the \cdi buildup in a space, like air conditioners, open windows, etc. This is also much more of a concern in a home environment compared to the studied office space, as the average home can have numerous such confounding factors.
 
-% The final static trait is actual visual identification
+The final static trait discussed is actual visual identification, achieved through the use of video or still-image cameras and advanced image processing algorithms. Video can be used in occupancy detection in several different ways, achieving different levels of accuracy and requiring different configurations. The first use of video, discussed in \cite{erickson2013poem} is the use of video as a ``optical turnstile''; the video system detects people and the direction they are moving in at each entrance and exit to an area, and uses that information to extrapolate the number of people within the turnstiled area; this system has up to a 94\% accuracy. However, the main issue with such a system applied to a home environment is the system assumes that there will be wide enough ``turnstile areas'', corridors of a fairly large area that connect different sections of a building, to use as detection zones. While such corridors exist in office environments, they are less likely to exist in home ones.
+
+The second use of video is a ceiling-based video system \cite{serrano2013efficient}, it uses advanced image processing algorithms to count the number of people in the captured area. This system achieves a specificity of $\mathit{TP}/(\mathit{TP}+\mathit{FP})\approx97\%$ and a sensitivity $\mathit{TP}/(\mathit{TP}+\mathit{FN})\approx96\%$ (TP = true positives, FP = false positives, FN = false negatives). Such a system could be successfully applied to the home environment, as both it and the ``optical turnstile'' model provide Presence and Count information. However, these systems also allow Identity to be determined, and are thus very invasive. Such invasive systems cannot be used due to privacy concerns.
+
 
 Dynamic traits are usually products of human activity, and thus can generally only be detected when a human is physically active or in motion.
+
+The first discussed dynamic trait based system is \cite{hnat2012doorjamb}, an ultrasonic system that uses clusters of such sensors above doorframes to detect the height and direction of people travelling between rooms. This acts as a turnstile based system, much like \cite{erickson2013poem}, but augments this with an understanding of the model of the building to error correct for invalid and impossible movements brought about from sensing errors.
+
+\subsection{Extrinsic traits}
+\label{subsec:litreview:sensors:extrinsic}
+% Stuff goes here
 
 
 \begin{table}
@@ -87,9 +101,11 @@ Dynamic traits are usually products of human activity, and thus can generally on
 \cline{1-6}
 \end{tabularx}
 \caption{Comparison of different sensors and project requirements}
+\label{tab:litreview:taxonomycomp}
 \end{table}
 
 \section{Thermal sensors}
+\label{sec:litreview:thermalsensors}
 
 A primary static/dynamic sensor fusion system in this field is the Thermosense system, \cite{beltran2013thermosense} a \pir and \iar\footnote{Phillips GridEYE; approx \$30} used to subdivide an area into an $8\times8$ grid of sections from which temperatures can be derived. This sensor system is attached to the roof on a small embedded controller which is responsible for collecting the data and transmitting it back to a larger computer via low powered wireless protocols.
 
@@ -100,7 +116,7 @@ This background map is used as a baseline to calculate standard deviations of ea
 Using the \mlx
 
 \section{Architecture}
-
+\label{sec:litreview:architecture}
 
 
 \ifcsdef{mainfile}{}{\bibliography{../references/primary}}

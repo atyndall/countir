@@ -11,6 +11,7 @@
 \usepackage{pifont}
 \usepackage{abbrevs}
 \usepackage{acronym}
+\usepackage[vario]{fancyref}
 
 %%% BEGIN LATEX TWEAKS
 
@@ -60,6 +61,18 @@
 \newabbrev\coap{\ac{coap}}
 \newabbrev\iot{\ac{iot}}
 \newabbrev\rest{\ac{rest}}
+
+% Fancyref support for subsections
+\newcommand*{\fancyrefsubseclabelprefix}{subsec}
+
+\frefformat{vario}{\fancyrefsubseclabelprefix}{%
+subsection\fancyrefdefaultspacing#1#2#3%
+}%
+
+\Frefformat{vario}{\fancyrefsubseclabelprefix}{%
+Subsection\fancyrefdefaultspacing#1#2#3%
+}%
+
 
 %%% END LATEX TWEAKS
 
