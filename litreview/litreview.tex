@@ -77,9 +77,25 @@ To make extrinsic detection more reliable, \cite{kleiminger2013inferring} levera
 
 \cite{balaji2013sentinel} also leverages smart phones to determine occupancy, but in a more broad enterprise environment: Wireless logs are analysed to determine which access points in a building a given user is connected to. If this access point falls within the radio range of their designated ``personal space'', they are considered to be occupying that personal space. This technique cannot be applied to a home environment, as there are usually not multiple wireless hotspots.
 
+% TODO GPS; \cite{gupta2009adding}
 
+The second of these subcategories are correlative approaches. These approaches analyse data that is correlated with human activity, but does not require a specific device to be present on each human that is tracked with the system.
 
+The first of these approaches is \cite{kleiminger2013occupancy}, which attempts to measure electricity consumption and use such data to determine Presence. % TODO Discuss more
 
+The second of these approaches is \cite{ting2013occupancy}, which attempts to measure network traffic, among other things, to determine Presence. % TODO Discuss more
+
+\subsection{Analysis}
+\label{subsec:litreview:sensors:analysis}
+From these various sensor options, there are a few candidates that provide the necessary sensing  elements; these are thermal, \cdi, RFID and smartphone based sensing. All sensing options are represented on \Fref{tab:litreview:taxonomycomp}.
+
+\cdi sensing, has several drawbacks, the predominant ones being a large lag time to receive accurate occupancy information and interference from a variety of air conditioning sources which can modify the \cdi concentration in the room in unexpected ways.
+
+RFID sensing, also has several drawbacks, predominantly being that it is difficult value proposition to get house occupants to carry RFID tags with them continuously. Another drawback is that the triangulation methods discussed are too inaccurate to place occupants in specific rooms in many cases.
+
+Smartphone sensing is a good candidate, however it does have similar accuracy issues to RFID sensing. It is also more difficult in home environments to ensure that occupants are carrying their smartphones with them at all times. Another issue with smart phones is that they represent an expense that the target markets of the elderly and the disabled may not be able to afford.
+
+We are then left with thermal sensing as the best option for sensing given the project's specific criteria.
 
 \begin{table}
 \begin{threeparttable}
@@ -109,8 +125,8 @@ To make extrinsic detection more reliable, \cite{kleiminger2013inferring} levera
 \hspace{8mm}GPS 			& \cmark\textsuperscript{*} & \xmark & \cmark & \cmark & \\
 
 \hspace{3mm}\textit{Correlative} 	& & & & & \\
-\hspace{8mm}Electricity 		& \cmark & \xmark & \cmark & & \\
-\hspace{8mm}Network			& \cmark & \xmark & \cmark & & \\
+\hspace{8mm}Electricity 		& \cmark\textsuperscript{*} & \xmark & \cmark & & \\
+\hspace{8mm}Network			& \cmark\textsuperscript{*} & \xmark & \cmark & & \\
 
 \cline{1-6}
 \end{tabularx}
@@ -125,6 +141,7 @@ To make extrinsic detection more reliable, \cite{kleiminger2013inferring} levera
 
 \section{Thermal sensors}
 \label{sec:litreview:thermalsensors}
+Above we concluded that thermal sensors are the best candidates for this project. In this section we discuss the thermal sensing field in more detail.
 
 A primary static/dynamic sensor fusion system in this field is the Thermosense system, \cite{beltran2013thermosense} a \pir and \iar\footnote{Phillips GridEYE; approx \$30} used to subdivide an area into an $8\times8$ grid of sections from which temperatures can be derived. This sensor system is attached to the roof on a small embedded controller which is responsible for collecting the data and transmitting it back to a larger computer via low powered wireless protocols.
 
@@ -132,10 +149,13 @@ The Thermosense system develops a thermal background map of the room using an \e
 
 This background map is used as a baseline to calculate standard deviations of each grid area, which are then used to determine several characteristics to be used as feature vectors for a variety of classification approaches. The determination of the feature vectors was subject to experimentation, with the differences at each grid element too susceptible to individual room conditions to be used as feature vectors. Instead, a set of three different features was designed; the number of temperature anomalies in the space, the number of groups of temperature anomalies, and the size of the largest anomaly in the space. These feature vectors were compared against three classification approaches; K-Nearest Neighbors, Linear Regression and an a feed-forward Artificial Neural Network of one hidden later and 5 perceptions. All three classifiers achieved a Root Mean Squared Error (RMSE) within $0.38\pm0.04$. This final classification is subject to a final averaging process over a 4 minute window to remove the presence of independent errors from the raw classification data.
 
-Using the \mlx
-
 \section{Architecture}
 \label{sec:litreview:architecture}
+
+
+\section{Research Gap}
+\label{sec:litreview:researchgap}
+
 
 
 \ifcsdef{mainfile}{}{\bibliography{../references/primary}}
