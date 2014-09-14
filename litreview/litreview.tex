@@ -45,9 +45,11 @@ The first set of sensors discussed are sensors detecting intrinsic traits. Intri
 
 Static traits are physiologically derived, and are present with most (alive) humans.
 
-% Thermosense
+One key static trait that can be used for human sensing is that of thermal emissions. All humans emit a large amount of thermal radiation in both resting and active states. The heat signatures of these emissions could potentially be measured with some apparatus, counted, and used to provide Presence and Count information to a sensor system, without providing Identity information. Once such paper that proposes this is \cite{beltran2013thermosense}, which uses a type of thermal sensor known as an infrared array sensor. This sensor is much like a camera, in that it has a field of view which is divided into an $8\times8$ grid of detected temperatures. This sensor is mounted on an embedded device on the roof, along with a \pir, and uses a variety of classification algorithms to detect human heat signatures within the raw thermal and motion data it collects. Such a system achieves Root Mean Squared Error $\approx0.35$ persons. There are few drawbacks with this approach.
 
-% Another sensor system in this area is that of CO\textsubscript{2}, which is discussed in \cite{fisk2006accuracy}
+Another static trait is that of \cdi emissions, which, like thermal emissions, are present in both resting and active states. By measuring the buildup of \cdi within a given area, one can use a variety of mathematical models of human \cdi production to determine how many people there are likely in a space to have that amount of \cdi produced. This was trialled as part of a sensor fusion in \cite{hailemariam2011real}, within the context of an office environment, achieving a $\approx94\%$ accuracy. Such a sensing system could provide both the Presence and Count information, and exclude the Identity information as required. However, a \cdi based detection mechanism has serious drawbacks, discussed in \cite{fisk2006accuracy}; the \cdi feedback mechanism is very slow in nature, taking hours of continuous occupancy to correctly identify the presence of people. In a home environment, people are more likely to be moving between rooms than an office, so the system may have a more difficult time detecting in that situation. Similarly, such systems can be interfered with by other elements that control the \cdi buildup in a space, like air conditioners, open windows, etc. This is also much more of a concern in a home environment compared to the studied office space, as the average home can have numerous such confounding factors.
+
+% The final static trait is actual visual identification
 
 Dynamic traits are usually products of human activity, and thus can generally only be detected when a human is physically active or in motion.
 
@@ -55,32 +57,32 @@ Dynamic traits are usually products of human activity, and thus can generally on
 \begin{table}
 \begin{tabularx}{\textwidth}{|l|c|c||c||c|c|}
 \cline{2-6}
-\multicolumn{1}{r|}{}		    & \multicolumn{2}{c||}{Requires} & Excludes & \multicolumn{2}{c|}{Irrelevant} \\
+\multicolumn{1}{r|}{}		    	& \multicolumn{2}{c||}{Requires} & Excludes & \multicolumn{2}{c|}{Irrelevant} \\
 \cline{2-6}
-\multicolumn{1}{r|}{}		    & \csbox{Presence} & \csbox{Count} & \csbox{Identity} & \csbox{Location} & \csbox{Track} \\
+\multicolumn{1}{r|}{}		    	& \csbox{Presence} & \csbox{Count} & \csbox{Identity} & \csbox{Location} & \csbox{Track} \\
 \cline{1-6}
 
 \underline{Intrinsic} 			& & & & & \\
 \hspace{3mm}\textit{Static} 		& & & & & \\
-\hspace{6mm}Thermal 			& \cmark & \cmark & \cmark & \cmark &  \\
-\hspace{6mm}CO\textsubscript{2}		& \cmark & \cmark & \cmark &  &  \\
-\hspace{6mm}Video			& \cmark & \cmark & \xmark & \cmark & \cmark \\
+\hspace{8mm}Thermal 			& \cmark & \cmark & \cmark & \cmark &  \\
+\hspace{8mm}\cdi			& \cmark & \cmark & \cmark &  &  \\
+\hspace{8mm}Video			& \cmark & \cmark & \xmark & \cmark & \cmark \\
 
 \hspace{3mm}\textit{Dynamic} 		& & & & & \\
-\hspace{6mm}Ultrasonic	 		& \cmark & \cmark & \xmark & & \cmark \\
-\hspace{6mm}PIR		 		& \cmark & \xmark & \cmark &  &  \\
+\hspace{8mm}Ultrasonic	 		& \cmark & \cmark & \xmark & & \cmark \\
+\hspace{8mm}PIR		 		& \cmark & \xmark & \cmark &  &  \\
 
 					& & & & & \\
 
 \underline{Extrinsic}			& & & & & \\
 \hspace{3mm}\textit{Instrumented} 	& & & & & \\
-\hspace{6mm}RFID 			& \cmark & \cmark & \cmark & \cmark & \\
-\hspace{6mm}Smart phone			& \cmark & \cmark & \xmark & \cmark &  \\
-\hspace{6mm}GPS 			& \cmark & \xmark & \cmark & \cmark & \\
+\hspace{8mm}RFID 			& \cmark & \cmark & \cmark & \cmark & \\
+\hspace{8mm}Smart phone			& \cmark & \cmark & \xmark & \cmark &  \\
+\hspace{8mm}GPS 			& \cmark & \xmark & \cmark & \cmark & \\
 
 \hspace{3mm}\textit{Correlative} 	& & & & & \\
-\hspace{6mm}Electricity 		& \cmark & \xmark & \cmark & & \\
-\hspace{6mm}Network			& \cmark & \xmark & \cmark & & \\
+\hspace{8mm}Electricity 		& \cmark & \xmark & \cmark & & \\
+\hspace{8mm}Network			& \cmark & \xmark & \cmark & & \\
 
 \cline{1-6}
 \end{tabularx}
@@ -89,11 +91,13 @@ Dynamic traits are usually products of human activity, and thus can generally on
 
 \section{Thermal sensors}
 
-A primary static/dynamic sensor fusion system in this field is the Thermosense system, \cite{beltran2013thermosense} a PIR\footnote{Passive Infrared Array} and thermal grid array\footnote{Phillips GridEYE; approx \$30} used to subdivide an area into an 8x8 grid of sections from which temperatures can be derived. This sensor system is attached to the roof on a small embedded controller which is responsible for collecting the data and transmitting it back to a larger computer via low powered wireless protocols.
+A primary static/dynamic sensor fusion system in this field is the Thermosense system, \cite{beltran2013thermosense} a \pir and \iar\footnote{Phillips GridEYE; approx \$30} used to subdivide an area into an $8\times8$ grid of sections from which temperatures can be derived. This sensor system is attached to the roof on a small embedded controller which is responsible for collecting the data and transmitting it back to a larger computer via low powered wireless protocols.
 
-The Thermosense system develops a thermal background map of the room using a an exponential weighted moving average (EMWA) over a 15 minute time window (if no motion is detected). If the room remains occupied for a long period, a more complex scaling algorithm is used which considers the coldest points in the room empty, and averages them against the new background, then performs EMWA with a lower weighting.
+The Thermosense system develops a thermal background map of the room using an \emwa over a 15 minute time window (if no motion is detected). If the room remains occupied for a long period, a more complex scaling algorithm is used which considers the coldest points in the room empty, and averages them against the new background, then performs \emwa with a lower weighting.
 
 This background map is used as a baseline to calculate standard deviations of each grid area, which are then used to determine several characteristics to be used as feature vectors for a variety of classification approaches. The determination of the feature vectors was subject to experimentation, with the differences at each grid element too susceptible to individual room conditions to be used as feature vectors. Instead, a set of three different features was designed; the number of temperature anomalies in the space, the number of groups of temperature anomalies, and the size of the largest anomaly in the space. These feature vectors were compared against three classification approaches; K-Nearest Neighbors, Linear Regression and an a feed-forward Artificial Neural Network of one hidden later and 5 perceptions. All three classifiers achieved a Root Mean Squared Error (RMSE) within $0.38\pm0.04$. This final classification is subject to a final averaging process over a 4 minute window to remove the presence of independent errors from the raw classification data.
+
+Using the \mlx
 
 \section{Architecture}
 
