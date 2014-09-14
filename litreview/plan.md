@@ -18,8 +18,8 @@
 * Intrinsic traits
   * Static 
     * Thermal - erickson2013thermosense
-    * CO2 - fisk2006accuracy
-    * Video - erickson2013poem
+    * CO2 - fisk2006accuracy, hailemariam2011real
+    * Video - erickson2013poem, serrano2013efficient
   * Dynamic
     * Ultrasonic - hnat2012doorjamb
     * PIR - erickson2013thermosense, hailemariam2011real
