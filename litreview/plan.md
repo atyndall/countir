@@ -26,8 +26,8 @@
 
 * Extrinsic traits
   * Instrumented
-    * Smart phones - kleiminger2013using
     * RFID - scott2011preheat
+    * Smart phones - kleiminger2013using, balaji2013sentinel
     * GPS - gupta2009adding
   * Correlative
     * Electricity consumption - kleiminger2013occupancy
