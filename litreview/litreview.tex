@@ -61,11 +61,14 @@ The second use of video is a ceiling-based video system \cite{serrano2013efficie
 
 Dynamic traits are usually products of human activity, and thus can generally only be detected when a human is physically active or in motion.
 
-The first discussed dynamic trait based system is \cite{hnat2012doorjamb}, an ultrasonic system that uses clusters of such sensors above doorframes to detect the height and direction of people travelling between rooms. This acts as a turnstile based system, much like \cite{erickson2013poem}, but augments this with an understanding of the model of the building to error correct for invalid and impossible movements brought about from sensing errors.
+The first discussed dynamic trait based system is \cite{hnat2012doorjamb}, an ultrasonic system that uses clusters of such sensors above doorframes to detect the height and direction of people travelling between rooms. This acts as a turnstile based system, much like \cite{erickson2013poem}, but augments this with an understanding of the model of the building to error correct for invalid and impossible movements brought about from sensing errors. This system provides an overall room-level tracking accuracy of 90\%, however to achieve this accuracy, individuals are intended to be tracked using their heights, which is a privacy consideration. The system can also suffer from problems with error propagation, as there are possibilities of ``phantom'' people entering a room due to sensing errors.
+
+The second dynamic trait system is based upon a \pir connected to a transmitter of some description. A solely \pir based system is used within \cite{hailemariam2011real}, with the motion of the sensor being averaged over several different time intervals, and fed into a decision tree classifier. This \pir system alone produced a $\approx98\%$ accuracy. However, such a system, due to only motion detection capabilities, can only provide Presence information, and is unable to provide Count information.
 
 \subsection{Extrinsic traits}
 \label{subsec:litreview:sensors:extrinsic}
-% Stuff goes here
+The second set of sensors discussed are sensors detecting extrinsic traits.
+
 
 
 \begin{table}
