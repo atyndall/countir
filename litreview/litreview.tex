@@ -67,12 +67,23 @@ The second dynamic trait system is based upon a \pir connected to a transmitter 
 
 \subsection{Extrinsic traits}
 \label{subsec:litreview:sensors:extrinsic}
-The second set of sensors discussed are sensors detecting extrinsic traits.
+The second set of sensors discussed are sensors detecting extrinsic traits. Extrinsic traits are those which are actually other environmental changes that are caused by or correlated with human presence. These traits generally present a less accurate picture, or require the sensed humans to be in some way ``tagged'', but they are generally also easier to sense in of themselves.
+
+The sensors in this category have been divided into two subcategories for our purposes that are not discussed in \cite{teixeira2010survey}. The first of these categories is instrumented approaches; these require that detectable humans carry with them some device that is detected as a proxy for the human themselves.
+
+The most obvious of these approaches is a specially designed device. \cite{li2012measuring} uses RFID tags placed on building occupant's persons and a set of transmitters to triangulate the tags and place them within different thermal zones for the use of the HVAC system. For stationary occupants, there was a detection accuracy of $\approx88\%$, and for occupants who were mobile, the accuracy was $\approx62\%$. Such a system could be repurposed for the home, however, these systems raise issues in a home environment as it requires individuals to be constantly carrying their sensors, which is not the case in such an environment. Additionally, the accuracy for this system is not necessarily high enough for a home environment, where much smaller rooms are used.
+
+To make extrinsic detection more reliable, \cite{kleiminger2013inferring} leverages a device people are likely to carry around; wifi enabled smart phones. They propose the \textit{homeset} algorithm, which uses the phones to scan the visible wifi networks, and from that information estimate if the users are at home or out and about. This solution does not provide the fine-grained Presence data that we need, as it is only able to triangulate the phone's position very roughly with the wireless network detection information.
+
+\cite{balaji2013sentinel} also leverages smart phones to determine occupancy, but in a more broad enterprise environment: Wireless logs are analysed to determine which access points in a building a given user is connected to. If this access point falls within the radio range of their designated ``personal space'', they are considered to be occupying that personal space. This technique cannot be applied to a home environment, as there are usually not multiple wireless hotspots.
+
+
 
 
 
 \begin{table}
-\begin{tabularx}{\textwidth}{|l|c|c||c||c|c|}
+\begin{threeparttable}
+\begin{tabularx}{\textwidth}{|l|l|l||l||l|l|}
 \cline{2-6}
 \multicolumn{1}{r|}{}		    	& \multicolumn{2}{c||}{Requires} & Excludes & \multicolumn{2}{c|}{Irrelevant} \\
 \cline{2-6}
@@ -93,9 +104,9 @@ The second set of sensors discussed are sensors detecting extrinsic traits.
 
 \underline{Extrinsic}			& & & & & \\
 \hspace{3mm}\textit{Instrumented} 	& & & & & \\
-\hspace{8mm}RFID 			& \cmark & \cmark & \cmark & \cmark & \\
-\hspace{8mm}Smart phone			& \cmark & \cmark & \xmark & \cmark &  \\
-\hspace{8mm}GPS 			& \cmark & \xmark & \cmark & \cmark & \\
+\hspace{8mm}RFID 			& \cmark\textsuperscript{*} & \cmark & \cmark & \cmark & \\
+\hspace{8mm}Smart phone			& \cmark\textsuperscript{*} & \hspace{7mm}--\textsuperscript{\#} & \xmark & \cmark &  \\
+\hspace{8mm}GPS 			& \cmark\textsuperscript{*} & \xmark & \cmark & \cmark & \\
 
 \hspace{3mm}\textit{Correlative} 	& & & & & \\
 \hspace{8mm}Electricity 		& \cmark & \xmark & \cmark & & \\
@@ -103,6 +114,11 @@ The second set of sensors discussed are sensors detecting extrinsic traits.
 
 \cline{1-6}
 \end{tabularx}
+\begin{tablenotes}
+\item \textsuperscript{*} Doesn't provide data at required level of accuracy for home use.
+\item \textsuperscript{\#} Implementations vary in success for this characteristic.
+\end{tablenotes}
+\end{threeparttable}
 \caption{Comparison of different sensors and project requirements}
 \label{tab:litreview:taxonomycomp}
 \end{table}

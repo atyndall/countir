@@ -12,12 +12,13 @@
 \usepackage{abbrevs}
 \usepackage{acronym}
 \usepackage[vario]{fancyref}
+\usepackage{threeparttable}
 
 %%% BEGIN LATEX TWEAKS
 
 % Check marks and cross marks
-\newcommand{\cmark}{\BeginAccSupp{ActualText=Y}\checkmark\EndAccSupp{}}%
-\newcommand{\xmark}{\BeginAccSupp{ActualText=N}\ding{55}\EndAccSupp{}}%
+\newcommand{\cmark}{\hspace{7mm}\BeginAccSupp{ActualText=Y}\checkmark\EndAccSupp{}}%
+\newcommand{\xmark}{\hspace{7mm}\BeginAccSupp{ActualText=N}\ding{55}\EndAccSupp{}}%
 
 % Configure bibliography
 \bibliographystyle{acm}
