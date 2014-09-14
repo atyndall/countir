@@ -8,13 +8,15 @@
 \usepackage{fixltx2e}
 \usepackage{tabularx}
 \usepackage{accsupp}
+\usepackage{pifont}
+\usepackage{abbrevs}
+\usepackage{acronym}
 
 %%% BEGIN LATEX TWEAKS
 
 % Check marks and cross marks
-\usepackage{pifont}% http://ctan.org/pkg/pifont
-\newcommand{\cmark}{\BeginAccSupp{ActualText=Yes}\checkmark\EndAccSupp{}}%
-\newcommand{\xmark}{\BeginAccSupp{ActualText=No}\ding{55}\EndAccSupp{}}%
+\newcommand{\cmark}{\BeginAccSupp{ActualText=Y}\checkmark\EndAccSupp{}}%
+\newcommand{\xmark}{\BeginAccSupp{ActualText=N}\ding{55}\EndAccSupp{}}%
 
 % Configure bibliography
 \bibliographystyle{acm}
@@ -34,8 +36,30 @@
 \end{list}}
 
 % Additional table options
-\newcommand*{\csbox}[1]{\parbox[c]{1.75cm}{\centering #1}}
+\newcommand*{\csbox}[1]{\parbox[c]{1.7cm}{\centering #1}}
 \newcolumntype{"}{@{\hskip\tabcolsep\vrule width 1pt\hskip\tabcolsep}}
+
+% Acronyms for common stuff
+\acrodef{pir}[PIR]{Passive Infrared Sensor}
+\acrodef{iar}[IAR]{Infrared Array Sensor}
+\acrodef{mlx}[\textit{Melexis}]{Melexis MLX90620}
+\acrodef{emwa}[EMWA]{Exponential Weighted Moving Average}
+\acrodef{6lowpan}[6LoWPAN]{IPv6 over Low power Wireless Personal Area Networks}
+\acrodef{coap}[CoAP]{Constrained Application Protocol}
+\acrodef{iot}[IoT]{Internet of Things}
+\acrodef{rest}[REST]{Representational state transfer}
+
+% Abbreviation commands for common stuff
+\newabbrev\cdi{CO\textsubscript{2}}
+\newabbrev\lrwifi{IEEE 802.15.4}
+\newabbrev\mlx{\ac{mlx}}
+\newabbrev\pir{\ac{pir}}
+\newabbrev\iar{\ac{iar}}
+\newabbrev\emwa{\ac{emwa}}
+\newabbrev\lowpan{\ac{6lowpan}}
+\newabbrev\coap{\ac{coap}}
+\newabbrev\iot{\ac{iot}}
+\newabbrev\rest{\ac{rest}}
 
 %%% END LATEX TWEAKS
 
@@ -61,8 +85,8 @@ These are the acknowledgements.
 \end{acknowledgements}
 
 \tableofcontents
-\listoftables  %optional
-\listoffigures  %optional
+\listoftables
+\listoffigures
 
 \subfile{../introduction/introduction}
 \subfile{../litreview/litreview}
