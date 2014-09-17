@@ -77,13 +77,14 @@ To make extrinsic detection more reliable, \cite{kleiminger2013inferring} levera
 
 \cite{balaji2013sentinel} also leverages smart phones to determine occupancy, but in a more broad enterprise environment: Wireless logs are analysed to determine which access points in a building a given user is connected to. If this access point falls within the radio range of their designated ``personal space'', they are considered to be occupying that personal space. This technique cannot be applied to a home environment, as there are usually not multiple wireless hotspots.
 
-% TODO GPS; \cite{gupta2009adding}
+Finally, \cite{gupta2009adding} uses specifically the GPS functions of the smartphone to perform optimisation on heating and cooling systems by calculating the ``travel-to-home'' time of occupants at all times and ensuring at every distance the house is minimally heated such that if the user were to travel home, the house would be at the correct temperature when they arrived. While this system does achieve similar potential air-conditioning energy savings, it is not room-level modular, and also presupposes a user whose primary energy costs are from incorrect heating when away from home, which isn't necessarily the case for this demographic.
 
 The second of these subcategories are correlative approaches. These approaches analyse data that is correlated with human activity, but does not require a specific device to be present on each human that is tracked with the system.
 
-The first of these approaches is \cite{kleiminger2013occupancy}, which attempts to measure electricity consumption and use such data to determine Presence. % TODO Discuss more
+The first of these approaches is \cite{kleiminger2013occupancy}, which attempts to measure electricity consumption and use such data to determine Presence. Electricity data was measured at two different levels of granularity; the whole house level with a smart meter, and the consumption of specific appliances through smart plugs. This data was then processed by a variety of classifiers to achieve a classification accuracy of more than 80\%. Such a system presents a low-cost solution to occupancy, however it is not sufficiently granular in either the detection of multiple occupants, or the detection of occupants in a specific room.
 
-The second of these approaches is \cite{ting2013occupancy}, which attempts to measure network traffic, among other things, to determine Presence. % TODO Discuss more
+% The second of these approaches is \cite{ting2013occupancy}, which attempts to measure network traffic, among other things, to determine Presence. 
+% TODO: Unable to find paper corresponding to this Poster Abstract?
 
 \subsection{Analysis}
 \label{subsec:litreview:sensors:analysis}
