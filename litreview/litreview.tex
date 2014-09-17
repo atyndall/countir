@@ -73,9 +73,9 @@ The sensors in this category have been divided into two subcategories for our pu
 
 The most obvious of these approaches is a specially designed device. \cite{li2012measuring} uses RFID tags placed on building occupant's persons and a set of transmitters to triangulate the tags and place them within different thermal zones for the use of the HVAC system. For stationary occupants, there was a detection accuracy of $\approx88\%$, and for occupants who were mobile, the accuracy was $\approx62\%$. Such a system could be repurposed for the home, however, these systems raise issues in a home environment as it requires individuals to be constantly carrying their sensors, which is not the case in such an environment. Additionally, the accuracy for this system is not necessarily high enough for a home environment, where much smaller rooms are used.
 
-To make extrinsic detection more reliable, \cite{kleiminger2013inferring} leverages a device people are likely to carry around; wifi enabled smart phones. They propose the \textit{homeset} algorithm, which uses the phones to scan the visible wifi networks, and from that information estimate if the users are at home or out and about. This solution does not provide the fine-grained Presence data that we need, as it is only able to triangulate the phone's position very roughly with the wireless network detection information.
+To make extrinsic detection more reliable, \cite{kleiminger2013inferring} leverages a device people are likely to carry around; wifi enabled smart phones. They propose the \textit{homeset} algorithm, which uses the phones to scan the visible wifi networks, and from that information estimate if the users are at home or out and about by ``triangulating'' their position from the visible wifi networks. This solution does not provide the fine-grained Presence data that we need, as it is only able to triangulate the phone's position very roughly with the wireless network detection information.
 
-\cite{balaji2013sentinel} also leverages smart phones to determine occupancy, but in a more broad enterprise environment: Wireless logs are analysed to determine which access points in a building a given user is connected to. If this access point falls within the radio range of their designated ``personal space'', they are considered to be occupying that personal space. This technique cannot be applied to a home environment, as there are usually not multiple wireless hotspots.
+\cite{balaji2013sentinel} also leverages smart phones to determine occupancy, but in a more broad enterprise environment: Wireless association logs are analysed to determine which access points in a building a given user is connected to. If this access point falls within the radio range of their designated ``personal space'', they are considered to be occupying that personal space. This technique cannot be applied to a home environment, as there are usually not multiple wireless hotspots.
 
 Finally, \cite{gupta2009adding} uses specifically the GPS functions of the smartphone to perform optimisation on heating and cooling systems by calculating the ``travel-to-home'' time of occupants at all times and ensuring at every distance the house is minimally heated such that if the user were to travel home, the house would be at the correct temperature when they arrived. While this system does achieve similar potential air-conditioning energy savings, it is not room-level modular, and also presupposes a user whose primary energy costs are from incorrect heating when away from home, which isn't necessarily the case for this demographic.
 
@@ -88,15 +88,6 @@ The first of these approaches is \cite{kleiminger2013occupancy}, which attempts 
 
 \subsection{Analysis}
 \label{subsec:litreview:sensors:analysis}
-From these various sensor options, there are a few candidates that provide the necessary sensing  elements; these are thermal, \cdi, RFID and smartphone based sensing. All sensing options are represented on \Fref{tab:litreview:taxonomycomp}.
-
-\cdi sensing, has several drawbacks, the predominant ones being a large lag time to receive accurate occupancy information and interference from a variety of air conditioning sources which can modify the \cdi concentration in the room in unexpected ways.
-
-RFID sensing, also has several drawbacks, predominantly being that it is difficult value proposition to get house occupants to carry RFID tags with them continuously. Another drawback is that the triangulation methods discussed are too inaccurate to place occupants in specific rooms in many cases.
-
-Smartphone sensing is a good candidate, however it does have similar accuracy issues to RFID sensing. It is also more difficult in home environments to ensure that occupants are carrying their smartphones with them at all times. Another issue with smart phones is that they represent an expense that the target markets of the elderly and the disabled may not be able to afford.
-
-We are then left with thermal sensing as the best option for sensing given the project's specific criteria.
 
 \begin{table}
 \begin{threeparttable}
@@ -121,24 +112,43 @@ We are then left with thermal sensing as the best option for sensing given the p
 
 \underline{Extrinsic}			& & & & & \\
 \hspace{3mm}\textit{Instrumented} 	& & & & & \\
-\hspace{8mm}RFID 			& \cmark\textsuperscript{*} & \cmark & \cmark & \cmark & \\
-\hspace{8mm}Smart phone			& \cmark\textsuperscript{*} & \hspace{7mm}--\textsuperscript{\#} & \xmark & \cmark &  \\
-\hspace{8mm}GPS 			& \cmark\textsuperscript{*} & \xmark & \cmark & \cmark & \\
+\hspace{8mm}RFID 			& \cmark\ssup & \cmark & \cmark & \cmark & \\
+\hspace{8mm}WiFi assoc.\tsup		& \cmark\ssup & \cmark & \xmark & \cmark & \\
+\hspace{8mm}WiFi triang.\tsup		& \cmark\ssup & \cmark & \xmark & & \\
+\hspace{8mm}GPS\tsup			& \cmark\ssup & \xmark & \cmark & \cmark & \\
 
 \hspace{3mm}\textit{Correlative} 	& & & & & \\
-\hspace{8mm}Electricity 		& \cmark\textsuperscript{*} & \xmark & \cmark & & \\
-\hspace{8mm}Network			& \cmark\textsuperscript{*} & \xmark & \cmark & & \\
+\hspace{8mm}Electricity 		& \cmark\ssup & \xmark & \cmark & & \\
+\hspace{8mm}Network			& \cmark\ssup & \xmark & \cmark & & \\
 
 \cline{1-6}
 \end{tabularx}
 \begin{tablenotes}
-\item \textsuperscript{*} Doesn't provide data at required level of accuracy for home use.
-\item \textsuperscript{\#} Implementations vary in success for this characteristic.
+\item \ssup  Doesn't provide data at required level of accuracy for home use.
+\item \tsup  Uses smartphone as detector.
 \end{tablenotes}
 \end{threeparttable}
 \caption{Comparison of different sensors and project requirements}
 \label{tab:litreview:taxonomycomp}
 \end{table}
+
+From these various sensor options, there are a few candidates that provide the necessary initial sensing elements (Presence and Count); these are thermal, \cdi, Video, Ultrasonic, RFID and WiFi association and triangulation based methods. All sensing options are compared on \Fref{tab:litreview:taxonomycomp}.
+
+In the context of our four accessibility criteria, \cdi sensing, has several reliability drawbacks, the predominant ones being a large lag time to receive accurate occupancy information and interference from a variety of air conditioning sources which can modify the \cdi concentration in the room in unexpected ways.
+
+Video-based sensing methods suffer from invasiveness concerns, as they by design must have a constant video feed of all detected areas.
+
+Ultrasonic methods have particular issues with reliability when a user falls outside the prescribed height bounds of normal humans. Wheelchair bound occupants, a core demographic of this sensing system, would be incompatible with such an approach. Their wheelchair may also interfere with height measurement results. Ultrasonic methods also provide weak Identity information through height detection.
+
+RFID sensing, also has several drawbacks, predominantly being that it is difficult value proposition to get house occupants to carry RFID tags with them continuously. Another drawback is that the triangulation methods discussed are too unreliable to place occupants in specific rooms in many cases.
+
+WiFi association is not granular enough for home use, as the original enterprise use case presupposed a much larger area, as well as multiple wireless access points, neither of which a typical home environment have.
+
+WiFi triangulation is a good candidate for the home, as there are most likely neighbouring wireless networks that can be used as virtual landmarks. However, it suffers from the same granularity problems as WiFi association, as these signals are not specific enough to pinpoint a person to a specific room.
+
+For smartphone based approaches generally, it is also more difficult in home environments to ensure that occupants are carrying their smartphones with them at all times.  Another issue with smart phones is that they represent an expense that the target markets of the elderly and the disabled may not be able to afford.
+
+Finally, we have thermal sensing. It provides both Presence and Count information, as it uses occupants' thermal signatures to determine the presence of people in a room. It does not however provide Identity information, as thermal signatures are not sufficiently unique with the technologies used to distinguished between occupants. Such a sensor system is presented as low-cost and energy efficient within \cite{beltran2013thermosense}, is non-invasive by design and can reliably detect occupants with a very low root mean squared error.
 
 \section{Thermal sensors}
 \label{sec:litreview:thermalsensors}
