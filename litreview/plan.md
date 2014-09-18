@@ -12,7 +12,7 @@
 * Track — Where was this person before?
 * Identity — Who is each person? Is this person John?
 
-### Sensing 
+### Sensors in the context of quantitative traits (taxonomic elements)
 * using the taxonomy of measurable human traits teixeira2010survey
   
 * Intrinsic traits
@@ -34,6 +34,9 @@
     * Network traffic - ting2013occupancy
 
 * Fusions of the above don't necessarily work better - hailemariam2011real
+
+### Sensors in the context of qualitative traits (accessibility criteria)
+* Compare sensors that meet the quantitative traits against their qualitative
 
 ### Thermal sensors
 * Thermosense
