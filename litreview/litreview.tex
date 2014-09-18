@@ -164,11 +164,20 @@ This background map is used as a baseline to calculate standard deviations of ea
 \label{sec:litreview:architecture}
 Beyond specific sensor design, a large emphasis of this project is to create a system that is correctly architected to operate in a real-world \iot environment, as the key advantage of \iot ``things'' is in the ``disruptive level of innovation''\cite{atzori2010internet} brought about by their ability to be combined in ways unforeseen (yet still enabled) by their creators. This architecture involves careful consideration of the embedded hardware that will drive the system, as well as the communications protocols utilised between the sensor and devices interested in the sensor's information.
 
+\subsection{Protocols}
 As the system will most likely be battery powered, it is important to prioritise those protocols and architectures that minimise power usage. The system will also ideally exist in a system with other identical sensors (one for each room in a house), thus it is important to prioritise those protocols which allow multiple identical systems to coexist on the same network without conflict, and to be uniquely addressable and identifiable. In recent years, many developments have been made in the \iot arena, with standards emerging specifically designed for low-power embedded devices to communicate between themselves and bigger systems that address these and other unique needs, across the entire protocol stack. 
 
-The introduction of the IEEE \lwifi standard in 2003, and the subsequent IEEE \lphy standard provided an appropriate physical layer for such technologies.
+In addition to this protocol stack, at the application layer, \cite{guinard2012search} proposes the use of \rest over \ws  as a method of exchanging information between sensor systems. Their data suggests that \rest is easier to use than \ws, and the key advantage of a \ws based approach is its ability to represent much more complex data and abstractions, which are unnecessary in this project's situation.
 
-\Fref{tab:litreview:protostack} shows the full stack proposed.
+\cite{palattella2013standardized} proposes a protocol stack that aligns with the above requirements, the key advantage of which is being that an implementation of that stack is completely standardised, based on TCP/IP, uses the latest IEEE and IETF \iot standards, and is free from proprietary protocol restrictions (unlike ZigBee 1.0 devices, for instance). \Fref{tab:litreview:protostack} shows the full stack proposed. The key components of this proposal are the introduction of \acs{coap} at the application layer, \acs{roll} at the IP / Routing layer and \acs{lowpan} at the Adaptation layer.
+
+\coap \cite{kovatsch2013coap} is an application layer protocol designed to replace HTTP as a way of transmitting RESTful information between clients. The chief advantage of \coap over HTTP is it compresses the broad-strokes of the HTTP feature set into a binary language that is much more suitable for transmission over low-bandwidth and low-power links, such as those discussed here.
+
+% \roll \cite{rfc6550} is a routing protocol designed to replace those functions of TCP
+
+% \lowpan \cite{shelby20116lowpan} is a
+
+% TODO: Discuss ZigBee, and problems with GPL, and proprietary protocol
 
 % From; https://openwsn.atlassian.net/wiki/pages/viewpage.action?pageId=29196353
 \begin{table}
@@ -186,7 +195,28 @@ The introduction of the IEEE \lwifi standard in 2003, and the subsequent IEEE \l
 \label{tab:litreview:protostack}
 \end{table}
 
-\subsection{\acs{coap}}
+\subsection{Devices}
+In addition to the protocol stack used, the format of the embedded systems must be decided on. 
+% ``Smart Gateway'' \cite{guinard2011internet}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}[node distance=2cm]
+\node (interwebs) [cbox] {Internet};
+\node (http) [dashbox, left=of interwebs] {\small HTTP};
+\node (rpi) [box, below=of http] {Smart Gateway};
+\node (coap) [dashbox, right=of rpi] {\small \acs{coap}};
+\node (embed) [box, right=of coap] {Sensor};
+
+\draw [line] (interwebs) -- (http);
+\draw [line] (http) -- (rpi);
+\draw [line] (rpi) -- (coap);
+\draw [line] (coap) -- (embed);
+\end{tikzpicture}
+\caption{Proposed system architecture}
+\label{fig:litreview:devices}
+\end{figure}
+
 
 \section{Research Gap}
 \label{sec:litreview:researchgap}
