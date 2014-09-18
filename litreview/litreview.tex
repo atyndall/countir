@@ -5,7 +5,7 @@
 
 The proportion of elderly and mobility-impaired people is predicted to grow dramatically over the next century, leaving a large proportion of the population unable to care for themselves, and consequently less people able care for these groups. \cite{chan2009smart} With this issue looming, investments are being made into a variety of technologies that can provide the support these groups need to live independent of human assistance. 
 
-With recent advancements in low cost embedded computing, such as the Arduino \cite{Ardunio} and Raspberry Pi, \cite{RPi} the ability to provide a set of interconnected sensors, actuators and interfaces to enable a low-cost `smart home for the disabled' is becoming increasingly achievable.
+With recent advancements in low cost embedded computing, such as the Arduino and Raspberry Pi, the ability to provide a set of interconnected sensors, actuators and interfaces to enable a low-cost `smart home for the disabled' is becoming increasingly achievable.
 
 Sensing techniques to determine occupancy, the detection of the presence and number of people in an area, are of particular use to the elderly and disabled. Detection can be used to inform various devices that change state depending on the user's location, including the better regulation energy hungry devices to help reduce financial burden. Household climate control, which in some regions of Australia accounts for up to 40\% of energy usage \cite{abs4602} is one particular area in which occupancy detection can reduce costs, as efficiency can be increased dramatically with annual energy savings of up to 25\% found in some cases. \cite{beltran2013thermosense}
  
@@ -119,7 +119,7 @@ The first of these approaches is \cite{kleiminger2013occupancy}, which attempts 
 
 \hspace{3mm}\textit{Correlative} 	& & & & & \\
 \hspace{8mm}Electricity 		& \cmark\ssup & \xmark & \cmark & & \\
-\hspace{8mm}Network			& \cmark\ssup & \xmark & \cmark & & \\
+%\hspace{8mm}Network			& \cmark\ssup & \xmark & \cmark & & \\ TODO: Uncomment once above todo is sorted
 
 \cline{1-6}
 \end{tabularx}
@@ -163,6 +163,25 @@ This background map is used as a baseline to calculate standard deviations of ea
 \section{Architecture}
 \label{sec:litreview:architecture}
 
+\Fref{tab:litreview:protostack} shows the full stack proposed.
+
+% From; https://openwsn.atlassian.net/wiki/pages/viewpage.action?pageId=29196353
+\begin{table}
+\centering
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Application} & \acs{coap} \\ \hline
+\textbf{Transport} & UDP \\ \hline
+\textbf{IP / Routing} & IETF \acs{roll} \\ \hline
+\textbf{Adaptation} & IETF \acs{lowpan} \\ \hline
+\textbf{Medium Access} & IEEE \lmed \\ \hline
+\textbf{Physical} & IEEE \lphy \\ \hline
+\end{tabular}
+\caption{Proposed protocol stack}
+\label{tab:litreview:protostack}
+\end{table}
+
+\subsection{\acs{coap}}
 
 \section{Research Gap}
 \label{sec:litreview:researchgap}
