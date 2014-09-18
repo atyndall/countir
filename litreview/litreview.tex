@@ -162,6 +162,11 @@ This background map is used as a baseline to calculate standard deviations of ea
 
 \section{Architecture}
 \label{sec:litreview:architecture}
+Beyond specific sensor design, a large emphasis of this project is to create a system that is correctly architected to operate in a real-world \iot environment, as the key advantage of \iot ``things'' is in the ``disruptive level of innovation''\cite{atzori2010internet} brought about by their ability to be combined in ways unforeseen (yet still enabled) by their creators. This architecture involves careful consideration of the embedded hardware that will drive the system, as well as the communications protocols utilised between the sensor and devices interested in the sensor's information.
+
+As the system will most likely be battery powered, it is important to prioritise those protocols and architectures that minimise power usage. The system will also ideally exist in a system with other identical sensors (one for each room in a house), thus it is important to prioritise those protocols which allow multiple identical systems to coexist on the same network without conflict, and to be uniquely addressable and identifiable. In recent years, many developments have been made in the \iot arena, with standards emerging specifically designed for low-power embedded devices to communicate between themselves and bigger systems that address these and other unique needs, across the entire protocol stack. 
+
+The introduction of the IEEE \lwifi standard in 2003, and the subsequent IEEE \lphy standard provided an appropriate physical layer for such technologies.
 
 \Fref{tab:litreview:protostack} shows the full stack proposed.
 
