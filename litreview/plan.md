@@ -42,6 +42,16 @@
 * Thermosense
   
 ### Architecture
+* guinard2011internet
+  * "Smart Gateway" to translate from resource limited devices to REST
 * Internet of Things survey - atzori2010internet
+  * Advantageous to use technologies that have wide adoption
+  * IEEE 802.15.4 and 6LoWPAN are widely used open standards
+  * Raises the issue of standardization efforts, but no integration into comprehensive framework
 * The whole stack - palattella2013standardized
-* CoAP - kovatsch2013coap
+  * CoAP - kovatsch2013coap
+  * UDP
+  * IETF ROLL
+  * IETF 6LoWPAN
+  * IEEE 802.15.4e
+  * IEEE 802.15.4-2006
