@@ -82,13 +82,20 @@
 % Fancyref support for subsections
 \newcommand*{\fancyrefsubseclabelprefix}{subsec}
 
-\frefformat{vario}{\fancyrefsubseclabelprefix}{%
-subsection\fancyrefdefaultspacing#1#2#3%
-}%
+\fancyrefaddcaptions{english}{%
+  \providecommand*{\frefsubsecname}{subsection}%
+  \providecommand*{\Frefsubsecname}{Subsection}%
+}
 
+\frefformat{plain}{\fancyrefsubseclabelprefix}{\frefsubsecname\fancyrefdefaultspacing#1}
+\Frefformat{plain}{\fancyrefsubseclabelprefix}{\Frefsubsecname\fancyrefdefaultspacing#1}
+
+\frefformat{vario}{\fancyrefsubseclabelprefix}{%
+  \frefsubsecname\fancyrefdefaultspacing#1#3%
+}
 \Frefformat{vario}{\fancyrefsubseclabelprefix}{%
-Subsection\fancyrefdefaultspacing#1#2#3%
-}%
+  \Frefsubsecname\fancyrefdefaultspacing#1#3%
+}
 
 
 %%% END LATEX TWEAKS
