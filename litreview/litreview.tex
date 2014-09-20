@@ -165,20 +165,7 @@ This background map is used as a baseline to calculate standard deviations of ea
 Beyond specific sensor design, a large emphasis of this project is to create a system that is correctly architected to operate in a real-world \iot environment, as the key advantage of \iot ``things'' is in the ``disruptive level of innovation''\cite{atzori2010internet} brought about by their ability to be combined in ways unforeseen (yet still enabled) by their creators. This architecture involves careful consideration of the embedded hardware that will drive the system, as well as the communications protocols utilised between the sensor and devices interested in the sensor's information.
 
 \subsection{Protocols}
-As the system will most likely be battery powered, it is important to prioritise those protocols and architectures that minimise power usage. The system will also ideally exist in a system with other identical sensors (one for each room in a house), thus it is important to prioritise those protocols which allow multiple identical systems to coexist on the same network without conflict, and to be uniquely addressable and identifiable. In recent years, many developments have been made in the \iot arena, with standards emerging specifically designed for low-power embedded devices to communicate between themselves and bigger systems that address these and other unique needs, across the entire protocol stack. 
-
-In addition to this protocol stack, at the application layer, \cite{guinard2012search} proposes the use of \rest over \ws  as a method of exchanging information between sensor systems. Their data suggests that \rest is easier to use than \ws, and the key advantage of a \ws based approach is its ability to represent much more complex data and abstractions, which are unnecessary in this project's situation.
-
-\cite{palattella2013standardized} proposes a protocol stack that aligns with the above requirements, the key advantage of which is being that an implementation of that stack is completely standardised, based on TCP/IP, uses the latest IEEE and IETF \iot standards, and is free from proprietary protocol restrictions (unlike ZigBee 1.0 devices, for instance). \Fref{tab:litreview:protostack} shows the full stack proposed. The key components of this proposal are the introduction of \acs{coap} at the application layer, \acs{roll} at the IP / Routing layer and \acs{lowpan} at the Adaptation layer.
-
-\coap \cite{kovatsch2013coap} is an application layer protocol designed to replace HTTP as a way of transmitting RESTful information between clients. The chief advantage of \coap over HTTP is it compresses the broad-strokes of the HTTP feature set into a binary language that is much more suitable for transmission over low-bandwidth and low-power links, such as those discussed here.
-
-% \roll \cite{rfc6550} is a routing protocol designed to replace those functions of TCP
-
-% \lowpan \cite{shelby20116lowpan} is a
-
-% TODO: Discuss ZigBee, and problems with GPL, and proprietary protocol
-
+\label{subsec:litreview:architecture:protocols}
 % From; https://openwsn.atlassian.net/wiki/pages/viewpage.action?pageId=29196353
 \begin{table}
 \centering
@@ -195,28 +182,55 @@ In addition to this protocol stack, at the application layer, \cite{guinard2012s
 \label{tab:litreview:protostack}
 \end{table}
 
-\subsection{Devices}
-In addition to the protocol stack used, the format of the embedded systems must be decided on. 
-% ``Smart Gateway'' \cite{guinard2011internet}
+As the system will most likely be battery powered, it is important to prioritise those protocols and architectures that minimise power usage. The system will also ideally exist in a system with other identical sensors (one for each room in a house), thus it is important to prioritise those protocols which allow multiple identical systems to coexist on the same network without conflict, and to be uniquely addressable and identifiable. In recent years, many developments have been made in the \iot arena, with standards emerging specifically designed for low-power embedded devices to communicate between themselves and bigger systems that address these and other unique needs, across the entire protocol stack. 
 
+In addition to this protocol stack, at the application layer, \cite{guinard2012search} proposes the use of \rest over \ws  as a method of exchanging information between sensor systems. Their data suggests that \rest is easier to use than \ws, and the key advantage of a \ws based approach is its ability to represent much more complex data and abstractions, which are unnecessary in this project's situation.
+
+\cite{palattella2013standardized} proposes a protocol stack that aligns with the above requirements, the key advantage of which is being that an implementation of that stack is completely standardised, based on TCP/IP, uses the latest IEEE and IETF \iot standards, and is free from proprietary protocol restrictions (unlike ZigBee 1.0 devices, for instance). \Fref{tab:litreview:protostack} shows the full stack proposed. The key components of this proposal are the introduction of \acs{coap} at the application layer, \acs{roll} at the IP / Routing layer and \acs{lowpan} at the Adaptation layer.
+
+\coap \cite{kovatsch2013coap} is an application layer protocol designed to replace HTTP as a way of transmitting RESTful information between clients. The chief advantage of \coap over HTTP is it compresses the broad-strokes of the HTTP feature set into a binary language that is much more suitable for transmission over low-bandwidth and low-power links, such as those discussed here.
+
+\roll \cite{rfc6550} is a routing protocol designed for low power environments, allowing low power nodes to create and maintain a mesh network between themselves, allowing, among other things, the routing of packets to a ``root'' node and back again. \roll is particularly suited to the routing situation of our proposed architecture, as individual sensors do not need to communicate with one another, but rather report back to a larger node (further discussed in \fref{subsec:litreview:architecture:devices}).
+
+\lowpan \cite{shelby20116lowpan} is a compression and formatting specification to allow IPv6 packets to be sent over an \lwifi based network. Optimisations are found in the reduction of the size of \lowpan packets, IPv6 addresses as well as redesigning core Internet Protocol algorithms so that they can run with low power consumption on participating devices.
+
+% TODO: Discuss ZigBee, and problems with GPL, and proprietary protocol
+
+\subsection{Devices}
+\label{subsec:litreview:architecture:devices}
 \begin{figure}
 \centering
-\begin{tikzpicture}[node distance=2cm]
+\begin{tikzpicture}[node distance=1.7cm]
 \node (interwebs) [cbox] {Internet};
 \node (http) [dashbox, left=of interwebs] {\small HTTP};
-\node (rpi) [box, below=of http] {Smart Gateway};
+\node (rpi) [box, below=of http] {Smart Gateway / Processor};
 \node (coap) [dashbox, right=of rpi] {\small \acs{coap}};
-\node (embed) [box, right=of coap] {Sensor};
+\node (mesh) [cbox, right=of coap] {WPAN};
+\node (embed1) [box, below left=of mesh] {Sensor};
+\node (embed2) [box, below right=of mesh] {Sensor};
 
 \draw [line] (interwebs) -- (http);
 \draw [line] (http) -- (rpi);
 \draw [line] (rpi) -- (coap);
-\draw [line] (coap) -- (embed);
+\draw [line] (coap) -- (mesh);
+\draw [line] (mesh) -- (embed1);
+\draw [line] (mesh) -- (embed2);
 \end{tikzpicture}
 \caption{Proposed system architecture}
 \label{fig:litreview:devices}
 \end{figure}
 
+In addition to the protocol stack used, how these nodes relate to each other is also an important consideration. Part of what will inform these decisions are the requisite processing power and internet connectivity required to successfully execute all elements of this project. \cite{kovatsch2013coap} three classes of resource constrained devices that would benefit from \coap, and each can provide different levels of security for an IP stack;
+
+\begin{itemize}
+ \item \textbf{Class 0}: ``not capable of running an RFC-compliant IP stack in a secure manner. They require application-level gateways to connect to the Internet.''
+ \item \textbf{Class 1}: Able to connect to the internet with some ``integrated security mechanisms''. Are unable to employ full HTTP with TLS.
+ \item \textbf{Class 2}: Normal Internet nodes, able to use the full HTTP stack with TLS.
+\end{itemize}
+
+The devices that we propose the sensors will connect to are the likes of the Arduino, which can be generally classified as class 0 or possibly class 1 devices. Because of this, \cite{guinard2011internet} proposes the use of a ``Smart Gateway'' system to bridge the wider internet and these sensor systems. This gateway would be able to communicate with the sensor systems over \coap and \lwifi, as well as receive API requests via HTTP from a traditional TCP/IP network to forward on to these sensors.
+
+In addition to this, the Thermosense paper \cite{beltran2013thermosense} proposes several different algorithms to process the raw sensing data into the occupancy estimates (further discussed in \fref{sec:litreview:thermalsensors}), all of which are fairly computationally expensive. Because of this, it would be non-trivial to implement these algorithms on the embedded sensing devices themselves. This problem is already resolved in our proposed system, as the aforementioned ``Smart Gateway'' can easily also take on the task of processing the raw sensor data into estimates which it can relay to interested parties over its HTTP-based API. A visualisation of this proposed system can be seen in \fref{fig:litreview:devices}.
 
 \section{Research Gap}
 \label{sec:litreview:researchgap}
