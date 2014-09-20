@@ -41,7 +41,25 @@ The taxonomic elements are;
 
 These elements are particularly useful when it comes to comparing the different qualities of sensors, and to determine which sensors are useful for our particular purpose. At a fundamental level, this research project requires a sensor system that provides both Presence and Count information. To assist with the reduction of privacy concerns, excluding systems that permit Identity will generally result in a less invasive system also. The presence of Location or Track are irrelevant to our project's goals, but overall, minimising these elements should in most cases help to maximise the energy efficiency of the system also.
 
-\cite{teixeira2010survey} also proposes a measurable human trait taxonomy, which we use in this literature review as a structure through which we describe different sensor types.
+\cite{teixeira2010survey} also proposes a measurable human trait taxonomy (see \fref{fig:litreview:taxonomy}), which we use in this literature review as a structure through which we describe different sensor types.
+
+\begin{figure}
+\centering
+\begin{forest}
+[Sensors
+  [Intrinsic
+    [Static]
+    [Dynamic]
+  ]
+  [Extrinsic
+    [Instrumented]
+    [Correlative]
+  ]
+]
+\end{forest}
+\caption{Sensor taxonomy}
+\label{fig:litreview:taxonomy}
+\end{figure}
 
 \subsection{Intrinsic traits}
 \label{subsec:litreview:sensors:intrinsic}
@@ -220,7 +238,7 @@ In addition to this protocol stack, at the application layer, \cite{guinard2012s
 \label{fig:litreview:devices}
 \end{figure}
 
-In addition to the protocol stack used, how these nodes relate to each other is also an important consideration. Part of what will inform these decisions are the requisite processing power and internet connectivity required to successfully execute all elements of this project. \cite{kovatsch2013coap} three classes of resource constrained devices that would benefit from \coap, and each can provide different levels of security for an IP stack;
+In addition to the protocol stack used, how these nodes relate to each other is also an important consideration. Part of what will inform these decisions are the requisite processing power and internet connectivity required to successfully execute all elements of this project. \cite{kovatsch2013coap} describes three classes of resource constrained devices that would benefit from \coap, and each can provide different levels of security for an IP stack;
 
 \begin{itemize}
  \item \textbf{Class 0}: ``not capable of running an RFC-compliant IP stack in a secure manner. They require application-level gateways to connect to the Internet.''
@@ -234,7 +252,11 @@ In addition to this, the Thermosense paper \cite{beltran2013thermosense} propose
 
 \section{Research Gap}
 \label{sec:litreview:researchgap}
+Throughout this discussion of the area of wireless occupancy sensors within the \iot it can be seen that there is a clear research gap within the area of occupancy. No group could be found who has assembled an occupancy sensor that optimises these ares of Low Cost, Non-Invasiveness, Energy Efficiency and Reliability into a architected software and hardware package that can be integrated like any other Thing into the \iot.
 
+This is a key research area, because, as we have previously discussed, the true ``disruptive level of innovation''\cite{atzori2010internet} the \iot provides can only be realised once a novel idea has been properly packaged as a Thing, rather than as a research curiosity. Packaging something as a Thing requires careful consideration of the best sensing systems, the best hardware to run those systems on, the best protocols to allow these Things to communicate, and the best device architecture to enable that communication. The state of the art in all these areas have been discussed throughout this literature review.
+
+A key part of enabling the ``smart home for the disabled'' is creating a set of Things that can improve quality of life for those people. Our proposed Thing has clearly demonstrated this potential.
 
 
 \ifcsdef{mainfile}{}{\bibliography{../references/primary}}
