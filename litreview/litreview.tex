@@ -1,5 +1,6 @@
 \documentclass[../thesis/thesis.tex]{subfiles}
 \begin{document}
+\ifcsdef{mainfile}{}{\tableofcontents}
 \chapter{Literature Review}
 \label{chap:litreview}
 
@@ -66,7 +67,7 @@ Teixeira, Dublon and Savvides \cite{teixeira2010survey} also propose a measurabl
 \subsection{Intrinsic traits}
 \label{subsec:litreview:sensors:intrinsic}
 
-The first set of sensors discussed are sensors detecting intrinsic traits. Intrinsic traits are those which can be sensed that are a direct property of being a human occupant. Intrinsic traits are particularly useful, as in many situations they are guaranteed to be present if an occupant is present. However, they do have varying degrees of detectability and differentiation between occupants. Two main subcategories of these sensor types are static and dynamic traits.
+Intrinsic traits are those which can be sensed that are a direct property of being a human occupant. Intrinsic traits are particularly useful, as in many situations they are guaranteed to be present if an occupant is present. However, they do have varying degrees of detectability and differentiation between occupants. Two main subcategories of these sensor types are static and dynamic traits.
 
 \subsubsection{Static traits}
 \label{subsubsec:litreview:sensors:intrinsic:static}
@@ -94,7 +95,7 @@ Extrinsic traits are those which are actually other environmental changes that a
 
 \subsubsection{Instrumented traits}
 \label{subsubsec:litreview:sensors:extrinsic:instrumented}
-The first of these categories is instrumented approaches; these require that detectable occupants carry with them some device that is detected as a proxy for the occupant themselves.
+One extrinsic trait category is instrumented approaches; these require that detectable occupants carry with them some device that is detected as a proxy for the occupant themselves.
 
 The most obvious of these approaches is a specially designed device. \cite{li2012measuring} uses RFID tags placed on building occupant's persons and a set of transmitters to triangulate the tags and place them within different thermal zones for the use of the HVAC system. For stationary occupants, there was a detection accuracy of $\approx88\%$, and for occupants who were mobile, the accuracy was $\approx62\%$. Such a system could be re-purposed for the residence, however, these systems raise issues in a residential environment as it requires occupants to be constantly carrying their sensors, which is less likely in such an environment. Additionally, the accuracy for this system is not necessarily high enough for a residential environment, where much smaller rooms are used.
 
@@ -220,7 +221,7 @@ Above the application layer, Guinard \etal \cite{guinard2012search} propose the 
 
 \coap \cite{kovatsch2013coap} is an application layer protocol designed to replace HTTP as a way of transmitting RESTful information between clients. The chief advantage of \coap over HTTP is it compresses the broad-strokes of the HTTP feature set into a binary language that is much more suitable for transmission over low-bandwidth and low-power links, such as those discussed here.
 
-\roll \cite{rfc6550} is a routing protocol designed for low power environments, allowing low power nodes to create and maintain a mesh network between themselves, allowing, among other things, the routing of packets to a ``root'' node and back again. \roll is particularly suited to the routing situation of our proposed architecture, as individual sensors do not need to communicate with one another, but rather report back to a larger node (further discussed in \fref{subsec:litreview:architecture:devices}).
+\roll \cite{rfc6550} is a routing protocol designed for low power environments, allowing low power nodes to create and maintain a mesh network between themselves, allowing, among other things, the routing of packets to a ``root'' node and back again. \roll is particularly suited to the routing situation of our proposed architecture, as individual sensors do not need to communicate with one another, but rather report back to a larger node (further discussed in \Fref{subsec:litreview:architecture:devices}).
 
 \lowpan \cite{shelby20116lowpan} is a compression and formatting specification to allow IPv6 packets to be sent over an \lwifi based network. Optimisations are found in the reduction of the size of \lowpan packets, IPv6 addresses as well as redesigning core Internet Protocol algorithms so that they can run with low power consumption on participating devices.
 
@@ -260,16 +261,22 @@ In addition to the protocol stack used, how these nodes relate to each other is 
 
 The devices that we propose the sensors will connect to are the likes of the Arduino, which can be generally classified as class 0 or possibly class 1 devices. Due to their insecurity and difficulty running a fully fledged IP stack, Guinard \etal \cite{guinard2011internet} propose the use of a ``Smart Gateway'' system to bridge the wider internet and these sensor systems. This gateway would be able to communicate with the sensor systems over \coap and \lwifi, as well as receive API requests via HTTP from a traditional TCP/IP network to forward on to these sensors.
 
-The Thermosense paper \cite{beltran2013thermosense} proposes several different algorithms to process the raw sensing data into the occupancy estimates (further discussed in \fref{sec:litreview:thermalsensors}), all of which are fairly computationally expensive. Because of this, it would be non-trivial to implement these algorithms on the embedded sensing devices themselves. This problem is already resolved in our proposed system, as the aforementioned ``Smart Gateway'' can easily also take on the task of processing the raw sensor data into estimates which it can relay to interested parties over its HTTP-based API. A visualisation of this proposed system is shown in \Fref{fig:litreview:devices}.
+The Thermosense paper \cite{beltran2013thermosense} proposes several different algorithms to process the raw sensing data into the occupancy estimates (further discussed in \Fref{sec:litreview:thermalsensors}), all of which are fairly computationally expensive. Because of this, it would be non-trivial to implement these algorithms on the embedded sensing devices themselves. This problem is already resolved in our proposed system, as the aforementioned ``Smart Gateway'' can easily also take on the task of processing the raw sensor data into estimates which it can relay to interested parties over its HTTP-based API. A visualisation of this proposed system is shown in \Fref{fig:litreview:devices}.
 
 \section{Discussion}
 \label{sec:litreview:discussion}
-Throughout this discussion of the area of wireless occupancy sensors within the \iot it can be seen that there is a clear research gap within the area of occupancy. No group could be found who has assembled an occupancy sensor that optimises these ares of Low Cost, Non-Invasiveness, Energy Efficiency and Reliability into a architected software and hardware package that can be integrated like any other Thing into the \iot.
+Throughout this review of the area of wireless occupancy sensors within the \iot it can be seen that there is a clear research gap within the area of occupancy. No group could be found who has assembled an occupancy sensor that optimises these ares of Low Cost, Non-Invasiveness, Energy Efficiency and Reliability into a architected software and hardware package that can be integrated like any other Thing into the \iot.
 
-This is a key research area, because, as we have previously discussed, the true ``disruptive level of innovation''\cite{atzori2010internet} the \iot provides can only be realised once a novel idea has been properly packaged as a Thing, rather than as a research curiosity. Packaging something as a Thing requires careful consideration of the best sensing systems, the best hardware to run those systems on, the best protocols to allow these Things to communicate, and the best device architecture to enable that communication. The state of the art in all these areas have been discussed throughout this literature review.
+This is a key research area, because, as we have previously mentioned, the true ``disruptive level of innovation''\cite{atzori2010internet} the \iot provides can only be realised once a novel idea has been properly packaged as a Thing, rather than as a research curiosity. Packaging something as a Thing requires careful consideration of the best sensing systems, the best hardware to run those systems on, the best protocols to allow these Things to communicate, and the best device architecture to enable that communication. The state of the art in all these areas have been discussed throughout this literature review.
 
 \section{Conclusion}
 \label{sec:litreview:conclusion}
+Two sets criteria were identified through which the spectrum of occupancy sensing could be examined; a quantitative criteria by Teixeira, Dublon and Savvides \cite{teixeira2010survey} to examine the different functionality offerings of sensor systems and a qualitative criteria derived from the aims of the project to examine how those sensors fit within the project's parameters.
+
+Occupancy research performed with different sensor types was examined methodically through a set of taxonomic categories also originally proposed by Teixeira, Dublon and Savvides \cite{teixeira2010survey}, but modified to better suit the specifics of occupancy sensors. These sensor types included Thermal, \cdi, Video, Ultrasonic, \pir, RFID, various WiFi based methods, GPS and electricity consumption. Through an examination of these sensing systems quantitative and qualitative characteristics, it was determined that the Thermosense \iar system \cite{beltran2013thermosense} was the most suitable to the project's aims.
+
+\iot protocol architecture was also examined, with a discussion of the appropriate low-power wireless protocols for a robust Thing. All levels of the protocol stack were discussed, with Palattella \etal \cite{palattella2013standardized} proposing the open standard system that was most appropriate for the project. \iot device architecture was also examined, with an outline of the bridging mechanisms between the low-powered Thing and the wider Internet, as well as presence the hub of the system's intense computation.
+
 A key part of enabling the ``smart home for the disabled'' is creating a set of Things that can improve quality of life for those people. We believe the proposed Thing has clearly demonstrated this potential.
 
 
