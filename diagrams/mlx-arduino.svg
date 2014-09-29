@@ -1,0 +1,153 @@
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" width="607.843137255" height="1000.0">
+  <desc>Created by CircuitLab https://www.circuitlab.com/</desc><g transform="matrix(1.15340253749,0,0,1.15340253749,-2377.73933103,-1091.69550173)">
+    <rect x="2062.5" y="1237.5" width="325" height="125" r="0" rx="0" ry="0" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+    <text fill="#000000" x="2225" y="1276" text-anchor="middle" text-decoration="none" style="font-family: Arial; font-size: 16px; font-weight: bold;">Adafruit Bi-Directional</text>
+    <text fill="#000000" x="2225" y="1300" text-anchor="middle" text-decoration="none" style="font-family: Arial; font-size: 16px; font-weight: bold;">I2C Level Shifter</text>
+    <text fill="#000000" x="2225" y="1324" text-anchor="middle" text-decoration="none" style="font-family: Arial; font-size: 16px; font-weight: bold;">10K pullups, BS106 MOSFETs</text>
+    <path fill="none" stroke="#000000" d="M2350,1225L2350,1237.5" stroke-width="2"/>
+    <text fill="#000000" x="2350" y="1255" text-anchor="middle" text-decoration="none" style="font-family: Arial; font-size: 12px;">LV</text>
+    <text fill="#000000" x="2342" y="1233" text-anchor="middle" style="font-family: Arial; font-size: 12px;"/>
+    <path fill="none" stroke="#000000" d="M2300,1225L2300,1237.5" stroke-width="2"/>
+    <text fill="#000000" x="2300" y="1255" text-anchor="middle" text-decoration="none" style="font-family: Arial; font-size: 12px;">A1</text>
+    <text fill="#000000" x="2292" y="1233" text-anchor="middle" style="font-family: Arial; font-size: 12px;"/>
+    <path fill="none" stroke="#000000" d="M2250,1225L2250,1237.5" stroke-width="2"/>
+    <text fill="#000000" x="2250" y="1255" text-anchor="middle" text-decoration="none" style="font-family: Arial; font-size: 12px;">A2</text>
+    <text fill="#000000" x="2242" y="1233" text-anchor="middle" style="font-family: Arial; font-size: 12px;"/>
+    <path fill="none" stroke="#000000" d="M2200,1225L2200,1237.5" stroke-width="2"/>
+    <text fill="#000000" x="2200" y="1255" text-anchor="middle" text-decoration="none" style="font-family: Arial; font-size: 12px;">A3</text>
+    <text fill="#000000" x="2192" y="1233" text-anchor="middle" style="font-family: Arial; font-size: 12px;"/>
+    <path fill="none" stroke="#000000" d="M2150,1225L2150,1237.5" stroke-width="2"/>
+    <text fill="#000000" x="2150" y="1255" text-anchor="middle" text-decoration="none" style="font-family: Arial; font-size: 12px;">A4</text>
+    <text fill="#000000" x="2142" y="1233" text-anchor="middle" style="font-family: Arial; font-size: 12px;"/>
+    <path fill="none" stroke="#000000" d="M2350,1375L2350,1362.5" stroke-width="2"/>
+    <text fill="#000000" x="2350" y="1355" text-anchor="middle" text-decoration="none" style="font-family: Arial; font-size: 12px;">HV</text>
+    <text fill="#000000" x="2342" y="1375" text-anchor="middle" style="font-family: Arial; font-size: 12px;"/>
+    <path fill="none" stroke="#000000" d="M2100,1225L2100,1237.5" stroke-width="2"/>
+    <text fill="#000000" x="2100" y="1255" text-anchor="middle" text-decoration="none" style="font-family: Arial; font-size: 12px;">GND</text>
+    <text fill="#000000" x="2092" y="1233" text-anchor="middle" style="font-family: Arial; font-size: 12px;"/>
+    <path fill="none" stroke="#000000" d="M2100,1375L2100,1362.5" stroke-width="2"/>
+    <text fill="#000000" x="2100" y="1355" text-anchor="middle" text-decoration="none" style="font-family: Arial; font-size: 12px;">GND</text>
+    <text fill="#000000" x="2092" y="1375" text-anchor="middle" style="font-family: Arial; font-size: 12px;"/>
+    <path fill="none" stroke="#000000" d="M2300,1375L2300,1362.5" stroke-width="2"/>
+    <text fill="#000000" x="2300" y="1355" text-anchor="middle" text-decoration="none" style="font-family: Arial; font-size: 12px;">B1</text>
+    <text fill="#000000" x="2292" y="1375" text-anchor="middle" style="font-family: Arial; font-size: 12px;"/>
+    <path fill="none" stroke="#000000" d="M2250,1375L2250,1362.5" stroke-width="2"/>
+    <text fill="#000000" x="2250" y="1355" text-anchor="middle" text-decoration="none" style="font-family: Arial; font-size: 12px;">B2</text>
+    <text fill="#000000" x="2242" y="1375" text-anchor="middle" style="font-family: Arial; font-size: 12px;"/>
+    <path fill="none" stroke="#000000" d="M2200,1375L2200,1362.5" stroke-width="2"/>
+    <text fill="#000000" x="2200" y="1355" text-anchor="middle" text-decoration="none" style="font-family: Arial; font-size: 12px;">B3</text>
+    <text fill="#000000" x="2192" y="1375" text-anchor="middle" style="font-family: Arial; font-size: 12px;"/>
+    <path fill="none" stroke="#000000" d="M2150,1375L2150,1362.5" stroke-width="2"/>
+    <text fill="#000000" x="2150" y="1355" text-anchor="middle" text-decoration="none" style="font-family: Arial; font-size: 12px;">B4</text>
+    <text fill="#000000" x="2142" y="1375" text-anchor="middle" style="font-family: Arial; font-size: 12px;"/>
+    <rect x="2162.5" y="1062.5" width="125" height="75" r="0" rx="0" ry="0" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+    <text fill="#000000" x="2225" y="1076" text-anchor="middle" text-decoration="none" style="font-family: Arial; font-size: 16px; font-weight: bold;"/>
+    <text fill="#000000" x="2225" y="1100" text-anchor="middle" text-decoration="none" style="font-family: Arial; font-size: 16px; font-weight: bold;">MLX90620</text>
+    <text fill="#000000" x="2225" y="1124" text-anchor="middle" text-decoration="none" style="font-family: Arial; font-size: 16px; font-weight: bold;"/>
+    <path fill="none" stroke="#000000" d="M2250,1050L2250,1062.5" stroke-width="2"/>
+    <text fill="#000000" x="2250" y="1080" text-anchor="middle" text-decoration="none" style="font-family: Arial; font-size: 12px;">VSS</text>
+    <text fill="#000000" x="2242" y="1058" text-anchor="middle" text-decoration="none" style="font-family: Arial; font-size: 12px;">4</text>
+    <path fill="none" stroke="#000000" d="M2250,1150L2250,1137.5" stroke-width="2"/>
+    <text fill="#000000" x="2250" y="1130" text-anchor="middle" text-decoration="none" style="font-family: Arial; font-size: 12px;">SCL</text>
+    <text fill="#000000" x="2242" y="1150" text-anchor="middle" text-decoration="none" style="font-family: Arial; font-size: 12px;">1</text>
+    <path fill="none" stroke="#000000" d="M2200,1150L2200,1137.5" stroke-width="2"/>
+    <text fill="#000000" x="2200" y="1130" text-anchor="middle" text-decoration="none" style="font-family: Arial; font-size: 12px;">SDA</text>
+    <text fill="#000000" x="2192" y="1150" text-anchor="middle" text-decoration="none" style="font-family: Arial; font-size: 12px;">2</text>
+    <path fill="none" stroke="#000000" d="M2200,1050L2200,1062.5" stroke-width="2"/>
+    <text fill="#000000" x="2200" y="1080" text-anchor="middle" text-decoration="none" style="font-family: Arial; font-size: 12px;">VDD</text>
+    <text fill="#000000" x="2192" y="1058" text-anchor="middle" text-decoration="none" style="font-family: Arial; font-size: 12px;">3</text>
+    <rect x="2387.5" y="1587.5" width="200" height="225" r="0" rx="0" ry="0" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+    <text fill="#000000" x="2487.5" y="1676" text-anchor="middle" text-decoration="none" style="font-family: Arial; font-size: 16px; font-weight: bold;"/>
+    <text fill="#000000" x="2487.5" y="1700" text-anchor="middle" text-decoration="none" style="font-family: Arial; font-size: 16px; font-weight: bold;">Arduino</text>
+    <text fill="#000000" x="2487.5" y="1724" text-anchor="middle" text-decoration="none" style="font-family: Arial; font-size: 16px; font-weight: bold;"/>
+    <path fill="none" stroke="#000000" d="M2375,1625L2387.5,1625" stroke-width="2"/>
+    <text fill="#000000" x="2395" y="1629" text-anchor="start" text-decoration="none" style="font-family: Arial; font-size: 12px;">5V</text>
+    <text fill="#000000" x="2380" y="1622" text-anchor="middle" style="font-family: Arial; font-size: 12px;"/>
+    <path fill="none" stroke="#000000" d="M2375,1675L2387.5,1675" stroke-width="2"/>
+    <text fill="#000000" x="2395" y="1679" text-anchor="start" text-decoration="none" style="font-family: Arial; font-size: 12px;">GND</text>
+    <text fill="#000000" x="2380" y="1672" text-anchor="middle" style="font-family: Arial; font-size: 12px;"/>
+    <path fill="none" stroke="#000000" d="M2375,1725L2387.5,1725" stroke-width="2"/>
+    <text fill="#000000" x="2395" y="1729" text-anchor="start" text-decoration="none" style="font-family: Arial; font-size: 12px;">A4 (SDA)</text>
+    <text fill="#000000" x="2380" y="1722" text-anchor="middle" style="font-family: Arial; font-size: 12px;"/>
+    <path fill="none" stroke="#000000" d="M2375,1775L2387.5,1775" stroke-width="2"/>
+    <text fill="#000000" x="2395" y="1779" text-anchor="start" text-decoration="none" style="font-family: Arial; font-size: 12px;">A5 (SCL)</text>
+    <text fill="#000000" x="2380" y="1772" text-anchor="middle" style="font-family: Arial; font-size: 12px;"/>
+    <path fill="none" stroke="#000000" d="M2475,1575L2475,1587.5" stroke-width="2"/>
+    <text fill="#000000" x="2475" y="1605" text-anchor="middle" text-decoration="none" style="font-family: Arial; font-size: 12px;">+</text>
+    <text fill="#000000" x="2467" y="1583" text-anchor="middle" style="font-family: Arial; font-size: 12px;"/>
+    <path fill="none" stroke="#000000" d="M2525,1575L2525,1587.5" stroke-width="2"/>
+    <text fill="#000000" x="2525" y="1605" text-anchor="middle" text-decoration="none" style="font-family: Arial; font-size: 12px;">-</text>
+    <text fill="#000000" x="2517" y="1583" text-anchor="middle" style="font-family: Arial; font-size: 12px;"/>
+    <path style="stroke-linecap: round;" fill="none" stroke="#000000" d="M 2350 1625 L 2375 1625" stroke-width="2" stroke-linecap="round" class="cl_wire"/>
+    <path style="stroke-linecap: round;" fill="none" stroke="#000000" d="M 2350 1375 L 2350 1625" stroke-width="2" stroke-linecap="round" class="cl_wire"/>
+    <path style="stroke-linecap: round;" fill="none" stroke="#000000" d="M 2200 1725 L 2243 1725 A 7 7 0 1 1 2257 1725 L 2375 1725" stroke-width="2" stroke-linecap="round" class="cl_wire"/>
+    <path style="stroke-linecap: round;" fill="none" stroke="#000000" d="M 2250 1775 L 2375 1775" stroke-width="2" stroke-linecap="round" class="cl_wire"/>
+    <path style="stroke-linecap: round;" fill="none" stroke="#000000" d="M 2250 1375 L 2250 1418 A 7 7 0 1 1 2250 1432 L 2250 1775" stroke-width="2" stroke-linecap="round" class="cl_wire"/>
+    <path style="stroke-linecap: round;" fill="none" stroke="#000000" d="M 2100 1425 L 2193 1425 A 7 7 0 1 1 2207 1425 L 2300 1425" stroke-width="2" stroke-linecap="round" class="cl_wire"/>
+    <path style="stroke-linecap: round;" fill="none" stroke="#000000" d="M 2525 1550 L 2525 1575" stroke-width="2" stroke-linecap="round" class="cl_wire"/>
+    <path style="stroke-linecap: round;" fill="none" stroke="#000000" d="M 2525 1550 L 2575 1550" stroke-width="2" stroke-linecap="round" class="cl_wire"/>
+    <path style="stroke-linecap: round;" fill="none" stroke="#000000" d="M 2575 1450 L 2575 1550" stroke-width="2" stroke-linecap="round" class="cl_wire"/>
+    <path style="stroke-linecap: round;" fill="none" stroke="#000000" d="M 2550 1450 L 2575 1450" stroke-width="2" stroke-linecap="round" class="cl_wire"/>
+    <text style="font-family: Arial; font-size: 16px; font-weight: bold; text-anchor: middle;" x="0" y="0" text-anchor="middle" stroke="none" fill="#000000" transform="translate(2500,1500.45)">
+      <tspan dy="-2.3999999999999995">BAT1</tspan>
+      <tspan dy="19.2" x="0">9 V</tspan>
+    </text>
+    <path style="stroke-linecap: round; stroke-miterlimit: 4;" fill="none" stroke="#000000" d="M50,25L0,25" stroke-width="2" stroke-linecap="round" stroke-miterlimit="4" transform="matrix(0,1,1,0,2450,1425)"/>
+    <path style="stroke-linecap: round; stroke-miterlimit: 4;" fill="none" stroke="#000000" d="M25,24.5L25,0" stroke-width="2" stroke-linecap="round" stroke-miterlimit="4" transform="matrix(0,1,1,0,2450,1425)"/>
+    <path style="stroke-linecap: round; stroke-miterlimit: 4;" fill="none" stroke="#000000" d="M37.5,35L12.5,35" stroke-width="2" stroke-linecap="round" stroke-miterlimit="4" transform="matrix(0,1,1,0,2450,1425)"/>
+    <path style="stroke-linecap: round; stroke-miterlimit: 4;" fill="none" stroke="#000000" d="M37.5,75L12.5,75" stroke-width="2" stroke-linecap="round" stroke-miterlimit="4" transform="matrix(0,1,1,0,2450,1425)"/>
+    <path style="stroke-linecap: round; stroke-miterlimit: 4;" fill="none" stroke="#000000" d="M50,65L0,65" stroke-width="2" stroke-linecap="round" stroke-miterlimit="4" transform="matrix(0,1,1,0,2450,1425)"/>
+    <path style="stroke-linecap: round; stroke-miterlimit: 4;" fill="none" stroke="#000000" d="M25,75.5L25,100" stroke-width="2" stroke-linecap="round" stroke-miterlimit="4" transform="matrix(0,1,1,0,2450,1425)"/>
+    <path style="stroke-linecap: round; stroke-miterlimit: 4;" fill="none" stroke="#000000" d="M37.5,55L12.5,55" stroke-width="2" stroke-linecap="round" stroke-miterlimit="4" transform="matrix(0,1,1,0,2450,1425)"/>
+    <path style="stroke-linecap: round; stroke-miterlimit: 4;" fill="none" stroke="#000000" d="M50,45L0,45" stroke-width="2" stroke-linecap="round" stroke-miterlimit="4" transform="matrix(0,1,1,0,2450,1425)"/>
+    <path fill="#000000" stroke="none" d="M12.239297,9.99656L10.99166,9.99656L10.99166,15.41811L5.6154788,15.41811L5.6154788,16.66575L10.99166,16.66575L10.99166,22.0873L12.239297,22.0873L12.239297,16.66575L17.615479,16.66575L17.615479,15.41811L12.239297,15.41811L12.239297,9.99656" transform="matrix(0,1,1,0,2450,1425)"/>
+    <path fill="#000000" stroke="none" d="M10.93749,25L25,50L39.06251,25" transform="matrix(-1,0,0,-1,2450,1350)"/>
+    <path style="stroke-linecap: round; stroke-miterlimit: 6;" fill="none" stroke="#000000" d="M25,25L25,0" stroke-width="2" stroke-linecap="round" stroke-miterlimit="6" transform="matrix(-1,0,0,-1,2450,1350)"/>
+    <path style="stroke-linecap: round; stroke-miterlimit: 6;" fill="none" stroke="#000000" d="M25,50L25,75" stroke-width="2" stroke-linecap="round" stroke-miterlimit="6" transform="matrix(-1,0,0,-1,2450,1350)"/>
+    <path style="stroke-linecap: round; stroke-miterlimit: 6;" fill="none" stroke="#000000" d="M10.93749,50L39.06251,50" stroke-width="2" stroke-linecap="round" stroke-miterlimit="6" transform="matrix(-1,0,0,-1,2450,1350)"/>
+    <text style="font-family: Arial; font-size: 16px; font-weight: bold; text-anchor: start;" x="0" y="0" text-anchor="start" stroke="none" fill="#000000" transform="translate(2443.75,1312.5)">
+      <tspan dy="-2.3999999999999995">D1</tspan>
+      <tspan dy="19.2" x="0">1N4148</tspan>
+    </text>
+    <path style="stroke-linecap: round;" fill="none" stroke="#000000" d="M 2350 1400 L 2425 1400" stroke-width="2" stroke-linecap="round" class="cl_wire"/>
+    <path style="stroke-linecap: round;" fill="none" stroke="#000000" d="M 2300 1675 L 2375 1675" stroke-width="2" stroke-linecap="round" class="cl_wire"/>
+    <path style="stroke-linecap: round;" fill="none" stroke="#000000" d="M 2300 1425 L 2300 1675" stroke-width="2" stroke-linecap="round" class="cl_wire"/>
+    <path style="stroke-linecap: round;" fill="none" stroke="#000000" d="M 2425 1450 L 2450 1450" stroke-width="2" stroke-linecap="round" class="cl_wire"/>
+    <path style="stroke-linecap: round;" fill="none" stroke="#000000" d="M 2425 1450 L 2425 1550" stroke-width="2" stroke-linecap="round" class="cl_wire"/>
+    <path style="stroke-linecap: round;" fill="none" stroke="#000000" d="M 2425 1550 L 2475 1550" stroke-width="2" stroke-linecap="round" class="cl_wire"/>
+    <path style="stroke-linecap: round;" fill="none" stroke="#000000" d="M 2475 1550 L 2475 1575" stroke-width="2" stroke-linecap="round" class="cl_wire"/>
+    <path style="stroke-linecap: round;" fill="none" stroke="#000000" d="M 2200 1000 L 2200 1050" stroke-width="2" stroke-linecap="round" class="cl_wire"/>
+    <path style="stroke-linecap: round;" fill="none" stroke="#000000" d="M 2425 1350 L 2425 1400" stroke-width="2" stroke-linecap="round" class="cl_wire"/>
+    <path style="stroke-linecap: round; stroke-miterlimit: 6;" fill="none" stroke="#000000" d="M25,21.87499L25,0" stroke-width="2" stroke-linecap="round" stroke-miterlimit="6" transform="translate(2400,1125)"/>
+    <path style="stroke-linecap: round; stroke-miterlimit: 6;" fill="none" stroke="#000000" d="M25,78.12502L25,100" stroke-width="2" stroke-linecap="round" stroke-miterlimit="6" transform="translate(2400,1125)"/>
+    <path style="stroke-linecap: round; stroke-miterlimit: 6;" fill="none" stroke="#000000" d="M25,21.87499L14.062504,26.56249L35.937495,35.93748L14.062504,45.31248L35.937495,54.68752L14.062504,64.06252L35.937495,73.43752L25,78.12502" stroke-width="2" stroke-linecap="round" stroke-miterlimit="6" transform="translate(2400,1125)"/>
+    <text style="font-family: Arial; font-size: 16px; font-weight: bold; text-anchor: start;" x="0" y="0" text-anchor="start" stroke="none" fill="#000000" transform="translate(2443.75,1175)">
+      <tspan dy="-2.3999999999999995">R1</tspan>
+      <tspan dy="19.2" x="0">? Ω</tspan>
+    </text>
+    <path style="stroke-linecap: round; stroke-miterlimit: 6;" fill="none" stroke="#000000" d="M25,21.87499L25,0" stroke-width="2" stroke-linecap="round" stroke-miterlimit="6" transform="translate(2400,975)"/>
+    <path style="stroke-linecap: round; stroke-miterlimit: 6;" fill="none" stroke="#000000" d="M25,78.12502L25,100" stroke-width="2" stroke-linecap="round" stroke-miterlimit="6" transform="translate(2400,975)"/>
+    <path style="stroke-linecap: round; stroke-miterlimit: 6;" fill="none" stroke="#000000" d="M25,21.87499L14.062504,26.56249L35.937495,35.93748L14.062504,45.31248L35.937495,54.68752L14.062504,64.06252L35.937495,73.43752L25,78.12502" stroke-width="2" stroke-linecap="round" stroke-miterlimit="6" transform="translate(2400,975)"/>
+    <text style="font-family: Arial; font-size: 16px; font-weight: bold; text-anchor: start;" x="0" y="0" text-anchor="start" stroke="none" fill="#000000" transform="translate(2443.75,1025)">
+      <tspan dy="-2.3999999999999995">R2</tspan>
+      <tspan dy="19.2" x="0">? Ω</tspan>
+    </text>
+    <path style="stroke-linecap: round;" fill="none" stroke="#000000" d="M 2425 950 L 2425 975" stroke-width="2" stroke-linecap="round" class="cl_wire"/>
+    <path style="stroke-linecap: round;" fill="none" stroke="#000000" d="M 2425 1225 L 2425 1275" stroke-width="2" stroke-linecap="round" class="cl_wire"/>
+    <path style="stroke-linecap: round;" fill="none" stroke="#000000" d="M 2200 1000 L 2243 1000 A 7 7 0 1 1 2257 1000 L 2350 1000" stroke-width="2" stroke-linecap="round" class="cl_wire"/>
+    <path style="stroke-linecap: round;" fill="none" stroke="#000000" d="M 2250 950 L 2250 1050" stroke-width="2" stroke-linecap="round" class="cl_wire"/>
+    <path style="stroke-linecap: round;" fill="none" stroke="#000000" d="M 2100 1375 L 2100 1425" stroke-width="2" stroke-linecap="round" class="cl_wire"/>
+    <path style="stroke-linecap: round;" fill="none" stroke="#000000" d="M 2100 950 L 2425 950" stroke-width="2" stroke-linecap="round" class="cl_wire"/>
+    <path style="stroke-linecap: round;" fill="none" stroke="#000000" d="M 2100 950 L 2100 1225" stroke-width="2" stroke-linecap="round" class="cl_wire"/>
+    <path style="stroke-linecap: round;" fill="none" stroke="#000000" d="M 2250 1150 L 2250 1225" stroke-width="2" stroke-linecap="round" class="cl_wire"/>
+    <path style="stroke-linecap: round;" fill="none" stroke="#000000" d="M 2200 1150 L 2200 1225" stroke-width="2" stroke-linecap="round" class="cl_wire"/>
+    <path style="stroke-linecap: round;" fill="none" stroke="#000000" d="M 2200 1375 L 2200 1725" stroke-width="2" stroke-linecap="round" class="cl_wire"/>
+    <path style="stroke-linecap: round;" fill="none" stroke="#000000" d="M 2350 1000 L 2350 1225" stroke-width="2" stroke-linecap="round" class="cl_wire"/>
+    <path style="stroke-linecap: round;" fill="none" stroke="#000000" d="M 2425 1075 L 2425 1125" stroke-width="2" stroke-linecap="round" class="cl_wire"/>
+    <path style="stroke-linecap: round;" fill="none" stroke="#000000" d="M 2350 1100 L 2425 1100" stroke-width="2" stroke-linecap="round" class="cl_wire"/>
+    <circle cx="2350" cy="1400" r="3" fill="#000000" stroke="#000000"/>
+    <circle cx="2250" cy="950" r="3" fill="#000000" stroke="#000000"/>
+    <circle cx="2350" cy="1100" r="3" fill="#000000" stroke="#000000"/>
+    <circle cx="2425" cy="1100" r="3" fill="#000000" stroke="#000000"/>
+  </g>
+</svg>
