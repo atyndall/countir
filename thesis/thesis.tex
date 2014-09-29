@@ -15,6 +15,13 @@
 \usepackage{threeparttable}
 \usepackage{tikz}
 \usepackage{forest}
+\usepackage{hyperref}
+
+\newcommand{\thetitle}{Developing a robust system for occupancy detection in the household}
+\newcommand{\theauthor}{Ash Tyndall}
+
+\newcommand{\thekeywords}{keyword, keyword}
+\newcommand{\thecategories}{category, category}
 
 %%% BEGIN LATEX TWEAKS
 
@@ -125,15 +132,15 @@
 \preto\section\acresetall
 \preto\chapter\acresetall
 
+% Hyperref setup
+\hypersetup{pdftitle=\thetitle,pdfauthor=\theauthor,pdfsubject=\thecategories,pdfkeywords=\thekeywords,hidelinks=true}
+
+% Configure titles
+\title{\thetitle}
+\author{\theauthor}
+\keywords{\thekeywords}
+\categories{\thecategories}
 %%% END LATEX TWEAKS
-
-
-\title{Developing a robust system for occupancy detection in the household}
-\author{Ash Tyndall}
-
-\keywords{keyword, keyword}
-\categories{category, category}
-
 
 \begin{document}
 \newcommand{\mainfile}{} % we use the existance of this command to see if we're compiling the whole thesis or just a chapter
@@ -154,6 +161,7 @@ These are the acknowledgements.
 \listoftables
 \listoffigures
 
+
 \subfile{../introduction/introduction}
 \subfile{../litreview/litreview}
 \subfile{../methods/methods}
@@ -164,6 +172,14 @@ These are the acknowledgements.
 
 \chapter{Original Honours Proposal}
 \subfile{../proposal/proposal}
+
+\chapter{Circuits}
+\begin{figure}
+\centering
+\includegraphics[height=0.85\textheight]{../diagrams/mlx-arduino.pdf}
+\caption{MLX90620 and Arduino connecting circuit}
+\label{fig:circuits:arduino2}
+\end{figure}
 
 \bibliography{../references/primary}
 
