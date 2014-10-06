@@ -4,11 +4,11 @@
 \chapter{Literature Review}
 \label{chap:litreview}
 
-The proportion of elderly and mobility-impaired people is predicted to grow dramatically over the next century, leaving a large proportion of the population unable to care for themselves, and also reducing the number of human carers available \cite{chan2009smart}. With this issue looming, investments are being made into a variety of technologies that can provide the support these groups need to live independent of human assistance. 
+The proportion of elderly and mobility-impaired people is predicted to grow dramatically over the next century, leaving a large proportion of the population unable to care for themselves, and also reducing the number of human carers available \cite{chan2009smart}. With this issue looming, investments are being made in technologies that can provide the support these groups need to live independent of human assistance. 
 
-With recent advancements in low cost embedded computing, such as the Arduino and Raspberry Pi, the ability to provide a set of interconnected sensors, actuators and interfaces to enable a low-cost `smart home for the disabled' that takes advantage of the \iot is becoming increasingly achievable.
+With recent advance in low cost embedded computing, such as the Arduino and Raspberry Pi, the ability to provide a set of interconnected sensors, actuators and interfaces to enable a low-cost `smart home for the disabled' that takes advantage of the \iot is becoming increasingly achievable.
 
-Sensing techniques to determine occupancy, the detection of the presence and number of people in an area, are of particular use to the elderly and disabled. Detection can be used to inform various devices that change state depending on the user's location, including the better regulation energy hungry devices to help reduce financial burden. Household climate control, which in some regions of Australia accounts for up to 40\% of energy usage \cite{abs4602} is one specific area in which occupancy detection can reduce costs, as efficiency can be increased dramatically with annual energy savings of up to 25\% found in some cases \cite{beltran2013thermosense}.
+Sensing techniques to determine occupancy, the detection of the presence and number of people in an area, are of particular use to the elderly and disabled. Detection can be used to inform various devices that change state depending on the user's location, including the better regulation energy hungry devices to help reduce financial burden. Household climate control, which in some regions of Australia accounts for up to 40\% of energy usage \cite{abs4602} is one area in which occupancy detection can reduce costs, as efficiency can be increased with annual energy savings of up to 25\% found in some cases \cite{beltran2013thermosense}.
  
 While many of the above solutions achieve excellent accuracies, in many cases they suffer from problems of installation logistics, difficult assembly, assumptions on user's technology ownership and component cost. In a smart home for the disabled, accuracy is important, but accessibility is paramount.
 
@@ -19,7 +19,7 @@ The goal of this research project is to devise an occupancy detection system tha
  
  \item \emph{Non-Invasive}: The sensors used in the system should gather as little information as necessary to achieve the detection goal; there are privacy concerns with the use of high-definition sensors.
  
- \item \emph{Energy Efficient}: The system may be placed in a location where there is no access to mains power (i.e. roof), and the retrofitting of appropriate power can be difficult; the ability to survive for long periods on only battery power is advantageous.
+ \item \emph{Energy Efficient}: The system may be placed in a location where there is no access to mains power (e.g. roof), and the retrofitting of appropriate power can be difficult; the ability to survive for long periods on only battery power is advantageous.
  
  \item \emph{Reliable}: The system should be able to operate without user intervention or frequent maintenance, and should be able to perform its occupancy detection goal with a high degree of accuracy.
 \end{itemize}
@@ -44,7 +44,7 @@ The quantitative criteria elements are;
 
 At a fundamental level, this research project requires a sensor system that provides both Presence and Count information. To assist with the reduction of privacy concerns, excluding systems that permit Identity will generally result in a less invasive system also. The presence of Location or Track are irrelevant to our project's goals, but overall, minimising these elements should in most cases help to maximise the energy efficiency of the system also.
 
-Teixeira, Dublon and Savvides \cite{teixeira2010survey} also propose a measurable human trait taxonomy (see \Fref{fig:litreview:taxonomy}), which categorises different sensing systems in terms of what information they use as a proxy for human-sensing. We use this taxonomy here as a structure through which we group and discuss different sensor types.
+Teixeira, Dublon and Savvides \cite{teixeira2010survey} also propose a measurable occupancy sensor taxonomy (see \Fref{fig:litreview:taxonomy}), which categorises different sensing systems in terms of what information they use as a proxy for human-sensing. We use this taxonomy here as a structure through which we group and discuss different sensor types.
 
 \begin{figure}
 \centering
@@ -60,7 +60,7 @@ Teixeira, Dublon and Savvides \cite{teixeira2010survey} also propose a measurabl
   ]
 ]
 \end{forest}
-\caption{Simplified and modified sensor taxonomy \cite{teixeira2010survey}}
+\caption{Taxonomy of occupancy sensors}
 \label{fig:litreview:taxonomy}
 \end{figure}
 
@@ -75,11 +75,11 @@ Static traits are physiologically derived, and are present with most (living) oc
 
 Beltran, Erickson and Cerpa \cite{beltran2013thermosense} propose Thermosense, a system that uses a type of thermal sensor known as an \iar. This sensor is much like a camera, in that it has a field of view which is divided into ``pixels''; in this case an $8\times8$ grid of detected temperatures. This sensor is mounted on an embedded device on the ceiling, along with a \pir, and uses a variety of classification algorithms to detect human heat signatures within the raw thermal and motion data it collects. Thermosense achieves Root Mean Squared Error $\approx0.35$ persons.
 
-Another static trait is that of \cdi emissions, which, like thermal emissions, are emitted by human occupants in both resting and active states. By measuring the buildup of \cdi within a given area, one can use a variety of mathematical models of human \cdi production to determine the likely number of occupants present to result in that level of \cdi production. Hailemariam \etal \cite{hailemariam2011real} trialled this as part of a sensor fusion within the context of an office environment, achieving a $\approx94\%$ accuracy. Such a sensing system could provide both the Presence and Count information, and exclude the Identity information as required. However, a \cdi based detection mechanism has serious drawbacks, discussed by Fisk, Faulkner and Sullivan \cite{fisk2006accuracy}; the \cdi feedback mechanism is very slow in nature, taking hours of continuous occupancy to correctly identify the presence of people. In a residential environment, occupants are more likely to be moving between rooms than an office, so the system may have a more difficult time detecting in that situation. Similarly, such systems can be interfered with by other elements that control the \cdi buildup in a space, like air conditioners, open windows, etc. This is also much more of a concern in a residential environment compared to the studied office space, as the average residence can have numerous such confounding factors that cannot easily be controlled for.
+Another static trait is that of \cdi emissions, which, like thermal emissions, are emitted by human occupants in both resting and active states. By measuring the buildup of \cdi within a given area, one can use a variety of mathematical models of human \cdi production to determine the likely number of occupants present. Hailemariam \etal \cite{hailemariam2011real} trialled this as part of a sensor fusion within the context of an office environment, achieving a $\approx94\%$ accuracy. Such a sensing system could provide both the Presence and Count information, and exclude the Identity information as required. However, a \cdi based detection mechanism has serious drawbacks, discussed by Fisk, Faulkner and Sullivan \cite{fisk2006accuracy}: The \cdi feedback mechanism is very slow, taking hours of continuous occupancy to correctly identify the presence of people. In a residential environment, occupants are more likely to be moving between rooms than an office, so the system may have a more difficult time detecting in that situation. Similarly, such systems can be interfered with by other elements that control the \cdi buildup in a space, like air conditioners, open windows, etc. This is also much more of a concern in a residential environment compared to the studied office space, as the average residence can have numerous such confounding factors that cannot easily be controlled for.
 
-The final static trait discussed is actual visual identification, achieved through the use of video or still-image cameras and advanced image processing algorithms. Video can be used in occupancy detection in several different ways, achieving different levels of accuracy and requiring different configurations. The first use of video, POEM, proposed by Erickson, Achleitner and Cerpa \cite{erickson2013poem} is the use of video as a ``optical turnstile''; the video system detects potential occupants and the direction they are moving in at each entrance and exit to an area, and uses that information to extrapolate the number of occupants within the turnstiled area; this system has up to a 94\% accuracy. However, the main issue with such a system applied to a residential environment is the system assumes that there will be wide enough ``turnstile areas'', corridors of a fairly large area that connect different sections of a building, to use as detection zones. While such corridors exist in office environments, they are less likely to exist in residential ones.
+Visual identification can be, achieved through the use of video or still-image cameras and advanced image processing algorithms. Video can be used in occupancy detection in several different ways, achieving different levels of accuracy and requiring different configurations. The first use of video, POEM, proposed by Erickson, Achleitner and Cerpa \cite{erickson2013poem} is the use of video as a ``optical turnstile''; the video system detects potential occupants and the direction they are moving in at each entrance and exit to an area, and uses that information to extrapolate the number of occupants within the turnstiled area; this system has up to a 94\% accuracy. However, the main issue with such a system applied to a residential environment is the system assumes that there will be wide enough ``turnstile areas'', corridors of a fairly large area that connect different sections of a building, to use as detection zones. While such corridors exist in office environments, they are less likely to exist in residential ones.
 
-The second use of video is a ceiling-based video system, proposed by Serrano-Cuerda \etal \cite{serrano2013efficient}, that uses advanced image processing algorithms to count the number of people in the captured area. This system achieves a specificity of $\mathit{TP}/(\mathit{TP}+\mathit{FP})\approx97\%$ and a sensitivity $\mathit{TP}/(\mathit{TP}+\mathit{FN})\approx96\%$ (TP = true positives, FP = false positives, FN = false negatives). Such a system could be successfully applied to the residential environment, as both it and the ``optical turnstile'' model provide Presence and Count information. However, these systems also allow Identity to be determined, and thus are perceived as privacy-invasive. This perception leads to adoption and acceptance issues, which work against the ideal system's goals.
+Another video sensor system is proposed by Serrano-Cuerda \etal \cite{serrano2013efficient}, that uses ceiling-based cameras and advanced image processing algorithms to count the number of people in the captured area. This system achieves a specificity of $\mathit{TP}/(\mathit{TP}+\mathit{FP})\approx97\%$ and a sensitivity $\mathit{TP}/(\mathit{TP}+\mathit{FN})\approx96\%$ (TP = true positives, FP = false positives, FN = false negatives). Such a system could be successfully applied to the residential environment, as both it and the ``optical turnstile'' model provide Presence and Count information. However, these systems also allow Identity to be determined, and thus are perceived as privacy-invasive. This perception leads to adoption and acceptance issues, which work against the ideal system's goals.
 
 \subsubsection{Dynamic traits}
 \label{subsubsec:litreview:sensors:intrinsic:dynamic}
@@ -87,17 +87,17 @@ Dynamic traits are usually products of human occupant activity, and thus can gen
 
 Ultrasonic systems, such as Doorjamb proposed by Hnat \etal \cite{hnat2012doorjamb}, use clusters of such sensors above doorframes to detect the height and direction of potential occupants travelling between rooms. This acts as a turnstile based system, much like POEM \cite{erickson2013poem}, but augments this with an understanding of the model of the building to error correct for invalid and impossible movements brought about from sensing errors. This system provides an overall room-level tracking accuracy of 90\%, however to achieve this accuracy, potential occupants are intended to be tracked using their heights, which has privacy implications. The system can also suffer from problems with error propagation, as there are possibilities of ``phantom'' occupants entering a room due to sensing errors.
 
-Solely \pir based systems, like those used by Hailemariam \etal \cite{hailemariam2011real}, involve the motion of the sensor being averaged over several different time intervals, and fed into a decision tree classifier. This \pir system alone produced a $\approx98\%$ accuracy. However, such a system, due to only motion detection capabilities, can only provide Presence information, and is unable to provide Count information.
+Solely \pir based systems, like those used by Hailemariam \etal \cite{hailemariam2011real}, involve the motion of the sensor being averaged over several different time intervals, and fed into a decision tree classifier. This \pir system alone produced a $\approx98\%$ accuracy. However, such a system, due to only motion detection capabilities, can only provide Presence information, and is unable to provide Count information, nor detect motionless occupants.
 
 \subsection{Extrinsic traits}
 \label{subsec:litreview:sensors:extrinsic}
-Extrinsic traits are those which are actually other environmental changes that are caused by or correlated with human occupant presence. These traits generally present a less accurate picture, or require the sensed occupants to be in some way ``tagged'', but they are generally also easier to sense in of themselves. The sensors in this category have been divided into two subcategories for our purposes that are not discussed by Teixeira, Dublon and Savvides \cite{teixeira2010survey}.
+Extrinsic traits are those which are actually other environmental changes that are caused by or correlated with human occupant presence. These traits generally present a less accurate picture, or require the sensed occupants to be in some way ``tagged'', but they are generally also easier to sense in of themselves. The sensors in this category have been divided into two subcategories.
 
 \subsubsection{Instrumented traits}
 \label{subsubsec:litreview:sensors:extrinsic:instrumented}
 One extrinsic trait category is instrumented approaches; these require that detectable occupants carry with them some device that is detected as a proxy for the occupant themselves.
 
-The most obvious of these approaches is a specially designed device. \cite{li2012measuring} uses RFID tags placed on building occupant's persons and a set of transmitters to triangulate the tags and place them within different thermal zones for the use of the HVAC system. For stationary occupants, there was a detection accuracy of $\approx88\%$, and for occupants who were mobile, the accuracy was $\approx62\%$. Such a system could be re-purposed for the residence, however, these systems raise issues in a residential environment as it requires occupants to be constantly carrying their sensors, which is less likely in such an environment. Additionally, the accuracy for this system is not necessarily high enough for a residential environment, where much smaller rooms are used.
+The most obvious of these approaches is a specially designed device. Li \etal \cite{li2012measuring} use RFID tags placed on building occupant's persons and a set of transmitters to triangulate the tags and place them within different thermal zones for the use of the HVAC system. For stationary occupants, there was a detection accuracy of $\approx88\%$, and for occupants who were mobile, the accuracy was $\approx62\%$. Such a system could be re-purposed for the residence, however, these systems raise issues in a residential environment as it requires occupants to be constantly carrying their sensors, which is less likely in such an environment. Additionally, the accuracy for this system is not necessarily high enough for a residential environment, where much smaller rooms are used.
 
 To make extrinsic detection more reliable, Li, Calis and Becerik-Gerber \cite{kleiminger2013inferring} leverage a common consumer device; wifi enabled smart phones. They propose the \textit{homeset} algorithm, which uses the phones to scan the visible wifi networks, and from that information estimate if the occupants are at home or out and about by ``triangulating'' their position from the visible wifi networks. This solution does not provide the fine-grained Presence data that we need, as it is only able to triangulate the phone's position very roughly with the wireless network detection information.
 
@@ -110,9 +110,6 @@ Finally, Gupta, Intille and Larson \cite{gupta2009adding} use specifically the G
 The second of these subcategories are correlative approaches. These approaches analyse data that is correlated with human occupant activity, but does not require a specific device to be present on each occupant that is tracked with the system.
 
 The primary approach in this area is work done by Kleiminger \etal \cite{kleiminger2013occupancy}, which attempts to measure electricity consumption and use such data to determine Presence. Electricity data was measured at two different levels of granularity; the whole house level with a smart meter, and the consumption of specific appliances through smart plugs. This data was then processed by a variety of classifiers to achieve a classification accuracy of more than 80\%. Such a system presents a low-cost solution to occupancy, however it is not sufficiently granular in either the detection of multiple occupants, or the detection of occupants in a specific room.
-
-% The second of these approaches is \cite{ting2013occupancy}, which attempts to measure network traffic, among other things, to determine Presence. 
-% TODO: Unable to find paper corresponding to this Poster Abstract?
 
 \subsection{Analysis}
 \label{subsec:litreview:sensors:analysis}
@@ -147,7 +144,6 @@ The primary approach in this area is work done by Kleiminger \etal \cite{kleimin
 
 \hspace{3mm}\textit{Correlative} 	& & & & & \\
 \hspace{8mm}Electricity 		& \cmark\ssup & \xmark & \cmark & & \\
-%\hspace{8mm}Network			& \cmark\ssup & \xmark & \cmark & & \\ TODO: Uncomment once above todo is sorted
 
 \cline{1-6}
 \end{tabularx}
@@ -190,7 +186,7 @@ This background map is used as a baseline to calculate standard deviations of ea
 
 The Thermosense approach presents the state of the art in the field of sensing with \iar technology. Using a similar \iar system along with those types of classification algorithms should yield useful sensing results which can be then integrated into the broader sensor system.
 
-\section{Architecture}
+\section{Sensor System Architecture}
 \label{sec:litreview:architecture}
 Beyond specific sensor design and occupancy detection algorithms, a core goal of this project is to create a system that is designed to operate as a useful Thing in a real-world \iot environment, as the key advantage of Things is the ``disruptive level of innovation''\cite{atzori2010internet} brought about by their ability to be combined in ways unforeseen (yet still enabled) by their creators. This architecture involves careful consideration of the embedded hardware that will drive the system, as well as the communications protocols utilised between the sensor and devices interested in the sensor's information.
 
@@ -213,9 +209,9 @@ Beyond specific sensor design and occupancy detection algorithms, a core goal of
 \label{tab:litreview:protostack}
 \end{table}
 
-In an ideal smart-home environment, the sensor systems used will communicate with each other wirelessly. As the system has low power requirements, it is important to prioritise those protocols and architectures that minimise power usage while still enabling the necessary wireless communication. The system will also ideally exist in a system with other identical sensors (one for each room in a residence), thus it is important to prioritise those protocols which allow multiple identical sensor systems to coexist on the same network without conflict, and to be uniquely addressable and identifiable. In recent years, many developments have been made in the \iot arena, with standards emerging specifically designed for low-power embedded devices to communicate between themselves and bigger systems that address these and other unique needs, across the entire protocol stack. 
+In an ideal smart-home environment, the sensor systems used will communicate with each other wirelessly. As the complete sensor system has low power requirements to enable battery operation, it is important to prioritise those protocols and architectures that minimise power usage while still enabling the necessary wireless communication. The system will also ideally exist in a system with other identical sensors (one for each room in a residence), thus it is important to prioritise those protocols which allow multiple identical sensor systems to coexist on the same network without conflict, and to be uniquely addressable and identifiable. In recent years, many developments have been made in the \iot arena, with standards emerging specifically designed for low-power embedded devices to communicate between themselves and bigger systems that address these and other unique needs, across the entire protocol stack. 
 
-Palattella \etal \cite{palattella2013standardized} propose a protocol stack that aligns with the above requirements, the key advantage of which is being that an implementation of that stack is completely standardised, based on TCP/IP, uses the latest IEEE and IETF \iot standards, and is free from proprietary protocol restrictions (unlike ZigBee 1.0 devices, for instance). \Fref{tab:litreview:protostack} shows the full stack proposed. The key components of this proposal are the introduction of \acs{coap} at the application layer, \acs{roll} at the IP / Routing layer and \acs{lowpan} at the Adaptation layer.
+Palattella \etal \cite{palattella2013standardized} propose a protocol stack that aligns with the above requirements, with the key advantage being a wholly standardized implementation of the stack exists. This implementation is based on TCP/IP, uses the latest IEEE and IETF \iot standards, and is free from proprietary protocol restrictions (unlike ZigBee 1.0 devices, for instance). \Fref{tab:litreview:protostack} shows the full stack proposed. The key components of this proposal are the introduction of \acs{coap} at the application layer, \acs{roll} at the IP / Routing layer and \acs{lowpan} at the Adaptation layer.
 
 Above the application layer, Guinard \etal \cite{guinard2012search} propose the use of \rest over \ws as a method of exchanging information between sensor systems. Their data suggests that \rest is easier to use than \ws, and the key advantage of a \ws based approach is its ability to represent much more complex data and abstractions, which are unnecessary in this project's situation.
 
@@ -224,8 +220,6 @@ Above the application layer, Guinard \etal \cite{guinard2012search} propose the 
 \roll \cite{rfc6550} is a routing protocol designed for low power environments, allowing low power nodes to create and maintain a mesh network between themselves, allowing, among other things, the routing of packets to a ``root'' node and back again. \roll is particularly suited to the routing situation of our proposed architecture, as individual sensors do not need to communicate with one another, but rather report back to a larger node (further discussed in \Fref{subsec:litreview:architecture:devices}).
 
 \lowpan \cite{shelby20116lowpan} is a compression and formatting specification to allow IPv6 packets to be sent over an \lwifi based network. Optimisations are found in the reduction of the size of \lowpan packets, IPv6 addresses as well as redesigning core Internet Protocol algorithms so that they can run with low power consumption on participating devices.
-
-% TODO: Discuss ZigBee, and problems with GPL, and proprietary protocol
 
 \subsection{Devices}
 \label{subsec:litreview:architecture:devices}
@@ -259,9 +253,14 @@ In addition to the protocol stack used, how these nodes relate to each other is 
  \item \emph{Class 2}: Normal Internet nodes, able to use the full HTTP stack with TLS.
 \end{itemize}
 
-The devices that we propose the sensors will connect to are the likes of the Arduino, which can be generally classified as class 0 or possibly class 1 devices. Due to their insecurity and difficulty running a fully fledged IP stack, Guinard \etal \cite{guinard2011internet} propose the use of a ``Smart Gateway'' system to bridge the wider internet and these sensor systems. This gateway would be able to communicate with the sensor systems over \coap and \lwifi, as well as receive API requests via HTTP from a traditional TCP/IP network to forward on to these sensors.
+The devices that we propose the sensors will connect to are the likes of the Arduino, which can be classified as class 0 or possibly class 1 devices. Due to their insecurity and difficulty running a fully fledged IP stack, Guinard \etal \cite{guinard2011internet} propose the use of a ``Smart Gateway'' system to bridge the wider internet and these sensor systems. This gateway would be able to communicate with the sensor systems over \coap and \lwifi, as well as receive API requests via HTTP from a traditional TCP/IP network to forward on to these sensors.
 
 The Thermosense paper \cite{beltran2013thermosense} proposes several different algorithms to process the raw sensing data into the occupancy estimates (further discussed in \Fref{sec:litreview:thermalsensors}), all of which are fairly computationally expensive. Because of this, it would be non-trivial to implement these algorithms on the embedded sensing devices themselves. This problem is already resolved in our proposed system, as the aforementioned ``Smart Gateway'' can easily also take on the task of processing the raw sensor data into estimates which it can relay to interested parties over its HTTP-based API. A visualisation of this proposed system is shown in \Fref{fig:litreview:devices}.
+
+\subsection{Architectural Decisions}
+% TODO: Write
+
+% TODO: Normalize accuracy stats
 
 \section{Discussion}
 \label{sec:litreview:discussion}
@@ -271,13 +270,13 @@ This is a key research area, because, as we have previously mentioned, the true 
 
 \section{Conclusion}
 \label{sec:litreview:conclusion}
-Two sets criteria were identified through which the spectrum of occupancy sensing could be examined; a quantitative criteria by Teixeira, Dublon and Savvides \cite{teixeira2010survey} to examine the different functionality offerings of sensor systems and a qualitative criteria derived from the aims of the project to examine how those sensors fit within the project's parameters.
+Several criteria were identified through which the spectrum of occupancy sensing could be examined; a quantitative criteria by Teixeira, Dublon and Savvides \cite{teixeira2010survey} to examine the different functionality offerings of sensor systems and a qualitative criteria derived from the aims of the project to examine how those sensors fit within the project's parameters.
 
 Occupancy research performed with different sensor types was examined methodically through a set of taxonomic categories also originally proposed by Teixeira, Dublon and Savvides \cite{teixeira2010survey}, but modified to better suit the specifics of occupancy sensors. These sensor types included Thermal, \cdi, Video, Ultrasonic, \pir, RFID, various WiFi based methods, GPS and electricity consumption. Through an examination of these sensing systems quantitative and qualitative characteristics, it was determined that the Thermosense \iar system \cite{beltran2013thermosense} was the most suitable to the project's aims.
 
 \iot protocol architecture was also examined, with a discussion of the appropriate low-power wireless protocols for a robust Thing. All levels of the protocol stack were discussed, with Palattella \etal \cite{palattella2013standardized} proposing the open standard system that was most appropriate for the project. \iot device architecture was also examined, with an outline of the bridging mechanisms between the low-powered Thing and the wider Internet, as well as presence the hub of the system's intense computation.
 
-A key part of enabling the ``smart home for the disabled'' is creating a set of Things that can improve quality of life for those people. We believe the proposed Thing has clearly demonstrated this potential.
+A key part of enabling the ``smart home for the disabled'' is creating a set of Things that can improve quality of life for those people. We believe our proposed Thing has clearly demonstrated this potential.
 
 
 \ifcsdef{mainfile}{}{\bibliography{../references/primary}}
