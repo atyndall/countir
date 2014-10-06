@@ -16,6 +16,7 @@
 \usepackage{tikz}
 \usepackage{forest}
 \usepackage{hyperref}
+\usepackage{xspace}
 
 \newcommand{\thetitle}{Developing a robust system for occupancy detection in the household}
 \newcommand{\theauthor}{Ash Tyndall}
@@ -60,32 +61,27 @@
 \newcolumntype{"}{@{\hskip\tabcolsep\vrule width 1pt\hskip\tabcolsep}}
 
 % Acronyms for common stuff
-\acrodef{pir}[PIR]{Passive Infrared Sensor}
-\acrodef{iar}[IAR]{Infrared Array Sensor}
-\acrodef{mlx}[\textit{Melexis}]{Melexis MLX90620}
-\acrodef{emwa}[EMWA]{Exponential Weighted Moving Average}
-\acrodef{lowpan}[6LoWPAN]{IPv6 over Low power Wireless Personal Area Networks}
-\acrodef{coap}[CoAP]{Constrained Application Protocol}
-\acrodef{iot}[IoT]{Internet of Things}
-\acrodef{rest}[REST]{Representational state transfer}
-\acrodef{roll}[RPL]{IPv6 Routing Protocol for Low-Power and Lossy Networks}
-\acrodef{ws}[WS-*]{Web Services Descriptive Language / Simple Object Access Protocol}
+\newcommand{\acrodefn}[3]{%
+	\acrodef{#1}[#2]{#3}%
+	\expandafter\newcommand\csname#1\endcsname{\ac{#1}\xspace}%
+}
+
+\acrodefn{pir}{PIR}{Passive Infrared Sensor}
+\acrodefn{iar}{IAR}{Infrared Array Sensor}
+\acrodefn{mlx}{\textit{Melexis}}{Melexis MLX90620}
+\acrodefn{emwa}{EMWA}{Exponential Weighted Moving Average}
+\acrodefn{lowpan}{6LoWPAN}{IPv6 over Low power Wireless Personal Area Networks}
+\acrodefn{coap}{CoAP}{Constrained Application Protocol}
+\acrodefn{iot}{IoT}{Internet of Things}
+\acrodefn{rest}{REST}{Representational state transfer}
+\acrodefn{roll}{RPL}{IPv6 Routing Protocol for Low-Power and Lossy Networks}
+\acrodefn{ws}{WS-*}{Web Services Descriptive Language / Simple Object Access Protocol}
 
 % Abbreviation commands for common stuff
 \newabbrev\cdi{CO\textsubscript{2}}
 \newabbrev\lwifi{802.15.4}
 \newabbrev\lmed{802.15.4e}
 \newabbrev\lphy{802.15.4-2006}
-\newabbrev\mlx{\ac{mlx}}
-\newabbrev\pir{\ac{pir}}
-\newabbrev\iar{\ac{iar}}
-\newabbrev\emwa{\ac{emwa}}
-\newabbrev\lowpan{\ac{lowpan}}
-\newabbrev\coap{\ac{coap}}
-\newabbrev\iot{\ac{iot}}
-\newabbrev\rest{\ac{rest}}
-\newabbrev\roll{\ac{roll}}
-\newabbrev\ws{\ac{ws}}
 \newabbrev\etal{et al.}
 
 % Fancyref support for subsections, source; https://github.com/openlilylib/tutorials/blob/master/aGervasoni/orchestralScores/example-materials/OLLbase.sty
@@ -133,7 +129,7 @@
 \preto\chapter\acresetall
 
 % Hyperref setup
-\hypersetup{pdftitle=\thetitle,pdfauthor=\theauthor,pdfsubject=\thecategories,pdfkeywords=\thekeywords,hidelinks=true}
+\hypersetup{pdftitle=\thetitle,pdfauthor=\theauthor,pdfsubject=\thecategories,pdfkeywords=\thekeywords,hidelinks}
 
 % Configure titles
 \title{\thetitle}
