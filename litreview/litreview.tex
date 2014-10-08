@@ -1,6 +1,10 @@
 \documentclass[../thesis/thesis.tex]{subfiles}
 \begin{document}
-\ifcsdef{mainfile}{}{\tableofcontents}
+\ifcsdef{mainfile}{}{%
+  \renewcommand{\thetitle}{Developing a robust system for occupancy detection in the household \linebreak\linebreak Literature Review}%
+  \maketitle%
+  \tableofcontents%
+}
 \chapter{Literature Review}
 \label{chap:litreview}
 
@@ -73,7 +77,7 @@ Intrinsic traits are those which can be sensed that are a direct property of bei
 \label{subsubsec:litreview:sensors:intrinsic:static}
 Static traits are physiologically derived, and are present with most (living) occupants. One key static trait that can be used for occupant sensing is that of thermal emissions. All human occupants emit distinctive thermal radiation in both resting and active states. The heat signatures of these emissions could potentially be measured with some apparatus, counted, and used to provide Presence and Count information to a sensor system, without providing Identity information.
 
-Beltran, Erickson and Cerpa \cite{beltran2013thermosense} propose Thermosense, a system that uses a type of thermal sensor known as an \iar. This sensor is much like a camera, in that it has a field of view which is divided into ``pixels''; in this case an $8\times8$ grid of detected temperatures. This sensor is mounted on an embedded device on the ceiling, along with a \pir, and uses a variety of classification algorithms to detect human heat signatures within the raw thermal and motion data it collects. Thermosense achieves Root Mean Squared Error $\approx0.35$ persons.
+Beltran, Erickson and Cerpa \cite{beltran2013thermosense} propose Thermosense, a system that uses a type of thermal sensor known as an \iar. This sensor is much like a camera, in that it has a field of view which is divided into ``pixels''; in this case an $8\times8$ grid of detected temperatures. This sensor is mounted on an embedded device on the ceiling, along with a \pir, and uses a variety of classification algorithms to detect human heat signatures within the raw thermal and motion data it collects. Thermosense achieves Root Mean Squared Error $\approx0.35$ persons, meaning the standard deviation between Thermosense's occupancy predictions and the actual occupancy number was $\approx0.35$.
 
 Another static trait is that of \cdi emissions, which, like thermal emissions, are emitted by human occupants in both resting and active states. By measuring the buildup of \cdi within a given area, one can use a variety of mathematical models of human \cdi production to determine the likely number of occupants present. Hailemariam \etal \cite{hailemariam2011real} trialled this as part of a sensor fusion within the context of an office environment, achieving a $\approx94\%$ accuracy. Such a sensing system could provide both the Presence and Count information, and exclude the Identity information as required. However, a \cdi based detection mechanism has serious drawbacks, discussed by Fisk, Faulkner and Sullivan \cite{fisk2006accuracy}: The \cdi feedback mechanism is very slow, taking hours of continuous occupancy to correctly identify the presence of people. In a residential environment, occupants are more likely to be moving between rooms than an office, so the system may have a more difficult time detecting in that situation. Similarly, such systems can be interfered with by other elements that control the \cdi buildup in a space, like air conditioners, open windows, etc. This is also much more of a concern in a residential environment compared to the studied office space, as the average residence can have numerous such confounding factors that cannot easily be controlled for.
 
@@ -258,7 +262,11 @@ The devices that we propose the sensors will connect to are the likes of the Ard
 The Thermosense paper \cite{beltran2013thermosense} proposes several different algorithms to process the raw sensing data into the occupancy estimates (further discussed in \Fref{sec:litreview:thermalsensors}), all of which are fairly computationally expensive. Because of this, it would be non-trivial to implement these algorithms on the embedded sensing devices themselves. This problem is already resolved in our proposed system, as the aforementioned ``Smart Gateway'' can easily also take on the task of processing the raw sensor data into estimates which it can relay to interested parties over its HTTP-based API. A visualisation of this proposed system is shown in \Fref{fig:litreview:devices}.
 
 \subsection{Architectural Decisions}
-% TODO: Write
+Since the advent of a standardised \iot protocol stack discussed in \Fref{sec:litreview:architecture}, the decision making process for protocol architecture has been simplified immensely. As a key part of an effective Thing is interoperability, it is clear that adopting the standardised protocol stack is the way forward. As such, the proposed protocol architecture described in \Fref{tab:litreview:protostack} will form the stack used by the ``WPAN'' network shown in \Fref{fig:litreview:devices}.
+
+Moving from a protocol perspective to a device perspective, when one considers the energy efficiency and cost constrains of this project, it is clear that a system in which low-powered and cheap embedded systems, such as Arduinos, are the best choice for each of the sensing nodes. This recognises the fact that these nodes have computationally complex tasks, and are merely responsible for the transmission of the collected data.
+
+As a natural consequence of choosing simple sensing nodes, a more powerful processing node must be added to the system to collect the unprocessed data produced by the sensing nodes and interpret it into the high-level occupancy answers this project wishes to provide. As such a node does not need to be in a particular location (provided it is in range of the sensor WPAN), it does not need to be as considerate of low power requirements. A primary hardware candidate for this node is the Raspberry Pi. Advantages include it still being quite low powered, built-in support for WPAN networking expansion cards, and traditional built-in LAN networking. These characteristics also allow it to act as the ``smart gateway'' between the sensors and the broader \iot.
 
 % TODO: Normalize accuracy stats
 
