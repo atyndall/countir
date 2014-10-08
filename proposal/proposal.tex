@@ -1,7 +1,9 @@
 \documentclass[../thesis/thesis.tex]{subfiles}
 \begin{document}
-\ifcsdef{mainfile}{}{\title{Research Proposal}}
-\ifcsdef{mainfile}{}{\maketitle}
+\ifcsdef{mainfile}{}{%
+  \renewcommand{\thetitle}{Developing a robust system for occupancy detection in the household \linebreak\linebreak Revised Research Proposal}%
+  \maketitle%
+}
 
 \begin{namelist}{xxxxxxxxxxxx}
 \item[{\bf Title:}]
@@ -13,7 +15,7 @@
 \item[{\bf Degree:}]
 	BCompSci (24 point project)
 \item[{\bf Date:}]
-	August 15, 2014
+	October 8, 2014
 \end{namelist}
 
 
