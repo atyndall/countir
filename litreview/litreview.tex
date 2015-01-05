@@ -7,30 +7,6 @@
 }
 \chapter{Literature Review}
 \label{chap:litreview}
-
-The proportion of elderly and mobility-impaired people is predicted to grow dramatically over the next century, leaving a large proportion of the population unable to care for themselves, and also reducing the number of human carers available \cite{chan2009smart}. With this issue looming, investments are being made in technologies that can provide the support these groups need to live independent of human assistance. 
-
-With recent advance in low cost embedded computing, such as the Arduino and Raspberry Pi, the ability to provide a set of interconnected sensors, actuators and interfaces to enable a low-cost `smart home for the disabled' that takes advantage of the \iot is becoming increasingly achievable.
-
-Sensing techniques to determine occupancy, the detection of the presence and number of people in an area, are of particular use to the elderly and disabled. Detection can be used to inform various devices that change state depending on the user's location, including the better regulation energy hungry devices to help reduce financial burden. Household climate control, which in some regions of Australia accounts for up to 40\% of energy usage \cite{abs4602} is one area in which occupancy detection can reduce costs, as efficiency can be increased with annual energy savings of up to 25\% found in some cases \cite{beltran2013thermosense}.
- 
-While many of the above solutions achieve excellent accuracies, in many cases they suffer from problems of installation logistics, difficult assembly, assumptions on user's technology ownership and component cost. In a smart home for the disabled, accuracy is important, but accessibility is paramount.
-
-The goal of this research project is to devise an occupancy detection system that forms part of a larger `smart home for the disabled', and intergrates into the \iot, that meets the following qualitative accessibility criteria;
-
-\begin{itemize}
- \item \emph{Low Cost}: The set of components required should aim to minimise cost, as these devices are intended to be deployed in situations where the serviced user may be financially restricted.
- 
- \item \emph{Non-Invasive}: The sensors used in the system should gather as little information as necessary to achieve the detection goal; there are privacy concerns with the use of high-definition sensors.
- 
- \item \emph{Energy Efficient}: The system may be placed in a location where there is no access to mains power (e.g. roof), and the retrofitting of appropriate power can be difficult; the ability to survive for long periods on only battery power is advantageous.
- 
- \item \emph{Reliable}: The system should be able to operate without user intervention or frequent maintenance, and should be able to perform its occupancy detection goal with a high degree of accuracy.
-\end{itemize}
-
-To create a picture of what options there are in this sensing area, a literature review of the available sensor types and wireless sensor architectures is needed. From this list, proposed solutions will be compared against the aforementioned accessibility criteria to determine their suitability.
-
-\section{Sensors}
 \label{sec:litreview:sensors}
 
 To achieve the accessibility criteria, a wide variety of sensing approaches must be considered. It can be difficult to approach the board variety of sensor types in the field, so a structure must be developed through which to evaluate them. Teixeira, Dublon and Savvides \cite{teixeira2010survey} propose a 5-element human-sensing criteria which provides a structure through which we may define the broad quantitative requirements of different sensors.
@@ -68,12 +44,12 @@ Teixeira, Dublon and Savvides \cite{teixeira2010survey} also propose a measurabl
 \label{fig:litreview:taxonomy}
 \end{figure}
 
-\subsection{Intrinsic traits}
+\section{Intrinsic traits}
 \label{subsec:litreview:sensors:intrinsic}
 
 Intrinsic traits are those which can be sensed that are a direct property of being a human occupant. Intrinsic traits are particularly useful, as in many situations they are guaranteed to be present if an occupant is present. However, they do have varying degrees of detectability and differentiation between occupants. Two main subcategories of these sensor types are static and dynamic traits.
 
-\subsubsection{Static traits}
+\subsection{Static traits}
 \label{subsubsec:litreview:sensors:intrinsic:static}
 Static traits are physiologically derived, and are present with most (living) occupants. One key static trait that can be used for occupant sensing is that of thermal emissions. All human occupants emit distinctive thermal radiation in both resting and active states. The heat signatures of these emissions could potentially be measured with some apparatus, counted, and used to provide Presence and Count information to a sensor system, without providing Identity information.
 
@@ -85,7 +61,7 @@ Visual identification can be, achieved through the use of video or still-image c
 
 Another video sensor system is proposed by Serrano-Cuerda \etal \cite{serrano2013efficient}, that uses ceiling-based cameras and advanced image processing algorithms to count the number of people in the captured area. This system achieves a specificity of $\mathit{TP}/(\mathit{TP}+\mathit{FP})\approx97\%$ and a sensitivity $\mathit{TP}/(\mathit{TP}+\mathit{FN})\approx96\%$ (TP = true positives, FP = false positives, FN = false negatives). Such a system could be successfully applied to the residential environment, as both it and the ``optical turnstile'' model provide Presence and Count information. However, these systems also allow Identity to be determined, and thus are perceived as privacy-invasive. This perception leads to adoption and acceptance issues, which work against the ideal system's goals.
 
-\subsubsection{Dynamic traits}
+\subsection{Dynamic traits}
 \label{subsubsec:litreview:sensors:intrinsic:dynamic}
 Dynamic traits are usually products of human occupant activity, and thus can generally only be detected when a human occupant is physically active or in motion.
 
@@ -93,11 +69,11 @@ Ultrasonic systems, such as Doorjamb proposed by Hnat \etal \cite{hnat2012doorja
 
 Solely \pir based systems, like those used by Hailemariam \etal \cite{hailemariam2011real}, involve the motion of the sensor being averaged over several different time intervals, and fed into a decision tree classifier. This \pir system alone produced a $\approx98\%$ accuracy. However, such a system, due to only motion detection capabilities, can only provide Presence information, and is unable to provide Count information, nor detect motionless occupants.
 
-\subsection{Extrinsic traits}
+\section{Extrinsic traits}
 \label{subsec:litreview:sensors:extrinsic}
 Extrinsic traits are those which are actually other environmental changes that are caused by or correlated with human occupant presence. These traits generally present a less accurate picture, or require the sensed occupants to be in some way ``tagged'', but they are generally also easier to sense in of themselves. The sensors in this category have been divided into two subcategories.
 
-\subsubsection{Instrumented traits}
+\subsection{Instrumented traits}
 \label{subsubsec:litreview:sensors:extrinsic:instrumented}
 One extrinsic trait category is instrumented approaches; these require that detectable occupants carry with them some device that is detected as a proxy for the occupant themselves.
 
@@ -109,13 +85,13 @@ Balaji \etal \cite{balaji2013sentinel} also leverage smart phones to determine o
 
 Finally, Gupta, Intille and Larson \cite{gupta2009adding} use specifically the GPS functions of the smartphone to perform optimisation on heating and cooling systems by calculating the ``travel-to-home'' time of occupants at all times and ensuring at every distance the house is minimally heated such that if the potential occupant were to travel home, the house would be at the correct temperature when they arrived. While this system does achieve similar potential air-conditioning energy savings, it is not room-level modular, and also presupposes an occupant whose primary energy costs are from incorrect heating when away from home, which isn't necessarily the case for this demographic.
 
-\subsubsection{Correlative traits}
+\subsection{Correlative traits}
 \label{subsubsec:litreview:sensors:extrinsic:correlative}
 The second of these subcategories are correlative approaches. These approaches analyse data that is correlated with human occupant activity, but does not require a specific device to be present on each occupant that is tracked with the system.
 
 The primary approach in this area is work done by Kleiminger \etal \cite{kleiminger2013occupancy}, which attempts to measure electricity consumption and use such data to determine Presence. Electricity data was measured at two different levels of granularity; the whole house level with a smart meter, and the consumption of specific appliances through smart plugs. This data was then processed by a variety of classifiers to achieve a classification accuracy of more than 80\%. Such a system presents a low-cost solution to occupancy, however it is not sufficiently granular in either the detection of multiple occupants, or the detection of occupants in a specific room.
 
-\subsection{Analysis}
+\section{Analysis}
 \label{subsec:litreview:sensors:analysis}
 
 \begin{table}
@@ -189,103 +165,6 @@ The Thermosense system develops a thermal background map of the room using an \e
 This background map is used as a baseline to calculate standard deviations of each grid area, which are then used to determine several characteristics to be used as feature vectors for a variety of classification approaches. The determination of the feature vectors was subject to experimentation, since the differences at each grid element too susceptible to individual room conditions to be used as feature vectors. Instead, a set of three different features was designed; the number of temperature anomalies in the space, the number of groups of temperature anomalies, and the size of the largest anomaly in the space. These feature vectors were compared against three classification approaches; K-Nearest Neighbors, Linear Regression and an a feed-forward Artificial Neural Network of one hidden later and 5 perceptions. All three classifiers achieved a Root Mean Squared Error (RMSE) within $0.38\pm0.04$. This final classification is subject to a final averaging process over a 4 minute window to remove the presence of independent errors from the raw classification data.
 
 The Thermosense approach presents the state of the art in the field of sensing with \iar technology. Using a similar \iar system along with those types of classification algorithms should yield useful sensing results which can be then integrated into the broader sensor system.
-
-\section{Sensor System Architecture}
-\label{sec:litreview:architecture}
-Beyond specific sensor design and occupancy detection algorithms, a core goal of this project is to create a system that is designed to operate as a useful Thing in a real-world \iot environment, as the key advantage of Things is the ``disruptive level of innovation''\cite{atzori2010internet} brought about by their ability to be combined in ways unforeseen (yet still enabled) by their creators. This architecture involves careful consideration of the embedded hardware that will drive the system, as well as the communications protocols utilised between the sensor and devices interested in the sensor's information.
-
-\subsection{Protocols}
-\label{subsec:litreview:architecture:protocols}
-% From; https://openwsn.atlassian.net/wiki/pages/viewpage.action?pageId=29196353
-\begin{table}
-\centering
-\begin{tabular}{|c|c|}
-\hline
-\multicolumn{2}{|c|}{\acs{rest}} \\ \hline
-\textbf{Application} & \acs{coap} \\ \hline
-\textbf{Transport} & UDP \\ \hline
-\textbf{IP / Routing} & IETF \acs{roll} \\ \hline
-\textbf{Adaptation} & IETF \acs{lowpan} \\ \hline
-\textbf{Medium Access} & IEEE \lmed \\ \hline
-\textbf{Physical} & IEEE \lphy \\ \hline
-\end{tabular}
-\caption{Proposed protocol stack}
-\label{tab:litreview:protostack}
-\end{table}
-
-In an ideal smart-home environment, the sensor systems used will communicate with each other wirelessly. As the complete sensor system has low power requirements to enable battery operation, it is important to prioritise those protocols and architectures that minimise power usage while still enabling the necessary wireless communication. The system will also ideally exist in a system with other identical sensors (one for each room in a residence), thus it is important to prioritise those protocols which allow multiple identical sensor systems to coexist on the same network without conflict, and to be uniquely addressable and identifiable. In recent years, many developments have been made in the \iot arena, with standards emerging specifically designed for low-power embedded devices to communicate between themselves and bigger systems that address these and other unique needs, across the entire protocol stack. 
-
-Palattella \etal \cite{palattella2013standardized} propose a protocol stack that aligns with the above requirements, with the key advantage being a wholly standardized implementation of the stack exists. This implementation is based on TCP/IP, uses the latest IEEE and IETF \iot standards, and is free from proprietary protocol restrictions (unlike ZigBee 1.0 devices, for instance). \Fref{tab:litreview:protostack} shows the full stack proposed. The key components of this proposal are the introduction of \acs{coap} at the application layer, \acs{roll} at the IP / Routing layer and \acs{lowpan} at the Adaptation layer.
-
-Above the application layer, Guinard \etal \cite{guinard2012search} propose the use of \rest over \ws as a method of exchanging information between sensor systems. Their data suggests that \rest is easier to use than \ws, and the key advantage of a \ws based approach is its ability to represent much more complex data and abstractions, which are unnecessary in this project's situation.
-
-\coap \cite{kovatsch2013coap} is an application layer protocol designed to replace HTTP as a way of transmitting RESTful information between clients. The chief advantage of \coap over HTTP is it compresses the broad-strokes of the HTTP feature set into a binary language that is much more suitable for transmission over low-bandwidth and low-power links, such as those discussed here.
-
-\roll \cite{rfc6550} is a routing protocol designed for low power environments, allowing low power nodes to create and maintain a mesh network between themselves, allowing, among other things, the routing of packets to a ``root'' node and back again. \roll is particularly suited to the routing situation of our proposed architecture, as individual sensors do not need to communicate with one another, but rather report back to a larger node (further discussed in \Fref{subsec:litreview:architecture:devices}).
-
-\lowpan \cite{shelby20116lowpan} is a compression and formatting specification to allow IPv6 packets to be sent over an \lwifi based network. Optimisations are found in the reduction of the size of \lowpan packets, IPv6 addresses as well as redesigning core Internet Protocol algorithms so that they can run with low power consumption on participating devices.
-
-\subsection{Devices}
-\label{subsec:litreview:architecture:devices}
-\begin{figure}
-\centering
-\begin{tikzpicture}[node distance=1.7cm]
-\node (interwebs) [cbox] {Internet};
-\node (http) [dashbox, left=of interwebs] {\small HTTP};
-\node (rpi) [box, below=of http] {Smart Gateway / Processor};
-\node (coap) [dashbox, right=of rpi] {\small \acs{coap}};
-\node (mesh) [cbox, right=of coap] {WPAN};
-\node (embed1) [box, below left=of mesh] {Sensor};
-\node (embed2) [box, below right=of mesh] {Sensor};
-
-\draw [line] (interwebs) -- (http);
-\draw [line] (http) -- (rpi);
-\draw [line] (rpi) -- (coap);
-\draw [line] (coap) -- (mesh);
-\draw [line] (mesh) -- (embed1);
-\draw [line] (mesh) -- (embed2);
-\end{tikzpicture}
-\caption{Proposed system architecture}
-\label{fig:litreview:devices}
-\end{figure}
-
-In addition to the protocol stack used, how these nodes relate to each other is also an important consideration. Part of what will inform these decisions are the requisite processing power and internet connectivity required to successfully execute all elements of the sensing system. Kovatsch \cite{kovatsch2013coap} provides a constructive classification system to consider this, by describing three classes of resource constrained devices that would benefit from \coap, and each can provide different levels of security for an IP stack;
-
-\begin{itemize}
- \item \emph{Class 0}: ``not capable of running an RFC-compliant IP stack in a secure manner. They require application-level gateways to connect to the Internet.''
- \item \emph{Class 1}: Able to connect to the internet with some ``integrated security mechanisms''. Are unable to employ full HTTP with TLS.
- \item \emph{Class 2}: Normal Internet nodes, able to use the full HTTP stack with TLS.
-\end{itemize}
-
-The devices that we propose the sensors will connect to are the likes of the Arduino, which can be classified as class 0 or possibly class 1 devices. Due to their insecurity and difficulty running a fully fledged IP stack, Guinard \etal \cite{guinard2011internet} propose the use of a ``Smart Gateway'' system to bridge the wider internet and these sensor systems. This gateway would be able to communicate with the sensor systems over \coap and \lwifi, as well as receive API requests via HTTP from a traditional TCP/IP network to forward on to these sensors.
-
-The Thermosense paper \cite{beltran2013thermosense} proposes several different algorithms to process the raw sensing data into the occupancy estimates (further discussed in \Fref{sec:litreview:thermalsensors}), all of which are fairly computationally expensive. Because of this, it would be non-trivial to implement these algorithms on the embedded sensing devices themselves. This problem is already resolved in our proposed system, as the aforementioned ``Smart Gateway'' can easily also take on the task of processing the raw sensor data into estimates which it can relay to interested parties over its HTTP-based API. A visualisation of this proposed system is shown in \Fref{fig:litreview:devices}.
-
-\subsection{Architectural Decisions}
-Since the advent of a standardised \iot protocol stack discussed in \Fref{sec:litreview:architecture}, the decision making process for protocol architecture has been simplified immensely. As a key part of an effective Thing is interoperability, it is clear that adopting the standardised protocol stack is the way forward. As such, the proposed protocol architecture described in \Fref{tab:litreview:protostack} will form the stack used by the ``WPAN'' network shown in \Fref{fig:litreview:devices}.
-
-Moving from a protocol perspective to a device perspective, when one considers the energy efficiency and cost constrains of this project, it is clear that a system in which low-powered and cheap embedded systems, such as Arduinos, are the best choice for each of the sensing nodes. This recognises the fact that these nodes have computationally complex tasks, and are merely responsible for the transmission of the collected data.
-
-As a natural consequence of choosing simple sensing nodes, a more powerful processing node must be added to the system to collect the unprocessed data produced by the sensing nodes and interpret it into the high-level occupancy answers this project wishes to provide. As such a node does not need to be in a particular location (provided it is in range of the sensor WPAN), it does not need to be as considerate of low power requirements. A primary hardware candidate for this node is the Raspberry Pi. Advantages include it still being quite low powered, built-in support for WPAN networking expansion cards, and traditional built-in LAN networking. These characteristics also allow it to act as the ``smart gateway'' between the sensors and the broader \iot.
-
-% TODO: Normalize accuracy stats
-
-\section{Discussion}
-\label{sec:litreview:discussion}
-Throughout this review of the area of wireless occupancy sensors within the \iot it can be seen that there is a clear research gap within the area of occupancy. No group could be found who has assembled an occupancy sensor that optimises these ares of Low Cost, Non-Invasiveness, Energy Efficiency and Reliability into a architected software and hardware package that can be integrated like any other Thing into the \iot.
-
-This is a key research area, because, as we have previously mentioned, the true ``disruptive level of innovation''\cite{atzori2010internet} the \iot provides can only be realised once a novel idea has been properly packaged as a Thing, rather than as a research curiosity. Packaging something as a Thing requires careful consideration of the best sensing systems, the best hardware to run those systems on, the best protocols to allow these Things to communicate, and the best device architecture to enable that communication. The state of the art in all these areas have been discussed throughout this literature review.
-
-\section{Conclusion}
-\label{sec:litreview:conclusion}
-Several criteria were identified through which the spectrum of occupancy sensing could be examined; a quantitative criteria by Teixeira, Dublon and Savvides \cite{teixeira2010survey} to examine the different functionality offerings of sensor systems and a qualitative criteria derived from the aims of the project to examine how those sensors fit within the project's parameters.
-
-Occupancy research performed with different sensor types was examined methodically through a set of taxonomic categories also originally proposed by Teixeira, Dublon and Savvides \cite{teixeira2010survey}, but modified to better suit the specifics of occupancy sensors. These sensor types included Thermal, \cdi, Video, Ultrasonic, \pir, RFID, various WiFi based methods, GPS and electricity consumption. Through an examination of these sensing systems quantitative and qualitative characteristics, it was determined that the Thermosense \iar system \cite{beltran2013thermosense} was the most suitable to the project's aims.
-
-\iot protocol architecture was also examined, with a discussion of the appropriate low-power wireless protocols for a robust Thing. All levels of the protocol stack were discussed, with Palattella \etal \cite{palattella2013standardized} proposing the open standard system that was most appropriate for the project. \iot device architecture was also examined, with an outline of the bridging mechanisms between the low-powered Thing and the wider Internet, as well as presence the hub of the system's intense computation.
-
-A key part of enabling the ``smart home for the disabled'' is creating a set of Things that can improve quality of life for those people. We believe our proposed Thing has clearly demonstrated this potential.
-
 
 \ifcsdef{mainfile}{}{\bibliography{../references/primary}}
 \end{document}

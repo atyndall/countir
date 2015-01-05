@@ -1,0 +1,102 @@
+\documentclass[../thesis/thesis.tex]{subfiles}
+\begin{document}
+\chapter{Architecture}
+
+Since the advent of a standardised \iot protocol stack discussed in \Fref{sec:litreview:architecture}, the decision making process for protocol architecture has been simplified immensely. As a key part of an effective Thing is interoperability, it is clear that adopting the standardised protocol stack is the way forward. As such, the proposed protocol architecture described in \Fref{tab:litreview:protostack} will form the stack used by the ``WPAN'' network shown in \Fref{fig:litreview:devices}.
+
+Moving from a protocol perspective to a device perspective, when one considers the energy efficiency and cost constrains of this project, it is clear that a system in which low-powered and cheap embedded systems, such as Arduinos, are the best choice for each of the sensing nodes. This recognises the fact that these nodes have computationally complex tasks, and are merely responsible for the transmission of the collected data.
+
+As a natural consequence of choosing simple sensing nodes, a more powerful processing node must be added to the system to collect the unprocessed data produced by the sensing nodes and interpret it into the high-level occupancy answers this project wishes to provide. As such a node does not need to be in a particular location (provided it is in range of the sensor WPAN), it does not need to be as considerate of low power requirements. A primary hardware candidate for this node is the Raspberry Pi. Advantages include it still being quite low powered, built-in support for WPAN networking expansion cards, and traditional built-in LAN networking. These characteristics also allow it to act as the ``smart gateway'' between the sensors and the broader \iot.
+
+% TODO: Normalize accuracy stats
+
+
+\section{Sensor System Architecture}
+\label{sec:litreview:architecture}
+Beyond specific sensor design and occupancy detection algorithms, a core goal of this project is to create a system that is designed to operate as a useful Thing in a real-world \iot environment, as the key advantage of Things is the ``disruptive level of innovation''\cite{atzori2010internet} brought about by their ability to be combined in ways unforeseen (yet still enabled) by their creators. This architecture involves careful consideration of the embedded hardware that will drive the system, as well as the communications protocols utilised between the sensor and devices interested in the sensor's information.
+
+\subsection{Protocols}
+\label{subsec:litreview:architecture:protocols}
+% From; https://openwsn.atlassian.net/wiki/pages/viewpage.action?pageId=29196353
+\begin{table}
+\centering
+\begin{tabular}{|c|c|}
+\hline
+\multicolumn{2}{|c|}{\acs{rest}} \\ \hline
+\textbf{Application} & \acs{coap} \\ \hline
+\textbf{Transport} & UDP \\ \hline
+\textbf{IP / Routing} & IETF \acs{roll} \\ \hline
+\textbf{Adaptation} & IETF \acs{lowpan} \\ \hline
+\textbf{Medium Access} & IEEE \lmed \\ \hline
+\textbf{Physical} & IEEE \lphy \\ \hline
+\end{tabular}
+\caption{Proposed protocol stack}
+\label{tab:litreview:protostack}
+\end{table}
+
+In an ideal smart-home environment, the sensor systems used will communicate with each other wirelessly. As the complete sensor system has low power requirements to enable battery operation, it is important to prioritise those protocols and architectures that minimise power usage while still enabling the necessary wireless communication. The system will also ideally exist in a system with other identical sensors (one for each room in a residence), thus it is important to prioritise those protocols which allow multiple identical sensor systems to coexist on the same network without conflict, and to be uniquely addressable and identifiable. In recent years, many developments have been made in the \iot arena, with standards emerging specifically designed for low-power embedded devices to communicate between themselves and bigger systems that address these and other unique needs, across the entire protocol stack. 
+
+Palattella \etal \cite{palattella2013standardized} propose a protocol stack that aligns with the above requirements, with the key advantage being a wholly standardized implementation of the stack exists. This implementation is based on TCP/IP, uses the latest IEEE and IETF \iot standards, and is free from proprietary protocol restrictions (unlike ZigBee 1.0 devices, for instance). \Fref{tab:litreview:protostack} shows the full stack proposed. The key components of this proposal are the introduction of \acs{coap} at the application layer, \acs{roll} at the IP / Routing layer and \acs{lowpan} at the Adaptation layer.
+
+Above the application layer, Guinard \etal \cite{guinard2012search} propose the use of \rest over \ws as a method of exchanging information between sensor systems. Their data suggests that \rest is easier to use than \ws, and the key advantage of a \ws based approach is its ability to represent much more complex data and abstractions, which are unnecessary in this project's situation.
+
+\coap \cite{kovatsch2013coap} is an application layer protocol designed to replace HTTP as a way of transmitting RESTful information between clients. The chief advantage of \coap over HTTP is it compresses the broad-strokes of the HTTP feature set into a binary language that is much more suitable for transmission over low-bandwidth and low-power links, such as those discussed here.
+
+\roll \cite{rfc6550} is a routing protocol designed for low power environments, allowing low power nodes to create and maintain a mesh network between themselves, allowing, among other things, the routing of packets to a ``root'' node and back again. \roll is particularly suited to the routing situation of our proposed architecture, as individual sensors do not need to communicate with one another, but rather report back to a larger node (further discussed in \Fref{subsec:litreview:architecture:devices}).
+
+\lowpan \cite{shelby20116lowpan} is a compression and formatting specification to allow IPv6 packets to be sent over an \lwifi based network. Optimisations are found in the reduction of the size of \lowpan packets, IPv6 addresses as well as redesigning core Internet Protocol algorithms so that they can run with low power consumption on participating devices.
+
+\subsection{Devices}
+\label{subsec:litreview:architecture:devices}
+\begin{figure}
+\centering
+\begin{tikzpicture}[node distance=1.7cm]
+\node (interwebs) [cbox] {Internet};
+\node (http) [dashbox, left=of interwebs] {\small HTTP};
+\node (rpi) [box, below=of http] {Smart Gateway / Processor};
+\node (coap) [dashbox, right=of rpi] {\small \acs{coap}};
+\node (mesh) [cbox, right=of coap] {WPAN};
+\node (embed1) [box, below left=of mesh] {Sensor};
+\node (embed2) [box, below right=of mesh] {Sensor};
+
+\draw [line] (interwebs) -- (http);
+\draw [line] (http) -- (rpi);
+\draw [line] (rpi) -- (coap);
+\draw [line] (coap) -- (mesh);
+\draw [line] (mesh) -- (embed1);
+\draw [line] (mesh) -- (embed2);
+\end{tikzpicture}
+\caption{Proposed system architecture}
+\label{fig:litreview:devices}
+\end{figure}
+
+In addition to the protocol stack used, how these nodes relate to each other is also an important consideration. Part of what will inform these decisions are the requisite processing power and internet connectivity required to successfully execute all elements of the sensing system. Kovatsch \cite{kovatsch2013coap} provides a constructive classification system to consider this, by describing three classes of resource constrained devices that would benefit from \coap, and each can provide different levels of security for an IP stack;
+
+\begin{itemize}
+ \item \emph{Class 0}: ``not capable of running an RFC-compliant IP stack in a secure manner. They require application-level gateways to connect to the Internet.''
+ \item \emph{Class 1}: Able to connect to the internet with some ``integrated security mechanisms''. Are unable to employ full HTTP with TLS.
+ \item \emph{Class 2}: Normal Internet nodes, able to use the full HTTP stack with TLS.
+\end{itemize}
+
+The devices that we propose the sensors will connect to are the likes of the Arduino, which can be classified as class 0 or possibly class 1 devices. Due to their insecurity and difficulty running a fully fledged IP stack, Guinard \etal \cite{guinard2011internet} propose the use of a ``Smart Gateway'' system to bridge the wider internet and these sensor systems. This gateway would be able to communicate with the sensor systems over \coap and \lwifi, as well as receive API requests via HTTP from a traditional TCP/IP network to forward on to these sensors.
+
+The Thermosense paper \cite{beltran2013thermosense} proposes several different algorithms to process the raw sensing data into the occupancy estimates (further discussed in \Fref{sec:litreview:thermalsensors}), all of which are fairly computationally expensive. Because of this, it would be non-trivial to implement these algorithms on the embedded sensing devices themselves. This problem is already resolved in our proposed system, as the aforementioned ``Smart Gateway'' can easily also take on the task of processing the raw sensor data into estimates which it can relay to interested parties over its HTTP-based API. A visualisation of this proposed system is shown in \Fref{fig:litreview:devices}.
+
+\section{Discussion}
+\label{sec:litreview:discussion}
+Throughout this review of the area of wireless occupancy sensors within the \iot it can be seen that there is a clear research gap within the area of occupancy. No group could be found who has assembled an occupancy sensor that optimises these ares of Low Cost, Non-Invasiveness, Energy Efficiency and Reliability into a architected software and hardware package that can be integrated like any other Thing into the \iot.
+
+This is a key research area, because, as we have previously mentioned, the true ``disruptive level of innovation''\cite{atzori2010internet} the \iot provides can only be realised once a novel idea has been properly packaged as a Thing, rather than as a research curiosity. Packaging something as a Thing requires careful consideration of the best sensing systems, the best hardware to run those systems on, the best protocols to allow these Things to communicate, and the best device architecture to enable that communication. The state of the art in all these areas have been discussed throughout this literature review.
+
+\section{Conclusion}
+\label{sec:litreview:conclusion}
+Several criteria were identified through which the spectrum of occupancy sensing could be examined; a quantitative criteria by Teixeira, Dublon and Savvides \cite{teixeira2010survey} to examine the different functionality offerings of sensor systems and a qualitative criteria derived from the aims of the project to examine how those sensors fit within the project's parameters.
+
+Occupancy research performed with different sensor types was examined methodically through a set of taxonomic categories also originally proposed by Teixeira, Dublon and Savvides \cite{teixeira2010survey}, but modified to better suit the specifics of occupancy sensors. These sensor types included Thermal, \cdi, Video, Ultrasonic, \pir, RFID, various WiFi based methods, GPS and electricity consumption. Through an examination of these sensing systems quantitative and qualitative characteristics, it was determined that the Thermosense \iar system \cite{beltran2013thermosense} was the most suitable to the project's aims.
+
+\iot protocol architecture was also examined, with a discussion of the appropriate low-power wireless protocols for a robust Thing. All levels of the protocol stack were discussed, with Palattella \etal \cite{palattella2013standardized} proposing the open standard system that was most appropriate for the project. \iot device architecture was also examined, with an outline of the bridging mechanisms between the low-powered Thing and the wider Internet, as well as presence the hub of the system's intense computation.
+
+A key part of enabling the ``smart home for the disabled'' is creating a set of Things that can improve quality of life for those people. We believe our proposed Thing has clearly demonstrated this potential.
+
+\ifcsdef{mainfile}{}{\bibliography{../references/primary}}
+\end{document}
