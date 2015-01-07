@@ -1,0 +1,25 @@
+\documentclass[../thesis/thesis.tex]{subfiles}
+\begin{document}
+ \chapter{Orphans: Node Structure}
+
+\section{Node Hardware}
+ 
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{../diagrams/mlx-arduino.pdf}
+\caption{MLX90620 and Arduino integration circuit}
+\label{fig:circuits:node}
+\end{figure}
+
+Due to low cost and ease of use, the \ard platform was selected as the host for the low-level \iic interface for communication to the \mlx. Initially, this presented some challenges, as the \mlx recommends a power and communication voltage of 2.6V, while the \ard is only able to output 3.3V and 5V as power, and 5V as communication. Due to this, it was not possible to directly connect the \ard to the \mlx, and similarly due to the two-way nature of the \iic 2-wire communication protocol, it was also not possible to simply lower the \ard voltage using simple electrical techniques, as such techniques would interfere with two-way communication.
+
+A solution was found in the form of a \iic level-shifter, the Adafruit ``4-channel I2C-safe Bi-directional Logic Level Converter'' \cite{AdafruitI2C}, which provided a cheap method to bi-directionally communicate between the two devices at their own preferred voltages. The layout of the circuit necessary to link the \ard and the \mlx using this converter can be seen in \Fref{fig:circuits:node}.
+
+\section{Node Software}
+
+To calculate the final temperature values that the \mlx offers, a complex initialisation and computational process must be followed, which is specified in the sensor's datasheet \cite{MLXDatasheet}. This process involves initialising the sensor with values attained from a separate on-board \iic EEPROM, then retrieving a variety of normalisation and adjustment values, along with the raw sensor data, to compute the final temperature result.
+
+The basic algorithm to perform this normalisation was based upon code by users ``maxbot'', ``IIBaboomba'', ``nseidle'' and others on the Arduino Forums \cite{ArduinoForum} and was modified to operate with the newer \ard \iic libraries released since the authors' posts. In pursuit of the project's aims to create a more approachable thermal sensor, the code was also restructured and rewritten with more comments and named constants so that the code is more readily understood and easier to modify for other purposes.
+ 
+ \ifcsdef{mainfile}{}{\bibliography{../references/primary}}
+\end{document}
