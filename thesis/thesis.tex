@@ -17,6 +17,9 @@
 \usepackage{forest}
 \usepackage{hyperref}
 \usepackage{xspace}
+\usepackage{listings}
+\usepackage{multicol}
+\usepackage{enumerate}
 
 \newcommand{\thetitle}{Developing a robust system for occupancy detection in the household}
 \newcommand{\theauthor}{Ash Tyndall}
@@ -32,6 +35,8 @@
 \tikzstyle{box} = [rectangle, draw=black, minimum width=3cm, minimum height=1cm, text centered, text width=3cm]
 \tikzstyle{cbox} = [cloud, cloud puffs=15.7, minimum height=1cm, draw]
 \tikzstyle{line} = [thin,-,>=stealth]
+\tikzstyle{fbox} = [box, dotted, rounded corners=1mm]
+\tikzstyle{fcont} = [rectangle, draw=black, minimum width=6cm, minimum height=2.5cm, text centered, text width=6cm]
 
 % Check marks and cross marks
 \newcommand{\cmark}{\hspace{7mm}\BeginAccSupp{ActualText=Y}\checkmark\EndAccSupp{}}
@@ -132,6 +137,12 @@
 
 % Hyperref setup
 \hypersetup{pdftitle=\thetitle,pdfauthor=\theauthor,pdfsubject=\thecategories,pdfkeywords=\thekeywords,hidelinks}
+
+% Listing styles
+\lstdefinestyle{arduino}{
+  frame=single,
+  basicstyle=\scriptsize\ttfamily,
+}
 
 % Configure titles
 \title{\thetitle}
