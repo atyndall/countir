@@ -19,6 +19,12 @@
 \usepackage{xspace}
 \usepackage{ccicons}
 \usepackage{textcomp}
+\usepackage{listings}
+\usepackage{multicol}
+\usepackage{enumerate}
+\usepackage{rotating}
+\usepackage{tabularx}
+\usepackage{calc}
 
 \newcommand{\thetitle}{Developing a robust system for occupancy detection in the household}
 \newcommand{\theauthor}{Ash Tyndall}
@@ -34,6 +40,8 @@
 \tikzstyle{box} = [rectangle, draw=black, minimum width=3cm, minimum height=1cm, text centered, text width=3cm]
 \tikzstyle{cbox} = [cloud, cloud puffs=15.7, minimum height=1cm, draw]
 \tikzstyle{line} = [thin,-,>=stealth]
+\tikzstyle{fbox} = [box, dotted, rounded corners=1mm]
+\tikzstyle{fcont} = [rectangle, draw=black, minimum width=6cm, minimum height=2.5cm, text centered, text width=6cm]
 
 % Check marks and cross marks
 \newcommand{\cmark}{\hspace{7mm}\BeginAccSupp{ActualText=Y}\checkmark\EndAccSupp{}}
@@ -85,6 +93,8 @@
 \newabbrev\lmed{802.15.4e}
 \newabbrev\lphy{802.15.4-2006}
 \newabbrev\etal{et al.}
+\newabbrev\iic{$\textrm{I}^2\textrm{C}$}
+\newabbrev\ard{Arduino}
 
 % Fancyref support for subsections, source; https://github.com/openlilylib/tutorials/blob/master/aGervasoni/orchestralScores/example-materials/OLLbase.sty
 \newcommand*{\fancyrefsubseclabelprefix}{subsec}
@@ -132,6 +142,20 @@
 
 % Hyperref setup
 \hypersetup{pdftitle=\thetitle,pdfauthor=\theauthor,pdfsubject=\thecategories,pdfkeywords=\thekeywords,hidelinks}
+
+% Listing styles
+\lstdefinestyle{arduino}{
+  frame=single,
+  basicstyle=\scriptsize\ttfamily,
+}
+
+% Square table config
+\newcolumntype{z}[1] {
+  @{{\centering \parbox[c]{\tabcolsep}{\rule{0pt}{#1 + 2\tabcolsep}}}}
+  >{\centering\arraybackslash}
+  m{#1} }
+% 
+\renewcommand{\tabularxcolumn}[1]{z{#1}}
 
 % Configure titles
 \title{\thetitle}
@@ -192,14 +216,6 @@ These are the acknowledgements.
 
 \chapter{Original Honours Proposal}
 \subfile{../proposal/proposal}
-
-\chapter{Circuits}
-\begin{figure}
-\centering
-\includegraphics[height=0.85\textheight]{../diagrams/mlx-arduino.pdf}
-\caption{MLX90620 and Arduino connecting circuit}
-\label{fig:circuits:arduino2}
-\end{figure}
 
 \bibliography{../references/primary}
 
