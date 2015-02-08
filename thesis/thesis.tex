@@ -20,6 +20,9 @@
 \usepackage{listings}
 \usepackage{multicol}
 \usepackage{enumerate}
+\usepackage{rotating}
+\usepackage{tabularx}
+\usepackage{calc}
 
 \newcommand{\thetitle}{Developing a robust system for occupancy detection in the household}
 \newcommand{\theauthor}{Ash Tyndall}
@@ -143,6 +146,14 @@
   frame=single,
   basicstyle=\scriptsize\ttfamily,
 }
+
+% Square table config
+\newcolumntype{z}[1] {
+  @{{\centering \parbox[c]{\tabcolsep}{\rule{0pt}{#1 + 2\tabcolsep}}}}
+  >{\centering\arraybackslash}
+  m{#1} }
+% 
+\renewcommand{\tabularxcolumn}[1]{z{#1}}
 
 % Configure titles
 \title{\thetitle}

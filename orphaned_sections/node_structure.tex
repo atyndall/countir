@@ -7,7 +7,7 @@
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{../diagrams/mlx-arduino.pdf}
-\caption{MLX90620 and Arduino integration circuit}
+\caption{MLX90620, PIR and Arduino integration circuit}
 \label{fig:circuits:node}
 \end{figure}
 
@@ -15,13 +15,17 @@ Due to low cost and ease of use, the \ard platform was selected as the host for 
 
 A solution was found in the form of a \iic level-shifter, the Adafruit ``4-channel I2C-safe Bi-directional Logic Level Converter'' \cite{AdafruitI2C}, which provided a cheap method to bi-directionally communicate between the two devices at their own preferred voltages. The layout of the circuit necessary to link the \ard and the \mlx using this converter can be seen in \Fref{fig:circuits:node}.
 
+Additionally, as used in the Thermosense paper, a \pir motion sensor \cite{AdafruitPIR} was also connected to the \ard. This sensor, operating at 5V natively, did not require any complex circuitry to interface with the \ard. It is connected to digital pin 2 on the \ard, where it provides a rising signal in the event that motion is detected, which can be configured to cause an interrupt on the \ard. In the configuration used in this project, the sensor's sensitivity was set to the highest value (TODO: check) and the timeout for re-triggering was set to the lowest value (approximately 2.5 seconds). Additionally, the continuous re-triggering feature (whereby the sensor produces continuous rising and falling signals for the duration of motion) was disabled using the provided jumpers. 
+
 \section{Node Software}
 
 To calculate the final temperature values that the \mlx offers, a complex initialisation and computational process must be followed, which is specified in the sensor's datasheet \cite{MLXDatasheet}. This process involves initialising the sensor with values attained from a separate on-board \iic EEPROM, then retrieving a variety of normalisation and adjustment values, along with the raw sensor data, to compute the final temperature result.
 
-The basic algorithm to perform this normalisation was based upon code by users ``maxbot'', ``IIBaboomba'', ``nseidle'' and others on the Arduino Forums \cite{ArduinoForum} and was modified to operate with the newer \ard \iic libraries released since the authors' posts. In pursuit of the project's aims to create a more approachable thermal sensor, the code was also restructured and rewritten with more comments and named constants so that the code is more readily understood and easier to modify for other purposes.
+The basic algorithm to perform this normalisation was based upon code by users ``maxbot'', ``IIBaboomba'', ``nseidle'' and others on the Arduino Forums \cite{ArduinoForum} and was modified to operate with the newer \ard ``Wire'' \iic libraries released since the authors' posts. In pursuit of the project's aims to create a more approachable thermal sensor, the code was also restructured and rewritten to be both more readable, and to introduce a set of features to make the management of the sensor data easier for the user, and for the information to be more human readable.
 
+The first of the features introduced was the human-readable format for serial transmission. This allows the user to both easily write code that can parse the serial to acquire the serial data, as well as examine the serial data directly with ease. When the \ard first boots running the software, the output in \Fref{fig:code:initseq} is output. This specifies several things that are useful to the user; the attached sensor (``DRIVER''), the build of the software (``BUILD'') and the refresh rate of the sensor (``IRHZ''). Several different headers, such as ``ACTIVE'' and ``INIT'' specify the current millisecond time of the processor, thus indicating how long the execution of the initialisation process took (33 milliseconds).
 
+Once booted, the user is able to send several one-character commands to the sensor to configure operation, which are described in \Fref{tab:ardcommands}. Depending on the sensor configuration, IR data may be periodically output automatically, or otherwise manually triggered. This IR data is produced in the packet format described in \Fref{fig:code:packet}. This is a simple, human readable format that includes the millisecond time of the processor at the start and end of the calculation, if the \pir has seen any motion for the duration of the calculation, and the 16x4 grid of calculated temperature values.
 
 \begin{figure}
  \centering
@@ -37,6 +41,21 @@ ACTIVE 33
 \caption{Initialisation sequence}
 \label{fig:code:initseq}
 \end{figure}
+
+\begin{table}
+\centering
+\begin{tabular}{|l|l|}
+\hline
+\texttt{R} & Flush buffers and reset \ard \\ \hline
+\texttt{I} & Print INFO again \\ \hline
+\texttt{T} & Activate timers for periodic IR data output \\ \hline
+\texttt{O} & Deactivate timers for periodic IR data output \\ \hline
+\texttt{P} & Manually trigger capture and output of IR data \\ \hline
+\texttt{F\textit{x}} & Set sensor refresh frequency to \textit{x} and reboot \\ \hline
+\end{tabular}
+\caption{Commands}
+\label{tab:ardcommands}
+\end{table}
 
 \begin{figure}
  \centering
@@ -95,7 +114,7 @@ STOP 97
 \centering
 \begin{tikzpicture}[node distance=1.7cm]
 \node (interwebs) [cbox] {Network};
-\node (wifi) [dashbox, left=of interwebs] {\small WiFi / Ethernet};
+\node (wifi) [dashbox, right=of interwebs] {\small WiFi / Ethernet};
 \node (rpi) [fcont, below=of wifi] {Raspberry Pi \linebreak
 
   \tikz\node[fbox, minimum width=2.3cm, text width=2.3cm] {\small \ttfamily thinglib};
