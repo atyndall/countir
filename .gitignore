@@ -24,4 +24,6 @@
 *.tex.backup
 *.bcf
 *.run.xml
+*.lol
 rawdata/
+thesis/_minted-thesis/

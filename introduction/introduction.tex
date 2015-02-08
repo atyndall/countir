@@ -1,6 +1,28 @@
 \documentclass[../thesis/thesis.tex]{subfiles}
 \begin{document}
- \chapter{Introduction}
+\chapter{Introduction}
  
- \ifcsdef{mainfile}{}{\bibliography{../references/primary}}
+The proportion of elderly and mobility-impaired people is predicted to grow dramatically over the next century, leaving a large proportion of the population unable to care for themselves, and also reducing the number of human carers available \cite{chan2009smart}. With this issue looming, investments are being made in technologies that can provide the support these groups need to live independent of human assistance. 
+
+With recent advance in low cost embedded computing, such as the Arduino and Raspberry Pi, the ability to provide a set of interconnected sensors, actuators and interfaces to enable a low-cost `smart home for the disabled' that takes advantage of the \iot is becoming increasingly achievable.
+
+Sensing techniques to determine occupancy, the detection of the presence and number of people in an area, are of particular use to the elderly and disabled. Detection can be used to inform various devices that change state depending on the user's location, including the better regulation energy hungry devices to help reduce financial burden. Household climate control, which in some regions of Australia accounts for up to 40\% of energy usage \cite{abs4602} is one area in which occupancy detection can reduce costs, as efficiency can be increased with annual energy savings of up to 25\% found in some cases \cite{beltran2013thermosense}.
+ 
+While many of the above solutions achieve excellent accuracies, in many cases they suffer from problems of installation logistics, difficult assembly, assumptions on user's technology ownership and component cost. In a smart home for the disabled, accuracy is important, but accessibility is paramount.
+
+The goal of this research project is to devise an occupancy detection system that forms part of a larger `smart home for the disabled', and intergrates into the \iot, that meets the following qualitative accessibility criteria;
+
+\begin{itemize}
+ \item \emph{Low Cost}: The set of components required should aim to minimise cost, as these devices are intended to be deployed in situations where the serviced user may be financially restricted.
+ 
+ \item \emph{Non-Invasive}: The sensors used in the system should gather as little information as necessary to achieve the detection goal; there are privacy concerns with the use of high-definition sensors.
+ 
+ \item \emph{Energy Efficient}: The system may be placed in a location where there is no access to mains power (e.g. roof), and the retrofitting of appropriate power can be difficult; the ability to survive for long periods on only battery power is advantageous.
+ 
+ \item \emph{Reliable}: The system should be able to operate without user intervention or frequent maintenance, and should be able to perform its occupancy detection goal with a high degree of accuracy.
+\end{itemize}
+
+To create a picture of what options there are in this sensing area, a literature review of the available sensor types and wireless sensor architectures is needed. From this list, proposed solutions will be compared against the aforementioned accessibility criteria to determine their suitability.
+ 
+\ifcsdef{mainfile}{}{\bibliography{../references/primary}}
 \end{document}
