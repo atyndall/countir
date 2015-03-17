@@ -27,6 +27,9 @@
 \usepackage{calc}
 \usepackage{color}
 \usepackage{minted}
+\usepackage{pdflscape}
+\usepackage{upquote}
+\usepackage{afterpage}
 
 \newcommand{\thetitle}{Developing a robust system for occupancy detection in the household}
 \newcommand{\theauthor}{Ash Tyndall}
@@ -241,25 +244,9 @@ These are the acknowledgements.
 \subfile{../discussion/discussion}
 
 \appendix
+\include{appendices}
 
-\chapter{Original Honours Proposal}
-\subfile{../proposal/proposal}
-
-\chapter{Code Listings}
-
-
-\section{ThingLib}
-\subsection{cam.py}
-\inputminted[fontsize=\footnotesize,breaklines=true,linenos=true]{python}{../../code/coordinator/processing/thinglib/cam.py}
-\subsection{pxdisplay.py}
-\inputminted[fontsize=\footnotesize,breaklines=true,linenos=true]{python}{../../code/coordinator/processing/thinglib/pxdisplay.py}
-\subsection{features.py}
-\inputminted[fontsize=\footnotesize,breaklines=true,linenos=true]{python}{../../code/coordinator/processing/thinglib/features.py}
-
-\section{Arduino Sketch}
-\inputminted[fontsize=\footnotesize,breaklines=true,linenos=true]{C++}{../../code/node/mlx90620_driver/mlx90620_driver.ino}
-
-\clearpage
+%\clearpage
 
 \addcontentsline{toc}{chapter}{Bibliography}
 \bibliography{../references/primary}
