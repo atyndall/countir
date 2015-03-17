@@ -19,6 +19,28 @@
 %\afterpage{\global\pdfpageattr\expandafter{\the\pdfpageattr/Rotate 0}}
 
 In \Fref{tab:meanstd} the thermal sensor was exposed to the night sky at a capture rate of 1Hz for 4 minutes, with the sensing results combined to create a set of means and standard deviations to indicate the pixels at ``rest''.
+
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{../diagrams/temp/noise.pdf}
+\caption{Comparison of noise levels at the \mlx' various sampling speeds}
+\label{fig:noise}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{../diagrams/temp/motion.pdf}
+\caption{Different \mlx pixel temperature values as hot object moves across row}
+\label{fig:hotmotion}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{../diagrams/temp/cooldown.pdf}
+\caption{Variation in temperature detected for hot object at 1Hz sampling ration}
+\label{fig:cooldown}
+\end{figure}
  
  \ifcsdef{mainfile}{}{\bibliography{../references/primary}}
 \end{document}
