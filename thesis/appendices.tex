@@ -3,10 +3,10 @@
 
 
 \chapter{Ideal System Architecture}
-\label{sec:litreview:architecture}
+\label{chap:architecture}
 Beyond specific sensor design and occupancy detection algorithms, a core goal of this project is to create a system that is designed to operate as a useful Thing in a real-world \iot environment, as the key advantage of Things is the ``disruptive level of innovation''\cite{atzori2010internet} brought about by their ability to be combined in ways unforeseen (yet still enabled) by their creators. This architecture involves careful consideration of the embedded hardware that will drive the system, as well as the communications protocols utilised between the sensor and devices interested in the sensor's information.
 
-\subsection{Protocols}
+\section{Protocols}
 \label{subsec:litreview:architecture:protocols}
 % From; https://openwsn.atlassian.net/wiki/pages/viewpage.action?pageId=29196353
 \begin{table}
@@ -37,7 +37,7 @@ Above the application layer, Guinard \etal \cite{guinard2012search} propose the 
 
 \lowpan \cite{shelby20116lowpan} is a compression and formatting specification to allow IPv6 packets to be sent over an \lwifi based network. Optimisations are found in the reduction of the size of \lowpan packets, IPv6 addresses as well as redesigning core Internet Protocol algorithms so that they can run with low power consumption on participating devices.
 
-\subsection{Devices}
+\section{Devices}
 \label{subsec:litreview:architecture:devices}
 \begin{figure}
 \centering
@@ -89,3 +89,49 @@ The Thermosense paper \cite{beltran2013thermosense} proposes several different a
 \inputminted[fontsize=\footnotesize,breaklines=true,numbers=right]{C++}{../../code/mlx90620_driver/mlx90620_driver.ino}
 
 \end{landscape}
+
+
+\chapter{Full Results}
+
+\section{Classifier Experiment Set 1}
+\label{sec:results:cexp1}
+\subsection{Nominal Results}
+\subsubsection{Multilayer Perceptron}
+\inputminted[fontsize=\footnotesize,breaklines=true]{text}{../data/processed/third/nominal-multilayer-perceptron.txt}
+\clearpage
+
+\subsubsection{iBK Neighbours=1}
+\inputminted[fontsize=\footnotesize,breaklines=true]{text}{../data/processed/third/nominal-ibk-1.txt}
+\clearpage
+
+\subsubsection{iBK Neighbours=4}
+\inputminted[fontsize=\footnotesize,breaklines=true]{text}{../data/processed/third/nominal-ibk-4.txt}
+\clearpage
+
+\subsubsection{Naive Bayes}
+\inputminted[fontsize=\footnotesize,breaklines=true]{text}{../data/processed/third/nominal-naive-bayes.txt}
+\clearpage
+
+\subsubsection{Decision Stump}
+\inputminted[fontsize=\footnotesize,breaklines=true]{text}{../data/processed/third/nominal-decision-stump.txt}
+\clearpage
+
+\subsection{Numeric Results}
+\subsubsection{Multilayer Perceptron}
+\inputminted[fontsize=\footnotesize,breaklines=true]{text}{../data/processed/third/numeric-multilayer-perceptron.txt}
+\clearpage
+
+\subsubsection{iBK Neighbours=1}
+\inputminted[fontsize=\footnotesize,breaklines=true]{text}{../data/processed/third/numeric-ibk-1.txt}
+\clearpage
+
+\subsubsection{iBK Neighbours=4}
+\inputminted[fontsize=\footnotesize,breaklines=true]{text}{../data/processed/third/numeric-ibk-4.txt}
+\clearpage
+
+\subsubsection{Linear Regression}
+\inputminted[fontsize=\footnotesize,breaklines=true]{text}{../data/processed/third/numeric-linear-reg.txt}
+\clearpage
+
+\subsubsection{Decision Stump}
+\inputminted[fontsize=\footnotesize,breaklines=true]{text}{../data/processed/third/numeric-decision-stump.txt}

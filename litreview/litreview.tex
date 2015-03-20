@@ -158,7 +158,7 @@ Finally, we have thermal sensing. It provides both Presence and Count informatio
 \label{sec:litreview:thermalsensors}
 Our analysis (\Fref{subsec:litreview:sensors:analysis}) concluded that thermal sensors are the best candidates for this project. In this section we discuss the thermal sensing field in more detail.
 
-A primary static/dynamic sensor fusion system in this field is the Thermosense system \cite{beltran2013thermosense}, a \pir and \iar\footnote{Phillips GridEYE; approx \$30} used to subdivide an area into an $8\times8$ grid of sections from which temperatures can be derived. This sensor system is attached to the roof on a small embedded controller which is responsible for collecting the data and transmitting it back to a larger computer via low powered wireless protocols.
+A primary static/dynamic sensor fusion system in this field is the Thermosense system \cite{beltran2013thermosense}, a \pir and \iar used to subdivide an area into an $8\times8$ grid of sections from which temperatures can be derived. This sensor system is attached to the roof on a small embedded controller which is responsible for collecting the data and transmitting it back to a larger computer via low powered wireless protocols.
 
 The Thermosense system develops a thermal background map of the room using an \emwa over a 15 minute time window (if no motion is detected). If the room remains occupied for a long period, a more complex scaling algorithm is used which considers the coldest points in the room empty, and averages them against the new background, then performs \emwa with a lower weighting.
 
