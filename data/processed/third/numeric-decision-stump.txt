@@ -1,0 +1,35 @@
+=== Run information ===
+
+Scheme:weka.classifiers.trees.DecisionStump 
+Relation:     persondata
+Instances:    1018
+Attributes:   4
+              npeople
+              numactive
+              numconnected
+              sizeconnected
+Test mode:10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+Decision Stump
+
+Classifications
+
+sizeconnected <= 3.5 : 0.14788732394366197
+sizeconnected > 3.5 : 1.657439446366782
+sizeconnected is missing : 0.15771812080536912
+
+
+Time taken to build model: 0.01 seconds
+
+=== Cross-validation ===
+=== Summary ===
+
+Correlation coefficient                  0.7649
+Mean absolute error                      0.4756
+Root mean squared error                  0.6249
+Relative absolute error                 57.9858 %
+Root relative squared error             64.291  %
+Total Number of Instances             1018     
+

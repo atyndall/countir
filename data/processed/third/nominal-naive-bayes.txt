@@ -1,0 +1,71 @@
+=== Run information ===
+
+Scheme:weka.classifiers.bayes.NaiveBayes 
+Relation:     persondata
+Instances:    1018
+Attributes:   4
+              npeople
+              numactive
+              numconnected
+              sizeconnected
+Test mode:10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+Naive Bayes Classifier
+
+                  Class
+Attribute             0       1       2       3
+                  (0.4)  (0.25)  (0.29)  (0.06)
+================================================
+numactive
+  mean            1.9705  10.644 20.4324 31.7871
+  std. dev.       4.2009  7.0371  9.8619   10.01
+  weight sum         323     252     291      64
+  precision       1.0417  1.0417  1.0417  1.0417
+
+numconnected
+  mean            0.7864  1.5198  2.2165   2.375
+  std. dev.        1.005  1.0214  0.8522  0.7181
+  weight sum         323     252     291      64
+  precision            1       1       1       1
+
+sizeconnected
+  mean             3.481 10.2941 11.4944 19.6742
+  std. dev.       4.2277  4.7478  5.2921  7.8351
+  weight sum         151     223     282      64
+  precision       1.4848  1.4848  1.4848  1.4848
+
+
+
+Time taken to build model: 0.01 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances         674               66.2083 %
+Incorrectly Classified Instances       344               33.7917 %
+Kappa statistic                          0.4964
+Mean absolute error                      0.2087
+Root mean squared error                  0.3516
+Relative absolute error                 60.4564 %
+Root relative squared error             84.6405 %
+Total Number of Instances             1018     
+
+=== Detailed Accuracy By Class ===
+
+       TP Rate   FP Rate   Precision   Recall  F-Measure   ROC Area  Class
+         0.925     0.209      0.75      0.925     0.828      0.889    0
+         0.357     0.127      0.481     0.357     0.41       0.746    1
+         0.608     0.149      0.621     0.608     0.615      0.826    2
+         0.422     0.013      0.692     0.422     0.524      0.914    3
+WAvg.    0.662     0.159      0.643     0.662     0.644      0.837
+
+=== Confusion Matrix ===
+
+   a   b   c   d   <-- classified as
+ 380  16  15   0 |   a = 0
+ 100  90  60   2 |   b = 1
+  27  77 177  10 |   c = 2
+   0   4  33  27 |   d = 3
+

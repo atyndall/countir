@@ -1,0 +1,66 @@
+=== Run information ===
+
+Scheme:weka.classifiers.trees.DecisionStump 
+Relation:     persondata
+Instances:    1018
+Attributes:   4
+              npeople
+              numactive
+              numconnected
+              sizeconnected
+Test mode:10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+Decision Stump
+
+Classifications
+
+numactive <= 4.5 : 0
+numactive > 4.5 : 2
+numactive is missing : 0
+
+Class distributions
+
+numactive <= 4.5
+0       1       2       3
+0.827   0.147   0.025   0.0	
+numactive > 4.5
+0       1       2       3	
+0.054   0.347   0.489   0.111	
+numactive is missing
+0       1       2       3 
+1.0     0.0     0.0     0.0	
+
+
+Time taken to build model: 0 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances         662               65.0295 %
+Incorrectly Classified Instances       356               34.9705 %
+Kappa statistic                          0.4726
+Mean absolute error                      0.2283
+Root mean squared error                  0.338 
+Relative absolute error                 66.1568 %
+Root relative squared error             81.3817 %
+Total Number of Instances             1018     
+
+=== Detailed Accuracy By Class ===
+
+       TP Rate   FP Rate   Precision   Recall  F-Measure   ROC Area  Class
+         0.925     0.1        0.862     0.925     0.892      0.908    0
+         0         0          0         0         0          0.644    1
+         0.969     0.406      0.489     0.969     0.65       0.767    2
+         0         0          0         0         0          0.716    3
+WAvg.    0.65      0.157      0.488     0.65      0.546      0.79 
+
+=== Confusion Matrix ===
+
+   a   b   c   d   <-- classified as
+ 380   0  31   0 |   a = 0
+  52   0 200   0 |   b = 1
+   9   0 282   0 |   c = 2
+   0   0  64   0 |   d = 3
+
