@@ -11,6 +11,7 @@ This forced us to search for alternative sensors in the space that fulfill simil
 
 In an idealized version of this occupancy system, much like Thermosense this system would include wireless networking and a very small form factor. However, due to time and resource constraints, the scope of this project has been limited to a minimum viable implementation. Appendix \Fref{chap:architecture} discusses in detail how the introduction of new open standards in the Wireless Personal Area Network space could be used in future systems to provide robust, decentralized networking of future occupancy sensors. This prototype architecture has been designed such that a clear path to the idea system architecture discussed therein is available.
 
+
 \section{Hardware}
 
 \begin{table}
@@ -25,9 +26,9 @@ In an idealized version of this occupancy system, much like Thermosense this sys
 \label{tab:sensor:tiers}
 \end{table}
 
-As reliability and future extensibility are core concerns of the project, a three-tiered system is employed with regards to the hardware involved in the system (\Fref{tab:sensor:tiers}). At the bottom, the Sensing Tier, we have the raw sensor, the \mlx, which communicate over \iic. Connected to these devices via those respective protocols is the Preprocessing Tier, run an embedded system. The embedded device polls the data from these sensors, performs necessary calculations to turn raw information into suitable data, and communicates this via USB Serial to the third tier. The third tier, the Analysis Tier, is run on a fully fledged computer. In our prototype, it captures and stores both video data, and the Temperature and Motion data it receives over USB Serial.
+As reliability and future extensibility are core concerns of the project, a three-tiered system is employed with regards to the hardware involved in the system (\Fref{tab:sensor:tiers}). At the bottom, the Sensing Tier, we have the raw sensor, the \mlx, which communicate over \iic. Connected to these devices via those respective protocols is the Preprocessing Tier, run an embedded system. The embedded device polls the data from these sensors, performs necessary calculations to turn raw information into suitable data, and communicates this via Serial over USB to the third tier. The third tier, the Analysis Tier, is run on a fully fledged computer. In our prototype, it captures and stores both video data, and the Temperature and Motion data it receives over Serial over USB.
 
-While at a glance this system may seem overly complicated, it ensures that a sensible upgrade path to a more feature-rich sensing system is available. In the current prototype, the Analysis Tier merely stores captured data for offline analysis, in future prototypes this analysis can be done live and served to interested parties over a RESTful API. In the current prototype, the Analysis and Sensing Tiers are connected by USB Serial, in future prototypes, this can be replaced by a wireless mesh network, with many Preprocessing/Sensing Tier nodes communicating with one Analysis Tier node.
+While at a glance this system may seem overly complicated, it ensures that a sensible upgrade path to a more feature-rich sensing system is available. In the current prototype, the Analysis Tier merely stores captured data for offline analysis, in future prototypes this analysis can be done live and served to interested parties over a RESTful API. In the current prototype, the Analysis and Sensing Tiers are connected by Serial over USB, in future prototypes, this can be replaced by a wireless mesh network, with many Preprocessing/Sensing Tier nodes communicating with one Analysis Tier node.
 
 \begin{figure}
 \centering
@@ -48,6 +49,44 @@ Additionally, as used in the Thermosense paper, a \pir motion sensor \cite{Adafr
 For the Analysis Tier, the Raspberry Pi B+ was chosen, as it is a powerful computer capable of running Linux available for an extraordinarily low price. The \ard is connected to the Raspberry Pi over USB, which provides it both power and the capacity to transfer data. In turn, the Raspberry Pi is connected to a simple micro-USB rechargeable battery pack, which provides it with power, and subsequently the \ard and sensors.
 
 \section{Software}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}[node distance=1.7cm]
+\node (interwebs) [cbox] {Network};
+\node (wifi) [dashbox, right=of interwebs] {\small WiFi / Ethernet};
+\node (rpi) [fcont, below=of wifi] {Raspberry Pi B+ \linebreak
+  ``Analysis Tier'' \linebreak
+  
+  \tikz\node[fbox, minimum width=2.3cm, text width=2.3cm] {\small \ttfamily thinglib};
+  \tikz\node[fbox, minimum width=2.3cm, text width=2.3cm] {\small \ttfamily features.py};
+};
+\node (cam) [box, right=of rpi] {Camera};
+\node (usb) [dashbox, below=of rpi] {\small Serial over USB};
+\node (ard) [fcont, below=of usb] {Arduino Uno R3 \linebreak
+  ``Preprocessing Tier'' \linebreak
+  
+  \tikz\node[fbox, minimum width=3.8cm, text width=3.8cm] {\small \ttfamily mlx90620\_driver.ino};
+};
+\node (iic) [dashbox, left=of ard] {\small \iic};
+\node (mlx) [box, below=of iic] {MLX90620};
+\node (wire) [dashbox, right=of ard] {\small Interrupt};
+\node (pir) [box, below=of wire] {PIR};
+\node (sensetier) [dashbox, dotted, fit=(pir) (mlx)] {``Sensing Tier''};
+
+\draw [line] (interwebs) -- (wifi);
+\draw [line] (wifi) -- (rpi);
+\draw [line] (rpi) -- (usb);
+\draw [line] (usb) -- (ard);
+\draw [line] (ard) -- (iic);
+\draw [line] (iic) -- (mlx);
+\draw [line] (ard) -- (wire);
+\draw [line] (wire) -- (pir);
+\draw [line] (rpi) -- (cam);
+\end{tikzpicture}
+\caption{Prototype system architecture}
+\label{fig:pictures:protob-arch}
+\end{figure}
 
 To calculate the final temperature values that the \mlx offers, a complex initialisation and computational process must be followed, which is specified in the sensor's datasheet \cite{MLXDatasheet}. This process involves initialising the sensor with values attained from a separate on-board \iic EEPROM, then retrieving a variety of normalisation and adjustment values, along with the raw sensor data, to compute the final temperature result.
 
@@ -76,131 +115,64 @@ MOVEMENT 0
 1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0
 STOP 97
 \end{lstlisting}
+%\begin{tabular}{|l|l|}
+%\hline
+%\texttt{R} & Flush buffers and reset \ard \\ \hline
+%\texttt{I} & Print INFO again \\ \hline
+%\texttt{T} & Activate timers for periodic IR data output \\ \hline
+%\texttt{O} & Deactivate timers for periodic IR data output \\ \hline
+%\texttt{P} & Manually trigger capture and output of IR data \\ \hline
+%\texttt{F\textit{x}} & Set sensor refresh frequency to \textit{x} and reboot \\ \hline
+%\end{tabular}
 \caption{Initialisation sequence and thermal packet}
 \label{fig:code:initseq}
 \end{figure}
 
-\begin{table}
-\centering
-\begin{tabular}{|l|l|}
-\hline
-\texttt{R} & Flush buffers and reset \ard \\ \hline
-\texttt{I} & Print INFO again \\ \hline
-\texttt{T} & Activate timers for periodic IR data output \\ \hline
-\texttt{O} & Deactivate timers for periodic IR data output \\ \hline
-\texttt{P} & Manually trigger capture and output of IR data \\ \hline
-\texttt{F\textit{x}} & Set sensor refresh frequency to \textit{x} and reboot \\ \hline
-\end{tabular}
-\caption{Commands}
-\label{tab:ardcommands}
-\end{table}
-
-\section{Physical Form}
-To enable the prototype to be easily mounted on the ceiling, the prototype was placed on a flat board with feet that would enable it to be screwed into a pole, and the pole extended to jam the sensor against the ceiling and the floor using the pole (\Fref{fig:pictures:protob1}, \Fref{fig:pictures:protoact}). Due to a wireless module and battery pack being added to the Raspberry Pi, it was feasible for the sensor to operate entirely wirelessly for several hours. However, in most cases it was more convenient to operate using wired power and Ethernet.
-
-\begin{figure}
-\centering
-\includegraphics[width=\textwidth]{../diagrams/prototypeb-1.jpg}
-\includegraphics[width=\textwidth]{../diagrams/prototypeb-2.jpg}
-{\small
-\begin{multicols}{2}
-\begin{enumerate}[a)]
- \item Battery pack
- \item Raspberry Pi
- \item Arduino
- \item Level-shifting circuitry
- \item Movable sensor mount
- \item PIR
- \item Camera
- \item \mlx
-\end{enumerate}
-\end{multicols}
-}
-\caption{Prototype Physical Form}
-\label{fig:pictures:protob1}
-\end{figure}
-
-\begin{figure}
-\centering
-\includegraphics[height=0.5\textheight]{../diagrams/prototype-mounted-ceiling.jpg}
-\caption{Prototype in action}
-\label{fig:pictures:protoact}
-\end{figure}
-
-\begin{figure}
-\centering
-\begin{tikzpicture}[node distance=1.7cm]
-\node (interwebs) [cbox] {Network};
-\node (wifi) [dashbox, right=of interwebs] {\small WiFi / Ethernet};
-\node (rpi) [fcont, below=of wifi] {Raspberry Pi \linebreak
-  ``Analysis Tier'' \linebreak
-  
-  \tikz\node[fbox, minimum width=2.3cm, text width=2.3cm] {\small \ttfamily thinglib};
-  \tikz\node[fbox, minimum width=2.3cm, text width=2.3cm] {\small \ttfamily features.py};
-};
-\node (cam) [box, right=of rpi] {Camera};
-\node (usb) [dashbox, below=of rpi] {\small USB Serial};
-\node (ard) [fcont, below=of usb] {Arduino \linebreak
-  ``Preprocessing Tier'' \linebreak
-  
-  \tikz\node[fbox, minimum width=3.3cm, text width=3.3cm] {\small \ttfamily mlx90620\_driver};
-};
-\node (iic) [dashbox, left=of ard] {\small \iic};
-\node (mlx) [box, below=of iic] {MLX90620};
-\node (wire) [dashbox, right=of ard] {\small Interrupt};
-\node (pir) [box, below=of wire] {PIR};
-\node (sensetier) [dashbox, dotted, fit=(pir) (mlx)] {``Sensing Tier''};
-
-\draw [line] (interwebs) -- (wifi);
-\draw [line] (wifi) -- (rpi);
-\draw [line] (rpi) -- (usb);
-\draw [line] (usb) -- (ard);
-\draw [line] (ard) -- (iic);
-\draw [line] (iic) -- (mlx);
-\draw [line] (ard) -- (wire);
-\draw [line] (wire) -- (pir);
-\draw [line] (rpi) -- (cam);
-\end{tikzpicture}
-\caption{Prototype system architecture}
-\label{fig:pictures:protob-arch}
-\end{figure}
-
-
 \section{Sensor Properties}
-See \Fref{fig:exps:2setup}.
+
+In order to best utilize the \mlx, we must first understand the properties it exhibits, and their potential affects on our ability to perform person related measurements. These properties can be broadly separated into three different categories; bias, noise and sensitivity. A broad range of data was collected with the sensor in a horizontal orientation using various sources of heat and cold to determine these properties. This experimental setup is described in \Fref{fig:exps:2setup}.
 
 \begin{figure}
 \centering
-% TODO: Need proper figure merging
 \includegraphics[height=0.9\textheight]{../diagrams/second-exp-setup2.pdf}
 \caption{Experiment setup to determine sensor properties}
 \label{fig:exps:2setup}
 \end{figure}
 
-%\afterpage{\global\pdfpageattr\expandafter{\the\pdfpageattr/Rotate 90}}
-\begin{sidewaystable}
-{\small
-\begin{tabular}{*{16}{|z{2.5em}}|}
-\hline
-14.95 0.51 & 14.33 0.27 & 12.34 0.27 & 8.77 0.33 & 8.15 0.31 & 10.84 0.38 & 9.02 0.26 & 7.79 0.37 & 6.67 0.27 & 9.63 0.29 & 9.29 0.26 & 8.24 0.27 & 9.84 0.25 & 14.28 0.33 & 14.92 0.3 & 13.16 0.25 \\ \hline
-14.54 0.34 & 15.62 0.31 & 12.73 0.23 & 11.51 0.27 & 11.79 0.26 & 11.47 0.27 & 11.43 0.29 & 9.02 0.35 & 8.57 0.23 & 11.15 0.23 & 10.64 0.22 & 10.3 0.24 & 12.09 0.22 & 14.49 0.26 & 14.88 0.31 & 14.71 0.36 \\ \hline
-18.25 0.45 & 16.62 0.31 & 14.15 0.24 & 11.97 0.34 & 13.11 0.3 & 12.64 0.22 & 10.66 0.23 & 9.15 0.24 & 9.58 0.28 & 11.95 0.28 & 11.22 0.24 & 11.52 0.36 & 11.11 0.23 & 12.59 0.25 & 14.44 0.31 & 13.35 0.28 \\ \hline
-16.02 0.28 & 16.81 0.36 & 15.0 0.25 & 11.53 0.28 & 10.18 0.29 & 12.2 0.25 & 11.78 0.29 & 8.36 0.31 & 8.15 0.33 & 10.36 0.32 & 10.74 0.31 & 8.25 0.36 & 9.99 0.35 & 12.42 0.38 & 11.39 0.4 & 11.06 0.34 \\ \hline
-\end{tabular}
-}
+
+\subsection{Bias}
+When receiving no infrared radiation, the sensor should indicate a near-zero temperature. If in such conditions it does not, that indicates that the sensor has some level of bias in its measurement values. We attempted to investigate this bias by performing thermal captures of the night sky. While this does not completely remove the infrared radiation, it does remove a significant proportion of it.
+
+In \Fref{tab:meanstd} the thermal sensor was exposed to the night sky at a capture rate of 1Hz for 4 minutes, with the sensing results combined to create a set of means and standard deviations to indicate the pixels at ``rest''. The average temperature detected was $11.78\dc$, with the standard deviation remaining less than $0.51\dc$ over the entire exposure period. The resultant thermal map shows that pixels centered around the four ``primary'' pixels in the centre maintain a similar temperature around $9\dc$, with temperatures beginning to deviate as they became further from the center.  
+
+\begin{landscape}
+\begin{table}
+\centering
+\includegraphics{../diagrams/sensor-bias-thermal-map.pdf}
 \caption{Mean and standard deviations for each pixel at rest}
 \label{tab:meanstd}
-\end{sidewaystable}
-%\afterpage{\global\pdfpageattr\expandafter{\the\pdfpageattr/Rotate 0}}
+\end{table}
+\end{landscape}
 
-In \Fref{tab:meanstd} the thermal sensor was exposed to the night sky at a capture rate of 1Hz for 4 minutes, with the sensing results combined to create a set of means and standard deviations to indicate the pixels at ``rest''.
+
+\subsection{Noise}
 
 
 \begin{figure}
 \centering
-\includegraphics[width=\textwidth]{../diagrams/temp/noise.pdf}
+\includegraphics[width=\linewidth]{../diagrams/temp/noise.pdf}
 \caption{Comparison of noise levels at the \mlx' various sampling speeds}
 \label{fig:noise}
+\end{figure}
+
+
+\subsection{Sensitivity}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth]{../diagrams/mlx-block-diagram.pdf}
+\caption{Block diagram for the \mlx taken from datasheet \cite{MLXDatasheet}}
+\label{fig:exps:blockdia}
 \end{figure}
 
 \begin{figure}
