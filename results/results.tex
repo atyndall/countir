@@ -5,5 +5,31 @@
  \section{Classifier Experiment Set 1}
  See \Fref{sec:results:cexp1}.
 
+\begin{table}
+\centering
+\begin{tabular}{|l|r|r|r|}
+\hline
+\textbf{Classifier}  & \textbf{Correctly Classified} & \textbf{RMS Error} & \textbf{F-Measure} \\ \hline
+\textit{J48}         & 82.9\%                        & 0.2878             & 0.824              \\ \hline
+\textit{MLP}         & 78.5\%                        & 0.2936             & 0.777              \\ \hline
+\textit{Naive Bayes} & 66.2\%                        & 0.3516             & 0.644              \\ \hline
+\textit{IBk}         & 57.6\%                        & 0.4245             & 0.563              \\ \hline
+\textit{SMO}         & 57.5\%                        & 0.3795             & 0.554              \\ \hline
+\end{tabular}
+\caption{Classifier Experiment Set 1 Nominal Results}
+\end{table}
+
+\begin{table}
+\centering
+\begin{tabular}{|l|r|r|}
+\hline
+\textbf{Numeric}               & \textbf{Correctly Classified} & \textbf{RMS Error} \\ \hline
+\textit{Linear Regression}     & 63.4\%                        & 0.6589             \\ \hline
+\textit{IBk}                   & 55.8\%                        & 1.1947             \\ \hline
+\textit{Multilayer Perceptron} & 50.2\%                        & 0.7768             \\ \hline
+\end{tabular}
+\caption{Classifier Experiment Set 1 Numeric Results}
+\end{table}
+
  \ifcsdef{mainfile}{}{\bibliography{../references/primary}}
 \end{document}

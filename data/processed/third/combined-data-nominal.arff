@@ -1,4 +1,4 @@
-@RELATION persondata
+@RELATION thirdexp-nominal
 
 @ATTRIBUTE npeople  {0,1,2,3}
 @ATTRIBUTE numactive   NUMERIC
