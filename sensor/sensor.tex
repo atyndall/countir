@@ -50,6 +50,14 @@ For the Analysis Tier, the Raspberry Pi B+ was chosen, as it is a powerful compu
 
 \section{Software}
 
+At each layer of the described three-tier software architecture (pictured in greater detail in \Fref{fig:pictures:protob-arch}), there must exist software which governs the operation of that tier's processing concerns. Software in this project was written in two different languages.
+
+At the Sensing Tier, it was not necessary for any software to be developed, as any software necessary came pre-installed and ready for use on the aforementioned sensors.
+
+At the Preprocessing Tier, the Arduino, the default C++ derivative language was used, as careful management of memory usage and algorithmic complexity is required in such a resource-constrained environment, thus limiting choice in the area.
+
+Finally, at Analysis Tier, a computer running fully-fledged Linux, choice of language becomes a possibility. In this instance, Python was settled on as the language of choice, as it is a quite high-level language with excellent library support for the functions required of the Analysis Tier, including serial interface, the use of the Raspberry Pi's built in camera, and image analysis. The 2.x branch of Python was chosen over the 3.x branch, despite its age, due a greater maturity in support for several key graphical interface libraries.
+
 \begin{figure}
 \centering
 \begin{tikzpicture}[node distance=1.7cm]
@@ -88,11 +96,17 @@ For the Analysis Tier, the Raspberry Pi B+ was chosen, as it is a powerful compu
 \label{fig:pictures:protob-arch}
 \end{figure}
 
-To calculate the final temperature values that the \mlx offers, a complex initialisation and computational process must be followed, which is specified in the sensor's datasheet \cite{MLXDatasheet}. This process involves initialising the sensor with values attained from a separate on-board \iic EEPROM, then retrieving a variety of normalisation and adjustment values, along with the raw sensor data, to compute the final temperature result.
+\subsection{Pre-processing: \texttt{mlx90620\_driver.ino}}
 
-The basic algorithm to perform this normalisation was based upon code by users ``maxbot'', ``IIBaboomba'', ``nseidle'' and others on the Arduino Forums \cite{ArduinoForum} and was modified to operate with the newer \ard ``Wire'' \iic libraries released since the authors' posts. In pursuit of the project's aims to create a more approachable thermal sensor, the code was also restructured and rewritten to be both more readable, and to introduce a set of features to make the management of the sensor data easier for the user, and for the information to be more human readable.
+On the Arduino, once large program was developed, termed \texttt{mlx90620\_driver.ino}. This program's purpose was to take simple commands over serial to configure the \mlx and to report back the current temperature values and \pir motion information at either a pre-set interval, or when requested.
 
-The first of the features introduced was the human-readable format for serial transmission. This allows the user to both easily write code that can parse the serial to acquire the serial data, as well as examine the serial data directly with ease. When the \ard first boots running the software, the output in \Fref{fig:code:initseq} is output. This specifies several things that are useful to the user; the attached sensor (``DRIVER''), the build of the software (``BUILD'') and the refresh rate of the sensor (``IRHZ''). Several different headers, such as ``ACTIVE'' and ``INIT'' specify the current millisecond time of the processor, thus indicating how long the execution of the initialisation process took (33 milliseconds).
+To calculate the final temperature values that the \mlx offers, a complex initialization and computational process must be followed, which is specified in the sensor's datasheet \cite{MLXDatasheet}. This process involves initializing the sensor with values attained from a separate on-board \iic EEPROM, then retrieving a variety of normalization and adjustment values, along with the raw sensor data, to compute the final temperature result.
+
+The basic algorithm to perform this normalization was based upon the provided datasheet \cite{MLXDatasheet}, as well as code by users ``maxbot'', ``IIBaboomba'', ``nseidle'' and others on the Arduino Forums \cite{ArduinoForum} and was modified to operate with the newer \ard ``Wire'' \iic libraries released since the authors' posts. In pursuit of the project's aims to create a more approachable thermal sensor, the code was also restructured and rewritten to be both more readable, and to introduce a set of features to make the management of the sensor data easier for the user, and for the information to be more human readable.
+
+Additionally, support for the \pir's motion data was added to the code, with the \pir configured to perform interrupts on one of the Arduino's digital pinsnd the code structured to take note of this information and to report it to the user in the ``MOTION'' section of the next packet.
+
+The first of the features introduced was the human-readable format for serial transmission. This allows the user to both easily write code that can parse the serial to acquire the serial data, as well as examine the serial data directly with ease. When the \ard first boots running the software, the output in \Fref{fig:code:initseq} is output. This specifies several things that are useful to the user; the attached sensor (``DRIVER''), the build of the software (``BUILD'') and the refresh rate of the sensor (``IRHZ''). Several different headers, such as ``ACTIVE'' and ``INIT'' specify the current millisecond time of the processor, thus indicating how long the execution of the initialization process took (33 milliseconds).
 
 Once booted, the user is able to send several one-character commands to the sensor to configure operation, which are described in \Fref{tab:ardcommands}. Depending on the sensor configuration, IR data may be periodically output automatically, or otherwise manually triggered. This IR data is produced in the packet format described in \Fref{fig:code:initseq}. This is a simple, human readable format that includes the millisecond time of the processor at the start and end of the calculation, if the \pir has seen any motion for the duration of the calculation, and the 16x4 grid of calculated temperature values.
 
@@ -128,6 +142,102 @@ STOP 97
 \label{fig:code:initseq}
 \end{figure}
 
+\subsection{Analysis: \texttt{thinglib}}
+
+On the analysis tier a set of Python libraries and accompanying utility scripts were developed to interface with the Arduino, parse and interpret its data, and to provide data logging and visualization capabilities. Most of this functionality was split into a reusable and versatile Python module called \texttt{thinglib}.
+
+\texttt{thinglib} provides 4 main feature sets across 3 files; the \texttt{Manager} series of classes, the \texttt{Visualizer} class, the \texttt{Features} class and the \texttt{pxdisplay} module.
+
+\subsubsection{\texttt{Manager} classes}
+The Manager series of classes are the direct interface between the Arduino and the Python classes. They implement a multi-threaded serial data collection and parsing system which converts the raw serial output of the connected Arduino into a series of Python data structures that represent the collected temperature and motion data of each captured frame. Several different versions of the \texttt{Manager} class exist to perform slightly different functions. When initializing these classes the sample rate of the \mlx can be configured, and it will be sent through to the Arduino for updating.
+
+\texttt{BaseManager} is responsible for the implementation of the core serial parsing functions. It also provides a threaded interface through which the \mlx's continuous stream of data can be subscribed to by other threads. The primary API, the \texttt{subscribe\_} series of functions, return a thread-safe queue structure, through which thermal packets can be received by various other threads when they become available.
+
+\texttt{Manager}, the primary class, provides access the \mlx's data at configurable intervals. When initializing this class, you may specific 0.5, 1, 2, 4 or 8Hz, and the class will configure the Arduino to both set the \mlx to this sample rate, and to automatically write this data to the serial buffer whenever it is available. This serial interface is multi-threaded, as at higher serial baud rates if data was not polled continuously enough the internal serial buffer would fill and some data would be discarded. By ensuring this process cannot be blocked by other parts of the running program this problem is mostly eliminated. 
+
+\texttt{OnDemandManager} operates in a similar way to \texttt{Manager}, however instead of using a non-blocking threaded approach, the user's scripts may request thermal/motion data from the class, and it will poll the Arduino for information and block until this information is parsed and returned.
+
+Finally, \texttt{ManagerPlaybackEmulator} is a simple class which can take a previously created thermal recording from a file, and emulate the \texttt{Manager} class by providing access to thread-safe queues which return this data at the specified Hz rate. This class can be used as a means to playback thermal recordings with the same visualization functions.
+
+\subsubsection{\texttt{pxdisplay} functions}
+
+The \texttt{pxdisplay} module is a set of functions that utilize the \texttt{pygame} library to create a simple live-updating window containing a thermal map representation of the thermal data. One can generate any number of \texttt{pxdisplay} objects, which leverage the \texttt{multithreading} library and \texttt{multithreading.Queue} to allow thermal data to be sent to the display.
+
+The class also provides a set of functions to set a ``hotest'' and ``coldest'' temperature and have RGB colors assigned from red to blue for each temperature that falls between those two extremes.
+
+\subsubsection{\texttt{Visualizer} class}
+The \texttt{Visualizer} class is the natural compliment to the \texttt{Manager} series of classes. The functions contained within can usually be provided with a Queue object (generated by a \texttt{Manager} class) and can perform a variety of visualization and storage functions.
+
+From the recording side, the \texttt{Visualizer} class can ``record'' a thermal capture by saving the motion and thermal information to a simple \texttt{.tcap} file, which stores the sample rate, timings, thermal and motion data from a capture in a very straightforward format. The class can also read these files back into the data structures \texttt{Visualizer} uses internally to store data. If \texttt{Visualizer} is running on a Raspberry Pi, it can also leverage the \texttt{picamera} library an the \texttt{OnDemandManager} class to synchronously capture both visual and thermal data for ground truth purposes.
+
+From the visualization side, \texttt{Visualizer} can leverage the \texttt{pxdisplay} module to create thermal maps that can update in real-time based on the thermal data provided by a \texttt{Manager} class. The class can also generate both images and movie files from thermal recordings using the PIL and ffmpeg libraries respectively.
+
+\subsubsection{\texttt{Features} class}
+
+In Thermosense \cite{beltran2013thermosense}, an algorithm was demonstrated that allowed the separation of ``background'' information from ``active'' pixels, and from that information, the extraction of the features necessary for a classifier to correctly determine the number of people in an $8\times8$ thermal image. This algorithm involved calculating the average and standard deviations of each pixel while it is guaranteed that the image would be empty, and then when motion is detected, considering any pixel ``active'' that reaches a value more than 3 standard deviations above the pixel when there was no motion.
+
+From these ``active'' pixels, it was established that a set of three feature vectors were all that were required to correctly classify the number of people in the thermal image. These feature vectors were;
+\begin{enumerate}
+\item \textbf{Number of active pixels}: The total number of pixels that are considered ``active'' in a given frame
+\item \textbf{Number of connected components}: If each active pixel is represented as an node in an undirected graph where adjacent active pixels are connected, how many connected components does this graph have?
+\item \textbf{Size of largest connected component}: The number of active pixels contained within the largest connected component
+\end{enumerate}
+
+In accordance with the pseudo-code outlined in the Thermosense paper, the algorithm described in \Fref{fig:exps:featcode} was created to extract these figures. The portion of this code dealing with scaling the thermal background for rooms without motion was not implemented, as in all experiments tested, there exists a significant interval of time during which the no motion is guarenteed and the thermal background can be generated. The \texttt{networkx} library was used to generate the connected components information.
+
+\begin{listing}
+\centering
+\begin{minted}[fontsize=\footnotesize,frame=single,breaklines=true]{python}
+import networkx, itertools
+
+nomotion_wgt = 0.01
+n_rows = 4
+n_cols = 16
+background = first_frame
+means = first_frame
+stds = [ [0]*16 ]*4
+stds_post = [ [None]*16 ]*4
+
+def create_features(new_frame, is_motion):
+  active = []
+  g = networkx.Graph()
+
+  for i, j in itertools.product( range(n_rows), range(n_cols) ):
+    prev = background[i][j]
+    cur = new_frame[i][j]
+    cur_mean = means[i][j]
+    cur_std = stds[i][j]
+
+    if not is_motion:
+      background[i][j] = nomotion_wgt * cur + (1 - nomotion_wgt) * prev
+      means[i][j]      = cur_mean + (cur - cur_mean) / n
+      stds[i][j]       = cur_std + (cur - cur_mean) * (cur - means[i][j])
+      stds_post[i][j]  = math.sqrt(stds[i][j] / (n-1))
+
+    if (cur - background[i][j]) > (3 * stds_post[i][j]):
+      active.append((i,j))
+      g.add_node((i,j))
+
+      # Add edges for nodes that have already been computed as active
+      for ix, jx in [(-1, -1), (-1, 0), (-1, 1), (0, -1)]:
+        if (i+ix, j+jx) in active:
+          g.add_edge((i,j), (i+ix,j+jx))
+
+  comps = list(networkx.connected_components(g))
+  num_active = len(active)
+  num_connected = len(comps)
+  size_connected = max(len(c) for c in comps) if len(comps) > 0 else None
+
+  return (num_active, num_connected, size_connected)
+\end{minted}
+\caption{Core feature extraction code}
+\label{fig:exps:featcode}
+\end{listing}
+
+\clearpage
+
+% TODO Talk about ground truth generation script
+
 \section{Sensor Properties}
 
 In order to best utilize the \mlx, we must first understand the properties it exhibits, and their potential affects on our ability to perform person related measurements. These properties can be broadly separated into three different categories; bias, noise and sensitivity. A broad range of data was collected with the sensor in a horizontal orientation using various sources of heat and cold to determine these properties. This experimental setup is described in \Fref{fig:exps:2setup}.
@@ -143,7 +253,9 @@ In order to best utilize the \mlx, we must first understand the properties it ex
 \subsection{Bias}
 When receiving no infrared radiation, the sensor should indicate a near-zero temperature. If in such conditions it does not, that indicates that the sensor has some level of bias in its measurement values. We attempted to investigate this bias by performing thermal captures of the night sky. While this does not completely remove the infrared radiation, it does remove a significant proportion of it.
 
-In \Fref{tab:meanstd} the thermal sensor was exposed to the night sky at a capture rate of 1Hz for 4 minutes, with the sensing results combined to create a set of means and standard deviations to indicate the pixels at ``rest''. The average temperature detected was $11.78\dc$, with the standard deviation remaining less than $0.51\dc$ over the entire exposure period. The resultant thermal map shows that pixels centered around the four ``primary'' pixels in the centre maintain a similar temperature around $9\dc$, with temperatures beginning to deviate as they became further from the center.  
+In \Fref{tab:meanstd} the thermal sensor was exposed to the night sky at a capture rate of 1Hz for 4 minutes, with the sensing results combined to create a set of means and standard deviations to indicate the pixels at ``rest''. The average temperature detected was $11.78\dc$, with the standard deviation remaining less than $0.51\dc$ over the entire exposure period. The resultant thermal map shows that pixels centered around the four ``primary'' pixels in the center maintain a similar temperature around $9\dc$, with temperatures beginning to deviate as they became further from the center.
+
+The most likely cause of this bias is related to the physical structure of the sensor. The \mlx is a rectangular sensor which has been placed inside a circular tube. Due to this physical arrangement, the sides of this rectangular sensor will be significantly closer to these edges than the center. If these sides are at an ambient temperature higher than the measurement data (as they were in this case) thermal radiation from the sensor package itself could provide significant enough to cause the edges to appear warmer than the observed area of the sky. Such issues with temperature could be controlled for using a device that cools the sensor package to below that of the ambient temperature being measured, however, this is not a concern in this project, as the method of calculating a thermal background will compensate for any such bias as long as it remains constant.
 
 \begin{landscape}
 \begin{table}
@@ -157,16 +269,32 @@ In \Fref{tab:meanstd} the thermal sensor was exposed to the night sky at a captu
 
 \subsection{Noise}
 
+One of the features of the \mlx is the ability to sample the thermal data and a variety of sample rates between 0.5Hz and 512Hz. However, it was noted in early experimentation that a higher sample rate resulted in an increase in the noise contained within the resultant images. As our experiments focus on separating objects of interest from a thermal background, it is important to determine the maximum level of noise tolerable before our algorithms are unable to separate the background from the objects of interest.
+
+\Fref{fig:noise} plots one of the central pixels of the sensor in a scenario where it is merely viewing a background (shown in green), and when it is viewing a person (shown in red), at the 5 different sample rates achievable with the current hardware. We can see in these plots that the data becomes significantly more noisy as the sample rate increases, and we can also determine that the sensor uses a form of data smoothing at lower sample rates, as the variance in data increases with sample rate.
+
+If the sample rate were to increase, it is likely that the ability for the sensing system to disambiguate between objects of interest and the background would diminish. However, in the current project, even the slowest sampling rate of 0.5Hz is sufficient, as occupancy estimations at a sub-second level present little additional value and would require significant reforms in the efficiency of the software used.
+
+% TODO: Signal to noise ratio calculations
 
 \begin{figure}
-\centering
-\includegraphics[width=\linewidth]{../diagrams/temp/noise.pdf}
+  \centering
+  \input{../data/processed/fourth/good}
 \caption{Comparison of noise levels at the \mlx' various sampling speeds}
 \label{fig:noise}
 \end{figure}
 
 
 \subsection{Sensitivity}
+
+The \mlx is a sensor composed of 64 independent non-contact digital thermopiles, which measure infrared radiation to determine the temperature of objects. While they are bundled in one package, \Fref{fig:exps:blockdia} shows that they are in fact wholly independent sensors placed in a grid structure. This has important effects on the properties of the data that the \mlx produces. 
+
+\Fref{fig:hotmotion} shows a graph of the temperatures of the top row of 16 pixels of the \mlx as a hot object is moved from left to right at an approximately similar speed. One of the most interesting phenomena in this graph is the apparent extreme variability of the detected temperature of the object as it moves ``between'' two different pixels; there is a noticeable drop in the objects detected temperature. Further analysis of each of the pixel's lines on the graph shows each pixel exhibiting a bell-curve like structure, with the detected temperature increasing from the baseline and peaking as the object enters the center of the pixel, and the detected temperature similarly decreasing as the object leaves the center. 
+
+This phenomenon has several possible causes. One likely explanation is that each individual pixel detects objects radiating at less favorable angles of incidence to be colder than they actually are: As the object enters a pixel's effective field of view, it will radiate into the pixel at an angle that is at the edge of the pixel's ability to sense, with this angle slowing decreasing until the hot object is directly radiating into the pixel's sensor, causing a peak in the temperature reading. As the object leaves the individual elements field of view, the same happens in reverse.
+
+While interesting, this phenomenon has little consequence to the effectiveness of the techniques used, as in experimental conditions the sensor will not be sufficiently distant that humans could be detected as single pixels. However, this phenomenon could be leveraged in future work to perform sub-pixel localization, discussed later on.
+
 
 \begin{figure}
 \centering
