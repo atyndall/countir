@@ -1,0 +1,101 @@
+=== Run information ===
+
+Scheme:weka.classifiers.functions.MultilayerPerceptron -L 0.3 -M 0.2 -N 500 -V 0 -S 0 -E 20 -H a
+Relation:     thirdexp-nominal-weka.filters.supervised.instance.Resample-B1.0-S1-Z100.0
+Instances:    1018
+Attributes:   4
+              npeople
+              numactive
+              numconnected
+              sizeconnected
+Test mode:10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+Sigmoid Node 0
+    Inputs    Weights
+    Threshold    -25.085727268943828
+    Node 4    -6.811600455617877
+    Node 5    17.567374126175128
+    Node 6    26.97713862792919
+Sigmoid Node 1
+    Inputs    Weights
+    Threshold    -1.7412740772125044
+    Node 4    -13.369150702642548
+    Node 5    -0.3430115045918995
+    Node 6    2.853825862991993
+Sigmoid Node 2
+    Inputs    Weights
+    Threshold    2.127813675880261
+    Node 4    -2.6484860359172377
+    Node 5    -2.685904046023525
+    Node 6    -4.98103266187198
+Sigmoid Node 3
+    Inputs    Weights
+    Threshold    -1.7203627731303273
+    Node 4    13.735056555556351
+    Node 5    1.9145145818891058
+    Node 6    -10.14904343598094
+Sigmoid Node 4
+    Inputs    Weights
+    Threshold    -2.116813327044609
+    Attrib numactive    8.3686383728081
+    Attrib numconnected    -8.883178538318715
+    Attrib sizeconnected    24.331550024826434
+Sigmoid Node 5
+    Inputs    Weights
+    Threshold    9.218690419614529
+    Attrib numactive    3.8018285729960013
+    Attrib numconnected    12.058177756063031
+    Attrib sizeconnected    18.14483039921088
+Sigmoid Node 6
+    Inputs    Weights
+    Threshold    -0.03649755159068933
+    Attrib numactive    -22.23119341370978
+    Attrib numconnected    1.9695112384814562
+    Attrib sizeconnected    17.363795866888605
+Class 0
+    Input
+    Node 0
+Class 1
+    Input
+    Node 1
+Class 2
+    Input
+    Node 2
+Class 3
+    Input
+    Node 3
+
+
+Time taken to build model: 0.86 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances         732               71.9057 %
+Incorrectly Classified Instances       286               28.0943 %
+Kappa statistic                          0.6252
+Mean absolute error                      0.203 
+Root mean squared error                  0.3285
+Relative absolute error                 54.2565 %
+Root relative squared error             75.9547 %
+Total Number of Instances             1018     
+
+=== Detailed Accuracy By Class ===
+
+       TP Rate   FP Rate   Precision   Recall  F-Measure   ROC Area  Class
+         0.839     0.08       0.766     0.839     0.801      0.928    0
+         0.717     0.093      0.705     0.717     0.711      0.882    1
+         0.622     0.118      0.627     0.622     0.624      0.822    2
+         0.703     0.084      0.77      0.703     0.735      0.899    3
+WAvg.    0.719     0.093      0.719     0.719     0.718      0.883
+
+=== Confusion Matrix ===
+
+   a   b   c   d   <-- classified as
+ 203  30   2   7 |   a = 0
+  44 172  18   6 |   b = 1
+  11  34 153  48 |   c = 2
+   7   8  71 204 |   d = 3
+

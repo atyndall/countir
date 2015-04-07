@@ -1,0 +1,51 @@
+=== Run information ===
+
+Scheme:weka.classifiers.lazy.KStar -B 20 -M a
+Relation:     thirdexp-nominal-weka.filters.supervised.instance.Resample-B1.0-S1-Z100.0
+Instances:    1018
+Attributes:   4
+              npeople
+              numactive
+              numconnected
+              sizeconnected
+Test mode:10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+KStar Beta Verion (0.1b).
+Copyright (c) 1995-97 by Len Trigg (trigg@cs.waikato.ac.nz).
+Java port to Weka by Abdelaziz Mahoui (am14@cs.waikato.ac.nz).
+
+KStar options : -B 20 -M a  
+
+Time taken to build model: 0 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances         757               74.3615 %
+Incorrectly Classified Instances       261               25.6385 %
+Kappa statistic                          0.6561
+Mean absolute error                      0.1882
+Root mean squared error                  0.2926
+Relative absolute error                 50.3063 %
+Root relative squared error             67.6512 %
+Total Number of Instances             1018     
+
+=== Detailed Accuracy By Class ===
+
+       TP Rate   FP Rate   Precision   Recall  F-Measure   ROC Area  Class
+         0.719     0.076      0.747     0.719     0.733      0.952    0
+         0.733     0.057      0.8       0.733     0.765      0.926    1
+         0.659     0.066      0.761     0.659     0.706      0.892    2
+         0.845     0.147      0.696     0.845     0.763      0.957    3
+WAvg.    0.744     0.089      0.748     0.744     0.743      0.933
+
+=== Confusion Matrix ===
+
+   a   b   c   d   <-- classified as
+ 174  15   1  52 |   a = 0
+  47 176  13   4 |   b = 1
+  12  21 162  51 |   c = 2
+   0   8  37 245 |   d = 3
+

@@ -1,0 +1,126 @@
+=== Run information ===
+
+Scheme:weka.classifiers.trees.J48 -C 0.25 -M 2
+Relation:     thirdexp-nominal-weka.filters.supervised.instance.Resample-B1.0-S1-Z100.0
+Instances:    1018
+Attributes:   4
+              npeople
+              numactive
+              numconnected
+              sizeconnected
+Test mode:10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+J48 pruned tree
+------------------
+
+numactive <= 20
+|   numactive <= 2: 0 (226.57/47.0)
+|   numactive > 2
+|   |   numconnected <= 1
+|   |   |   numactive <= 5
+|   |   |   |   numactive <= 4: 1 (3.16/0.16)
+|   |   |   |   numactive > 4: 2 (15.81/3.81)
+|   |   |   numactive > 5: 1 (139.11/23.11)
+|   |   numconnected > 1
+|   |   |   numconnected <= 3
+|   |   |   |   numconnected <= 2
+|   |   |   |   |   numactive <= 8
+|   |   |   |   |   |   numactive <= 6
+|   |   |   |   |   |   |   numactive <= 4: 1 (9.48/4.48)
+|   |   |   |   |   |   |   numactive > 4: 2 (2.11/0.11)
+|   |   |   |   |   |   numactive > 6: 1 (10.54/0.54)
+|   |   |   |   |   numactive > 8
+|   |   |   |   |   |   sizeconnected <= 12: 2 (68.5/14.5)
+|   |   |   |   |   |   sizeconnected > 12: 1 (22.13/11.13)
+|   |   |   |   numconnected > 2
+|   |   |   |   |   numactive <= 17
+|   |   |   |   |   |   numactive <= 11: 1 (29.51/6.51)
+|   |   |   |   |   |   numactive > 11
+|   |   |   |   |   |   |   sizeconnected <= 10: 2 (7.38/1.38)
+|   |   |   |   |   |   |   sizeconnected > 10: 0 (8.43/3.0)
+|   |   |   |   |   numactive > 17: 1 (16.86/0.86)
+|   |   |   numconnected > 3
+|   |   |   |   numconnected <= 4: 3 (31.61/11.61)
+|   |   |   |   numconnected > 4
+|   |   |   |   |   numactive <= 13: 0 (2.11)
+|   |   |   |   |   numactive > 13: 1 (3.16/0.16)
+numactive > 20
+|   numactive <= 36
+|   |   sizeconnected <= 15
+|   |   |   numactive <= 33
+|   |   |   |   numactive <= 24
+|   |   |   |   |   sizeconnected <= 11
+|   |   |   |   |   |   numactive <= 22
+|   |   |   |   |   |   |   numactive <= 21: 1 (3.16/1.16)
+|   |   |   |   |   |   |   numactive > 21: 3 (6.32/0.32)
+|   |   |   |   |   |   numactive > 22: 2 (11.59/1.59)
+|   |   |   |   |   sizeconnected > 11: 2 (37.94/1.94)
+|   |   |   |   numactive > 24
+|   |   |   |   |   numactive <= 25: 3 (33.72/14.72)
+|   |   |   |   |   numactive > 25
+|   |   |   |   |   |   sizeconnected <= 13: 2 (14.75/0.75)
+|   |   |   |   |   |   sizeconnected > 13
+|   |   |   |   |   |   |   numconnected <= 2
+|   |   |   |   |   |   |   |   numactive <= 26
+|   |   |   |   |   |   |   |   |   sizeconnected <= 14: 3 (4.22/0.22)
+|   |   |   |   |   |   |   |   |   sizeconnected > 14: 2 (3.16/0.16)
+|   |   |   |   |   |   |   |   numactive > 26: 2 (11.59/1.59)
+|   |   |   |   |   |   |   numconnected > 2
+|   |   |   |   |   |   |   |   numactive <= 29: 3 (5.27/0.27)
+|   |   |   |   |   |   |   |   numactive > 29: 2 (24.24/7.24)
+|   |   |   numactive > 33: 3 (14.75/0.75)
+|   |   sizeconnected > 15
+|   |   |   numactive <= 29
+|   |   |   |   sizeconnected <= 23
+|   |   |   |   |   numactive <= 21: 3 (13.7/0.7)
+|   |   |   |   |   numactive > 21
+|   |   |   |   |   |   numactive <= 22: 1 (4.22/0.22)
+|   |   |   |   |   |   numactive > 22: 2 (4.22/2.22)
+|   |   |   |   sizeconnected > 23: 3 (29.51/1.51)
+|   |   |   numactive > 29
+|   |   |   |   sizeconnected <= 18
+|   |   |   |   |   numconnected <= 2: 3 (53.75/15.75)
+|   |   |   |   |   numconnected > 2
+|   |   |   |   |   |   numactive <= 32: 3 (7.38/0.38)
+|   |   |   |   |   |   numactive > 32: 2 (12.65/0.65)
+|   |   |   |   sizeconnected > 18: 2 (4.22/1.22)
+|   numactive > 36: 3 (121.19/9.19)
+
+Number of Leaves  : 	37
+
+Size of the tree : 	73
+
+
+Time taken to build model: 0.06 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances         799               78.4872 %
+Incorrectly Classified Instances       219               21.5128 %
+Kappa statistic                          0.7113
+Mean absolute error                      0.1578
+Root mean squared error                  0.2771
+Relative absolute error                 42.1826 %
+Root relative squared error             64.059  %
+Total Number of Instances             1018     
+
+=== Detailed Accuracy By Class ===
+
+       TP Rate   FP Rate   Precision   Recall  F-Measure   ROC Area  Class
+         0.723     0.071      0.761     0.723     0.742      0.944    0
+         0.754     0.044      0.842     0.754     0.796      0.907    1
+         0.732     0.044      0.841     0.732     0.783      0.901    2
+         0.907     0.132      0.733     0.907     0.81       0.962    3
+WAvg.    0.785     0.075      0.791     0.785     0.784      0.93 
+
+=== Confusion Matrix ===
+
+   a   b   c   d   <-- classified as
+ 175  14   1  52 |   a = 0
+  43 181  14   2 |   b = 1
+  12  12 180  42 |   c = 2
+   0   8  19 263 |   d = 3
+
