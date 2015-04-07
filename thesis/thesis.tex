@@ -25,7 +25,7 @@
 \usepackage{tabularx}
 \usepackage{calc}
 \usepackage{color}
-\usepackage{minted}
+\usepackage[chapter]{minted}
 \usepackage{pdflscape}
 \usepackage{upquote}
 \usepackage{afterpage}
@@ -145,6 +145,24 @@
   \Frefsubsubsecname\fancyrefdefaultspacing#1#3%
 }
 
+% Fancyref support for listings, source; http://tex.stackexchange.com/questions/70835/how-to-extend-fancyref-for-listings
+\newcommand*{\fancyreflstlabelprefix}{lst}
+
+\fancyrefaddcaptions{english}{%
+  \providecommand*{\freflstname}{listing}%
+  \providecommand*{\Freflstname}{Listing}%
+}
+
+\frefformat{plain}{\fancyreflstlabelprefix}{\freflstname\fancyrefdefaultspacing#1}
+\Frefformat{plain}{\fancyreflstlabelprefix}{\Freflstname\fancyrefdefaultspacing#1}
+
+\frefformat{vario}{\fancyreflstlabelprefix}{%
+  \freflstname\fancyrefdefaultspacing#1#3%
+}
+\Frefformat{vario}{\fancyreflstlabelprefix}{%
+  \Freflstname\fancyrefdefaultspacing#1#3%
+}
+
 % Enable subsubsections
 \setcounter{secnumdepth}{3} % Enable level 4-5
 \setcounter{tocdepth}{3}    % Include level 4-5 in TOC
@@ -188,6 +206,15 @@
   \pdfbookmark[0]{\listtablename}{lot}%
 }{}{}%
 \makeatother
+
+% Fix list of listings with minted
+\renewcommand{\listoflistings}{%
+  \cleardoublepage
+  \addcontentsline{toc}{chapter}{\listoflistingscaption}%
+  \listof{listing}{\listoflistingscaption}%
+}
+
+\renewcommand{\thefigure}{\thechapter.\arabic{figure}}
 
 % Configure titles
 \title{\thetitle}
@@ -235,6 +262,7 @@ These are the acknowledgements.
 \tableofcontents
 \listoftables
 \listoffigures
+\listoflistings
 
 
 \subfile{../introduction/introduction}

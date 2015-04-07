@@ -183,7 +183,7 @@ From these ``active'' pixels, it was established that a set of three feature vec
 \item \textbf{Size of largest connected component}: The number of active pixels contained within the largest connected component
 \end{enumerate}
 
-In accordance with the pseudo-code outlined in the Thermosense paper, the algorithm described in \Fref{fig:exps:featcode} was created to extract these figures. The portion of this code dealing with scaling the thermal background for rooms without motion was not implemented, as in all experiments tested, there exists a significant interval of time during which the no motion is guarenteed and the thermal background can be generated. The \texttt{networkx} library was used to generate the connected components information.
+In accordance with the pseudo-code outlined in the Thermosense paper, the algorithm described in \Fref{lst:exps:featcode} was created to extract these figures. The portion of this code dealing with scaling the thermal background for rooms without motion was not implemented, as in all experiments tested, there exists a significant interval of time during which the no motion is guarenteed and the thermal background can be generated. The \texttt{networkx} library was used to generate the connected components information.
 
 \begin{listing}
 \centering
@@ -231,7 +231,7 @@ def create_features(new_frame, is_motion):
   return (num_active, num_connected, size_connected)
 \end{minted}
 \caption{Core feature extraction code}
-\label{fig:exps:featcode}
+\label{lst:exps:featcode}
 \end{listing}
 
 \clearpage
