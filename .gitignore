@@ -30,4 +30,5 @@ thesis/_minted-thesis/
 *.pygtex
 *.pygstyle
 .DS_Store
+*.fdb_latexmk
 
