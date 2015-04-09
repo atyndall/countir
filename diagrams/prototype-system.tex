@@ -1,0 +1,32 @@
+\begin{tikzpicture}[node distance=1.7cm]
+\node (interwebs) [cbox] {Network};
+\node (wifi) [dashbox, right=of interwebs] {\small WiFi / Ethernet};
+\node (rpi) [fcont, below=of wifi] {Raspberry Pi B+ \linebreak
+  ``Analysis Tier'' \linebreak
+  
+  \tikz\node[fbox, minimum width=2.3cm, text width=2.3cm] {\small \ttfamily thinglib};
+  \tikz\node[fbox, minimum width=2.3cm, text width=2.3cm] {\small \ttfamily features.py};
+};
+\node (cam) [box, right=of rpi] {Camera};
+\node (usb) [dashbox, below=of rpi] {\small Serial over USB};
+\node (ard) [fcont, below=of usb] {Arduino Uno R3 \linebreak
+  ``Preprocessing Tier'' \linebreak
+  
+  \tikz\node[fbox, minimum width=3.8cm, text width=3.8cm] {\small \ttfamily mlx90620\_driver.ino};
+};
+\node (iic) [dashbox, left=of ard] {\small \iic};
+\node (mlx) [box, below=of iic] {MLX90620};
+\node (wire) [dashbox, right=of ard] {\small Interrupt};
+\node (pir) [box, below=of wire] {PIR};
+\node (sensetier) [dashbox, dotted, fit=(pir) (mlx)] {``Sensing Tier''};
+
+\draw [line] (interwebs) -- (wifi);
+\draw [line] (wifi) -- (rpi);
+\draw [line] (rpi) -- (usb);
+\draw [line] (usb) -- (ard);
+\draw [line] (ard) -- (iic);
+\draw [line] (iic) -- (mlx);
+\draw [line] (ard) -- (wire);
+\draw [line] (wire) -- (pir);
+\draw [line] (rpi) -- (cam);
+\end{tikzpicture}

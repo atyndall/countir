@@ -34,7 +34,17 @@
 \usepackage{rotfloat}
 \usepackage{gensymb}
 \usepackage{gnuplot-lua-tikz}
+\usepackage{subcaption}
+\usepackage{afterpage}
 
+% Blank page command
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    \addtocounter{page}{-1}%
+    \newpage}
+
+% TODO: Change title
 \newcommand{\thetitle}{Developing a robust system for occupancy detection in the household}
 \newcommand{\theauthor}{Ash Tyndall}
 
@@ -214,8 +224,6 @@
   \listof{listing}{\listoflistingscaption}%
 }
 
-\renewcommand{\thefigure}{\thechapter.\arabic{figure}}
-
 % Configure titles
 \title{\thetitle}
 \author{\theauthor}
@@ -271,6 +279,8 @@ These are the acknowledgements.
 \subfile{../methods/methods}
 \subfile{../results/results}
 \subfile{../discussion/discussion}
+
+\afterpage{\blankpage}
 
 \appendix
 \include{appendices}

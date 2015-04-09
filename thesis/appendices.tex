@@ -7,7 +7,7 @@
 Beyond specific sensor design and occupancy detection algorithms, a core goal of this project is to create a system that is designed to operate as a useful Thing in a real-world \iot environment, as the key advantage of Things is the ``disruptive level of innovation''\cite{atzori2010internet} brought about by their ability to be combined in ways unforeseen (yet still enabled) by their creators. This architecture involves careful consideration of the embedded hardware that will drive the system, as well as the communications protocols utilised between the sensor and devices interested in the sensor's information.
 
 \section{Protocols}
-\label{subsec:litreview:architecture:protocols}
+\label{sec:litreview:architecture:protocols}
 % From; https://openwsn.atlassian.net/wiki/pages/viewpage.action?pageId=29196353
 \begin{table}
 \centering
@@ -95,46 +95,73 @@ The Thermosense paper \cite{beltran2013thermosense} proposes several different a
 
 \section{Classifier Experiment Set 1}
 \label{sec:results:cexp1}
-\subsection{Nominal Results}
+\subsection{Nominal Results - Unbalanced}
 \subsubsection{Multilayer Perceptron}
-\inputminted[fontsize=\footnotesize,breaklines=true]{text}{../data/processed/third/nominal-multilayer-perceptron.txt}
+\inputminted[fontsize=\footnotesize,breaklines=true]{text}{../data/processed/third/unbalanced/nominal-multilayer-perceptron.txt}
 \clearpage
 
 \subsubsection{IBk}
-\inputminted[fontsize=\footnotesize,breaklines=true]{text}{../data/processed/third/nominal-ibk-1.txt}
+\inputminted[fontsize=\footnotesize,breaklines=true]{text}{../data/processed/third/unbalanced/nominal-ibk-1.txt}
 \clearpage
 
 \subsubsection{Naive Bayes}
-\inputminted[fontsize=\footnotesize,breaklines=true]{text}{../data/processed/third/nominal-naive-bayes.txt}
+\inputminted[fontsize=\footnotesize,breaklines=true]{text}{../data/processed/third/unbalanced/nominal-naive-bayes.txt}
 \clearpage
 
 \subsubsection{SMO}
-\inputminted[fontsize=\footnotesize,breaklines=true]{text}{../data/processed/third/nominal-smo.txt}
+\inputminted[fontsize=\footnotesize,breaklines=true]{text}{../data/processed/third/unbalanced/nominal-smo.txt}
 \clearpage
 
 \subsubsection{J48}
-\inputminted[fontsize=\footnotesize,breaklines=true]{text}{../data/processed/third/nominal-j48.txt}
+\inputminted[fontsize=\footnotesize,breaklines=true]{text}{../data/processed/third/unbalanced/nominal-j48.txt}
 \clearpage
 
 \subsubsection{KStar}
-\inputminted[fontsize=\footnotesize,breaklines=true]{text}{../data/processed/third/nominal-kstar.txt}
+\inputminted[fontsize=\footnotesize,breaklines=true]{text}{../data/processed/third/unbalanced/nominal-kstar.txt}
 \clearpage
 
-\subsection{Numeric Results}
+
+\subsection{Nominal Results - Balanced}
 \subsubsection{Multilayer Perceptron}
-\inputminted[fontsize=\footnotesize,breaklines=true]{text}{../data/processed/third/numeric-multilayer-perceptron.txt}
+\inputminted[fontsize=\footnotesize,breaklines=true]{text}{../data/processed/third/balanced/nominal-multilayer-perceptron.txt}
 \clearpage
 
 \subsubsection{IBk}
-\inputminted[fontsize=\footnotesize,breaklines=true]{text}{../data/processed/third/numeric-ibk-1.txt}
+\inputminted[fontsize=\footnotesize,breaklines=true]{text}{../data/processed/third/balanced/nominal-ibk-1.txt}
+\clearpage
+
+\subsubsection{Naive Bayes}
+\inputminted[fontsize=\footnotesize,breaklines=true]{text}{../data/processed/third/balanced/nominal-naive-bayes.txt}
+\clearpage
+
+\subsubsection{SMO}
+\inputminted[fontsize=\footnotesize,breaklines=true]{text}{../data/processed/third/balanced/nominal-smo.txt}
+\clearpage
+
+\subsubsection{J48}
+\inputminted[fontsize=\footnotesize,breaklines=true]{text}{../data/processed/third/balanced/nominal-j48.txt}
+\clearpage
+
+\subsubsection{KStar}
+\inputminted[fontsize=\footnotesize,breaklines=true]{text}{../data/processed/third/balanced/nominal-kstar.txt}
+\clearpage
+
+
+\subsection{Numeric Results}
+\subsubsection{Multilayer Perceptron}
+\inputminted[fontsize=\footnotesize,breaklines=true]{text}{../data/processed/third/unbalanced/numeric-multilayer-perceptron.txt}
+\clearpage
+
+\subsubsection{IBk}
+\inputminted[fontsize=\footnotesize,breaklines=true]{text}{../data/processed/third/unbalanced/numeric-ibk-1.txt}
 \clearpage
 
 \subsubsection{Linear Regression}
-\inputminted[fontsize=\footnotesize,breaklines=true]{text}{../data/processed/third/numeric-linear-reg.txt}
+\inputminted[fontsize=\footnotesize,breaklines=true]{text}{../data/processed/third/unbalanced/numeric-linear-reg.txt}
 \clearpage
 
 \subsubsection{Decision Stump}
-\inputminted[fontsize=\footnotesize,breaklines=true]{text}{../data/processed/third/numeric-decision-stump.txt}
+\inputminted[fontsize=\footnotesize,breaklines=true]{text}{../data/processed/third/unbalanced/numeric-decision-stump.txt}
 
 \chapter{Physical Form}
 To enable the prototype to be easily mounted on the ceiling, the prototype was placed on a flat board with feet that would enable it to be screwed into a pole, and the pole extended to jam the sensor against the ceiling and the floor using the pole (\Fref{fig:pictures:protob1}, \Fref{fig:pictures:protoact}). Due to a wireless module and battery pack being added to the Raspberry Pi, it was feasible for the sensor to operate entirely wirelessly for several hours. However, in most cases it was more convenient to operate using wired power and Ethernet.

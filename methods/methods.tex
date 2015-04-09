@@ -1,9 +1,11 @@
 \documentclass[../thesis/thesis.tex]{subfiles}
 \begin{document}
  \chapter{Methods}
-With the hardware and software groundwork established, it is now possible to utilize the prototype to gather both thermal and visual data in a synchronized format. This data can be collected and used to determine the effectiveness of the human gathering algorithms used. To this end, several experiments were devised, each of which had its data gathered and processed in accordance with the same four-step general process;
+With a minimum viable prototype established, it now becomes possible to devise experimental scenarios to test against the project's goals. The project's adherence to the goals of Low-Cost and Non-Invasiveness have been evaluated previously, so in this section we will focus on the project's adherence to Reliability and Energy Efficiency goals.
 
-\section{General Process}
+\section{Reliability Testing}
+
+With the prototype, it is now possible to utilize the prototype to gather both thermal and visual data in a synchronized format. This data can be collected and used to determine the effectiveness of the human counting algorithms used. Due to the prototype's technical similarly to Thermosense \cite{beltran2013thermosense}, a similar set of experimental conditions will be used, with a comparison against Thermosense being used as a benchmark. To this end, several experiments were devised, each of which had its data gathered and processed in accordance with the same general process, outlined in \Fref{fig:methods:flowchart}.
 
 \begin{figure}
 \centering
@@ -25,7 +27,7 @@ Once this data capture is complete, the data is copied to a more powerful comput
 The user is then required to press one of the number keys on their keyboard to indicate the number of people present in this frame. This number will be recorded in a file called \texttt{truth} in the capture directory. The next frame will then be displayed, and the process continues. This utility enables the quick input of the ground truth of each capture, making the process more efficient.
 
 \subsection{Feature extraction and data conversion}
-Once the ground truth data is available, it is now possible to utilize the data to perform various classification tests. For this, we use version 3.6.11 of the open-source Weka toolkit \cite{Weka}, which provides easy access to a variety of machine learning algorithms and the tools necessary to analyze their effectiveness.
+Once the ground truth data is available, it is now possible to utilize the data to perform various classification tests. For this, we use version 3.6.12 of the open-source Weka toolkit \cite{Weka}, which provides easy access to a variety of machine learning algorithms and the tools necessary to analyze their effectiveness.
 
 To enable the use of Weka, we export the ground truth and extracted features to Weka Attribute-Relation File Format (ARFF) for processing. \texttt{weka\_export.py} takes two parameters, a comma-separated list of different experiment directories to pull ground truth and feature data from, and the number of frames at the beginning of each capture that can be considered as ``motionless.'' With this information, a CSV-file file is generated on which the heading from \Fref{lst:method:arff} is added for Weka to recognize.
 
@@ -83,9 +85,11 @@ For those tests that are ``nominal,'' the \texttt{npeople} attribute was set to 
 As the data we are using is based on real experiments, the number of frames which are classified as each class may be unbalanced, which could cause the classification results to be affected. To that end, for each classification technique, we both classify the data in its raw, unbalanced form, and we also uniformly re-sample the \texttt{npeople} parameter using \texttt{weka.filters.supervised.instance.Resample -B 1.0 -S 1 -Z 100.0} in the pre-processing stage.
 
 
-\section{Classifier Experiment Set 1 Setup}
-The first experiment performed with the prototype described in the previous chapter was set out as indicated in \Fref{fig:exps:3setup}. This experiment involved 3 people, who entered the scene and either remained standing, or sat once they arrived in their positions. The following scripts were observed;
+\subsection{Classifier Experiment Set 1 Setup}
+In our first set of experiments, a scene was devised in accordance with \Fref{fig:exps:3setup} that attempted to sense people from above, as did Thermosense. The prototype was set up on the ceiling, pointing down at a slight angle. For ease of use, the prototype was powered by mains power, and was networked with a laptop for command input and data collection via Ethernet. This set of experiments involved between zero and three people being present in the scene, moving in and out in various ways in accordance with the script in \Fref{tab:exps:3script}.
 
+\begin{table}
+\centering
 \begin{enumerate}
 \item (Remained standing) One person walks in, stands in center, walks out of frame.
 \item (Remained standing) One person walks in, joined by another person, both stand there, one leaves, then another leaves.
@@ -96,23 +100,28 @@ The first experiment performed with the prototype described in the previous chap
 \item (Sitting) One person walks in, joined by one, joined by another, they all sit there, one leaves, then another, then another.
 \item (Sitting) Two people walk in, both sit there, both leave.
 \end{enumerate}
-
-In these experiments people moved slowly and deliberately, making sure there were large pauses between changes of action. The people involved were of average height, wearing various clothing. The room was cooled to 18 degrees for these experiments.
-
-Each experiment was recorded with a thermal-visual synchronization at 1Hz over approximately 60 second intervals. Each experiment had 10-15 frames at the beginning where nothing was within the view of the sensor to allow the thermal background to be calculated. Each frame generated from these experiments was manually tagged with the ground truth value of its occupancy using the script mentioned previously.
-
-The resulting features and ground truth were combined and exported to ARFF allowing the Weka machine learning program to analyze them. This data was analyzed with the feature vectors always being considered numeric data and with the ground truth considered both numeric and nominal (nominal being \texttt{{0,1,2,3}}). All previously mentioned classification algorithms were run against the data set.
-
+\caption{Experiment Set 1 Script}
+\label{tab:exps:3script}
+\end{table}
 
 \begin{landscape}
  \begin{figure}
  \centering
- % TODO: Proper merging of these figures
  \includegraphics[height=\textheight]{../diagrams/third-exp-setup2.pdf}
  \caption{Classifier Experiment Set 1 Setup}
  \label{fig:exps:3setup}
  \end{figure}
 \end{landscape}
+
+In these experiments people moved slowly and deliberately, making sure there were large pauses between changes of action. The people involved were of average height, wearing various clothing. The room was cooled to 18 degrees for these experiments.
+
+Each experiment was recorded with a thermal-visual synchronization at 1Hz over approximately 60-120 second intervals. Each experiment had 10-15 frames at the beginning where nothing was within the view of the sensor to allow the thermal background to be calculated. Each frame generated from these experiments was manually tagged with the ground truth value of its occupancy using the script mentioned previously.
+
+The resulting features and ground truth were combined and exported to ARFF allowing the Weka machine learning program to analyze them. This data was analyzed with the feature vectors always being considered numeric data and with the ground truth considered both numeric and nominal (nominal being \texttt{{0,1,2,3}}). All previously mentioned classification algorithms were run against the data set.
+
+\section{Energy Efficiency Testing}
+
+% TODO: Fill in section
 
  \ifcsdef{mainfile}{}{\bibliography{../references/primary}}
 \end{document}
