@@ -59,9 +59,9 @@ We perform the following Weka classification tests on the dataset;
 \hline
 \textbf{Type} & \textbf{Attribute} & \textbf{Weka Class} \& \textbf{Parameters} \\ \hline
 
-Neural Net & Nominal, Numeric & \texttt{weka.classifiers.functions.MultilayerPerceptron \newline -L 0.3 -M 0.2 -N 500 -V 0 -S 0 -E 20 -H a} \\ \hline
+Neural Network (ANN) & Nominal, Numeric & \texttt{weka.classifiers.functions.MultilayerPerceptron \newline -L 0.3 -M 0.2 -N 500 -V 0 -S 0 -E 20 -H a} \\ \hline
 
-K-Neareast Neighbours & Nominal, Numeric & \texttt{weka.classifiers.lazy.IBk \newline -K 1 -W 0 \newline -A "weka.core.neighboursearch.LinearNNSearch -A \textbackslash"weka.core.EuclideanDistance -R first-last\textbackslash""} \\ \hline
+K Nearest Neighbours (KNN) & Nominal, Numeric & \texttt{weka.classifiers.lazy.IBk \newline -K 1 -W 0 \newline -A "weka.core.neighboursearch.LinearNNSearch -A \textbackslash"weka.core.EuclideanDistance -R first-last\textbackslash""} \\ \hline
 
 Naive Bayes & Nominal & \texttt{weka.classifiers.bayes.NaiveBayes} \\ \hline
 
@@ -91,14 +91,14 @@ In our first set of experiments, a scene was devised in accordance with \Fref{fi
 \begin{table}
 \centering
 \begin{enumerate}
-\item (Remained standing) One person walks in, stands in center, walks out of frame.
-\item (Remained standing) One person walks in, joined by another person, both stand there, one leaves, then another leaves.
-\item (Remained standing) One person walks in, joined by one, joined by another, all stand there, one leaves, then another, then another.
-\item (Remained standing) Two people walk in simultaneously, both stand there, both leave simultaneously.
-\item (Sitting) One person walks in, sits in center, moves to right, walks out of frame.
-\item (Sitting) One person walks in, joined by another person, both sit there, they stand and switch chairs, one leaves, then another leaves.
-\item (Sitting) One person walks in, joined by one, joined by another, they all sit there, one leaves, then another, then another.
-\item (Sitting) Two people walk in, both sit there, both leave.
+\item (Remained standing) One person walks in, stands in center, walks out of frame. (sub-experiment 1)
+\item (Remained standing) One person walks in, joined by another person, both stand there, one leaves, then another leaves. (sub-experiment 2)
+\item (Remained standing) One person walks in, joined by one, joined by another, all stand there, one leaves, then another, then another. (sub-experiment 3)
+\item (Remained standing) Two people walk in simultaneously, both stand there, both leave simultaneously. (sub-experiment 4)
+\item (Sitting) One person walks in, sits in center, moves to right, walks out of frame. (sub-experiment 5)
+\item (Sitting) One person walks in, joined by another person, both sit there, they stand and switch chairs, one leaves, then another leaves. (sub-experiment 6)
+\item (Sitting) One person walks in, joined by one, joined by another, they all sit there, one leaves, one shuffles position, then another leaves, then another. (x2) (sub-experiment 7, 8)
+\item (Sitting) Two people walk in, both sit there, both leave. (sub-experiment 9)
 \end{enumerate}
 \caption{Experiment Set 1 Script}
 \label{tab:exps:3script}

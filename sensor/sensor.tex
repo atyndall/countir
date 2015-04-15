@@ -60,38 +60,7 @@ Finally, at Analysis Tier, a computer running fully-fledged Linux, choice of lan
 
 \begin{figure}
 \centering
-\begin{tikzpicture}[node distance=1.7cm]
-\node (interwebs) [cbox] {Network};
-\node (wifi) [dashbox, right=of interwebs] {\small WiFi / Ethernet};
-\node (rpi) [fcont, below=of wifi] {Raspberry Pi B+ \linebreak
-  ``Analysis Tier'' \linebreak
-  
-  \tikz\node[fbox, minimum width=2.3cm, text width=2.3cm] {\small \ttfamily thinglib};
-  \tikz\node[fbox, minimum width=2.3cm, text width=2.3cm] {\small \ttfamily features.py};
-};
-\node (cam) [box, right=of rpi] {Camera};
-\node (usb) [dashbox, below=of rpi] {\small Serial over USB};
-\node (ard) [fcont, below=of usb] {Arduino Uno R3 \linebreak
-  ``Preprocessing Tier'' \linebreak
-  
-  \tikz\node[fbox, minimum width=3.8cm, text width=3.8cm] {\small \ttfamily mlx90620\_driver.ino};
-};
-\node (iic) [dashbox, left=of ard] {\small \iic};
-\node (mlx) [box, below=of iic] {MLX90620};
-\node (wire) [dashbox, right=of ard] {\small Interrupt};
-\node (pir) [box, below=of wire] {PIR};
-\node (sensetier) [dashbox, dotted, fit=(pir) (mlx)] {``Sensing Tier''};
-
-\draw [line] (interwebs) -- (wifi);
-\draw [line] (wifi) -- (rpi);
-\draw [line] (rpi) -- (usb);
-\draw [line] (usb) -- (ard);
-\draw [line] (ard) -- (iic);
-\draw [line] (iic) -- (mlx);
-\draw [line] (ard) -- (wire);
-\draw [line] (wire) -- (pir);
-\draw [line] (rpi) -- (cam);
-\end{tikzpicture}
+\input{../diagrams/prototype-system}
 \caption{Prototype system architecture}
 \label{fig:pictures:protob-arch}
 \end{figure}
@@ -112,32 +81,7 @@ Once booted, the user is able to send several one-character commands to the sens
 
 \begin{figure}
  \centering
-\begin{minted}[frame=single,fontsize=\scriptsize]{text}
-INIT 0
-INFO START
-DRIVER MLX90620
-BUILD Feb  1 2015 00:00:00
-IRHZ 1
-INFO STOP
-ACTIVE 33
-
-START 34
-MOVEMENT 0
-1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0
-1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0
-1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0
-1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0
-STOP 97
-\end{minted}
-%\begin{tabular}{|l|l|}
-%\hline
-%\texttt{R} & Flush buffers and reset \ard \\ \hline
-%\texttt{I} & Print INFO again \\ \hline
-%\texttt{T} & Activate timers for periodic IR data output \\ \hline
-%\texttt{O} & Deactivate timers for periodic IR data output \\ \hline
-%\texttt{P} & Manually trigger capture and output of IR data \\ \hline
-%\texttt{F\textit{x}} & Set sensor refresh frequency to \textit{x} and reboot \\ \hline
-%\end{tabular}
+\input{../diagrams/init-seq}
 \caption{Initialisation sequence and thermal packet}
 \label{fig:code:initseq}
 \end{figure}
@@ -187,49 +131,7 @@ In accordance with the pseudo-code outlined in the Thermosense paper, the algori
 
 \begin{listing}
 \centering
-\begin{minted}[fontsize=\footnotesize,frame=single,breaklines=true]{python}
-import networkx, itertools
-
-nomotion_wgt = 0.01
-n_rows = 4
-n_cols = 16
-background = first_frame
-means = first_frame
-stds = [ [0]*16 ]*4
-stds_post = [ [None]*16 ]*4
-
-def create_features(new_frame, is_motion):
-  active = []
-  g = networkx.Graph()
-
-  for i, j in itertools.product( range(n_rows), range(n_cols) ):
-    prev = background[i][j]
-    cur = new_frame[i][j]
-    cur_mean = means[i][j]
-    cur_std = stds[i][j]
-
-    if not is_motion:
-      background[i][j] = nomotion_wgt * cur + (1 - nomotion_wgt) * prev
-      means[i][j]      = cur_mean + (cur - cur_mean) / n
-      stds[i][j]       = cur_std + (cur - cur_mean) * (cur - means[i][j])
-      stds_post[i][j]  = math.sqrt(stds[i][j] / (n-1))
-
-    if (cur - background[i][j]) > (3 * stds_post[i][j]):
-      active.append((i,j))
-      g.add_node((i,j))
-
-      # Add edges for nodes that have already been computed as active
-      for ix, jx in [(-1, -1), (-1, 0), (-1, 1), (0, -1)]:
-        if (i+ix, j+jx) in active:
-          g.add_edge((i,j), (i+ix,j+jx))
-
-  comps = list(networkx.connected_components(g))
-  num_active = len(active)
-  num_connected = len(comps)
-  size_connected = max(len(c) for c in comps) if len(comps) > 0 else None
-
-  return (num_active, num_connected, size_connected)
-\end{minted}
+\input{../diagrams/feature-extraction}
 \caption{Core feature extraction code}
 \label{lst:exps:featcode}
 \end{listing}
