@@ -1,0 +1,7 @@
+Desc,Classifier,Relation,RMSE,Percent Correct,F-Score
+NaiveBayes Nom,NaiveBayes,test-weka.filters.unsupervised.attribute.NumericToNominal-Rfirst-weka.filters.supervised.instance.Resample-B1.0-S1-Z100.0,0.4093,63.7607,0.625
+SMO Nom,SMO,test-weka.filters.unsupervised.attribute.NumericToNominal-Rfirst-weka.filters.supervised.instance.Resample-B1.0-S1-Z100.0,0.4098,65.9829,0.620
+IBk Nom,IBk,test-weka.filters.unsupervised.attribute.NumericToNominal-Rfirst-weka.filters.supervised.instance.Resample-B1.0-S1-Z100.0,0.3049,78.9744,0.791
+ZeroR Nom,ZeroR,test-weka.filters.unsupervised.attribute.NumericToNominal-Rfirst-weka.filters.supervised.instance.Resample-B1.0-S1-Z100.0,0.4714,32.4786,0.260
+J48 Nom,J48,test-weka.filters.unsupervised.attribute.NumericToNominal-Rfirst-weka.filters.supervised.instance.Resample-B1.0-S1-Z100.0,0.2888,84.9573,0.850
+KStar Nom,KStar,test-weka.filters.unsupervised.attribute.NumericToNominal-Rfirst-weka.filters.supervised.instance.Resample-B1.0-S1-Z100.0,0.2956,84.2735,0.842

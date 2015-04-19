@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE object
+[
+   <!ELEMENT object (#PCDATA|object)*>
+   <!ATTLIST object name      CDATA #REQUIRED>
+   <!ATTLIST object class     CDATA #REQUIRED>
+   <!ATTLIST object primitive CDATA "no">
+   <!ATTLIST object array     CDATA "no">   <!-- the dimensions of the array; no=0, yes=1 -->
+   <!ATTLIST object null      CDATA "no">
+   <!ATTLIST object version   CDATA "3.6.12">
+]
+>
+
+<object class="java.util.Vector" name="__root__" version="3.6.12">
+   <object class="java.util.Vector" name="0">
+      <object class="weka.gui.beans.BeanInstance" name="0">
+         <object class="int" name="id" primitive="yes">0</object>
+         <object class="int" name="x" primitive="yes">43</object>
+         <object class="int" name="y" primitive="yes">331</object>
+         <object class="java.lang.String" name="custom_name">CSVLoader</object>
+         <object class="weka.gui.beans.Loader" name="bean">
+            <object class="weka.core.converters.CSVLoader" name="wrappedAlgorithm">
+               <object class="java.lang.String" name="file">atyndall/Dropbox/ash-honours/thesis/data/processed/third/test.csv</object>
+               <object class="boolean" name="useRelativePath" primitive="yes">true</object>
+            </object>
+            <object class="java.beans.beancontext.BeanContextSupport" name="beanContext">
+               <object class="boolean" name="designTime" primitive="yes">true</object>
+               <object class="null" name="beanContext" null="yes"/>
+            </object>
+         </object>
+      </object>
+      <object class="weka.gui.beans.BeanInstance" name="1">
+         <object class="int" name="id" primitive="yes">1</object>
+         <object class="int" name="x" primitive="yes">40</object>
+         <object class="int" name="y" primitive="yes">154</object>
+         <object class="java.lang.String" name="custom_name">NumericToNominal</object>
+         <object class="weka.gui.beans.Filter" name="bean">
+            <object class="weka.filters.unsupervised.attribute.NumericToNominal" name="filter">
+               <object array="yes" class="java.lang.String" name="options">
+                  <object class="java.lang.String" name="0">-R</object>
+                  <object class="java.lang.String" name="1">first</object>
+               </object>
+            </object>
+         </object>
+      </object>
+      <object class="weka.gui.beans.BeanInstance" name="2">
+         <object class="int" name="id" primitive="yes">2</object>
+         <object class="int" name="x" primitive="yes">544</object>
+         <object class="int" name="y" primitive="yes">269</object>
+         <object class="java.lang.String" name="custom_name">Resample</object>
+         <object class="weka.gui.beans.Filter" name="bean">
+            <object class="weka.filters.supervised.instance.Resample" name="filter">
+               <object array="yes" class="java.lang.String" name="options">
+                  <object class="java.lang.String" name="0">-B</object>
+                  <object class="java.lang.String" name="1">1.0</object>
+                  <object class="java.lang.String" name="2">-S</object>
+                  <object class="java.lang.String" name="3">1</object>
+                  <object class="java.lang.String" name="4">-Z</object>
+                  <object class="java.lang.String" name="5">100.0</object>
+               </object>
+            </object>
+         </object>
+      </object>
+      <object class="weka.gui.beans.BeanInstance" name="3">
+         <object class="int" name="id" primitive="yes">3</object>
+         <object class="int" name="x" primitive="yes">742</object>
+         <object class="int" name="y" primitive="yes">238</object>
+         <object class="java.lang.String" name="custom_name">CrossValidationFoldMaker</object>
+         <object class="weka.gui.beans.CrossValidationFoldMaker" name="bean">
+            <object class="int" name="seed" primitive="yes">1</object>
+            <object class="int" name="folds" primitive="yes">10</object>
+         </object>
+      </object>
+      <object class="weka.gui.beans.BeanInstance" name="4">
+         <object class="int" name="id" primitive="yes">4</object>
+         <object class="int" name="x" primitive="yes">103</object>
+         <object class="int" name="y" primitive="yes">538</object>
+         <object class="java.lang.String" name="custom_name">CrossValidationFoldMaker</object>
+         <object class="weka.gui.beans.CrossValidationFoldMaker" name="bean">
+            <object class="int" name="seed" primitive="yes">1</object>
+            <object class="int" name="folds" primitive="yes">10</object>
+         </object>
+      </object>
+      <object class="weka.gui.beans.BeanInstance" name="5">
+         <object class="int" name="id" primitive="yes">5</object>
+         <object class="int" name="x" primitive="yes">177</object>
+         <object class="int" name="y" primitive="yes">306</object>
+         <object class="java.lang.String" name="custom_name">TrainTestSplitMaker</object>
+         <object class="weka.gui.beans.TrainTestSplitMaker" name="bean">
+            <object class="int" name="seed" primitive="yes">1</object>
+            <object class="double" name="trainPercent" primitive="yes">70.0</object>
+         </object>
+      </object>
+      <object class="weka.gui.beans.BeanInstance" name="6">
+         <object class="int" name="id" primitive="yes">6</object>
+         <object class="int" name="x" primitive="yes">589</object>
+         <object class="int" name="y" primitive="yes">521</object>
+         <object class="java.lang.String" name="custom_name">TextViewer</object>
+         <object class="weka.gui.beans.TextViewer" name="bean">
+            <object class="null" name="name" null="yes"/>
+            <object class="java.beans.beancontext.BeanContextSupport" name="beanContext">
+               <object class="boolean" name="designTime" primitive="yes">true</object>
+               <object class="null" name="beanContext" null="yes"/>
+            </object>
+            <object class="weka.gui.beans.BeanVisual" name="visual">
+               <object class="null" name="name" null="yes"/>
+               <object class="java.lang.String" name="text">TextViewer</object>
+               <object class="java.lang.String" name="iconPath">weka/gui/beans/icons/DefaultText.gif</object>
+               <object class="java.lang.String" name="animatedIconPath">weka/gui/beans/icons/DefaultText_animated.gif</object>
+            </object>
+            <object class="java.lang.String" name="customName">TextViewer</object>
+         </object>
+      </object>
+      <object class="weka.gui.beans.BeanInstance" name="7">
+         <object class="int" name="id" primitive="yes">7</object>
+         <object class="int" name="x" primitive="yes">301</object>
+         <object class="int" name="y" primitive="yes">500</object>
+         <object class="java.lang.String" name="custom_name">LinearRegression</object>
+         <object class="weka.gui.beans.Classifier" name="bean">
+            <object class="weka.classifiers.functions.LinearRegression" name="wrappedAlgorithm">
+               <object class="boolean" name="debug" primitive="yes">false</object>
+               <object array="yes" class="java.lang.String" name="options">
+                  <object class="java.lang.String" name="0">-S</object>
+                  <object class="java.lang.String" name="1">0</object>
+                  <object class="java.lang.String" name="2">-R</object>
+                  <object class="java.lang.String" name="3">1.0E-8</object>
+                  <object class="java.lang.String" name="4"/>
+                  <object class="java.lang.String" name="5"/>
+               </object>
+            </object>
+            <object class="int" name="executionSlots" primitive="yes">2</object>
+         </object>
+      </object>
+      <object class="weka.gui.beans.BeanInstance" name="8">
+         <object class="int" name="id" primitive="yes">8</object>
+         <object class="int" name="x" primitive="yes">304</object>
+         <object class="int" name="y" primitive="yes">608</object>
+         <object class="java.lang.String" name="custom_name">IBk</object>
+         <object class="weka.gui.beans.Classifier" name="bean">
+            <object class="weka.classifiers.lazy.IBk" name="wrappedAlgorithm">
+               <object class="boolean" name="debug" primitive="yes">false</object>
+               <object array="yes" class="java.lang.String" name="options">
+                  <object class="java.lang.String" name="0">-K</object>
+                  <object class="java.lang.String" name="1">5</object>
+                  <object class="java.lang.String" name="2">-W</object>
+                  <object class="java.lang.String" name="3">0</object>
+                  <object class="java.lang.String" name="4">-I</object>
+                  <object class="java.lang.String" name="5">-A</object>
+                  <object class="java.lang.String" name="6">weka.core.neighboursearch.LinearNNSearch -A &quot;weka.core.EuclideanDistance -R first-last&quot;</object>
+                  <object class="java.lang.String" name="7"/>
+                  <object class="java.lang.String" name="8"/>
+                  <object class="java.lang.String" name="9"/>
+                  <object class="java.lang.String" name="10"/>
+               </object>
+            </object>
+            <object class="int" name="executionSlots" primitive="yes">2</object>
+         </object>
+      </object>
+      <object class="weka.gui.beans.BeanInstance" name="9">
+         <object class="int" name="id" primitive="yes">9</object>
+         <object class="int" name="x" primitive="yes">302</object>
+         <object class="int" name="y" primitive="yes">707</object>
+         <object class="java.lang.String" name="custom_name">KStar</object>
+         <object class="weka.gui.beans.Classifier" name="bean">
+            <object class="weka.classifiers.lazy.KStar" name="wrappedAlgorithm">
+               <object class="boolean" name="debug" primitive="yes">false</object>
+               <object array="yes" class="java.lang.String" name="options">
+                  <object class="java.lang.String" name="0">-B</object>
+                  <object class="java.lang.String" name="1">20</object>
+                  <object class="java.lang.String" name="2">-M</object>
+                  <object class="java.lang.String" name="3">a</object>
+                  <object class="java.lang.String" name="4"/>
+               </object>
+            </object>
+            <object class="int" name="executionSlots" primitive="yes">2</object>
+         </object>
+      </object>
+      <object class="weka.gui.beans.BeanInstance" name="10">
+         <object class="int" name="id" primitive="yes">10</object>
+         <object class="int" name="x" primitive="yes">310</object>
+         <object class="int" name="y" primitive="yes">405</object>
+         <object class="java.lang.String" name="custom_name">ZeroR</object>
+         <object class="weka.gui.beans.Classifier" name="bean">
+            <object class="weka.classifiers.rules.ZeroR" name="wrappedAlgorithm">
+               <object class="boolean" name="debug" primitive="yes">false</object>
+               <object array="yes" class="java.lang.String" name="options"/>
+            </object>
+            <object class="int" name="executionSlots" primitive="yes">2</object>
+         </object>
+      </object>
+      <object class="weka.gui.beans.BeanInstance" name="11">
+         <object class="int" name="id" primitive="yes">11</object>
+         <object class="int" name="x" primitive="yes">427</object>
+         <object class="int" name="y" primitive="yes">699</object>
+         <object class="java.lang.String" name="custom_name">Num KStar Eval</object>
+         <object class="weka.gui.beans.ClassifierPerformanceEvaluator" name="bean">
+            <object class="null" name="name" null="yes"/>
+            <object class="weka.gui.beans.BeanVisual" name="visual">
+               <object class="null" name="name" null="yes"/>
+               <object class="java.lang.String" name="text">Num KStar Eval</object>
+               <object class="java.lang.String" name="iconPath">weka/gui/beans/icons/ClassifierPerformanceEvaluator.gif</object>
+               <object class="java.lang.String" name="animatedIconPath">weka/gui/beans/icons/ClassifierPerformanceEvaluator_animated.gif</object>
+            </object>
+            <object class="java.lang.String" name="customName">Num KStar Eval</object>
+         </object>
+      </object>
+      <object class="weka.gui.beans.BeanInstance" name="12">
+         <object class="int" name="id" primitive="yes">12</object>
+         <object class="int" name="x" primitive="yes">426</object>
+         <object class="int" name="y" primitive="yes">600</object>
+         <object class="java.lang.String" name="custom_name">Num IBk Eval</object>
+         <object class="weka.gui.beans.ClassifierPerformanceEvaluator" name="bean">
+            <object class="null" name="name" null="yes"/>
+            <object class="weka.gui.beans.BeanVisual" name="visual">
+               <object class="null" name="name" null="yes"/>
+               <object class="java.lang.String" name="text">Num IBk Eval</object>
+               <object class="java.lang.String" name="iconPath">weka/gui/beans/icons/ClassifierPerformanceEvaluator.gif</object>
+               <object class="java.lang.String" name="animatedIconPath">weka/gui/beans/icons/ClassifierPerformanceEvaluator_animated.gif</object>
+            </object>
+            <object class="java.lang.String" name="customName">Num IBk Eval</object>
+         </object>
+      </object>
+      <object class="weka.gui.beans.BeanInstance" name="13">
+         <object class="int" name="id" primitive="yes">13</object>
+         <object class="int" name="x" primitive="yes">430</object>
+         <object class="int" name="y" primitive="yes">502</object>
+         <object class="java.lang.String" name="custom_name">Num LinReg Eval</object>
+         <object class="weka.gui.beans.ClassifierPerformanceEvaluator" name="bean">
+            <object class="null" name="name" null="yes"/>
+            <object class="weka.gui.beans.BeanVisual" name="visual">
+               <object class="null" name="name" null="yes"/>
+               <object class="java.lang.String" name="text">Num LinReg Eval</object>
+               <object class="java.lang.String" name="iconPath">weka/gui/beans/icons/ClassifierPerformanceEvaluator.gif</object>
+               <object class="java.lang.String" name="animatedIconPath">weka/gui/beans/icons/ClassifierPerformanceEvaluator_animated.gif</object>
+            </object>
+            <object class="java.lang.String" name="customName">Num LinReg Eval</object>
+         </object>
+      </object>
+      <object class="weka.gui.beans.BeanInstance" name="14">
+         <object class="int" name="id" primitive="yes">14</object>
+         <object class="int" name="x" primitive="yes">435</object>
+         <object class="int" name="y" primitive="yes">400</object>
+         <object class="java.lang.String" name="custom_name">Num ZeroR Eval</object>
+         <object class="weka.gui.beans.ClassifierPerformanceEvaluator" name="bean">
+            <object class="null" name="name" null="yes"/>
+            <object class="weka.gui.beans.BeanVisual" name="visual">
+               <object class="null" name="name" null="yes"/>
+               <object class="java.lang.String" name="text">Num ZeroR Eval</object>
+               <object class="java.lang.String" name="iconPath">weka/gui/beans/icons/ClassifierPerformanceEvaluator.gif</object>
+               <object class="java.lang.String" name="animatedIconPath">weka/gui/beans/icons/ClassifierPerformanceEvaluator_animated.gif</object>
+            </object>
+            <object class="java.lang.String" name="customName">Num ZeroR Eval</object>
+         </object>
+      </object>
+      <object class="weka.gui.beans.BeanInstance" name="15">
+         <object class="int" name="id" primitive="yes">15</object>
+         <object class="int" name="x" primitive="yes">304</object>
+         <object class="int" name="y" primitive="yes">302</object>
+         <object class="java.lang.String" name="custom_name">MultilayerPerceptron</object>
+         <object class="weka.gui.beans.Classifier" name="bean">
+            <object class="weka.classifiers.functions.MultilayerPerceptron" name="wrappedAlgorithm">
+               <object class="boolean" name="debug" primitive="yes">false</object>
+               <object array="yes" class="java.lang.String" name="options">
+                  <object class="java.lang.String" name="0">-L</object>
+                  <object class="java.lang.String" name="1">0.3</object>
+                  <object class="java.lang.String" name="2">-M</object>
+                  <object class="java.lang.String" name="3">0.2</object>
+                  <object class="java.lang.String" name="4">-N</object>
+                  <object class="java.lang.String" name="5">500</object>
+                  <object class="java.lang.String" name="6">-V</object>
+                  <object class="java.lang.String" name="7">15</object>
+                  <object class="java.lang.String" name="8">-S</object>
+                  <object class="java.lang.String" name="9">0</object>
+                  <object class="java.lang.String" name="10">-E</object>
+                  <object class="java.lang.String" name="11">20</object>
+                  <object class="java.lang.String" name="12">-H</object>
+                  <object class="java.lang.String" name="13">5</object>
+                  <object class="java.lang.String" name="14"/>
+                  <object class="java.lang.String" name="15"/>
+                  <object class="java.lang.String" name="16"/>
+                  <object class="java.lang.String" name="17"/>
+                  <object class="java.lang.String" name="18"/>
+                  <object class="java.lang.String" name="19"/>
+                  <object class="java.lang.String" name="20"/>
+               </object>
+            </object>
+            <object class="int" name="executionSlots" primitive="yes">2</object>
+         </object>
+      </object>
+      <object class="weka.gui.beans.BeanInstance" name="16">
+         <object class="int" name="id" primitive="yes">16</object>
+         <object class="int" name="x" primitive="yes">424</object>
+         <object class="int" name="y" primitive="yes">304</object>
+         <object class="java.lang.String" name="custom_name">MLP Eval</object>
+         <object class="weka.gui.beans.ClassifierPerformanceEvaluator" name="bean">
+            <object class="null" name="name" null="yes"/>
+            <object class="weka.gui.beans.BeanVisual" name="visual">
+               <object class="null" name="name" null="yes"/>
+               <object class="java.lang.String" name="text">MLP Eval</object>
+               <object class="java.lang.String" name="iconPath">weka/gui/beans/icons/ClassifierPerformanceEvaluator.gif</object>
+               <object class="java.lang.String" name="animatedIconPath">weka/gui/beans/icons/ClassifierPerformanceEvaluator_animated.gif</object>
+            </object>
+            <object class="java.lang.String" name="customName">MLP Eval</object>
+         </object>
+      </object>
+      <object class="weka.gui.beans.BeanInstance" name="17">
+         <object class="int" name="id" primitive="yes">17</object>
+         <object class="int" name="x" primitive="yes">742</object>
+         <object class="int" name="y" primitive="yes">528</object>
+         <object class="java.lang.String" name="custom_name">TextViewer</object>
+         <object class="weka.gui.beans.TextViewer" name="bean">
+            <object class="null" name="name" null="yes"/>
+            <object class="java.beans.beancontext.BeanContextSupport" name="beanContext">
+               <object class="boolean" name="designTime" primitive="yes">true</object>
+               <object class="null" name="beanContext" null="yes"/>
+            </object>
+            <object class="weka.gui.beans.BeanVisual" name="visual">
+               <object class="null" name="name" null="yes"/>
+               <object class="java.lang.String" name="text">TextViewer</object>
+               <object class="java.lang.String" name="iconPath">weka/gui/beans/icons/DefaultText.gif</object>
+               <object class="java.lang.String" name="animatedIconPath">weka/gui/beans/icons/DefaultText_animated.gif</object>
+            </object>
+            <object class="java.lang.String" name="customName">TextViewer</object>
+         </object>
+      </object>
+   </object>
+   <object class="java.util.Vector" name="1">
+      <object class="weka.gui.beans.BeanConnection" name="0">
+         <object class="int" name="source_id" primitive="yes">0</object>
+         <object class="int" name="target_id" primitive="yes">1</object>
+         <object class="java.lang.String" name="eventname">dataSet</object>
+         <object class="boolean" name="hidden" primitive="yes">false</object>
+      </object>
+      <object class="weka.gui.beans.BeanConnection" name="1">
+         <object class="int" name="source_id" primitive="yes">1</object>
+         <object class="int" name="target_id" primitive="yes">2</object>
+         <object class="java.lang.String" name="eventname">dataSet</object>
+         <object class="boolean" name="hidden" primitive="yes">false</object>
+      </object>
+      <object class="weka.gui.beans.BeanConnection" name="2">
+         <object class="int" name="source_id" primitive="yes">0</object>
+         <object class="int" name="target_id" primitive="yes">4</object>
+         <object class="java.lang.String" name="eventname">dataSet</object>
+         <object class="boolean" name="hidden" primitive="yes">false</object>
+      </object>
+      <object class="weka.gui.beans.BeanConnection" name="3">
+         <object class="int" name="source_id" primitive="yes">0</object>
+         <object class="int" name="target_id" primitive="yes">5</object>
+         <object class="java.lang.String" name="eventname">dataSet</object>
+         <object class="boolean" name="hidden" primitive="yes">false</object>
+      </object>
+      <object class="weka.gui.beans.BeanConnection" name="4">
+         <object class="int" name="source_id" primitive="yes">5</object>
+         <object class="int" name="target_id" primitive="yes">15</object>
+         <object class="java.lang.String" name="eventname">trainingSet</object>
+         <object class="boolean" name="hidden" primitive="yes">false</object>
+      </object>
+      <object class="weka.gui.beans.BeanConnection" name="5">
+         <object class="int" name="source_id" primitive="yes">5</object>
+         <object class="int" name="target_id" primitive="yes">15</object>
+         <object class="java.lang.String" name="eventname">testSet</object>
+         <object class="boolean" name="hidden" primitive="yes">false</object>
+      </object>
+      <object class="weka.gui.beans.BeanConnection" name="6">
+         <object class="int" name="source_id" primitive="yes">4</object>
+         <object class="int" name="target_id" primitive="yes">7</object>
+         <object class="java.lang.String" name="eventname">trainingSet</object>
+         <object class="boolean" name="hidden" primitive="yes">false</object>
+      </object>
+      <object class="weka.gui.beans.BeanConnection" name="7">
+         <object class="int" name="source_id" primitive="yes">4</object>
+         <object class="int" name="target_id" primitive="yes">8</object>
+         <object class="java.lang.String" name="eventname">trainingSet</object>
+         <object class="boolean" name="hidden" primitive="yes">false</object>
+      </object>
+      <object class="weka.gui.beans.BeanConnection" name="8">
+         <object class="int" name="source_id" primitive="yes">4</object>
+         <object class="int" name="target_id" primitive="yes">9</object>
+         <object class="java.lang.String" name="eventname">trainingSet</object>
+         <object class="boolean" name="hidden" primitive="yes">false</object>
+      </object>
+      <object class="weka.gui.beans.BeanConnection" name="9">
+         <object class="int" name="source_id" primitive="yes">4</object>
+         <object class="int" name="target_id" primitive="yes">7</object>
+         <object class="java.lang.String" name="eventname">testSet</object>
+         <object class="boolean" name="hidden" primitive="yes">false</object>
+      </object>
+      <object class="weka.gui.beans.BeanConnection" name="10">
+         <object class="int" name="source_id" primitive="yes">4</object>
+         <object class="int" name="target_id" primitive="yes">8</object>
+         <object class="java.lang.String" name="eventname">testSet</object>
+         <object class="boolean" name="hidden" primitive="yes">false</object>
+      </object>
+      <object class="weka.gui.beans.BeanConnection" name="11">
+         <object class="int" name="source_id" primitive="yes">4</object>
+         <object class="int" name="target_id" primitive="yes">9</object>
+         <object class="java.lang.String" name="eventname">testSet</object>
+         <object class="boolean" name="hidden" primitive="yes">false</object>
+      </object>
+      <object class="weka.gui.beans.BeanConnection" name="12">
+         <object class="int" name="source_id" primitive="yes">4</object>
+         <object class="int" name="target_id" primitive="yes">10</object>
+         <object class="java.lang.String" name="eventname">trainingSet</object>
+         <object class="boolean" name="hidden" primitive="yes">false</object>
+      </object>
+      <object class="weka.gui.beans.BeanConnection" name="13">
+         <object class="int" name="source_id" primitive="yes">4</object>
+         <object class="int" name="target_id" primitive="yes">10</object>
+         <object class="java.lang.String" name="eventname">testSet</object>
+         <object class="boolean" name="hidden" primitive="yes">false</object>
+      </object>
+      <object class="weka.gui.beans.BeanConnection" name="14">
+         <object class="int" name="source_id" primitive="yes">9</object>
+         <object class="int" name="target_id" primitive="yes">11</object>
+         <object class="java.lang.String" name="eventname">batchClassifier</object>
+         <object class="boolean" name="hidden" primitive="yes">false</object>
+      </object>
+      <object class="weka.gui.beans.BeanConnection" name="15">
+         <object class="int" name="source_id" primitive="yes">8</object>
+         <object class="int" name="target_id" primitive="yes">12</object>
+         <object class="java.lang.String" name="eventname">batchClassifier</object>
+         <object class="boolean" name="hidden" primitive="yes">false</object>
+      </object>
+      <object class="weka.gui.beans.BeanConnection" name="16">
+         <object class="int" name="source_id" primitive="yes">7</object>
+         <object class="int" name="target_id" primitive="yes">13</object>
+         <object class="java.lang.String" name="eventname">batchClassifier</object>
+         <object class="boolean" name="hidden" primitive="yes">false</object>
+      </object>
+      <object class="weka.gui.beans.BeanConnection" name="17">
+         <object class="int" name="source_id" primitive="yes">10</object>
+         <object class="int" name="target_id" primitive="yes">14</object>
+         <object class="java.lang.String" name="eventname">batchClassifier</object>
+         <object class="boolean" name="hidden" primitive="yes">false</object>
+      </object>
+      <object class="weka.gui.beans.BeanConnection" name="18">
+         <object class="int" name="source_id" primitive="yes">15</object>
+         <object class="int" name="target_id" primitive="yes">16</object>
+         <object class="java.lang.String" name="eventname">batchClassifier</object>
+         <object class="boolean" name="hidden" primitive="yes">false</object>
+      </object>
+      <object class="weka.gui.beans.BeanConnection" name="19">
+         <object class="int" name="source_id" primitive="yes">6</object>
+         <object class="int" name="target_id" primitive="yes">17</object>
+         <object class="java.lang.String" name="eventname">text</object>
+         <object class="boolean" name="hidden" primitive="yes">false</object>
+      </object>
+      <object class="weka.gui.beans.BeanConnection" name="20">
+         <object class="int" name="source_id" primitive="yes">14</object>
+         <object class="int" name="target_id" primitive="yes">6</object>
+         <object class="java.lang.String" name="eventname">text</object>
+         <object class="boolean" name="hidden" primitive="yes">false</object>
+      </object>
+   </object>
+</object>

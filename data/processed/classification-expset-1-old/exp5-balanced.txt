@@ -199,3 +199,37 @@ Weighted Avg.    0.889     0.098      0.897     0.889     0.889      0.929
   7 39  0  0 |  b = 1
   0  0  0  0 |  c = 2
   0  0  0  0 |  d = 3
+
+
+=== Evaluation result ===
+
+Scheme: IBk
+Options: -K 3 -W 0 -A "weka.core.neighboursearch.LinearNNSearch -A \"weka.core.EuclideanDistance -R first-last\""
+Relation: thirdexp-nominal-exp5-weka.filters.supervised.instance.Resample-B1.0-S1-Z100.0
+
+
+Correctly Classified Instances          57               70.3704 %
+Incorrectly Classified Instances        24               29.6296 %
+Kappa statistic                          0.3749
+Mean absolute error                      0.1702
+Root mean squared error                  0.3454
+Relative absolute error                 67.4137 %
+Root relative squared error             98.3938 %
+Total Number of Instances               81     
+
+=== Detailed Accuracy By Class ===
+
+               TP Rate   FP Rate   Precision   Recall  F-Measure   ROC Area  Class
+                 0.514     0.152      0.72      0.514     0.6        0.789    0
+                 0.848     0.486      0.696     0.848     0.765      0.789    1
+                 0         0          0         0         0          ?        2
+                 0         0          0         0         0          ?        3
+Weighted Avg.    0.704     0.342      0.707     0.704     0.694      0.789
+
+=== Confusion Matrix ===
+
+  a  b  c  d   <-- classified as
+ 18 17  0  0 |  a = 0
+  7 39  0  0 |  b = 1
+  0  0  0  0 |  c = 2
+  0  0  0  0 |  d = 3

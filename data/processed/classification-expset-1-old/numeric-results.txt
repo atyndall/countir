@@ -1,0 +1,64 @@
+=== Evaluation result ===
+
+Scheme: IBk Num : IBk
+Options: -K 5 -W 0 -F -A "weka.core.neighboursearch.LinearNNSearch -A \"weka.core.EuclideanDistance -R first-last\""
+Relation: test
+
+
+Correlation coefficient                  0.7583
+Mean absolute error                      0.2421
+Root mean squared error                  0.4268
+Relative absolute error                 42.9172 %
+Root relative squared error             65.5856 %
+Total Number of Instances              585     
+=== Evaluation result ===
+
+Scheme: ZeroR Num : ZeroR
+Relation: test
+
+
+Correlation coefficient                 -0.1184
+Mean absolute error                      0.5641
+Root mean squared error                  0.6507
+Relative absolute error                100      %
+Root relative squared error            100      %
+Total Number of Instances              585     
+=== Evaluation result ===
+
+Scheme: LinearRegression Num : LinearRegression
+Options: -S 0 -R 1.0E-8
+Relation: test-weka.filters.unsupervised.attribute.Remove-R3
+
+
+Correlation coefficient                  0.5887
+Mean absolute error                      0.4333
+Root mean squared error                  0.5252
+Relative absolute error                 76.8147 %
+Root relative squared error             80.7067 %
+Total Number of Instances              585     
+=== Evaluation result ===
+
+Scheme: KStar Num : KStar
+Options: -B 20 -M a
+Relation: test
+
+
+Correlation coefficient                  0.7596
+Mean absolute error                      0.2726
+Root mean squared error                  0.4232
+Relative absolute error                 48.323  %
+Root relative squared error             65.0352 %
+Total Number of Instances              585     
+=== Evaluation result ===
+
+Scheme: MLP Num : MultilayerPerceptron
+Options: -L 0.3 -M 0.2 -N 500 -V 15 -S 0 -E 20 -H 5
+Relation: test
+
+
+Correlation coefficient                  0.6871
+Mean absolute error                      0.4006
+Root mean squared error                  0.5921
+Relative absolute error                 65.6725 %
+Root relative squared error             84.6233 %
+Total Number of Instances              175     

@@ -1,0 +1,5 @@
+Desc,Classifier,Relation,RMSE,,,Correlation coefficient
+IBk Num,IBk,test,0.4268,,,0.7583
+ZeroR Num,ZeroR,test,0.6507,,,-0.1184
+LinearRegression Num,LinearRegression,test-weka.filters.unsupervised.attribute.Remove-R3,0.5252,,,0.5887
+KStar Num,KStar,test,0.4232,,,0.7596
