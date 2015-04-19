@@ -32,3 +32,7 @@ thesis/_minted-thesis/
 .DS_Store
 *.fdb_latexmk
 
+
+data/distortionmodel.ai
+
+*.gz(busy)
