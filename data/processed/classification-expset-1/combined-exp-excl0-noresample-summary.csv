@@ -1,0 +1,13 @@
+Desc,Classifier,Relation,RMSE,Percent Correct,F-Score,Correlation coeff
+IBk Nom,IBk,combined-exp-excl0-data-weka.filters.unsupervised.attribute.ClassAssigner-Cfirst-weka.filters.unsupervised.attribute.NumericToNominal-Rfirst,0.3119,83.0769,0.824
+J48 Nom,J48,combined-exp-excl0-data-weka.filters.unsupervised.attribute.ClassAssigner-Cfirst-weka.filters.unsupervised.attribute.NumericToNominal-Rfirst,0.3138,82.3932,0.819
+KStar Nom,KStar,combined-exp-excl0-data-weka.filters.unsupervised.attribute.ClassAssigner-Cfirst-weka.filters.unsupervised.attribute.NumericToNominal-Rfirst,0.3042,82.5641,0.814
+MLP Nom,MultilayerPerceptron,combined-exp-excl0-data-weka.filters.unsupervised.attribute.ClassAssigner-Cfirst-weka.filters.unsupervised.attribute.NumericToNominal-Rfirst,0.3621,77.1429,0.757
+NaiveBayes Nom,NaiveBayes,combined-exp-excl0-data-weka.filters.unsupervised.attribute.ClassAssigner-Cfirst-weka.filters.unsupervised.attribute.NumericToNominal-Rfirst,0.4053,63.5897,0.632
+SMO Nom,SMO,combined-exp-excl0-data-weka.filters.unsupervised.attribute.ClassAssigner-Cfirst-weka.filters.unsupervised.attribute.NumericToNominal-Rfirst,0.398,67.1795,0.640
+ZeroR Nom,ZeroR,combined-exp-excl0-data-weka.filters.unsupervised.attribute.ClassAssigner-Cfirst-weka.filters.unsupervised.attribute.NumericToNominal-Rfirst,0.442,49.7436,0.330
+IBk Num,IBk,combined-exp-excl0-data-weka.filters.unsupervised.attribute.ClassAssigner-Cfirst,0.4268,,,0.7583
+KStar Num,KStar,combined-exp-excl0-data-weka.filters.unsupervised.attribute.ClassAssigner-Cfirst,0.4232,,,0.7596
+LinearRegression Num,LinearRegression,combined-exp-excl0-data-weka.filters.unsupervised.attribute.ClassAssigner-Cfirst-weka.filters.unsupervised.attribute.Remove-R3,0.5252,,,0.5887
+MLP Num,MultilayerPerceptron,combined-exp-excl0-data-weka.filters.unsupervised.attribute.ClassAssigner-Cfirst,0.5921,,,0.6871
+ZeroR Num,ZeroR,combined-exp-excl0-data-weka.filters.unsupervised.attribute.ClassAssigner-Cfirst,0.6507,,,-0.1184

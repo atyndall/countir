@@ -1,0 +1,34 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.functions.LinearRegression -S 0 -R 1.0E-8
+Relation:     combined-exp-excl0-data-weka.filters.unsupervised.attribute.Remove-R3
+Instances:    585
+Attributes:   3
+              numpeople
+              numactive
+              sizeconnected
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+
+Linear Regression Model
+
+numpeople =
+
+      0.0456 * numactive +
+     -0.024  * sizeconnected +
+      1.1772
+
+Time taken to build model: 0 seconds
+
+=== Cross-validation ===
+=== Summary ===
+
+Correlation coefficient                  0.5887
+Mean absolute error                      0.4333
+Root mean squared error                  0.5252
+Relative absolute error                 76.8147 %
+Root relative squared error             80.7067 %
+Total Number of Instances              585     
+

@@ -1,0 +1,300 @@
+=== Evaluation result ===
+
+Scheme: ZeroR Nom : ZeroR
+Relation: combined-exp-all-data-weka.filters.unsupervised.attribute.ClassAssigner-Cfirst-weka.filters.unsupervised.attribute.NumericToNominal-Rfirst
+
+
+Correctly Classified Instances         411               40.3733 %
+Incorrectly Classified Instances       607               59.6267 %
+Kappa statistic                          0     
+Mean absolute error                      0.3452
+Root mean squared error                  0.4154
+Relative absolute error                100      %
+Root relative squared error            100      %
+Coverage of cases (0.95 level)         100      %
+Mean rel. region size (0.95 level)     100      %
+Total Number of Instances             1018     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 1.000    1.000    0.404      1.000    0.575      0.000    0.497     0.402     0
+                 0.000    0.000    0.000      0.000    0.000      0.000    0.495     0.246     1
+                 0.000    0.000    0.000      0.000    0.000      0.000    0.497     0.285     2
+                 0.000    0.000    0.000      0.000    0.000      0.000    0.480     0.061     3
+Weighted Avg.    0.404    0.404    0.163      0.404    0.232      0.000    0.496     0.308     
+
+=== Confusion Matrix ===
+
+   a   b   c   d   <-- classified as
+ 411   0   0   0 |   a = 0
+ 252   0   0   0 |   b = 1
+ 291   0   0   0 |   c = 2
+  64   0   0   0 |   d = 3
+=== Evaluation result ===
+
+Scheme: NaiveBayes Nom : NaiveBayes
+Relation: combined-exp-all-data-weka.filters.unsupervised.attribute.ClassAssigner-Cfirst-weka.filters.unsupervised.attribute.NumericToNominal-Rfirst
+
+
+Correctly Classified Instances         674               66.2083 %
+Incorrectly Classified Instances       344               33.7917 %
+Kappa statistic                          0.4964
+Mean absolute error                      0.2087
+Root mean squared error                  0.3516
+Relative absolute error                 60.4564 %
+Root relative squared error             84.6405 %
+Coverage of cases (0.95 level)          93.0255 %
+Mean rel. region size (0.95 level)      58.9882 %
+Total Number of Instances             1018     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.925    0.209    0.750      0.925    0.828      0.702    0.889     0.808     0
+                 0.357    0.127    0.481      0.357    0.410      0.257    0.746     0.523     1
+                 0.608    0.149    0.621      0.608    0.615      0.463    0.826     0.683     2
+                 0.422    0.013    0.692      0.422    0.524      0.518    0.914     0.515     3
+Weighted Avg.    0.662    0.159    0.643      0.662    0.644      0.512    0.837     0.683     
+
+=== Confusion Matrix ===
+
+   a   b   c   d   <-- classified as
+ 380  16  15   0 |   a = 0
+ 100  90  60   2 |   b = 1
+  27  77 177  10 |   c = 2
+   0   4  33  27 |   d = 3
+=== Evaluation result ===
+
+Scheme: ZeroR Num : ZeroR
+Relation: combined-exp-all-data-weka.filters.unsupervised.attribute.ClassAssigner-Cfirst
+
+
+Correlation coefficient                 -0.1293
+Mean absolute error                      0.8203
+Root mean squared error                  0.9719
+Relative absolute error                100      %
+Root relative squared error            100      %
+Total Number of Instances             1018     
+=== Evaluation result ===
+
+Scheme: LinearRegression Num : LinearRegression
+Options: -S 0 -R 1.0E-8
+Relation: combined-exp-all-data-weka.filters.unsupervised.attribute.ClassAssigner-Cfirst-weka.filters.unsupervised.attribute.Remove-R3
+
+
+Correlation coefficient                  0.7341
+Mean absolute error                      0.5098
+Root mean squared error                  0.6587
+Relative absolute error                 62.1465 %
+Root relative squared error             67.7669 %
+Total Number of Instances             1018     
+=== Evaluation result ===
+
+Scheme: IBk Num : IBk
+Options: -K 5 -W 0 -F -A "weka.core.neighboursearch.LinearNNSearch -A \"weka.core.EuclideanDistance -R first-last\""
+Relation: combined-exp-all-data-weka.filters.unsupervised.attribute.ClassAssigner-Cfirst
+
+
+Correlation coefficient                  0.3766
+Mean absolute error                      0.7113
+Root mean squared error                  1.1235
+Relative absolute error                 86.7178 %
+Root relative squared error            115.5897 %
+Total Number of Instances             1018     
+=== Evaluation result ===
+
+Scheme: IBk Nom : IBk
+Options: -K 5 -W 0 -F -A "weka.core.neighboursearch.LinearNNSearch -A \"weka.core.EuclideanDistance -R first-last\""
+Relation: combined-exp-all-data-weka.filters.unsupervised.attribute.ClassAssigner-Cfirst-weka.filters.unsupervised.attribute.NumericToNominal-Rfirst
+
+
+Correctly Classified Instances         598               58.7426 %
+Incorrectly Classified Instances       420               41.2574 %
+Kappa statistic                          0.4437
+Mean absolute error                      0.2294
+Root mean squared error                  0.4117
+Relative absolute error                 66.4475 %
+Root relative squared error             99.1128 %
+Coverage of cases (0.95 level)          70.5305 %
+Mean rel. region size (0.95 level)      48.723  %
+Total Number of Instances             1018     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.287    0.046    0.808      0.287    0.424      0.337    0.870     0.779     0
+                 0.802    0.309    0.460      0.802    0.585      0.429    0.833     0.655     1
+                 0.859    0.077    0.817      0.859    0.838      0.771    0.928     0.849     2
+                 0.438    0.104    0.220      0.438    0.293      0.245    0.796     0.311     3
+Weighted Avg.    0.587    0.124    0.688      0.587    0.574      0.478    0.873     0.739     
+
+=== Confusion Matrix ===
+
+   a   b   c   d   <-- classified as
+ 118 199   6  88 |   a = 0
+  27 202  21   2 |   b = 1
+   1  31 250   9 |   c = 2
+   0   7  29  28 |   d = 3
+=== Evaluation result ===
+
+Scheme: SMO Nom : SMO
+Options: -C 1.0 -L 0.001 -P 1.0E-12 -N 0 -V -1 -W 1 -K "weka.classifiers.functions.supportVector.PolyKernel -E 1.0 -C 250007"
+Relation: combined-exp-all-data-weka.filters.unsupervised.attribute.ClassAssigner-Cfirst-weka.filters.unsupervised.attribute.NumericToNominal-Rfirst
+
+
+Correctly Classified Instances         585               57.4656 %
+Incorrectly Classified Instances       433               42.5344 %
+Kappa statistic                          0.3603
+Mean absolute error                      0.297 
+Root mean squared error                  0.3795
+Relative absolute error                 86.0431 %
+Root relative squared error             91.3677 %
+Coverage of cases (0.95 level)          98.8212 %
+Mean rel. region size (0.95 level)      75      %
+Total Number of Instances             1018     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.740    0.338    0.597      0.740    0.661      0.394    0.777     0.605     0
+                 0.353    0.167    0.410      0.353    0.380      0.196    0.625     0.318     1
+                 0.649    0.132    0.663      0.649    0.656      0.521    0.774     0.551     2
+                 0.047    0.004    0.429      0.047    0.085      0.125    0.855     0.292     3
+Weighted Avg.    0.575    0.216    0.559      0.575    0.554      0.365    0.743     0.499     
+
+=== Confusion Matrix ===
+
+   a   b   c   d   <-- classified as
+ 304 101   6   0 |   a = 0
+ 128  89  35   0 |   b = 1
+  76  22 189   4 |   c = 2
+   1   5  55   3 |   d = 3
+=== Evaluation result ===
+
+Scheme: MLP Num : MultilayerPerceptron
+Options: -L 0.3 -M 0.2 -N 500 -V 15 -S 0 -E 20 -H 5
+Relation: combined-exp-all-data-weka.filters.unsupervised.attribute.ClassAssigner-Cfirst
+
+
+Correlation coefficient                  0.781 
+Mean absolute error                      0.4593
+Root mean squared error                  0.664 
+Relative absolute error                 54.9126 %
+Root relative squared error             68.4298 %
+Total Number of Instances              305     
+=== Evaluation result ===
+
+Scheme: J48 Nom : J48
+Options: -C 0.25 -M 2
+Relation: combined-exp-all-data-weka.filters.unsupervised.attribute.ClassAssigner-Cfirst-weka.filters.unsupervised.attribute.NumericToNominal-Rfirst
+
+
+Correctly Classified Instances         844               82.9077 %
+Incorrectly Classified Instances       174               17.0923 %
+Kappa statistic                          0.7487
+Mean absolute error                      0.1731
+Root mean squared error                  0.2878
+Relative absolute error                 50.1407 %
+Root relative squared error             69.3014 %
+Coverage of cases (0.95 level)          96.7583 %
+Mean rel. region size (0.95 level)      67.5098 %
+Total Number of Instances             1018     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.929    0.102    0.860      0.929    0.894      0.819    0.925     0.837     0
+                 0.710    0.063    0.789      0.710    0.747      0.672    0.855     0.714     1
+                 0.873    0.073    0.827      0.873    0.849      0.788    0.910     0.774     2
+                 0.453    0.012    0.725      0.453    0.558      0.552    0.870     0.516     3
+Weighted Avg.    0.829    0.078    0.825      0.829    0.824      0.756    0.900     0.768     
+
+=== Confusion Matrix ===
+
+   a   b   c   d   <-- classified as
+ 382  23   5   1 |   a = 0
+  52 179  19   2 |   b = 1
+  10  19 254   8 |   c = 2
+   0   6  29  29 |   d = 3
+=== Evaluation result ===
+
+Scheme: KStar Num : KStar
+Options: -B 20 -M a
+Relation: combined-exp-all-data-weka.filters.unsupervised.attribute.ClassAssigner-Cfirst
+
+
+Correlation coefficient                  0.828 
+Mean absolute error                      0.3829
+Root mean squared error                  0.5496
+Relative absolute error                 46.674  %
+Root relative squared error             56.542  %
+Total Number of Instances             1018     
+=== Evaluation result ===
+
+Scheme: KStar Nom : KStar
+Options: -B 20 -M a
+Relation: combined-exp-all-data-weka.filters.unsupervised.attribute.ClassAssigner-Cfirst-weka.filters.unsupervised.attribute.NumericToNominal-Rfirst
+
+
+Correctly Classified Instances         841               82.613  %
+Incorrectly Classified Instances       177               17.387  %
+Kappa statistic                          0.7441
+Mean absolute error                      0.1764
+Root mean squared error                  0.2853
+Relative absolute error                 51.1162 %
+Root relative squared error             68.6796 %
+Coverage of cases (0.95 level)          98.3301 %
+Mean rel. region size (0.95 level)      65.668  %
+Total Number of Instances             1018     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.915    0.089    0.874      0.915    0.894      0.820    0.935     0.871     0
+                 0.746    0.072    0.774      0.746    0.760      0.683    0.870     0.770     1
+                 0.880    0.085    0.805      0.880    0.841      0.774    0.923     0.819     2
+                 0.328    0.006    0.778      0.328    0.462      0.486    0.923     0.528     3
+Weighted Avg.    0.826    0.078    0.824      0.826    0.818      0.752    0.915     0.810     
+
+=== Confusion Matrix ===
+
+   a   b   c   d   <-- classified as
+ 376  30   5   0 |   a = 0
+  44 188  20   0 |   b = 1
+  10  19 256   6 |   c = 2
+   0   6  37  21 |   d = 3
+=== Evaluation result ===
+
+Scheme: MLP Nom : MultilayerPerceptron
+Options: -L 0.3 -M 0.2 -N 500 -V 15 -S 0 -E 20 -H 5
+Relation: combined-exp-all-data-weka.filters.unsupervised.attribute.ClassAssigner-Cfirst-weka.filters.unsupervised.attribute.NumericToNominal-Rfirst
+
+
+Correctly Classified Instances         240               78.6885 %
+Incorrectly Classified Instances        65               21.3115 %
+Kappa statistic                          0.6795
+Mean absolute error                      0.1425
+Root mean squared error                  0.286 
+Relative absolute error                 41.4629 %
+Root relative squared error             69.3884 %
+Coverage of cases (0.95 level)          90.1639 %
+Mean rel. region size (0.95 level)      48.2787 %
+Total Number of Instances              305     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.910    0.140    0.834      0.910    0.871      0.765    0.930     0.881     0
+                 0.614    0.072    0.717      0.614    0.662      0.573    0.876     0.682     1
+                 0.835    0.077    0.807      0.835    0.821      0.750    0.910     0.841     2
+                 0.294    0.024    0.417      0.294    0.345      0.318    0.825     0.402     3
+Weighted Avg.    0.787    0.100    0.776      0.787    0.779      0.692    0.906     0.797     
+
+=== Confusion Matrix ===
+
+   a   b   c   d   <-- classified as
+ 121   9   3   0 |   a = 0
+  19  43   8   0 |   b = 1
+   3   4  71   7 |   c = 2
+   2   4   6   5 |   d = 3
