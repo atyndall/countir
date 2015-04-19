@@ -36,3 +36,5 @@ thesis/_minted-thesis/
 data/distortionmodel.ai
 
 *.gz(busy)
+
+~$*
