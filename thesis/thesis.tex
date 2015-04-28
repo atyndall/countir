@@ -14,7 +14,6 @@
 \usepackage[vario]{fancyref}
 \usepackage{threeparttable}
 \usepackage{tikz}
-\usepackage{forest}
 \usepackage{hyperref}
 \usepackage{xspace}
 \usepackage{ccicons}
@@ -275,10 +274,12 @@ These are the acknowledgements.
 
 \subfile{../introduction/introduction}
 \subfile{../litreview/litreview}
-\subfile{../sensor/sensor}
-\subfile{../methods/methods}
-\subfile{../results/results}
-\subfile{../discussion/discussion}
+\subfile{../design/design}
+\subfile{../evaluation/evaluation}
+\subfile{../conclusion/conclusion}
+
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliography{../references/primary}
 
 \afterpage{\blankpage}
 
@@ -287,8 +288,7 @@ These are the acknowledgements.
 
 %\clearpage
 
-\addcontentsline{toc}{chapter}{Bibliography}
-\bibliography{../references/primary}
+
 
 \end{document}
 

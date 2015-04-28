@@ -1,12 +1,11 @@
 \documentclass[../thesis/thesis.tex]{subfiles}
 \begin{document}
- \chapter{Discussion and Conclusion}
+ \chapter{Conclusions}
 % What did you do?
 % Why did you do it?
 % What happened?
 % What do the results mean?
 % What is your work good for?
-
 
 The smart-home economy continues to grow, with automation being one of the main areas driving growth. The ability to detect people present within a space is an important smart-automation feature, with the implications for climate control energy efficiency alone being highly significant.
 
@@ -14,53 +13,21 @@ This project has attempted to create an occupancy detection system for such a sm
 
 This prototype both validates the methods and results of the Thermosense paper, discovers key caveats surrounding the Thermosense approach, and also creates a software and hardware base on which future research into the area of occupancy in thermal imaging can be explored.
 
-\section{Criteria}
+\section{Accuracy}
+TODO: Summarize results.
 
-\subsection{Low Cost}
-As being low-cost is one of the project's goals, we have summarized the cost of each of the components of the prototype in \Fref{tab:sensor:cost}. We believe that for a prototype, this cost is sufficiently low. In an ideal system, there would only be one Raspberry Pi in the system, and it would not require a camera, lowering the cost to around $\$40 + n * \$115$ where $n$ is the number of sensors. Similarly, as technology improves (as discussed in later chapters), sensor technology will continue to become cheaper, causing the most expensive component, the \mlx, to lower in cost.
-
-When we compare this to the estimated cost of the Thermosense system (\Fref{tab:sensor:thermosensecost}), we believe that it achieves a suitably comparible cost for a prototype. When removing the aspects of the prototype that would be unnecessary in the final version, the difference is less than \$15.
-
-\begin{table}
-\centering
-\begin{tabular}[H]{|l|r|}
-\hline
-\textbf{Part} & \textbf{Cost (USD)} \\ \hline
-MLX90620 & \$80 \\ \hline
-Raspberry Pi B+ &  \$40 \\ \hline
-Raspberry Pi Camera &  \$30 \\ \hline
-Arduino Uno R3 & \$25 \\ \
-Passive Infrared Sensor & \$10 \\ \hline
-\textbf{TOTAL} & \textbf{\$185} \\ \hline
-\end{tabular}
-\caption{Our project component costs}
-\label{tab:sensor:cost}
-\end{table}
-
-\begin{table}
-\centering
-\begin{tabular}[H]{|l|r|}
-\hline
-\textbf{Part} & \textbf{Cost (USD)} \\ \hline
-Tmote Sky & \$100 \\ \hline
-Grid-EYE & \$30 \\ \hline
-Passive Infrared Sensor & \$10 \\ \hline
-\textbf{TOTAL} & \textbf{\$140} \\ \hline
-\end{tabular}
-\caption{Thermosense component costs}
-\label{tab:sensor:thermosensecost}
-\end{table}
-
-\subsection{Non-Invasive}
-As discussed in the Literature Review, low-resolution thermal sensing provides the best trade-off between accuracy and invasiveness. Due to sensing in the infrared spectrum, it becomes significantly harder to surveil people in a malicious way, as many identifying features of people are not visible in the IR spectrum. This is compounded by the low resolution, which similarly assists in reducing the invasiveness of the sensor.
-
-\subsection{Energy Efficient}
-
-% TODO: Experiments about this
-
-\subsection{Reliable}
 As discussed in the Results section, the prototype developed achieves excellent reliability, citing accuracies in the 80\% range. 
 
+\section{Energy Efficiency}
+TODO: Summarize 4.3
+
+\section{Privacy}
+% TODO: Reference specific section of lit review
+% TODO: Is privacy the same as non-invasive?
+As discussed in the Literature Review, low-resolution thermal sensing provides the best trade-off between accuracy and invasiveness. Due to sensing in the infrared spectrum, it becomes significantly harder to surveil people in a malicious way, as many identifying features of people are not visible in the IR spectrum. This is compounded by the low resolution, which similarly assists in reducing the invasiveness of the sensor.
+
+\section{Cost}
+TODO: Summarize findings about cost
 
 \section{Future Directions}
 This project merely touched upon the area of thermal sensing and occupancy detection, and has laid the foundation for many more projects that build upon this original project. Some areas of future research are discussed here;

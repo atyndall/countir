@@ -28,18 +28,7 @@ Teixeira, Dublon and Savvides \cite{teixeira2010survey} also propose a measurabl
 
 \begin{figure}
 \centering
-\begin{forest}
-[Sensors
-  [Intrinsic
-    [Static]
-    [Dynamic]
-  ]
-  [Extrinsic
-    [Instrumented]
-    [Correlative]
-  ]
-]
-\end{forest}
+\includegraphics{../diagrams/category-tree.pdf}
 \caption{Taxonomy of occupancy sensors}
 \label{fig:litreview:taxonomy}
 \end{figure}
@@ -165,6 +154,59 @@ The Thermosense system develops a thermal background map of the room using an \e
 This background map is used as a baseline to calculate standard deviations of each grid area, which are then used to determine several characteristics to be used as feature vectors for a variety of classification approaches. The determination of the feature vectors was subject to experimentation, since the differences at each grid element too susceptible to individual room conditions to be used as feature vectors. Instead, a set of three different features was designed; the number of temperature anomalies in the space, the number of groups of temperature anomalies, and the size of the largest anomaly in the space. These feature vectors were compared against three classification approaches; K-Nearest Neighbors, Linear Regression and an a feed-forward Artificial Neural Network of one hidden later and 5 perceptions. All three classifiers achieved a Root Mean Squared Error (RMSE) within $0.38\pm0.04$. This final classification is subject to a final averaging process over a 4 minute window to remove the presence of independent errors from the raw classification data.
 
 The Thermosense approach presents the state of the art in the field of sensing with \iar technology. Using a similar \iar system along with those types of classification algorithms should yield useful sensing results which can be then integrated into the broader sensor system.
+
+
+\section{Classification Algorithms}
+% TODO: Better integration
+% TODO: Do I need equations for these explanations?
+\subsection{Neural Networks}
+An artificial neural network (ANN) uses neurons as a model for machine learning. A number of input neurons, in this case connected to the feature vectors, is fed into a network of neurons (the ``hidden layer''), each of which has an activation function which determines what set of inputs will make it fire. This network then connects to a number of output neurons which can be queried to determine the network's predicted result. In the nominal result case, there one neuron for each possible class, and in the numeric result case, there is one neuron without an activation function that outputs the raw numerical estimate. Neural networks can approximate functions of nearly any complexity with sufficient neurons in the correct topology, and are a quite common classification technique.
+
+Thermosense uses a neural network with a hidden layer of five neurons, with a sigmoid activation function for the hidden layer and a linear activation function for the output layer. They test only the one, two and three person cases, relying on their \pir to detect the zero person case. They use 70\% of their data for training the neural net, 15\% for testing the net and the final 15\% for validating their results. Thermosense conducts tests interpreting the number of people as a numeric attribute.
+
+We use Weka's ``MultilayerPerceptron'' neural network, which creates a hidden layer of $(\mathit{attributes} + \mathit{classes}) / 2$ (three) by default, however we manually reconfigure this to be one hidden layer of five neurons, like Thermosense. It uses a sigmoid activation function for all neurons, except in the case that a numerical answer is to be predicted, in which case like Thermosense, it uses a linear activation function for the output layer. As is standard, for validation we use a 10-fold cross-validation for our nominal approach, and attempt to replicate Thermosense's configuration as closely as possible for the numeric result. % TODO: Actually do this
+
+\subsection{k-nearest Neighbors}
+A $k$-nearest Neighbors (KNN) approach uses the topology of the training data as a means to classify future data. For each data point that requires classification, a majority vote of its $k$ nearest neighbors in the training data determines which class it belongs to. KNN is one of the simplest machine learning algorithms, and due to its classification method, is highly sensitive to classes that overlap. 
+
+Thermosense uses 5-nearest Neighbors with the Euclidean distance between points. For determining the class label, higher weightings are given to training points inversely to their distance from the point being classified. Thermosense appears to use a nominal classification for their KNN.
+
+We use Weka's ``iBk'' function to perform a KNN calculation, configuring \texttt{distanceWeighting} to be ``Weight by 1-distance'' and \texttt{KNN} to be 5, to make the classification as similar in function to the Thermosense approach as is possible. Thermosense does not specify what validation technique they used, so we elected to use a standard 10-fold cross-validation.
+
+\subsection{Linear Regression}
+A Linear Regression approach attempts to construct a linear equation to describe the relationship between a dependent variable (in this case, the number of people in the space), and a number of other indicator variables (in this case, the three feature vectors). Generally, the equation takes the form $y = m_1x_1 + ... + m_nx_n + c$, where each of the feature vectors is multiplied by a weight, and then a final number is added to provide the final prediction.
+
+Thermosense uses a Linear Regression model of $y = \beta_A A + \beta_S S + \beta $, whereby $A$ is the number of active pixels, $S$ is the size of the largest connected component, and the $\beta$ values represent the corresponding coefficients. They opt to exclude the third feature, the number of connected components, as their testing indicates that excluding it minimizes the Root Mean Squared Error (RMSE) further. 
+
+We use Weka's ``LinearRegression'' function, exclude the \texttt{numconnected} attribute from the feature vector list, to attempt to match this approach.
+
+\subsection{Naive Bayes}
+A Naive Bayes approaches uses a simple application of Bayes' probability theorem to construct a probability of a given value belonging to a given class taking into account what is already known about the distribution of each of the classes in the data set, and the classification of those points that surround the point needing classification. One of the disadvantages of the Naive Bayes approach (the source of its naivety) is that it assumes independence between each of the variables used for classification.
+
+In our data, the assumption of independence of variables is not correct, as each of the features are slightly different representations of the same data. However, due to Naive Bayes' ubiquity and simplicity, it can be illuminating to see how well a very common but poorly suited classifier fares with our data set. Within Weka, we use the ``NaiveBayes'' function, which has little by way of configuration, thus is left in its default state.
+
+\subsection{Support Vector Machines}
+Support Vector Machines (SVM) attempt to classify data by trying to find a plane that best separates two classes in a higher dimensional space. They do this by determining ``support vectors,'' which are those data points that lie on the ``edge'' of the separation between classes, and then finding the plane that maximizes the margin between the two classes. We elected to test an SVM-based approach to determine if our data set is particularly suited to classification by SVMs.
+
+For our purposes, we use Weka's ``SMO'' function, which implements the Sequential Minimal Optimization algorithm, an efficient and recent method of training SVMs. For datasets with more than two classes (such as ours), the ``one vs. one'' method is used, whereby an SVM is created for each pair of classes, and then a method of majority voting is used to determine which class is the ultimately correct one. % TODO: Need to cite SMO?
+
+\subsection{Decision Trees}
+A Decision Tree based approach uses the concept of a decision tree to create effectively a list of logical conditions which when met cause a data point to be classified as a specific class. Decision Tree classifiers generally use a partitioning approach whereby they split the data using a specific metric to maximize the tree's effectiveness. The advantages of Decision Trees are that they are considered to be ``white boxes,'' specifically meaning that the result that they generate is human readable. This is useful, as in addition to the classifier providing its prediction of which class suits the data best, the tree can also be inspected to determine if the decisions it has extrapolated appear to be sensible, and even tweaked by humans if necessary.
+
+One quite common algorithm for generating decision trees is C4.5, which is implemented by the ``J48'' function in Weka. C4.5 uses a measure of information gain, a concept rooted in information theory and entropy, to determine when to create splits in the tree. There are few configurable parameters for this approach, and for those we use the Weka defaults.
+
+\subsection{KStar}
+The KStar (K*) algorithm presents a change to the normal $k$-nearest Neighbors algorithm, in which the distance used to compare similar points is not the Euclidean distance, but rather an entropic distance. This has several positive effects; it makes the algorithm more robust to missing values, and also it makes the classifier able to output a numeric result in addition to or instead of a classification into a nominal class.
+
+We have decided to use K* as one of our classification algorithms as it presents an interesting and different approach, and also allows the investigation of KNN-like techniques in the numeric area. K* is present in Weka as ``KStar,'' and we will opt to use it in its default state.
+
+\subsection{0-R}
+0-R is our final classification algorithm. 0-R is a simple classifier that on nominal prediction will classify all new data as belonging to the category that was most common in the training data, and on numeric prediction will classify all new data as being the mean of all test data. A 0-R classifier, clearly, is not a serious classification technique, however it is useful in establishing a baseline from which to compare all other classification results.
+
+In Weka, the 0-R classifier is known as ``ZeroR'' and accepts no parameters.
+
+\subsection{Excluding Zero}
+TODO: Talking about how there are two sets of data, that which includes the zero data, and that which excludes it and relies on the PIR to confirm zero. Pros and cons of these approaches.
 
 \section{Research Gap}
 \label{sec:litreview:discussion}
