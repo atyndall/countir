@@ -98,10 +98,6 @@ To aid in comparison with the Thermosense algorithm, in our experiment sets we c
 
 For those experiments where we tried to specifically replicate Thermosense' results, we found consistently poor results that did not come close to meeting the $R^2$ or RMSE values that Thermosense claimed. Their $R^2$ values were in the 0.8 range, while ours range from around 0.3--0.7. This can be put down to a multitude of factors, with one likely explanation being that differences with the \mlx's narrower field of view being difficult for Thermosense' specific algorithmic selections to deal with.
 
-0.141 βS -0.051 β 0.201
-F-statistic ￼ 3220 R2 ￼ 0.858
-2.44 × 10−187 1.14 × 10−30 9.25 × 10−11
-
 Our Linear Regression (\Fref{eq:linreg}) underperforms particularly when compared to Thermosense' (\Fref{eq:thermolinreg}), as it fails to find an adequate way to weight the two variables, instead opting to basically exclude them from consideration by picking very small weights and adding a large constant factor. We get a correlation of $R^2 = 0.589$ vs Thermosense' $R^2 = 0.858$.
 
 \begin{equation} \label{eq:linreg}
