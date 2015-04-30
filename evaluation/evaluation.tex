@@ -17,18 +17,17 @@ In order to best utilize the \mlx, we must first understand the properties it ex
 \subsection{Bias}
 When receiving no infrared radiation, the sensor should indicate a near-zero temperature. If in such conditions it does not, that indicates that the sensor has some level of bias in its measurement values. We attempted to investigate this bias by performing thermal captures of the night sky. While this does not completely remove the infrared radiation, it does remove a significant proportion of it.
 
-In \Fref{tab:meanstd} the thermal sensor was exposed to the night sky at a capture rate of 1Hz for 4 minutes, with the sensing results combined to create a set of means and standard deviations to indicate the pixels at ``rest''. The average temperature detected was $11.78\dc$, with the standard deviation remaining less than $0.51\dc$ over the entire exposure period. The resultant thermal map shows that pixels centered around the four ``primary'' pixels in the center maintain a similar temperature around $9\dc$, with temperatures beginning to deviate as they became further from the center.
+In \Fref{fig:meanstdplot} the thermal sensor was exposed to the night sky at a capture rate of 1Hz for 4 minutes, with the sensing results combined to create a set of means and standard deviations to indicate the pixels at ``rest''. The average temperature detected was $11.78\dc$, with the standard deviation remaining less than $0.51\dc$ over the entire exposure period. The resultant thermal map shows that pixels centered around the four ``primary'' pixels in the center maintain a similar temperature around $9\dc$, with temperatures beginning to deviate as they became further from the center.
 
 The most likely cause of this bias is related to the physical structure of the sensor. The \mlx is a rectangular sensor which has been placed inside a circular tube. Due to this physical arrangement, the sides of this rectangular sensor will be significantly closer to these edges than the center. If these sides are at an ambient temperature higher than the measurement data (as they were in this case) thermal radiation from the sensor package itself could provide significant enough to cause the edges to appear warmer than the observed area of the sky. Such issues with temperature could be controlled for using a device that cools the sensor package to below that of the ambient temperature being measured, however, this is not a concern in this project, as the method of calculating a thermal background will compensate for any such bias as long as it remains constant.
 
-\begin{landscape}
-\begin{table}
+\begin{figure}
 \centering
-\includegraphics{../diagrams/sensor-bias-thermal-map.pdf}
-\caption{Mean and standard deviations for each pixel at rest}
-\label{tab:meanstd}
-\end{table}
-\end{landscape}
+\includegraphics[width=\textwidth]{../diagrams/rest-avg.pdf}
+\includegraphics[width=\textwidth]{../diagrams/rest-stddev.pdf}
+\caption{Plot of pixel means (top) and standard deviations (bottom) at rest}
+\label{fig:meanstdplot}
+\end{figure}
 
 
 \subsection{Noise}
@@ -72,13 +71,6 @@ While interesting, this phenomenon has little consequence to the effectiveness o
 \includegraphics[width=\textwidth]{../diagrams/temp/motion.pdf}
 \caption{Different \mlx pixel temperature values as hot object moves across row}
 \label{fig:hotmotion}
-\end{figure}
-
-\begin{figure}
-\centering
-\includegraphics[width=\textwidth]{../diagrams/temp/cooldown.pdf}
-\caption{Variation in temperature detected for hot object at 1Hz sampling ration}
-\label{fig:cooldown}
 \end{figure}
 
 \section{Energy Efficiency}
