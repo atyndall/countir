@@ -11,7 +11,7 @@ As reliability and future extensibility are core concerns of the project, a thre
 
 While at a glance this system may seem overly complicated, it ensures that a sensible upgrade path to a more feature-rich sensing system is available. In the current prototype, the Analysis Tier merely stores captured data for offline analysis, in future prototypes this analysis can be done live and served to interested parties over a RESTful API. In the current prototype, the Analysis and Sensing Tiers are connected by Serial over USB, in future prototypes, this can be replaced by a wireless mesh network, with many Preprocessing/Sensing Tier nodes communicating with one Analysis Tier node.
 
-\section{Sensing}
+\subsection{Sensing}
 As discussed in the Literature Review, using an \iar appear to be the most viable way to achieve the high-level goals of this project. Thermosense \cite{beltran2013thermosense}, the primary occupancy sensor in the \iar space, used the low-cost Panasonic \geye sensor for this task. This sensor, costing around \$30USD, appears to be a prime candidate for use in this project, as it satisfied low-cost criteria, as well as being proven by Thermosense to be effective in this space. However, while still available for sale in the United States, we were unable to order the sensor for shipping to Australia due to export restrictions outside of our control. While such restrictions would be circumventable with sufficient effort, using a sensor with such restrictions in place goes against an implicit criteria of the parts used in the project being relatively easy to acquire.
 
 This forced us to search for alternative sensors in the space that fulfill similar criteria but were more broadly available. The sensor we settled on was the \mlx \cite{MLXDatasheet}, an \iar with similar overall qualities that differed in several important ways; it provides a $16 \times 4$ grid of thermal information, it has an overall narrower field of view and it sells for approximately \$80USD. Like the \geye, the \mlx sensor communicates over the 2-wire \iic bus, a low-level bi-directional communication bus widely used and supported in embedded systems.
@@ -47,7 +47,7 @@ A solution was found in the form of a \iic level-shifter, the Adafruit ``4-chann
 % TODO: Check PIR settings
 Additionally, as used in the Thermosense paper, a \pir motion sensor \cite{AdafruitPIR} was also connected to the \ard. This sensor, operating at 5V natively, did not require any complex circuitry to interface with the \ard. It is connected to digital pin 2 on the \ard, where it provides a rising signal in the event that motion is detected, which can be configured to cause an interrupt on the \ard. In the configuration used in this project, the sensor's sensitivity was set to the highest value and the timeout for re-triggering was set to the lowest value (approximately 2.5 seconds). Additionally, the continuous re-triggering feature (whereby the sensor produces continuous rising and falling signals for the duration of motion) was disabled using the provided jumpers. 
 
-\section{Analysis / Classification}
+\subsection{Analysis / Classification}
 % Talk about RPi and prototype board, and prototype iterations
 
 For the Analysis Tier, the Raspberry Pi B+ was chosen, as it is a powerful computer capable of running Linux available for an extraordinarily low price. The \ard is connected to the Raspberry Pi over USB, which provides it both power and the capacity to transfer data. In turn, the Raspberry Pi is connected to a simple micro-USB rechargeable battery pack, which provides it with power, and subsequently the \ard and sensors.
@@ -65,7 +65,7 @@ When we compare this to the estimated cost of the Thermosense system (\Fref{tab:
 MLX90620 & \$80 \\ \hline
 Raspberry Pi B+ &  \$40 \\ \hline
 Raspberry Pi Camera &  \$30 \\ \hline
-Arduino Uno R3 & \$25 \\ \
+Arduino Uno R3 & \$25 \\ \hline
 Passive Infrared Sensor & \$10 \\ \hline
 \textbf{TOTAL} & \textbf{\$185} \\ \hline
 \end{tabular}
@@ -105,10 +105,10 @@ Finally, at Analysis Tier, a computer running fully-fledged Linux, choice of lan
 \label{fig:pictures:protob-arch}
 \end{figure}
 
-\subsection{Sensing: \mlx}
+\subsection{Sensing}
 TODO: MLX does sensing with internal software. Discuss architecture a little.
 
-\subsection{Pre-processing: \texttt{mlx90620\_driver.ino}}
+\subsection{Pre-Processing}
 
 On the Arduino, once large program was developed, termed \texttt{mlx90620\_driver.ino}. This program's purpose was to take simple commands over serial to configure the \mlx and to report back the current temperature values and \pir motion information at either a pre-set interval, or when requested.
 
@@ -129,7 +129,7 @@ Once booted, the user is able to send several one-character commands to the sens
 \label{fig:code:initseq}
 \end{figure}
 
-\subsection{Analysis / Classification: \texttt{thinglib}}
+\subsection{Analysis / Classification}
 
 On the analysis tier a set of Python libraries and accompanying utility scripts were developed to interface with the Arduino, parse and interpret its data, and to provide data logging and visualization capabilities. Most of this functionality was split into a reusable and versatile Python module called \texttt{thinglib}.
 
