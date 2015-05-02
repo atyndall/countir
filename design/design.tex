@@ -2,8 +2,7 @@
 \begin{document}
  \chapter{Design and Implementation}
 
-% Intro
-% Introduce MLX
+With the Literature Review concluding that a design based on Thermosense would be most appropriate, a software and hardware prototype (the ``sensing system'') must now be constructed to provide a platform for experimentation and evaluation of the sensor, as well as to capture, store, visualize and replay sensor data for those purposes. We will first discuss the hardware foundations of the project, then the architecture of the software developed to run on those foundations.
 
 \section{Hardware}
 
@@ -89,6 +88,8 @@ Passive Infrared Sensor & \$10 \\ \hline
 
 
 \section{Software}
+
+% TODO: List libraries used, if I wrote them, and lines of code
 
 At each layer of the described three-tier software architecture (pictured in greater detail in \Fref{fig:pictures:protob-arch}), there must exist software which governs the operation of that tier's processing concerns. Software in this project was written in two different languages.
 
@@ -179,9 +180,10 @@ In accordance with the pseudo-code outlined in the Thermosense paper, the algori
 \label{lst:exps:featcode}
 \end{listing}
 
-\clearpage
-
 % TODO Talk about ground truth generation script
+
+\section{Conclusion}
+TODO: Some sort of summary here to tie things together? But what?
  
  \ifcsdef{mainfile}{}{\bibliography{../references/primary}}
 \end{document}
