@@ -70,8 +70,8 @@ While interesting, this phenomenon has little consequence to the effectiveness o
 
 \begin{figure}
 \centering
-\includegraphics[width=\textwidth]{../diagrams/temp/motion.pdf}
-\caption{Different \mlx pixel temperature values as hot object moves across row}
+\includegraphics[width=0.9\textwidth]{../diagrams/03_hot_water_top_row_modified.pdf}
+\caption{Measure of top-centre 6 \mlx pixels as hot object moves across}
 \label{fig:hotmotion}
 \end{figure}
 
@@ -115,33 +115,31 @@ To enable the use of Weka, we export the ground truth and extracted features to 
 Once the CSV file is generated, it is then possible to open the file in Weka for processing. Weka provides a variety of algorithms, but we choose a specific subset of algorithms based on those present in the Thermosense paper \cite{beltran2013thermosense}, as well others that we believe adequately represent the different approaches to classification.
 
 
-\begin{landscape}
 \begin{table}
 \centering
-\begin{tabular}{|p{50mm}|p{20mm}|p{125mm}|}
+\begin{tabular}{|p{40mm}|p{20mm}|p{70mm}|}
 \hline
 \textbf{Type} & \textbf{Attribute} & \textbf{Weka Class} \& \textbf{Parameters} \\ \hline
 
-Neural Network (ANN) & {Nominal, \newline Numeric} & \texttt{weka.classifiers.functions.MultilayerPerceptron \newline -L 0.3 -M 0.2 -N 500 -V 15 -S 0 -E 20 -H 5} \\ \hline
+{Neural Network \newline (ANN)} & {Nominal, \newline Numeric} & \texttt{weka.classifiers.functions\newline.MultilayerPerceptron \newline -L 0.3 -M 0.2 -N 500 -V 15 \newline -S 0 -E 20 -H 5} \\ \hline
 
-$k$-nearest Neighbors (KNN) & Nominal, \newline Numeric & \texttt{weka.classifiers.lazy.IBk \newline -K 5 -W 0 -F \newline -A "weka.core.neighboursearch.LinearNNSearch -A \textbackslash"weka.core.EuclideanDistance -R first-last\textbackslash""} \\ \hline
+{$k$-nearest Neighbors \newline (KNN)} & Nominal, \newline Numeric & \texttt{weka.classifiers.lazy.IBk \newline -K 5 -W 0 -F \newline -A "weka.core.neighboursearch\newline.LinearNNSearch -A \textbackslash"weka.core\newline.EuclideanDistance \newline -R first-last\textbackslash""} \\ \hline
 
 Naive Bayes & Nominal & \texttt{weka.classifiers.bayes.NaiveBayes} \\ \hline
 
-Support Vector Machine (SVM) & Nominal & \texttt{weka.classifiers.functions.SMO \newline -C 1.0 -L 0.001 -P 1.0E-12 -N 0 -V -1 -W 1 \newline -K "weka.classifiers.functions.supportVector.PolyKernel -C 250007 -E 1.0"} \\ \hline
+{Support Vector \newline Machine (SVM)} & Nominal & \texttt{weka.classifiers.functions.SMO \newline -C 1.0 -L 0.001 -P 1.0E-12 \newline -N 0 -V -1 -W 1 \newline -K "weka.classifiers.functions\newline.supportVector.PolyKernel \newline-C 250007 -E 1.0"} \\ \hline
 
 Decision Tree & Nominal & \texttt{weka.classifiers.trees.J48 \newline -C 0.25 -M 2} \\ \hline
 
 Entropy Distance & Nominal, \newline Numeric & \texttt{weka.classifiers.lazy.KStar \newline -B 20 -M a} \\ \hline % TODO: Check that entropy distance
 
-Linear Regression & Numeric & \texttt{weka.classifiers.functions.LinearRegression \newline -S 0 -R 1.0E-8} \\ \hline
+Linear Regression & Numeric & \texttt{weka.classifiers.functions\newline.LinearRegression \newline -S 0 -R 1.0E-8} \\ \hline
 
 0-R & Nominal, \newline Numeric & \texttt{weka.classifiers.rules.ZeroR} \\ \hline
 \end{tabular}
 \caption{Weka parameters used for classifications}
 \label{tab:methods:params}
 \end{table}
-\end{landscape}
 
 For those tests that are ``nominal,'' the \texttt{npeople} attribute was interpreted as nominal using the ``NumericToNominal'' filter, which creates a class for each value deleted in \texttt{npeople}'s columns. For those tests that are ``numeric,'' \texttt{npeople} is left unchanged, as by default all CSV import attributes are interpreted as such. For all tests where not specifically instructed, we use 10-fold cross-validation to validate our results.
 
@@ -159,7 +157,7 @@ To help maximize the efficiency of the classification task, we use the Weka Know
 \end{landscape}
 
 
-\subsection{Classifier Experiment Set 1}
+\subsection{Classifier Experiment Set}
 In our first set of experiments, a scene was devised in accordance with \Fref{fig:exps:3setup} that attempted to sense people from above, as did Thermosense. The prototype was set up on the ceiling, pointing down at a slight angle. For ease of use, the prototype was powered by mains power, and was networked with a laptop for command input and data collection via Ethernet. This set of experiments involved between zero and three people being present in the scene, moving in and out in various ways in accordance with the script in \Fref{tab:exps:3script}.
 
 \begin{table}
@@ -174,7 +172,7 @@ In our first set of experiments, a scene was devised in accordance with \Fref{fi
 \item (Sitting) One person walks in, joined by one, joined by another, they all sit there, one leaves, one shuffles position, then another leaves, then another. (x2) (sub-experiment 7, 8)
 \item (Sitting) Two people walk in, both sit there, both leave. (sub-experiment 9)
 \end{enumerate}
-\caption{Experiment Set 1 Script}
+\caption{Experiment Set Script}
 \label{tab:exps:3script}
 \end{table}
 
@@ -182,7 +180,7 @@ In our first set of experiments, a scene was devised in accordance with \Fref{fi
  \begin{figure}
  \centering
  \includegraphics[height=\textheight]{../diagrams/third-exp-setup2.pdf}
- \caption{Classifier Experiment Set 1 Setup}
+ \caption{Classifier Experiment Set Setup}
  \label{fig:exps:3setup}
  \end{figure}
 \end{landscape}
@@ -197,45 +195,33 @@ The resulting features and ground truth were combined and exported to CSV allowi
 
 \begin{table}
 \centering
-\begin{tabular}{|l|r|r|r|r|r|r|}
+\begin{tabular}{|l|r|r|r|}
 \hline
-\textbf{Classifier} & \multicolumn{2}{c|}{\textbf{RMSE}}                                            & \multicolumn{2}{c|}{\textbf{\%}}                                              & \multicolumn{2}{c|}{\textbf{$R^2$}}                                           \\ \hline
-                    & \multicolumn{1}{l|}{\textbf{Excl. 0}} & \multicolumn{1}{l|}{\textbf{Incl. 0}} & \multicolumn{1}{l|}{\textbf{Excl. 0}} & \multicolumn{1}{l|}{\textbf{Incl. 0}} & \multicolumn{1}{l|}{\textbf{Excl. 0}} & \multicolumn{1}{l|}{\textbf{Incl. 0}} \\ \hline
-\multicolumn{7}{|c|}{Thermosense Replication} \\ \hline                                                                                                                                                                                                                       
-KNN (Nominal)       & -                                     & 0.364        & -           & 65.65         & -           & -                                     \\ \hline
-KNN (Numeric)       & -                                     & 1.1235       & -           & -             & -           & 0.3766                                \\ \hline
-MLP                 & 0.592                                 & -            & -           & -             & 0.687       & -                                     \\ \hline
-Lin Reg             & 0.525                                 & -            & -           & -             & 0.589       & -                                     \\ \hline
-\multicolumn{7}{|c|}{Nominal Balanced}                                                                                                                         \\ \hline
-C4.5                & 0.289                                 & 0.290        & 84.96       & 77.56         & -           & -                                     \\ \hline
-K*                  & 0.296                                 & 0.293        & 84.27       & 78.25         & -           & -                                     \\ \hline
-MLP                 & 0.359                                 & 0.320        & 70.86       & 72.13         & -           & -                                     \\ \hline
-Bayes               & 0.409                                 & 0.368        & 63.76       & 61.52         & -           & -                                     \\ \hline
-SVM                 & 0.410                                 & 0.386        & 65.98       & 56.89         & -           & -                                     \\ \hline
-0-R                 & 0.471                                 & 0.433        & 32.48       & 24.61         & -           & -                                     \\ \hline
-\multicolumn{7}{|c|}{Numeric}                                                                                                                                  \\ \hline
-K*                  & 0.423                                 & 0.550        & -           & -             & 0.760       & 0.828                                 \\ \hline
-0-R                 & 0.651                                 & 0.972        & -           & -             & -0.118      & -0.129                                \\ \hline
-\multicolumn{7}{|c|}{Nominal Unbalanced}                                                                                                                       \\ \hline
-C4.5                & 0.314                                 & 0.288        & 82.39       & 82.91         & -           & -                                     \\ \hline
-K*                  & 0.304                                 & 0.285        & 82.56       & 82.61         & -           & -                                     \\ \hline
-MLP                 & 0.362                                 & 0.286        & 77.14       & 78.69         & -           & -                                     \\ \hline
-Bayes               & 0.405                                 & 0.352        & 63.59       & 66.21         & -           & -                                     \\ \hline
-SVM                 & 0.398                                 & 0.380        & 67.18       & 57.47         & -           & -                                     \\ \hline
-0-R                 & 0.442                                 & 0.415        & 49.74       & 40.37         & -           & -                                     \\ \hline
-\end{tabular}
-\caption{Classifier Experiment Set 1 Results}
+\textbf{Classifier} & \textbf{RMSE} & \textbf{\%} & \textbf{$r$} \\ \hline
+\multicolumn{4}{|c|}{Thermosense Replication}                    \\ \hline
+KNN (Numeric)$^1$   & 0.364         & 65.65       &              \\ \hline
+MLP                 & 0.592         &             & 0.687        \\ \hline
+Lin Reg             & 0.525         &             & 0.589        \\ \hline
+KNN (Nominal)$^1$   & 1.123         &             & 0.377        \\ \hline
+\multicolumn{4}{|c|}{Numeric}                                    \\ \hline
+K*                  & 0.423         &             & 0.760        \\ \hline
+0-R                 & 0.651         &             & -0.118       \\ \hline
+\multicolumn{4}{|c|}{Nominal}                                    \\ \hline
+C4.5                & 0.314         & 82.39       &              \\ \hline
+K*                  & 0.304         & 82.56       &              \\ \hline
+MLP                 & 0.362         & 77.14       &              \\ \hline
+Bayes               & 0.405         & 63.59       &              \\ \hline
+SVM                 & 0.398         & 67.18       &              \\ \hline
+0-R                 & 0.442         & 49.74       &              \\ \hline
+\end{tabular}\\ 
+$^1$: Included zero in test, all other tests excluded zero \\
+\%: Percentage accuracy \\
+$r$: Correlation coefficient \\
+\caption{Classifier Experiment Set Results}
 \label{tab:results:set1}
 \end{table}
 
 Experimental results from the first set of experiments were overall excellent, results from them can be seen in \Fref{tab:results:set1}. In the unbalanced results when including zero, an accuracy of 82.9\% was observed, and in the balanced results, 78.2\%.  When excluding zero, the unbalanced results achieved 82.5\% in the unbalanced and up to 84.9\% in the balanced results.
-
-\begin{figure}
-\centering
-\includegraphics{../diagrams/temp/resample.png}
-\caption{Experiment Set 1 Class Distribution Before and After Weka Re-sampling}
-\label{fig:results:resample}
-\end{figure}
 
 Between the unbalanced and balanced classes when including zero, the ranking of different algorithms remained approximately the same, and consistently dropped in accuracy, with the exceptions being the SVM technique, which increased in accuracy by about 1\% in that instance. The drop in accuracy can be explained mostly by an over-representation of the zero class within the under-balanced data, as well as an underrepresentation of the three class (see \Fref{fig:results:resample}). This is conformed by the fact that in the zero-excluded data, there is much less difference in the balanced and unbalanced set. These biases would enable classes to over-predict and under-predict these two classes respectively and achieve an artificially higher accuracy as a result. As discussed in the Methods, we performed re-sampling inside Weka to compensate for this.
 
@@ -250,34 +236,6 @@ TODO: Discuss and compare this to ZeroR's RMSE. It's RMSE is quite close to some
 In addition to the above aggregate classification results, in which each of the nine sub-experiments results are combined and fed into the classifier, each of the sub-experiments has been individually classified with each of the six balanced nominal classifiers above. The results for these classifications can be seen in \Fref{tab:results:set1percent} and \Fref{tab:results:set1rmse}.
 
 TODO: We talk about points of interest in the sub-experiment results and see if we can draw any useful conclusions from them.
-
-
-\begin{landscape}
-\begin{table}
-\centering
-\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|}
-\hline
-        & \textbf{1}     & \textbf{2}     & \textbf{3}     & \textbf{4}     & \textbf{5}     & \textbf{6}     & \textbf{7}     & \textbf{8}     & \textbf{9}     & \textbf{Avg}   \\ \hline
-\multicolumn{11}{|c|}{Nominal}                                                                                                                                                    \\ \hline
-KNN     & 0.584          & 0.422          & 0.375          & 0.425          & 0.651          & 0.352          & 0.396          & 0.338          & 0.244          & \textit{0.421} \\ \hline
-C4.5    & 0.342          & 0.270          & 0.278          & 0.414          & 0.456          & 0.267          & 0.318          & 0.288          & 0.250          & \textit{0.320} \\ \hline
-K*      & 0.305          & 0.249          & 0.260          & 0.412          & 0.407          & 0.245          & 0.299          & 0.265          & 0.196          & \textit{0.293} \\ \hline
-MLP     & 0.345          & 0.275          & 0.272          & 0.399          & 0.466          & 0.232          & 0.389          & 0.246          & 0.242          & \textit{0.318} \\ \hline
-Bayes   & 0.391          & 0.359          & 0.290          & 0.435          & 0.473          & 0.276          & 0.381          & 0.306          & 0.243          & \textit{0.351} \\ \hline
-SVM     & 0.447          & 0.447          & 0.379          & 0.444          & 0.602          & 0.378          & 0.380          & 0.377          & 0.335          & \textit{0.421} \\ \hline
-\multicolumn{11}{|c|}{Numeric}                                                                                                                                                    \\ \hline
-0-R     & 0.500          & 0.471          & 0.433          & 0.472          & 0.500          & 0.471          & 0.433          & 0.433          & 0.472          & \textit{0.465} \\ \hline
-KNN     & 0.726          & 0.707          & 1.044          & 0.934          & 0.593          & 0.531          & 0.899          & 0.585          & 0.829          & \textit{0.761} \\ \hline
-K*      & 0.256          & 0.422          & 0.598          & 0.806          & 0.377          & 0.432          & 0.586          & 0.627          & 0.472          & \textit{0.508} \\ \hline
-Lin Reg & 0.270          & 0.635          & 0.623          & 0.821          & 0.422          & 0.508          & 0.589          & 0.708          & 0.570          & \textit{0.572} \\ \hline
-MLP     & 0.379          & 0.460          & 0.500          & 0.868          & 0.399          & 0.306          & 0.790          & 0.490          & 0.406          & \textit{0.511} \\ \hline
-0-R     & 0.409          & 0.762          & 1.009          & 0.986          & 0.507          & 0.829          & 1.014          & 1.043          & 1.012          & \textit{0.841} \\ \hline
-Avg     & \textit{0.413} & \textit{0.457} & \textit{0.505} & \textit{0.618} & \textit{0.488} & \textit{0.402} & \textit{0.539} & \textit{0.475} & \textit{0.439} &                \\ \hline
-\end{tabular}
-\caption{Classifier Experiment Set 1 Individual Sub-experiment RMSEs}
-\label{tab:results:set1rmse}
-\end{table}
-\end{landscape}
 
 \section{Thermosense Comparison and Discussion}
 
