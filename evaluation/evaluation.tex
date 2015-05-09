@@ -25,8 +25,8 @@ The most likely cause of this bias is related to the physical structure of the s
 
 \begin{figure}
 \centering
-\includegraphics[width=\textwidth]{../diagrams/rest-avg.pdf}
-\includegraphics[width=\textwidth]{../diagrams/rest-stddev.pdf}
+\includegraphics[width=\textwidth]{../diagrams/rest-avg.png}
+\includegraphics[width=\textwidth]{../diagrams/rest-stddev.png}
 \caption{Plot of pixel means (top) and standard deviations (bottom) at rest}
 \label{fig:meanstdplot}
 \end{figure}
@@ -77,7 +77,9 @@ While interesting, this phenomenon has little consequence to the effectiveness o
 
 \section{Energy Efficiency}
 
-TODO: This section will contain experimental descriptions relating to the power consumption of the prototype.
+A YZXStudio USB 3.0 Power Monitor was used to measure power consumed by the Pre-Processing and Sensing tier together, this was done by connecting the Arduino's USB cable to the monitor, and the monitor to a computer. It was calculated that the average power consumption was 51~mA at 4.92~volts with a sample rate of 1Hz, while continuously outputting data. This power consumption did not vary significantly between sample rates, with the consumption increasing $<$ 0.8~mA with the sample rate being set to 8Hz.
+
+To determine the draw from the \pir and \iar, we disconnected all sensors from the Arduino, and ran the power measurement again. The same code was run on the Arduino. This time we received a result of 45~mA for 1Hz, and 46~mA for 8Hz. We can then conclude that the sensors themselves draw around 6~mA of power.
 
 \section{Classification Accuracy}
 
