@@ -8,14 +8,6 @@
 
 In order to best utilize the \mlx, we must first understand the properties it exhibits, and their potential affects on our ability to perform person related measurements. These properties can be broadly separated into three different categories; bias, noise and sensitivity. A broad range of data was collected with the sensor in a horizontal orientation using various sources of heat and cold to determine these properties. This experimental setup is described in \Fref{fig:exps:2setup}.
 
-\begin{figure}
-\centering
-\includegraphics[height=0.9\textheight]{../diagrams/second-exp-setup2.pdf}
-\caption{Experiment setup to determine sensor properties}
-\label{fig:exps:2setup}
-\end{figure}
-
-
 \subsection{Bias}
 When receiving no infrared radiation, the sensor should indicate a near-zero temperature. If in such conditions it does not, that indicates that the sensor has some level of bias in its measurement values. We attempted to investigate this bias by performing thermal captures of the night sky. While this does not completely remove the infrared radiation, it does remove a significant proportion of it.
 
@@ -26,8 +18,14 @@ The most likely cause of this bias is related to the physical structure of the s
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{../diagrams/rest-avg.png}
+\caption{Plot of pixel means at rest}
+\label{fig:meanstdplot}
+\end{figure}
+
+\begin{figure}
+\centering
 \includegraphics[width=\textwidth]{../diagrams/rest-stddev.png}
-\caption{Plot of pixel means (top) and standard deviations (bottom) at rest}
+\caption{Plot of pixel standard deviations at rest}
 \label{fig:meanstdplot}
 \end{figure}
 
@@ -36,18 +34,20 @@ The most likely cause of this bias is related to the physical structure of the s
 
 One of the features of the \mlx is the ability to sample the thermal data and a variety of sample rates between 0.5Hz and 512Hz. However, it was noted in early experimentation that a higher sample rate resulted in an increase in the noise contained within the resultant images. As our experiments focus on separating objects of interest from a thermal background, it is important to determine the maximum level of noise tolerable before our algorithms are unable to separate the background from the objects of interest.
 
-\Fref{fig:noise} plots one of the central pixels of the sensor in a scenario where it is merely viewing a background (shown in green), and when it is viewing a person (shown in red), at the 5 different sample rates achievable with the current hardware. We can see in these plots that the data becomes significantly more noisy as the sample rate increases, and we can also determine that the sensor uses a form of data smoothing at lower sample rates, as the variance in data increases with sample rate.
-
-If the sample rate were to increase, it is likely that the ability for the sensing system to disambiguate between objects of interest and the background would diminish. However, in the current project, even the slowest sampling rate of 0.5Hz is sufficient, as occupancy estimations at a sub-second level present little additional value and would require significant reforms in the efficiency of the software used.
-
-% TODO: Signal to noise ratio calculations
+\Fref{fig:noise} plots one of the central pixels of the sensor in a scenario where it is merely viewing a background (shown in green), and when it is viewing a person (shown in red), at the 5 different sample rates achievable with the current hardware. We can see in these plots that the data becomes significantly more noisy as the sample rate increases, and we can also determine that the sensor uses a form of data smoothing at lower sample rates, as the variance in data increases with sample rate. If the sample rate were to increase, it is likely that the ability for the sensing system to disambiguate between objects of interest and the background would diminish.
 
 \begin{figure}
   \centering
-  \input{../data/processed/noise-graph/good} % TODO: Label lines
-\caption{Noise levels of occupants (higher) and background (lower) at various sampling speeds}
-\label{fig:noise}
+  \includegraphics[width=0.95\textwidth]{../diagrams/noise-graph.pdf}
+  \caption{Noise levels of occupants and background at various sampling speeds}
+  \label{fig:noise}
 \end{figure}
+
+However, in the current project, even the slowest sampling rate of 0.5Hz is sufficient, as occupancy estimations at a sub-second level present little additional value and would require significant reforms in the efficiency of the software used.
+
+% TODO: Signal to noise ratio calculations
+
+
 
 
 \subsection{Sensitivity}
