@@ -1,0 +1,7 @@
+Title: Towards a Low-Cost, Non-Invasive System for Occupancy Detection using a Thermal Detector Array
+
+Abstract:
+Systems that detect occupancy, the presence of people, are able to save energy and greenhouse gas emissions in large buildings, and can help automate systems for the disabled in small smart homes.
+The goal of this project is to develop a low-cost sensing system that can detect room-level occupancy in a cheap, privacy-preserving, energy efficient and reliable way.
+To that end, we developed a sensing system that used a low-resolution thermal detector array and trained a variety of machine learning classification algorithms to determine the number of occupants present in the produced images.
+We found the sensor to have sufficient accuracy for per-room person detection, and that with new machine learning methods, our system improved upon the results of previous papers.
