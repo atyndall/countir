@@ -11,23 +11,49 @@ The smart-home economy continues to grow, with automation being one of the main 
 
 This project has attempted to create an occupancy detection system for such a smart home environment that meets four criteria; Low Cost, Non-Invasive, Energy Efficient and Reliable. Building such a system to commercial standards is outside of the scope of this project, however a prototype that attempts to prove the concepts involved was built and tested against these criteria. This prototype was based upon the ceiling-mounted thermal imaging approach of Thermosense \cite{beltran2013thermosense}, which after extensive analysis proved to be the best option given our criteria.
 
-This prototype both validates the methods and results of the Thermosense paper, discovers key caveats surrounding the Thermosense approach, and also creates a software and hardware base on which future research into the area of occupancy in thermal imaging can be explored.
+\section{Evaluation of Criteria}
+We discuss how the created sensing system adheres to our original four goals of Low Cost, Non-Invasiveness, Reliability and Energy Efficient here.
 
-\section{Accuracy}
-TODO: Summarize results.
+\subsection{Low Cost}
+One of our primary goals was to create a system that was inexpensive enough that it would be suitable for both office environments with hundreds of rooms, as well as smart homes for the disabled and elderly, both areas where per-unit cost is an issue.
 
-As discussed in the Results section, the prototype developed achieves excellent reliability, citing accuracies in the 80\% range. 
+As discussed in the Design chapter (\Fref{chap:design}, \fref{subsec:cost}), the cost of our proposed sensing system is around \$180, on par with the Thermosense system. Compared with most thermal sensing systems, this is very inexpensive, as devices incorporating thermal imaging can cost in the hundreds, thousands or even tens of thousands of dollars. We admit that \$180 is still quite expensive for such a sensing system, when taking into consideration that many would be needed for one home. However, while this is the cost of such components today, this is by no means the cost of them tomorrow. Prices for all of the components involved in this design are falling rapidly, in particular that of the thermal sensor: In the future work section we discuss a sensor that takes the price per pixel from the \$1.25 for the \mlx to \$0.07.
 
-\section{Energy Efficiency}
-TODO: Summarize 4.3
+Right now we are at the stage where this technology is economical for researchers to investigate, but a future where it becomes economical for residencies is coming up fast. We believe by selecting the components that we have at the current price point, we have met the project's goal of low cost.
 
-\section{Privacy}
-% TODO: Reference specific section of lit review
-% TODO: Is privacy the same as non-invasive?
-As discussed in the Literature Review, low-resolution thermal sensing provides the best trade-off between accuracy and invasiveness. Due to sensing in the infrared spectrum, it becomes significantly harder to surveil people in a malicious way, as many identifying features of people are not visible in the IR spectrum. This is compounded by the low resolution, which similarly assists in reducing the invasiveness of the sensor.
+\subsection{Non-Invasive}
+To ensure that the system would be palatable to those people sensed by it, we viewed creating a system with little means by which to monitor occupants beyond their presence as important.
 
-\section{Cost}
-TODO: Summarize findings about cost
+As discussed in the Literature Review (\Fref{chap:litreview}, \fref{sec:litreview:sensors:analysis} and \ref{sec:litreview:thermalsensors}), we have concluded that the \mlx provides the best trade-off between accuracy and non-invasiveness. It provides this tradeoff from two different angles; the infrared aspect and the low-resolution aspect. 
+
+By sensing in the infrared spectrum, many elements of automatic and manual person identification become more difficult, as many such methods rely on using color information to make such decisions. Similarly, by having the sensor constrained to such a low resolution, it is also quite difficult to perform person or action identification, due to the very little information available.
+
+Through this architectural decision, we believe that the project's goal of producing a non-invasive sensing system has been achieved.
+
+\subsection{Reliable}
+Creating a system that is wholly automated and can detect occupants with a high level of accuracy is quite important to ensure that climate control and other occupant-driven tasks are reliably executed.
+
+As discussed in the Classification Results (\Fref{chap:evaluation}, \fref{subsec:classification}), the prototype developed achieves accuracies in the 80\% range for select results. However, our results indicate that there is a fundamental difference between our set of experiments and those performed by Thermosense. None of our attempts to replicate their results succeeded, with every replicated result being significantly worse than that of Thermosense. The most likely reason for this is that the differences in the field of view of the \mlx when compared to the Grid-EYE is significant enough to affect the suitability of the algorithms used, in particular the \mlx created far more instances of partial people within the sensed region. This presents a key caveat for any future researchers attempting to reapply Thermosense's methodology to a different sensor.
+
+With the specific techniques that we choose to test, we found quite a variation in the successfulness of results. Our best techniques, K* and C4.5 were very similar in result, and there is quite a gap to the third-best technique, the Multi-Layer Perceptron. We can only speculate as to why this is the case, but it is notable that both K* and C4.5 use entropy measures to make decisions, with K* using them as a distance measure, and C4.5 using them as a means to split the dataset for the decision tree. Perhaps entropy-based learning algorithms are of particular use with our sensor; this is an area worth further investigation.
+
+Our worst selected technique, unsurprisingly, was Naive Bayes. It is unsurprising that it performed so poorly, as the ``Naive'' part of the technique is an assumption of independence between the different features input, which is clearly false with our features. All three of our features relate to the same underlying graph and are most definitely correlated with each other.
+
+By using the K* or C4.5 machine learning algorithm, we are confident that the prototype could achieve appropriate levels of accuracy for its occupancy goals, and believe that the accuracy requirements of our project have been met.
+
+\subsection{Energy Efficient}
+Finally, as the system would hopefully be suitable for use in existing buildings, we aimed to create a system that could operate efficiently on battery power, as retrofitting power on a roof location would further add to the cost of the sensing system.
+
+As discussed in the Energy Efficiency results (\Fref{chap:evaluation}, \fref{subsec:energy}), the prototype is comparatively power hungry, as the Thermosense system achieved a power consumption of around 5mA, approximately 10 times less. However, within the scope of this project we restricted our adherence to low-power consumption to an architectural level, rather than committing significant time to reducing this consumption.
+
+Accordingly, while the current prototype is not as energy efficient as the Thermosense prototype, the Arduino used is not by any means the most energy efficient available, and the software running on it makes no attempt to sleep the hardware while no processing is occurring. We believe that with such measures, our prototype could achieve similar or better energy efficiency than Thermosense, and have ensured that our architectural decisions will not restrict such energy saving modifications.
+
+We recommend that in future work, further energy saving measures, such as sleeping between sampling, and using lower power draw Arduinos are investigated to determine how much power it is possible to save.
+
+\section{Limitations}
+Due to time constraints, data collection was constrained to one set of ten experiments. Each of these experiments had the sensing system recording at the same height and the same angle. While this data was varied somewhat through half of the experiments involving sitting occupants (thereby increasing their thermal signature from the sensor's perspective), an exploration of how the results differed based on the sensor's viewing angle, as well as the sensor's distance from the ground would have served to improve the result set significantly.
+
+Additionally, 
 
 \section{Future Directions}
 This project merely touched upon the area of thermal sensing and occupancy detection, and has laid the foundation for many more projects that build upon this original project. Some areas of future research are discussed here;
@@ -50,8 +76,10 @@ During this project, an updated version of our sensor, the MLX90621, was release
 
 In addition to this, significantly higher resolution sensors are beginning to come to the market. The FLiR Lepton \cite{flir}, which sells in a dev kit for \$350, offers an $80 \times 60$ pixel sensor with a comparable field-of-view to the Grid-EYE. Exploring the increases in accuracy achievable though such significant increases in resolution would have significant contrion.
 
-\section{Final Stuff}
-TODO: Something to wrap up with?
+\section{Summary}
+Fundamentally, in this project we set out to create a sensing system that met our requirements, and we have indeed created such a sensing system.
+
+This system both validates the methods and results of the Thermosense paper, discovers key caveats surrounding the Thermosense approach, and also creates a software and hardware base on which future research into the area of occupancy in thermal imaging can be explored.
  
  \ifcsdef{mainfile}{}{\bibliography{../references/primary}}
 \end{document}
