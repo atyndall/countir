@@ -1,0 +1,84 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.trees.J48 -C 0.25 -M 2
+Relation:     combined-exp-excl0-data-weka.filters.unsupervised.attribute.NumericToNominal-Rfirst
+Instances:    585
+Attributes:   4
+              numpeople
+              numactive
+              numconnected
+              sizeconnected
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+J48 pruned tree
+------------------
+
+numactive <= 20
+|   sizeconnected <= 10
+|   |   numactive <= 10
+|   |   |   numconnected <= 2
+|   |   |   |   numactive <= 9
+|   |   |   |   |   numactive <= 5
+|   |   |   |   |   |   numactive <= 4: 1 (22.96/5.6)
+|   |   |   |   |   |   numactive > 4: 2 (16.0/3.0)
+|   |   |   |   |   numactive > 5
+|   |   |   |   |   |   sizeconnected <= 5: 2 (2.0)
+|   |   |   |   |   |   sizeconnected > 5: 1 (67.0/6.0)
+|   |   |   |   numactive > 9: 2 (22.0/3.0)
+|   |   |   numconnected > 2: 1 (20.0)
+|   |   numactive > 10: 2 (68.0/6.0)
+|   sizeconnected > 10: 1 (132.04/22.4)
+numactive > 20
+|   sizeconnected <= 24
+|   |   numactive <= 36
+|   |   |   sizeconnected <= 15: 2 (144.0/17.0)
+|   |   |   sizeconnected > 15
+|   |   |   |   numactive <= 22
+|   |   |   |   |   numactive <= 21
+|   |   |   |   |   |   numconnected <= 1: 1 (3.0/1.0)
+|   |   |   |   |   |   numconnected > 1: 3 (2.0)
+|   |   |   |   |   numactive > 21: 1 (2.0)
+|   |   |   |   numactive > 22: 2 (44.0/14.0)
+|   |   numactive > 36: 3 (12.0/4.0)
+|   sizeconnected > 24
+|   |   numconnected <= 1: 2 (4.0/2.0)
+|   |   numconnected > 1: 3 (24.0/2.0)
+
+Number of Leaves  : 	16
+
+Size of the tree : 	31
+
+
+Time taken to build model: 0.12 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances         482               82.3932 %
+Incorrectly Classified Instances       103               17.6068 %
+Kappa statistic                          0.6943
+Mean absolute error                      0.1766
+Root mean squared error                  0.3138
+Relative absolute error                 45.1691 %
+Root relative squared error             70.9975 %
+Coverage of cases (0.95 level)          96.7521 %
+Mean rel. region size (0.95 level)      68.433  %
+Total Number of Instances              585     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.891    0.110    0.840      0.891    0.865      0.774    0.924     0.874     1
+                 0.852    0.163    0.838      0.852    0.845      0.689    0.867     0.851     2
+                 0.453    0.031    0.644      0.453    0.532      0.495    0.849     0.457     3
+Weighted Avg.    0.824    0.128    0.818      0.824    0.819      0.701    0.887     0.817     
+
+=== Confusion Matrix ===
+
+   a   b   c   <-- classified as
+ 205  20   5 |   a = 1
+  32 248  11 |   b = 2
+   7  28  29 |   c = 3
+
