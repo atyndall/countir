@@ -2,7 +2,7 @@
 # INITILISATION: Import libs, set up variables
 import math, itertools, networkx
 
-w, h       = get_dims()  # Get thermal image dimensions
+w, h       = 16, 4       # Get thermal image dimensions
 wgt        = 0.01        # Weighting for exp. weighted moving avg.
 fst_frame  = get_frame() # 1st thermal frame, set elsewhere (2D array)
 back       = fst_frame   # Thermal background $b$ (2D array)
