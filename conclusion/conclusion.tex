@@ -50,16 +50,20 @@ Accordingly, while the current prototype is not as energy efficient as the Therm
 
 We recommend that in future work, further energy saving measures, such as sleeping between sampling, and using lower power draw Arduinos are investigated to determine how much power it is possible to save.
 
-\section{Limitations}
-Due to time constraints, data collection was constrained to one set of ten experiments. Each of these experiments had the sensing system recording at the same height and the same angle. While this data was varied somewhat through half of the experiments involving sitting occupants (thereby increasing their thermal signature from the sensor's perspective), an exploration of how the results differed based on the sensor's viewing angle, as well as the sensor's distance from the ground would have served to improve the result set significantly.
+\section{Research Limitations}
+Due to time constraints, data collection was constrained to one set of ten experiments. Each of these experiments had the sensing system recording at the same height and the same angle. While this data was varied somewhat through half of the experiments involving sitting occupants (thereby increasing their thermal signature from the sensor's perspective), an exploration of how the results differed based on the sensor's viewing angle, as well as the sensor's distance from the ground would have served to improve the result set.
 
-Additionally, 
+Additionally, exploring how different subsets of the three current features, or possibly new features derived from the thermal capture, effect the accuracy of the machine learning algorithms may demonstrate interesting results.
+
+Finally, while the set of explored classification algorithms was significant, there is always room for improvement in that regard. Exploring how different parameters of these algorithms affected the results, and how different algorithms altogether faired would have added significantly to the experimental data. Emerging work in the area of classification algorithm selection and parameter optimization \cite{thornton2013auto} could assist in determining which algorithm suited the \mlx the most.
 
 \section{Future Directions}
-This project merely touched upon the area of thermal sensing and occupancy detection, and has laid the foundation for many more projects that build upon this original project. Some areas of future research are discussed here;
+This project has attempted to explore the area of thermal sensing and occupancy with some depth, and has laid the foundation for many more projects that build upon this original project. Some areas of future research are discussed here;
 
 \subsection{Sub-pixel localization}
-Due to the overlapping bell-curve characteristics of the \mlx's pixels, it may be possible to perform sub-pixel localization on objects within images. % TODO: Expand
+The overlapping characteristics of the \mlx, discussed in more detail in \Fref{chap:evaluation}, \fref{subsec:sensitivity}, make several % TODO: Go further
+
+the overlapping bell-curve characteristics of the \mlx's pixels, it may be possible to perform sub-pixel localization on objects within images. % TODO: Expand
 
 \subsection{Improving Robustness}
 One of the main areas of the project that was not explored due to time was the introducting of a wireless mesh networking architecture to the project. Future prototypes would consist of an many-to-one relationship between the Sensing/Pre-processing tier and the Analysis tier. Exploring the best way to mesh network these components while maintaining all the pre-existing criteria of the project would be challenging. In Appendix \Fref{chap:architecture} we provide our thoughts on the potential structure this could take.
