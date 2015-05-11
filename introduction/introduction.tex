@@ -27,14 +27,32 @@ In this research project, we construct an \iot-style occupancy detection sensor 
 
 Constructing a sensor system that meets these criteria involves a four step process outlined below. Each of these steps is dedicated a chapter in this dissertation.
 \begin{enumerate}
-\item \emph{Literature Review}: An extensive literature review will be performed of the field of occupancy detection to determine which sensors types are most apparently appropriate for occupancy detection given the above criteria.
+\item \emph{Literature Review}
 
-\item \emph{Design}: Once the most appropriate sensor type is determined, a hardware and software prototype will be developed to provide a platform for experimentation and evaluation of the sensor, as well as to capture, store, visualize and replay sensor data for those purposes.
+An extensive literature review will be performed of the field of occupancy detection to determine which sensors types are most apparently appropriate for occupancy detection given the above criteria
 
-\item \emph{Evaluation}: Once a prototype exists, a methodology will be developed to evaluate the properties of the sensor, and experiments will be designed and conducted to test different algorithms effectivenesses in using the prototype for occupancy detection.
+We conclude that thermal sensing techniques provide the best privacy-accuracy trade-off.
 
-\item \emph{Conclusion}: The prototype's experimental results will be analyzed to conclude as to its effectiveness with relation to the above criteria.
+\item \emph{Design}
+
+Once the most appropriate sensor type is determined, a hardware and software prototype will be developed to provide a platform for experimentation and evaluation of the sensor, as well as to capture, store, visualize and replay sensor data for those purposes.
+
+We design such a prototype based upon an \ard, Raspberry Pi, a \pir and the \mlx sensor.
+
+\item \emph{Evaluation}
+
+Once a prototype exists, a methodology will be developed to evaluate the properties of the sensor, and experiments will be designed and conducted to test different algorithms effectivenesses in using the prototype for occupancy detection.
+
+We find the sensing system to have interesting properties relating to bias, sensitivity and noise, and perform several feature extraction algorithms to test the prototype's accuracy.
+
+\item \emph{Conclusions}
+
+The prototype's experimental results will be analyzed to conclude as to its effectiveness with relation to the above criteria, research limitations and future work are explored.
+
+We conclude that the prototype has sufficient accuracy for its occupancy detection goals.
 \end{enumerate}
+
+% ASK: Right way to go about telling people what is going to happen?
  
 \ifcsdef{mainfile}{}{\bibliography{../references/primary}}
 \end{document}
