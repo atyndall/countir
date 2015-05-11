@@ -61,9 +61,7 @@ Finally, while the set of explored classification algorithms was significant, th
 This project has attempted to explore the area of thermal sensing and occupancy with some depth, and has laid the foundation for many more projects that build upon this original project. Some areas of future research are discussed here;
 
 \subsection{Sub-pixel localization}
-The overlapping characteristics of the \mlx, discussed in more detail in \Fref{chap:evaluation}, \fref{subsec:sensitivity}, make several % TODO: Go further
-
-the overlapping bell-curve characteristics of the \mlx's pixels, it may be possible to perform sub-pixel localization on objects within images. % TODO: Expand
+The  characteristics of the \mlx's individual thermopiles, discussed in more detail in \Fref{chap:evaluation}, \fref{subsec:sensitivity}, make potentially possible an algorithm for the calculation of the position and size of an object with a sub-pixel accuracy. By exploiting the fact that an object's detected temperature changes based on its sub-pixel position, either in the center or on the boundary of two pixels, it may be possible to further refine the edges of thermal objects detected, and increase the effective resolution of the sensor.
 
 \subsection{Improving Robustness}
 One of the main areas of the project that was not explored due to time was the introducting of a wireless mesh networking architecture to the project. Future prototypes would consist of an many-to-one relationship between the Sensing/Pre-processing tier and the Analysis tier. Exploring the best way to mesh network these components while maintaining all the pre-existing criteria of the project would be challenging. In Appendix \Fref{chap:architecture} we provide our thoughts on the potential structure this could take.
