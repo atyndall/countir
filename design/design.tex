@@ -80,13 +80,13 @@ Passive Infrared Sensor & \$10 \\ \hline
 \begin{tabular}{|l|r|}
 \hline
 \textbf{Part} & \textbf{Cost} \\ \hline
-Tmote Sky & \$110 \\ \hline
+TMote Sky & \$110 \\ \hline
 Grid-EYE & \$50 \\ \hline
 Passive Infrared Sensor & \$10 \\ \hline
  & \\ \hline
 \textbf{TOTAL} & \textbf{\$170} \\ \hline
 \end{tabular}
-\caption{Thermosense}
+\caption{Thermosense (estimated)}
 \label{tab:sensor:thermosensecost}
 \end{subtable}
 \caption{Component cost comparison}
@@ -102,27 +102,32 @@ Passive Infrared Sensor & \$10 \\ \hline
 \begin{tabular}{|l|r|}
 \hline
 \textbf{Category} & \textbf{SLOC}  \\ \hline
-MLX90620 Driver   & 492            \\ \hline
-TArL Library      & 674            \\ \hline
+TArL Python       & 674            \\ \hline
+\hspace{5mm}\texttt{cam}        & 425           \\ \hline
+\hspace{5mm}\texttt{features}   & 191           \\ \hline
+\hspace{5mm}\texttt{pxdisplay}  & 58            \\ \hline
+TArL Arduino  & 492            \\ \hline
+\hspace{5mm}\texttt{mlx90620\_driver}  & 492          \\ \hline
 Analysis Scripts  & 147            \\ \hline
 Capture Scripts   & 234            \\ \hline
 \textit{Total}    & \textit{1,624} \\ \hline
 \end{tabular}
-\caption{Source lines of code (SLOC) written}
+\caption{Source Lines Of Code written}
 \end{subtable}%
 ~%
 \begin{subtable}[b]{0.5\textwidth}
 \centering
-\begin{tabular}{|l|r|}
+\begin{tabular}{|l|l|}
 \hline
 \textbf{Library}     & \multicolumn{1}{l|}{\textbf{Version}} \\ \hline
 \multicolumn{2}{|c|}{Arduino}                                \\ \hline
 SDK                  & 1.6.4                                 \\ \hline
-\texttt{SimpleTimer} & 1.0.0                                 \\ \hline
+\texttt{SimpleTimer} & 1.0                                   \\ \hline
 \multicolumn{2}{|c|}{Python}                                 \\ \hline
 \texttt{networkx}    & 1.9.1                                 \\ \hline
 \texttt{numpy}       & 1.8.0                                 \\ \hline
 \texttt{matplotlib}  & 1.3.1                                 \\ \hline
+\texttt{picamera}    & 1.10                                  \\ \hline
 \texttt{Pillow}      & 2.8.1                                 \\ \hline
 \end{tabular}
 \caption{Libraries used}
@@ -130,7 +135,7 @@ SDK                  & 1.6.4                                 \\ \hline
 \caption{Overview of code used in project}
 \end{table}
 
-At each layer of the described three-tier software architecture (pictured in greater detail in \Fref{fig:pictures:protob-arch}), there must exist software which governs the operation of that tier's processing concerns. Software in this project was written in two different languages.
+At each layer of the described three-tier software architecture (pictured in greater detail in \Fref{fig:pictures:protob-arch}), there must exist software which governs the operation of that tier's processing concerns. A bi-lingual software library, the Thermal Array Library (TArL), was developed to provide a suite of functions to enable the easy data collection and analysis of information from the hardware prototype.
 
 \begin{figure}
 \centering
@@ -146,7 +151,7 @@ At the Preprocessing Tier, the Arduino, the default C++ derivative language was 
 Finally, at Analysis Tier, a computer running fully-fledged Linux, choice of language becomes a possibility. In this instance, Python was settled on as the language of choice, as it is a quite high-level language with excellent library support for the functions required of the Analysis Tier, including serial interface, the use of the Raspberry Pi's built in camera, and image analysis. The 2.x branch of Python was chosen over the 3.x branch, despite its age, due a greater maturity in support for several key graphical interface libraries.
 
 \subsection{Sensing}
-TODO: MLX does sensing with internal software. Discuss architecture a little.
+The \mlx performs se
 
 \begin{figure}
 \centering
@@ -178,9 +183,9 @@ Once booted, the user is able to send several one-character commands to the sens
 
 \subsection{Analysis / Classification}
 
-On the analysis tier a set of Python libraries and accompanying utility scripts were developed to interface with the Arduino, parse and interpret its data, and to provide data logging and visualization capabilities. Most of this functionality was split into a reusable and versatile Python module called \texttt{thinglib}.
+On the analysis tier, TArL's set of Python libraries and accompanying capture and analysis scripts were developed to interface with the Arduino, parse and interpret its data, and to provide data logging and visualization capabilities.
 
-\texttt{thinglib} provides 4 main feature sets across 3 files; the \texttt{Manager} series of classes, the \texttt{Visualizer} class, the \texttt{Features} class and the \texttt{pxdisplay} module.
+\texttt{TArL}'s Python portion provides 4 main feature sets across 3 files; the \texttt{Manager} series of classes, the \texttt{Visualizer} class, the \texttt{Features} class and the \texttt{pxdisplay} module.
 
 \subsubsection*{\texttt{Manager} classes}
 The Manager series of classes are the direct interface between the Arduino and the Python classes. They implement a multi-threaded serial data collection and parsing system which converts the raw serial output of the connected Arduino into a series of Python data structures that represent the collected temperature and motion data of each captured frame. Several different versions of the \texttt{Manager} class exist to perform slightly different functions. When initializing these classes the sample rate of the \mlx can be configured, and it will be sent through to the Arduino for updating.

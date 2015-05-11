@@ -3,16 +3,15 @@
 \node (wifi) [dashbox, right=of interwebs] {\small WiFi / Ethernet};
 \node (rpi) [fcont, below=of wifi] {Raspberry Pi B+ \linebreak
   ``Analysis Tier'' \linebreak
-  
-  \tikz\node[fbox, minimum width=2.3cm, text width=2.3cm] {\small \ttfamily thinglib};
-  \tikz\node[fbox, minimum width=2.3cm, text width=2.3cm] {\small \ttfamily features.py};
+ 
+  \tikz\node[fbox, minimum width=2.3cm, text width=2.3cm] {\small TArL Python};
 };
 \node (cam) [box, right=of rpi] {Camera};
 \node (usb) [dashbox, below=of rpi] {\small Serial over USB};
 \node (ard) [fcont, below=of usb] {Arduino Uno R3 \linebreak
   ``Preprocessing Tier'' \linebreak
   
-  \tikz\node[fbox, minimum width=3.8cm, text width=3.8cm] {\small \ttfamily mlx90620\_driver.ino};
+  \tikz\node[fbox, minimum width=2.6cm, text width=2.6cm] {\small TArL Arduino};
 };
 \node (iic) [dashbox, left=of ard] {\small \iic};
 \node (mlx) [box, below=of iic] {MLX90620};
