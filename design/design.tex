@@ -60,7 +60,9 @@ When we compare this to the estimated cost of the Thermosense system (\Fref{tab:
 
 \begin{table}
 \centering
-\begin{tabular}[H]{|l|r|}
+\begin{subtable}[b]{0.5\textwidth}
+\centering
+\begin{tabular}{|l|r|}
 \hline
 \textbf{Part} & \textbf{Cost} \\ \hline
 MLX90620 & \$80 \\ \hline
@@ -69,36 +71,66 @@ Arduino Uno R3 & \$40 \\ \hline
 Passive Infrared Sensor & \$10 \\ \hline
 \textbf{TOTAL} & \textbf{\$180} \\ \hline
 \end{tabular}
-\caption{Our project component costs}
+\caption{Our project}
 \label{tab:sensor:cost}
-\end{table}
-
-\begin{table}
+\end{subtable}%
+~%
+\begin{subtable}[b]{0.5\textwidth}
 \centering
-\begin{tabular}[H]{|l|r|}
+\begin{tabular}{|l|r|}
 \hline
 \textbf{Part} & \textbf{Cost} \\ \hline
 Tmote Sky & \$110 \\ \hline
 Grid-EYE & \$50 \\ \hline
 Passive Infrared Sensor & \$10 \\ \hline
+ & \\ \hline
 \textbf{TOTAL} & \textbf{\$170} \\ \hline
 \end{tabular}
-\caption{Thermosense component costs}
+\caption{Thermosense}
 \label{tab:sensor:thermosensecost}
+\end{subtable}
+\caption{Component cost comparison}
 \end{table}
 
 
 \section{Software}
 
-% TODO: List libraries used, if I wrote them, and lines of code
+\begin{table}
+\centering
+\begin{subtable}[b]{0.5\textwidth}
+\centering
+\begin{tabular}{|l|r|}
+\hline
+\textbf{Category} & \textbf{SLOC}  \\ \hline
+MLX90620 Driver   & 492            \\ \hline
+TArL Library      & 674            \\ \hline
+Analysis Scripts  & 147            \\ \hline
+Capture Scripts   & 234            \\ \hline
+\textit{Total}    & \textit{1,624} \\ \hline
+\end{tabular}
+\caption{Source lines of code (SLOC) written}
+\end{subtable}%
+~%
+\begin{subtable}[b]{0.5\textwidth}
+\centering
+\begin{tabular}{|l|r|}
+\hline
+\textbf{Library}     & \multicolumn{1}{l|}{\textbf{Version}} \\ \hline
+\multicolumn{2}{|c|}{Arduino}                                \\ \hline
+SDK                  & 1.6.4                                 \\ \hline
+\texttt{SimpleTimer} & 1.0.0                                 \\ \hline
+\multicolumn{2}{|c|}{Python}                                 \\ \hline
+\texttt{networkx}    & 1.9.1                                 \\ \hline
+\texttt{numpy}       & 1.8.0                                 \\ \hline
+\texttt{matplotlib}  & 1.3.1                                 \\ \hline
+\texttt{Pillow}      & 2.8.1                                 \\ \hline
+\end{tabular}
+\caption{Libraries used}
+\end{subtable}
+\caption{Overview of code used in project}
+\end{table}
 
 At each layer of the described three-tier software architecture (pictured in greater detail in \Fref{fig:pictures:protob-arch}), there must exist software which governs the operation of that tier's processing concerns. Software in this project was written in two different languages.
-
-At the Sensing Tier, it was not necessary for any software to be developed, as any software necessary came pre-installed and ready for use on the aforementioned sensors.
-
-At the Preprocessing Tier, the Arduino, the default C++ derivative language was used, as careful management of memory usage and algorithmic complexity is required in such a resource-constrained environment, thus limiting choice in the area.
-
-Finally, at Analysis Tier, a computer running fully-fledged Linux, choice of language becomes a possibility. In this instance, Python was settled on as the language of choice, as it is a quite high-level language with excellent library support for the functions required of the Analysis Tier, including serial interface, the use of the Raspberry Pi's built in camera, and image analysis. The 2.x branch of Python was chosen over the 3.x branch, despite its age, due a greater maturity in support for several key graphical interface libraries.
 
 \begin{figure}
 \centering
@@ -107,8 +139,21 @@ Finally, at Analysis Tier, a computer running fully-fledged Linux, choice of lan
 \label{fig:pictures:protob-arch}
 \end{figure}
 
+At the Sensing Tier, it was not necessary for any software to be developed, as any software necessary came pre-installed and ready for use on the aforementioned sensors.
+
+At the Preprocessing Tier, the Arduino, the default C++ derivative language was used, as careful management of memory usage and algorithmic complexity is required in such a resource-constrained environment, thus limiting choice in the area.
+
+Finally, at Analysis Tier, a computer running fully-fledged Linux, choice of language becomes a possibility. In this instance, Python was settled on as the language of choice, as it is a quite high-level language with excellent library support for the functions required of the Analysis Tier, including serial interface, the use of the Raspberry Pi's built in camera, and image analysis. The 2.x branch of Python was chosen over the 3.x branch, despite its age, due a greater maturity in support for several key graphical interface libraries.
+
 \subsection{Sensing}
 TODO: MLX does sensing with internal software. Discuss architecture a little.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth]{../diagrams/mlx-block-diagram.pdf}
+\caption{Block diagram for the \mlx taken from datasheet \cite{MLXDatasheet}}
+\label{fig:exps:blockdia}
+\end{figure}
 
 \subsection{Pre-Processing}
 
