@@ -4,14 +4,14 @@
 \node (rpi) [fcont, below=of wifi] {Raspberry Pi B+ \linebreak
   ``Analysis Tier'' \linebreak
  
-  \tikz\node[fbox, minimum width=2.3cm, text width=2.3cm] {\small TArL Python};
+  \tikz\node[fbox] {\small TArL Python Library};
 };
 \node (cam) [box, right=of rpi] {Camera};
 \node (usb) [dashbox, below=of rpi] {\small Serial over USB};
 \node (ard) [fcont, below=of usb] {Arduino Uno R3 \linebreak
   ``Preprocessing Tier'' \linebreak
   
-  \tikz\node[fbox, minimum width=2.6cm, text width=2.6cm] {\small TArL Arduino};
+  \tikz\node[fbox] {\small TArL C++ Driver};
 };
 \node (iic) [dashbox, left=of ard] {\small \iic};
 \node (mlx) [box, below=of iic] {MLX90620};

@@ -1,19 +1,19 @@
 \begin{minted}[frame=single,fontsize=\scriptsize]{text}
-INIT 0
-INFO START
-DRIVER MLX90620
-BUILD Feb  1 2015 00:00:00
-IRHZ 1
-INFO STOP
-ACTIVE 33
+INIT 0                      # Initialization sequence begins at time=0 milliseconds
+INFO START                  # Information section starts
+DRIVER MLX90620             # MLX90620 driver is being used
+BUILD Feb  1 2015 00:00:00  # Driver was compiled at specified date
+IRHZ 1                      # Infrared data is being sampled at 1Hz
+INFO STOP                   # Information section ends
+ACTIVE 33                   # Sensor is active at ready to send data at time=33 milliseconds
 
-START 34
-MOVEMENT 0
+START 34                    # Thermal packet begins at time=34 milliseconds
+MOVEMENT 0                  # No movement in this frame
 1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0
 1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0
 1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0
 1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0
-STOP 97
+STOP 97                     # Thermal packet ends at time=97 milliseconds
 \end{minted}
 %\begin{tabular}{|l|l|}
 %\hline

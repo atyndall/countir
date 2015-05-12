@@ -9,13 +9,14 @@ back       = fst_frame   # Thermal background $b$ (2D array)
 means      = fst_frame   # Per pixel $\bar{x}$ (2D array)
 pstds      = [[0]*w]*h   # Per pixel intermediate $\sigma$ (2D array of 0) 
 stds       = [[0]*w]*h   # Per pixel complete $\sigma$ (2D array of 0)
-n          = 0           # Number of frames processed since start
+n          = 1           # Processed frames counter
 
-# f: New frame received from thermal sensor (2D array)
+# f: New frame received from sensor, starting at the 2nd frame (2D array)
 # is_motion: If there has been motion detected over given time window.
 def get_features(f, is_motion):
-  active = []               # Init empty active list
-  g      = networkx.Graph() # Init graph structure
+  n      += 1                # Increment frame counter
+  active  = []               # Init empty active list
+  g       = networkx.Graph() # Init graph structure
 
   # BACKGROUND UPDATE: Iterate over every pixel and update if no motion
   for i, j in itertools.product( range(w), range(h) ):
