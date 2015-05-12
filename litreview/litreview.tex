@@ -147,6 +147,7 @@ The Thermosense approach combines a \pir, which detects motion, and a \iar, whic
 Occupants are separated from background radiation through the use of an image subtraction algorithm maintaining per-pixel mean and standard deviation values to update a thermal background map. If no motion is detected, this map is updated using a slow-moving \emwa over a 15 minute time window. If the room remains occupied for a long period, a more complex scaling algorithm is used which considers the coldest points in the room empty, and averages them against the new background, then performs an \emwa with a lower weighting.
 
 \section{Classification Algorithms}
+\label{sec:classification}
 % TODO: Better integration
 % TODO: Do I need equations for these explanations?
 Machine learning classification, the use of algorithms and training data to generate models that can make predictions on previously unseen data, is a large part of the Thermosense paper. Here we discuss the different classification techniques that Thermosense uses, as well as discussing other classification techniques that could offer useful comparison benchmarks.
