@@ -5,20 +5,20 @@
  % TODO: Is this introduction the right focus
 The proportion of elderly and mobility-impaired people in the overall population is predicted to grow dramatically over the next century, leaving a large proportion of the population unable to care for themselves, and also reducing the proportion of the able-bodied population available to care for those individuals \cite{chan2009smart}. With this issue looming, serious investments need to be made into technologies that can provide the support these groups need to live independent of human assistance. 
 
-Additionally, the emergence of carbon pricing in many countries to combat anthropogenic climate change, as well as underinvestment in Australian energy infrastructure, are causing rising energy prices. This prices have a particularly large effect on the elderly and disabled, as they generally have quite low incomes. % Cite http://www.aph.gov.au/About_Parliament/Parliamentary_Departments/Parliamentary_Library/pubs/BriefingBook44p/EnergyPrices
+Additionally, the emergence of carbon pricing in many countries to combat anthropogenic climate change, as well as underinvestment in Australian energy infrastructure, are causing rising energy prices \cite{energyprices}. These prices have a particularly large effect on the elderly and disabled, as these demographics have below average income
 
-Coinciding with these issues is the booming embedded systems and sensor industries, which are creating increasingly smaller computer and sensing systems. Each iteration, these systems become more powerful, more affordable, and more networked. This phenomena, termed the \iot, has produced sub-\$50 devices such as the Arduino and Raspberry Pi which unlock enormous potential to create embedded systems to help combat these and other issues. One can envision a future `smart home for the disabled' which leverages the \iot to offer a variety of services to help reduce financial and physical burdens alike.
+Coinciding with these issues is the booming embedded systems and sensor industries, which are creating increasingly smaller computer and sensing systems. Every iteration, these systems become more powerful, more affordable, and more networked. This phenomena, termed the \iot, has produced sub-\$50 devices such as the Arduino and Raspberry Pi which unlock enormous potential to create computing systems to help combat these and other issues. One can envision a future `smart home for the disabled' which leverages the \iot to offer a variety of services to help reduce financial and physical burdens alike.
 
-Sensing techniques to determine occupancy, the detection of the presence and number of people in an area, are of particular use to the elderly and disabled. Detection can be used to inform various devices that change state depending on the user's location, providing a variety of useful automations. In particular, such a system could better regulate energy hungry devices to help reduce financial burden. Household climate control, which in some regions of Australia accounts for up to 40\% of energy usage \cite{abs4602} is one area in which occupancy detection can reduce costs. Several papers have found efficiency can be significantly increased, with some some approaches providing annual energy savings of up to 25\% \cite{beltran2013thermosense}.
+Sensing techniques to determine occupancy, the detection of the presence and number of people in an area, are of particular use to the above demographics. Detection can be used to inform various devices to change state depending on the presence or absence of occupants, enabling a variety of useful automations. In particular, such a system could better regulate energy hungry devices to help reduce financial burden and greenhouse gas emissions. Household climate control, which in some regions of Australia accounts for up to 40\% of energy usage \cite{abs4602} is one area in which occupancy detection can reduce costs. Several papers have found efficiency can be significantly increased, with some some approaches providing annual energy savings of up to 25\% \cite{beltran2013thermosense}.
  
-There exist a great many cheap sensors in this field that offer the capacity to predict occupancy. However, in many cases they suffer from problems of installation logistics, difficult assembly, assumptions on user's technology ownership and component cost. In a smart home for the disabled, accuracy is important, but accessibility is paramount.
+The field of sensors capable of predicting occupancy is quite broad. However, in many cases they suffer from problems of installation logistics, difficult assembly, assumptions on user's technology ownership and/or component cost. In the smart home envisioned, accuracy is important, but accessibility is paramount.
 
 In this research project, we construct an \iot-style occupancy detection sensor system that forms part of a theoretical `smart home for the disabled.' This system must meet the following qualitative accessibility criteria;
 
 \begin{itemize}
  \item \emph{Low Cost}: The set of components required should aim to minimise cost, as these devices are intended to be deployed in situations where the serviced user may be financially restricted.
  
- \item \emph{Non-Invasive}: The sensors used in the system should gather as little information as necessary to achieve the detection goal; there are privacy concerns with the use of high-definition sensors.
+ \item \emph{Non-Invasive}: The sensors used in the system should gather as little information as necessary to achieve the detection goal; there are privacy concerns and adoption issues with sensors that are perceived to be invasive.
  
  \item \emph{Reliable}: The system should be able to operate without user intervention or frequent maintenance, and should be able to perform its occupancy detection goal with a high degree of accuracy.
  
@@ -29,7 +29,7 @@ Constructing a sensor system that meets these criteria involves a four step proc
 \begin{enumerate}
 \item \emph{Literature Review}
 
-An extensive literature review will be performed of the field of occupancy detection to determine which sensors types are most apparently appropriate for occupancy detection given the above criteria
+An extensive literature review will be performed of the field of occupancy detection to determine which sensors types are most apparently appropriate for occupancy detection given the above criteria.
 
 We conclude that thermal sensing techniques provide the best privacy-accuracy trade-off.
 
@@ -37,19 +37,19 @@ We conclude that thermal sensing techniques provide the best privacy-accuracy tr
 
 Once the most appropriate sensor type is determined, a hardware and software prototype will be developed to provide a platform for experimentation and evaluation of the sensor, as well as to capture, store, visualize and replay sensor data for those purposes.
 
-We design such a prototype based upon an \ard, Raspberry Pi, a \pir and the \mlx sensor.
+We design such a prototype, a sensing system, based upon an \ard, Raspberry Pi, a \pir and the \mlx sensor.
 
 \item \emph{Evaluation}
 
-Once a prototype exists, a methodology will be developed to evaluate the properties of the sensor, and experiments will be designed and conducted to test different algorithms effectivenesses in using the prototype for occupancy detection.
+Once a prototype exists, a methodology will be developed to evaluate the properties of the sensing system, and experiments will be designed and conducted to test different algorithms effectivenesses in using the system's data for occupancy detection.
 
-We find the sensing system to have interesting properties relating to bias, sensitivity and noise, and perform several feature extraction algorithms to test the prototype's accuracy.
+We find the sensing system to have interesting properties relating to bias, sensitivity and noise, and evaluate several machine learning algorithms to test the prototype's occupancy detection accuracy.
 
 \item \emph{Conclusions}
 
-The prototype's experimental results will be analyzed to conclude as to its effectiveness with relation to the above criteria, research limitations and future work are explored.
+The prototype's experimental results will be analyzed to conclude as to its effectiveness with relation to the above criteria. Research limitations and future work are also discussed.
 
-We conclude that the prototype has sufficient accuracy for its occupancy detection goals.
+We conclude that the prototype has sufficient accuracy for its occupancy detection goals. % ASK: Too blunt?
 \end{enumerate}
 
 % ASK: Right way to go about telling people what is going to happen?
