@@ -38,3 +38,5 @@ data/distortionmodel.ai
 *.gz(busy)
 
 ~$*
+
+wordcount.html
