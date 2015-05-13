@@ -47,8 +47,8 @@
 \newcommand{\thetitle}{Towards a Low-Cost, Non-Invasive System for Occupancy Detection using a Thermal Detector Array}
 \newcommand{\theauthor}{Ash Tyndall}
 
-\newcommand{\thekeywords}{keyword, keyword}
-\newcommand{\thecategories}{category, category}
+\newcommand{\thekeywords}{Internet of Things, Low-Cost Sensing, Non-Invasive Sensing, Occupancy Sensing, Smart Homes, Thermal Sensing}
+\newcommand{\thecategories}{C.3, I.2.6, I.2.10, I.4.7, I.5.2, J.7} % TODO: Check categories
 
 %%% BEGIN LATEX TWEAKS
 
@@ -258,9 +258,17 @@ This is the abstract.
 \newpage
 
 \begin{acknowledgements}
-These are the acknowledgements.
+Writing this thesis has been my first substantial foray into academic research, and I could not have done it without the assistance and support of so many people.
 
-% TODO: Any thesis, dissertation or other publication resulting from research undertaken by the recipient while in receipt of the Hackett Foundation Alumni Honours Scholarship must acknowledge the support of the scholarship and carry the University by-line.
+Firstly, my supervisors Professor Rachel Cardell-Oliver and Professor Adrian Keating have been fundamental to this project's success. Rachel's ability to steer me away from completely redefining the project's parameters at every setback has been of critical importance, as has been her encouragement and computer science advice. Similarly, without Adrian's enviable knowledge of electronics, his skill in constructing prototypes, and his valuable perspective on thermal sensing, this project could not have happened.
+
+Secondly, I wish to acknowledge the generous support of the University, the University Alumni, and the Hackett Foundation through the Hackett Foundation Alumni Honours Scholarship, which I was awarded at the beginning of my project. The financial support this scholarship provided has allowed me to commit more of my time to my research over working, and I can safely say that without it, my research would be of a much poorer quality.
+
+Thirdly, to my friends and family, who have provided support and encouragement throughout this project, thank you. I cannot imagine where I would be right now without them. % TODO: Mention specific names
+
+Additionally, I would like to acknowledge Alex Beltran, Varick L. Erickson and Alberto E. Cerpa, the authors of ThermoSense \cite{beltran2013thermosense}. Without their groundwork on thermal sensing, nothing in this thesis would be possible.
+
+Finally, I would like to acknowledge Linda Salzman Sagan, ``Tompw'' and ``Holek'', the authors of \url{http://commons.wikimedia.org/wiki/File:Human_outline.svg}, which I have adapted for \Fref{fig:exps:3setup}.
 
 % TODO: Acknowledge use of person outline in figures
 \end{acknowledgements}
@@ -271,17 +279,19 @@ These are the acknowledgements.
 \listoflistings
 
 
-\subfile{../introduction/introduction}
-\subfile{../litreview/litreview}
-\subfile{../design/design}
-\subfile{../evaluation/evaluation}
-\subfile{../conclusion/conclusion}
+\subfile{../introduction/introduction.tex}
+\subfile{../litreview/litreview.tex}
+\subfile{../design/design.tex}
+\subfile{../evaluation/evaluation.tex}
+\subfile{../conclusion/conclusion.tex}
 
 \addcontentsline{toc}{chapter}{Bibliography}
 \bibliography{../references/primary}
 
+%TC:ignore
 \appendix
 \include{appendices}
+%TC:endignore
 
 %\clearpage
 
