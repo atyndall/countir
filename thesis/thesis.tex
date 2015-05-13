@@ -232,8 +232,21 @@
 
 \maketitle
 
+
+
 \begin{abstract}
-This is the abstract.
+%Systems that detect occupancy, the presence of people, are able to save energy and greenhouse gas emissions in large buildings, and can help automate systems for the disabled in small smart homes.
+%The goal of this project is to develop a low-cost sensing system that can detect room-level occupancy in a cheap, privacy-preserving, energy efficient and reliable way.
+%To that end, we developed a sensing system that used a low-resolution thermal detector array and trained a variety of machine learning classification algorithms to determine the number of occupants present in the produced images.
+%We found the sensor to have sufficient accuracy for per-room person detection, and that with new machine learning methods, our system improved upon the results of previous papers.
+
+With the increasing inter-networked and inexpensive nature of embedded systems and systems, occupancy sensing, the detection of the presence and number of people in a given space, is becoming a cost-effective area of research. Knowing the number of occupants in a space can help reduce energy consumption and greenhouse gas emissions in both small homes and in large office buildings through more efficient climate control. The goal of this project is to develop an occupant sensing system that is low-cost, non-invasive, reliable and energy efficient.
+
+After examining the available sensing options, we concluded that a low-resolution thermal sensor would be the most appropriate sensor for our project, as it has key non-invasive advantages. The key paper in that area, ThermoSense, used such a sensor in combination with image subtraction, feature extraction and machine learning algorithms to make occupancy predictions with a Root Mean Squared Error (RMSE) of only 0.35 occupants. However, due to component availability issues, ThermoSense could not be directly replicated in the Australian market.
+
+We designed our own sensing system for \$170 based on ThermoSense using an Arduino, a Raspberry Pi, and the MLX90620 sensor, which differed from ThemoSense's in having a narrower, rectangular field of view. On top of the hardware prototype, we developed \tarl, a software library that reimplemented ThermoSense's occupant detection algorithm. We attempted to replicate the ThermoSense classification results, which used numeric Multi-Layer Perceptron, $k$-Nearest Neighbors and Linear Regression classification models, however our results were consistently poorer in both RMSE and correlation coefficient. After further experimentation with our own suite of nominal classification algorithms we were able to improve upon Thermosense's results, with the K* classification algorithm achieving a lower RMSE of 0.304 occupants. We also determine that the sensing system consumes 51mA of power when active.
+
+We reflect upon our four criteria, and with our choice of sensor, falling component costs, our accuracy results and power consumption statistics, we conclude that our sensing system prototype meets these criteria.
 \end{abstract}
 
 \newpage
