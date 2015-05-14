@@ -19,13 +19,13 @@
 \node (pir) [box, below=of wire] {PIR};
 \node (sensetier) [dashbox, dotted, fit=(pir) (mlx)] {``Sensing Tier''};
 
-\draw [line] (interwebs) -- (wifi);
-\draw [line] (wifi) -- (rpi);
-\draw [line] (rpi) -- (usb);
-\draw [line] (usb) -- (ard);
-\draw [line] (ard) -- (iic);
+\draw [line,<-] (interwebs) -- (wifi);
+\draw [line,->] (wifi) -- (rpi);
+\draw [line,<-] (rpi) -- (usb);
+\draw [line,->] (usb) -- (ard);
+\draw [line,<-] (ard) -- (iic);
 \draw [line] (iic) -- (mlx);
-\draw [line] (ard) -- (wire);
+\draw [line,<-] (ard) -- (wire);
 \draw [line] (wire) -- (pir);
-\draw [line] (rpi) -- (cam);
+\draw [line,<-] (rpi) -- (cam);
 \end{tikzpicture}
