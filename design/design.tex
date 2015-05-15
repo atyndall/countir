@@ -3,13 +3,13 @@
  \chapter{Design and Implementation}
  \label{chap:design}
 
-With the Literature Review concluding that a design based on ThermoSense would be most appropriate, a software and hardware prototype (the ``sensing system'') must now be constructed to provide a platform for experimentation and evaluation of the sensor chosen, as well as to capture, store, visualize and replay sensor data for those purposes. We will first discuss the hardware foundations of the project, then the architecture of the software developed to run on those foundations.
+To investigate thermal sensing's potential, a software and hardware prototype (the ``sensing system'') must now be constructed to provide a platform for experimentation and evaluation of the sensor chosen, as well as to capture, store, visualize and replay sensor data for those purposes. We will first discuss the hardware foundations of the project, then the architecture of the software developed to run on those foundations.
 
 \section{Hardware}
 
 As reliability and future extensibility are core concerns of the project, a three-tiered system is employed with regards to the hardware involved in the system (\Fref{tab:sensor:tiers}). At the bottom, the Sensing Tier, we have the sensors themselves. Connected to the sensors via those respective protocols is the Preprocessing Tier, hosted on an embedded system. The embedded device polls the data from these sensors, performs necessary calculations to turn the raw sensor information into actionable data, and communicates this via Serial over USB to the third tier. The third tier, the Analysis Tier, is run on a fully fledged computer. In our prototype, it captures and stores temperature and motion data it receives over Serial over USB, as well as visual data for ground truth purposes.
 
-While at a glance this system may appear to be complex, the system has been designed to ensure that a sensible upgrade path to a more feature-rich sensing system is available. In the current prototype, the Analysis Tier merely stores captured data for offline analysis, in future prototypes this analysis can be done live and served to interested parties over a RESTful API. In the current prototype, the Analysis and Sensing Tiers are connected by Serial over USB, in future prototypes, this can be replaced by a wireless mesh network, with many Preprocessing/Sensing Tier nodes communicating with one Analysis Tier node.
+In the current prototype, the Analysis Tier merely stores captured data for offline analysis, in future prototypes this analysis can be done live and served to interested parties over a RESTful API. In the current prototype, the Analysis and Sensing Tiers are connected by Serial over USB, in future prototypes, this can be replaced by a wireless mesh network, with many Preprocessing/Sensing Tier nodes communicating with one Analysis Tier node.
 
 \begin{table}
 \centering
@@ -24,9 +24,9 @@ While at a glance this system may appear to be complex, the system has been desi
 \end{table}
 
 \subsection{Sensing}
-As discussed in the Literature Review, using a \iar appear to be the most viable way to achieve the high-level goals of this project. ThermoSense \cite{beltran2013thermosense}, the primary occupancy sensor in the \iar space, used the low-cost Panasonic \geye sensor for this task. This sensor, costing around \$50, appears to be a prime candidate for use in this project, as it satisfied low-cost criteria, as well as being proven by ThermoSense to be effective in this space. However, while still available for sale in the United States, we were unable to order the sensor for shipping to Australia due to export restrictions outside of our control. While such restrictions would be circumventable with sufficient effort, using a sensor with such restrictions in place goes against an implicit criteria of the parts used in the project being relatively easy to acquire.
+As discussed in the Literature Review, using a \iar appear to be the most viable way to achieve the high-level goals of this project. ThermoSense \cite{beltran2013thermosense}, the primary occupancy sensor in the \iar space, used the low-cost Panasonic \geye sensor for this task. This sensor, costing around \$50, was suggested by ThermoSense to be effective in occupancy detection. However, while still available for sale in the United States, we were unable to order the sensor for shipping to Australia due to supplier-vendor contract agreements outside of our control. Using a sensor with such restrictions in place goes against an implicit criteria of the parts used in the project being relatively easy to acquire.
 
-This forced us to search for alternative sensors in the space that fulfill similar criteria but were more broadly available. The sensor we settled on was the \mlx \cite{MLXDatasheet}, a \iar with similar overall qualities that differed in several important ways; it provides a $16 \times 4$ grid of thermal information, it has an overall narrower field of view and it sells for approximately \$80. Like the \geye, the \mlx communicates over the 2-wire \iic bus, a low-level bi-directional communication bus widely used and supported in embedded systems.
+This forced us to search for alternative sensors in the space that fulfill similar criteria but were available in Australia. The sensor we chose was the \mlx \cite{MLXDatasheet}, a \iar with similar overall qualities that differed in several important ways; it provides a $16 \times 4$ grid of thermal information, it has an overall narrower field of view and it sells for approximately \$80. Like the \geye, the \mlx communicates over the 2-wire \iic bus, a low-level bi-directional communication bus widely used and supported in embedded systems.
 
 We envision a further advanced prototype to have wireless networking in a smaller form factor, much like ThermoSense. However, due to time and resource constraints, the scope of this project has been limited to a minimum viable implementation. This prototype architecture has been designed such that a clear path to an idea system architecture involving each Pre-Processing Tier and Analysis Tier being connected by a wireless mesh network to enable easy installation in households.
 
@@ -54,7 +54,11 @@ For the Analysis Tier, the Raspberry Pi B+ was chosen, as it is a powerful and i
 \subsection{Component Costs}
 \label{subsec:cost}
 
-\begin{table}
+As being low-cost is one of the project's goals, we have summarized the cost of each of the components of the prototype in \Fref{tab:sensor:cost}. We believe that for a prototype, this cost is sufficiently low. In the envisioned system, there would only be one Raspberry Pi in the system, and it would not require a camera, lowering the cost to around $\$50 + \$135n$ where $n$ is the number of sensors. Similarly, as technology improves, sensor technology expected to continue to fall in price, causing the most expensive component, the infrared sensor, to become increasingly cost-effective.
+
+When we compare this to the estimated cost of the ThermoSense system (\Fref{tab:sensor:thermosensecost}), we believe that it achieves a suitably comparable cost for a prototype. When removing the aspects of the prototype that would be unnecessary in the final version, the difference is only \$15.
+
+\begin{table}[b]
 \centering
 \begin{subtable}[b]{0.5\textwidth}
 \centering
@@ -65,7 +69,8 @@ MLX90620 & \$80 \\ \hline
 Raspberry Pi B+ &  \$50 \\ \hline
 Arduino Uno R3 & \$40 \\ \hline
 Passive Infrared Sensor & \$10 \\ \hline
-\textbf{TOTAL} & \textbf{\$180} \\ \hline
+\iic level shifter & \$5 \\ \hline
+\textbf{TOTAL} & \textbf{\$185} \\ \hline
 \end{tabular}
 \caption{Our project}
 \label{tab:sensor:cost}
@@ -80,6 +85,7 @@ TMote Sky & \$110 \\ \hline
 Grid-EYE & \$50 \\ \hline
 Passive Infrared Sensor & \$10 \\ \hline
  & \\ \hline
+ & \\ \hline
 \textbf{TOTAL} & \textbf{\$170} \\ \hline
 \end{tabular}
 \caption{ThermoSense (estimated)}
@@ -88,9 +94,40 @@ Passive Infrared Sensor & \$10 \\ \hline
 \caption{Breakdown of component costs for minimum viable implementation}
 \end{table}
 
-As being low-cost is one of the project's goals, we have summarized the cost of each of the components of the prototype in \Fref{tab:sensor:cost}. We believe that for a prototype, this cost is sufficiently low. In the envisioned system, there would only be one Raspberry Pi in the system, and it would not require a camera, lowering the cost to around $\$50 + \$130n$ where $n$ is the number of sensors. Similarly, as technology improves, sensor technology expected to continue to fall in price, causing the most expensive component, the infrared sensor, to become increasingly cost-effective.
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{../diagrams/prototypeb-1.png}
+\includegraphics[width=\textwidth]{../diagrams/prototypeb-2.png}
+{\footnotesize
+\begin{multicols}{3}
+\begin{enumerate}[a)]
+ \item Battery pack
+ \item Raspberry Pi
+ \item Arduino
+ \item Level-shifting circuitry
+ \item Movable sensor mount
+ \item PIR
+ \item Camera
+ \item MLX90620
+\end{enumerate}
+\end{multicols}
+}
+\caption{Component breakdown of sensing system prototype}
+\label{fig:pictures:protob1}
+\end{figure}
 
-When we compare this to the estimated cost of the ThermoSense system (\Fref{tab:sensor:thermosensecost}), we believe that it achieves a suitably comparable cost for a prototype. When removing the aspects of the prototype that would be unnecessary in the final version, the difference is only \$10.
+\begin{figure}
+\centering
+\includegraphics[height=0.7\textheight]{../diagrams/prototype-mounted-ceiling.jpg}
+\begin{enumerate}[a)]
+ \item Sensors
+ \item Mounting pole
+\end{enumerate}
+\caption{Sensing system prototype mounted on roof}
+\label{fig:pictures:protoact}
+\end{figure}
+
+\clearpage{}
 
 \section{Software}
 
@@ -141,11 +178,11 @@ SDK                  & 1.6.4                                 \\ \hline
 \label{fig:pictures:protob-arch}
 \end{figure}
 
-At each layer of the described three-tier software architecture (pictured in greater detail in \Fref{fig:pictures:protob-arch}), software exists to govern the operation of that tier's functionality. For the sensing tier, the \mlx's own software is used, while for the other tiers, a bi-lingual software library, \tarl, was developed to provide a suite of functions to enable the easy data collection and analysis of information from the hardware prototype. \tarl is split into two parts:
+At each layer of the described three-tier software architecture (pictured in greater detail in \Fref{fig:pictures:protob-arch}), software exists to govern the operation of that tier's functionality. For the sensing tier, the \mlx and \pir's own software is used, while for the other tiers, a bi-lingual software library, \tarl, was developed to provide a suite of functions to enable the easy data collection and analysis of information from the hardware prototype. \tarl is split into two parts:
 
 At the Preprocessing Tier, the Arduino, the \tarl \mlx driver is found, which is written in the default Arduino C++ derivative language. The used of a low-level language is important at this tier as careful management of memory usage and algorithmic complexity is required in such a resource-constrained environment.
 
-At Analysis Tier, a computer running fully-fledged Linux, the bulk of \tarl can be found. As the processing environment has become less constrained, the choice of language becomes a possibility. In this instance, Python was chosen as \tarl's language on the Analysis Tier. Python was chosen as it is a quite high-level language with excellent library support for the functions required of the Analysis Tier, including serial interface, the use of the Raspberry Pi's built in camera, and image analysis. The 2.x branch of Python was chosen over the 3.x branch, despite its age, due a greater maturity in support for several key graphical interface libraries.
+At Analysis Tier, a general purpose computer is used, and that is where the bulk of \tarl can be found. As the processing environment has become less constrained, the choice of language becomes a possibility. In this instance, Python was chosen as \tarl's language on the Analysis Tier. Python was chosen as it is a high-level language with excellent library support for the functions required of the Analysis Tier, including serial interface, the use of the Raspberry Pi's built in camera, and image analysis. The 2.x branch of Python was chosen over the 3.x branch, despite its age, due a greater maturity in support for several key graphical interface libraries.
 
 \subsection{Sensing}
 The \mlx itself is its own computer (see \Fref{fig:exps:blockdia}), containing EEPROM storage, RAM and unspecified code to perform ``digital filtering'' on the $16 \times 4$ array of digital active thermopiles. We are able to communicate with the \mlx through the provided \iic interface, which offers commands to read both the EEPROM, and the sensor's RAM directly. 
@@ -182,9 +219,7 @@ Once booted, the user is able to send several one-character commands to the sens
 
 \subsection{Analysis / Classification}
 
-On the Analysis Tier, \tarl's set of Python libraries and accompanying capture and analysis scripts were developed to interface with the Arduino, parse and interpret its data, and to provide data logging and visualization capabilities.
-
-\tarl's Python portion provides 4 main feature sets across 3 files; the \texttt{Manager} series of classes, the \texttt{Visualizer} class, the \texttt{Features} class and the \texttt{pxdisplay} module.
+On the Analysis Tier, \tarl's set of Python libraries and accompanying capture and analysis scripts were developed to interface with the Arduino, parse and interpret its data, and to provide data logging and visualization capabilities. \tarl's Python portion provides 4 main feature sets across 3 files; the \texttt{Manager} series of classes, the \texttt{Visualizer} class, the \texttt{Features} class and the \texttt{pxdisplay} module.
 
 \subsubsection*{\texttt{Manager} classes}
 The Manager series of classes are the direct interface between \tarl's C++ Arduino driver and \tarl's Python components. They implement a multi-threaded serial data collection and parsing system which converts the raw serial output of the connected Arduino into a series of Python data structures that represent the collected temperature and motion data of each captured frame. Several different versions of the \texttt{Manager} class exist to perform slightly different functions. When initializing these classes the sample rate of the \mlx can be configured, and it will be sent through to the Arduino for updating.
