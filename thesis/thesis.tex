@@ -43,12 +43,11 @@
     \addtocounter{page}{-1}%
     \newpage}
 
-% TODO: Change title
 \newcommand{\thetitle}{Towards a Low-Cost, Non-Invasive System for Occupancy Detection using a Thermal Detector Array}
 \newcommand{\theauthor}{Ash Tyndall}
 
-\newcommand{\thekeywords}{Internet of Things, Low-Cost Sensing, Non-Invasive Sensing, Occupancy Sensing, Smart Homes, Thermal Sensing}
-\newcommand{\thecategories}{C.3, I.2.6, I.2.10, I.4.7, I.5.2, J.7} % TODO: Check categories
+\newcommand{\thekeywords}{Energy Saving, Internet of Things, Low-Cost Sensing, Non-Invasive Sensing, Occupancy Sensing, Smart Homes, Thermal Sensing}
+\newcommand{\thecategories}{J.7, C.3}
 
 %%% BEGIN LATEX TWEAKS
 
@@ -97,6 +96,7 @@
 
 \acrodefn{pir}{PIR}{Passive Infrared Sensor}
 \acrodefn{iar}{TDA}{Thermal Detector Array}
+\acrodefn{lrtda}{lrTDA}{low-resolution Thermal Detector Array}
 \acrodefn{mlx}{\textit{Melexis}}{Melexis MLX90620}
 \acrodefn{emwa}{EMWA}{Exponential Weighted Moving Average}
 \acrodefn{lowpan}{6LoWPAN}{IPv6 over Low power Wireless Personal Area Networks}
@@ -233,13 +233,13 @@
 \maketitle
 
 \begin{abstract}
-With the increasing inter-networked and inexpensive nature of embedded systems and systems, occupancy sensing, the detection of the presence and number of people in a given space, is becoming a cost-effective area of research. Knowing the number of occupants in a space can help reduce energy consumption and greenhouse gas emissions in both small homes and in large office buildings through more efficient climate control. The goal of this project is to develop an occupant sensing system that is low-cost, non-invasive, reliable and energy efficient.
+With the increasing inter-networked and inexpensive nature of embedded systems and systems, occupancy sensing, the detection of the presence and number of people in a given space, is becoming a cost-effective area of research. Knowing the number of occupants in a space can help reduce energy consumption and greenhouse gas emissions in both small homes and in large office buildings through more efficient climate control. The goal of this project was to develop an occupant sensing system that is low-cost, non-invasive, reliable and energy efficient.
 
-After examining the available sensing options, we concluded that a low-resolution thermal sensor would be the most appropriate sensor for our project, as it has key non-invasive advantages. The key paper in that area, ThermoSense, used such a sensor in combination with image subtraction, feature extraction and machine learning algorithms to make occupancy predictions with a Root Mean Squared Error (RMSE) of only 0.35 occupants. However, due to component availability issues, ThermoSense could not be directly replicated in the Australian market.
+After examining the available sensing options, we concluded that a \lrtda would be the most appropriate sensor for our project, as it has non-invasiveness advantages. The key paper in that area, termed Thermosense, used an \lrtda in combination with image subtraction, feature extraction and machine learning classification algorithms to make occupancy predictions with a Root Mean Squared Error (RMSE) of only 0.35 occupants, at an estimated cost of \$170. However, due to component availability issues, ThermoSense could not be directly replicated in the Australian market.
 
-We designed our own sensing system for \$180 based on ThermoSense using an Arduino, a Raspberry Pi, and the MLX90620 sensor, which differed from ThemoSense's in having a narrower, rectangular field of view. On top of the hardware prototype, we developed \tarl, a software library that reimplemented ThermoSense's occupant detection algorithm. We attempted to replicate the ThermoSense classification results, which used numeric Multi-Layer Perceptron, $k$-Nearest Neighbors and Linear Regression classification models, however our results were consistently poorer in both RMSE and correlation coefficient. After further experimentation with our own suite of nominal classification algorithms we were able to improve upon Thermosense's results, with the K* classification algorithm achieving a lower RMSE of 0.304 occupants. We also determine that the sensing system consumes 51mA of power when active.
+We designed our own sensing system for \$180 based using an Arduino, a Raspberry Pi, and a different \lrtda (the MLX90620), which had a narrower, rectangular field of view. This system consumed approximately 51~mA of power when active. We also developed \tarl, a software library that implemented ThermoSense's occupant detection algorithm. We then investigated ThermoSense's classification methods, which used numeric Multi-Layer Perceptron, $k$-Nearest Neighbors and Linear Regression algorithms and found our results differed from theirs significantly in both RMSE and correlation, with both lower. These results suggest that classifiers used may be very sensitive to the specific sensor's properties.
 
-We reflect upon our four criteria, and with our choice of sensor, falling component costs, our accuracy results and power consumption statistics, we conclude that our sensing system prototype meets these criteria.
+After further experimentation with our own suite of nominal classification algorithms, we found an approach (K*) that achieved an RMSE of 0.304 and a precision of 82\%, which improves upon ThermoSense's results. We reflected upon our four criteria, and with our choice of sensor, falling component costs, our accuracy results and power consumption statistics, we concluded that our sensing system prototype met our defined criteria.
 \end{abstract}
 
 \newpage
