@@ -19,7 +19,7 @@ While at a glance this system may appear to be complex, the system has been desi
 \textbf{Preprocessing Tier} & \ard Uno R3 \\ \hline
 \textbf{Sensing Tier} & \acl{mlx} \& PIR \\ \hline
 \end{tabular}
-\caption{Hardware tiers}
+\caption{Three-tier structure of prototype hardware with corresponding components used}
 \label{tab:sensor:tiers}
 \end{table}
 
@@ -33,7 +33,7 @@ We envision a further advanced prototype to have wireless networking in a smalle
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{../diagrams/mlx-arduino2.pdf}
-\caption{MLX90620, PIR and Arduino integration circuit}
+\caption{MLX90620, Passive Infrared Sensor, and Arduino integration circuit diagram}
 \label{fig:circuits:node}
 \end{figure}
 
@@ -85,7 +85,7 @@ Passive Infrared Sensor & \$10 \\ \hline
 \caption{ThermoSense (estimated)}
 \label{tab:sensor:thermosensecost}
 \end{subtable}
-\caption{Minimum viable component cost comparison}
+\caption{Breakdown of component costs for minimum viable implementation}
 \end{table}
 
 As being low-cost is one of the project's goals, we have summarized the cost of each of the components of the prototype in \Fref{tab:sensor:cost}. We believe that for a prototype, this cost is sufficiently low. In the envisioned system, there would only be one Raspberry Pi in the system, and it would not require a camera, lowering the cost to around $\$50 + \$130n$ where $n$ is the number of sensors. Similarly, as technology improves, sensor technology expected to continue to fall in price, causing the most expensive component, the infrared sensor, to become increasingly cost-effective.
@@ -131,13 +131,13 @@ SDK                  & 1.6.4                                 \\ \hline
 \end{tabular}
 \caption{Libraries used}
 \end{subtable}
-\caption{Overview of code used in project}
+\caption{Summary of code written and used within the Thermal Array Library}
 \end{table}
 
 \begin{figure}
 \centering
 \input{../diagrams/prototype-system}
-\caption{Prototype system architecture}
+\caption{Architecture of prototype sensor with tiers, software, communication protocols and information flow}
 \label{fig:pictures:protob-arch}
 \end{figure}
 
@@ -150,14 +150,14 @@ At Analysis Tier, a computer running fully-fledged Linux, the bulk of \tarl can 
 \subsection{Sensing}
 The \mlx itself is its own computer (see \Fref{fig:exps:blockdia}), containing EEPROM storage, RAM and unspecified code to perform ``digital filtering'' on the $16 \times 4$ array of digital active thermopiles. We are able to communicate with the \mlx through the provided \iic interface, which offers commands to read both the EEPROM, and the sensor's RAM directly. 
 
-The sensor's EEPROM contains configuration values that the interfacing device is required to input into the device's RAM as part of a multi-step initialization sequence, and also contains constants used as part of the raw data to \dc conversion process. The sensor's RAM contains the partially-filtered raw data, which is updated with reference to a clock frequency set between 0.5Hz to 512Hz in the initialization process.
+The sensor's EEPROM contains configuration values that the interfacing device is required to input into the device's RAM as part of a multi-step initialization sequence, and also contains constants used as part of the raw data to \dc conversion process. The sensor's RAM contains the partially-filtered raw data, which is updated with reference to a clock frequency set between 0.5~Hz to 512~Hz in the initialization process.
 
 The sensor's documentation offers no information regarding reconfiguration of the sensor's internal programming code, nor what code exists on the sensor when purchased. As such, we refer to the sensor's dataset \cite{MLXDatasheet} and use only the documented commands to interface with the sensor.
 
 \begin{figure}
 \centering
 \includegraphics[width=0.8\textwidth]{../diagrams/mlx-block-diagram.pdf}
-\caption{Block diagram for the \mlx taken from datasheet \cite{MLXDatasheet}}
+\caption{MLX90620 block diagram (adapted from datasheet \cite{MLXDatasheet})}
 \label{fig:exps:blockdia}
 \end{figure}
 
@@ -176,7 +176,7 @@ Once booted, the user is able to send several one-character commands to the sens
 \begin{figure}
  \centering
 \input{../diagrams/init-seq}
-\caption{Annotated initialization sequence and thermal packet}
+\caption{Annotated Arduino initialization sequence and thermal packet serial output}
 \label{fig:code:initseq}
 \end{figure}
 
@@ -191,7 +191,7 @@ The Manager series of classes are the direct interface between \tarl's C++ Ardui
 
 \texttt{BaseManager} is responsible for the implementation of the core serial parsing functions. It also provides a threaded interface through which the \mlx's continuous stream of data can be subscribed to by other threads. The primary API, the \texttt{subscribe\_} series of functions, return a thread-safe queue structure, through which thermal packets can be received by various other threads when they become available.
 
-\texttt{Manager}, the primary class, provides access the \mlx's data at configurable intervals. When initializing this class, you may specific 0.5, 1, 2, 4 or 8Hz, and the class will configure the Arduino to both set the \mlx to this sample rate, and to automatically write this data to the serial buffer at the same rate. This serial interface is multi-threaded, as at higher serial baud rates if data is not polled continuously the internal serial buffer fills and data is discarded. By ensuring this process cannot be blocked by other parts of the running program this problem is mostly eliminated. 
+\texttt{Manager}, the primary class, provides access the \mlx's data at configurable intervals. When initializing this class, you may specific 0.5, 1, 2, 4 or 8~Hz, and the class will configure the Arduino to both set the \mlx to this sample rate, and to automatically write this data to the serial buffer at the same rate. This serial interface is multi-threaded, as at higher serial baud rates if data is not polled continuously the internal serial buffer fills and data is discarded. By ensuring this process cannot be blocked by other parts of the running program this problem is mostly eliminated. 
 
 \texttt{OnDemandManager} operates in a similar way to \texttt{Manager}, however it uses a polling model instead of the periodic model of the other classes. Scripts may request thermal/motion data from the class at any interval, and \texttt{OnDemandManager} will poll the Arduino for information and block until this information is parsed and returned.
 
@@ -226,7 +226,7 @@ In accordance with the pseudo-code outlined in the ThermoSense paper, the algori
 \begin{listing}
 \centering
 \input{../diagrams/feature-extraction}
-\caption{Core feature extraction code}
+\caption{Annotated and abbreviated image subtraction and feature extraction code from the Thermal Array Library}
 \label{lst:exps:featcode}
 \end{listing}
 

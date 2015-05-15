@@ -12,41 +12,41 @@ In order to best utilize the \mlx, we must first understand the properties it ex
 \subsection{Bias}
 When detecting no infrared radiation (IR), the sensor should indicate a near-zero temperature, as the sensor's method of determining temperature involves measuring IR. If in such conditions the temperatures indicated are non-uniform, that suggests that the sensor has some level of bias in its measurements. We attempted to investigate the possibility of such bias by performing thermal captures of the night sky. While this does not completely eliminate the IR, it does remove a significant proportion of it.
 
-To test this, the thermal sensor was exposed to the night sky at a capture rate of 1Hz for 4 minutes, with the sensing results combined to create a set of means and standard deviations for the pixels at ``rest''. The average temperature detected was $11.78\dc$, with the standard deviation remaining less than $0.51\dc$ over the entire exposure period. The resultant mean thermal map (\Fref{fig:meanplot}) shows that the four center pixels maintain a similar temperature around $9\dc$, with temperatures beginning to deviate as they became further from that point.
+To test this, the thermal sensor was exposed to the night sky at a capture rate of 1~Hz for 4 minutes, with the sensing results combined to create a set of means and standard deviations for the pixels at ``rest''. The average temperature detected was $11.78~\dc$, with the standard deviation remaining less than $0.51~\dc$ over the entire exposure period. The resultant mean thermal map (\Fref{fig:meanplot}) shows that the four center pixels maintain a similar temperature around $9~\dc$, with temperatures beginning to deviate as they became further from that point.
 
 The most likely cause of this bias is related to the physical structure of the sensor. The \mlx is a rectangular sensor which has been placed inside a circular tube. Due to this physical arrangement, the sides of this rectangular sensor will be significantly closer to these edges than the center. If the sensor's casing is at an ambient temperature higher than the measurement data (as they likely were in this case) thermal radiation from the sensor package itself could provide significant enough to cause the edges to appear warmer than the observed area of the sky. This effect could be controlled for by cooling the sensor package to below that of the ambient temperature being measured, however, this is not a concern in this project, as the method of calculating a thermal background will compensate for any such bias provided it remains relatively constant, which if our hypothesis is correct, it should.
 
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{../diagrams/rest-avg-embed.pdf}
-\caption{Plot of pixel means at rest}
+\caption{Mean values of 4 minute night sky thermal capture plotted over sensor's $16\times4$ grid}
 \label{fig:meanplot}
 \end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{../diagrams/stddev-contour.pdf}
-\caption{Plot of pixel standard deviations at rest}
+\caption{Standard deviation of 4 minute night sky thermal capture plotted over sensor's $16\times4$ grid}
 \label{fig:stdplot}
 \end{figure}
 
 
 \subsection{Noise}
 
-One of the primary features of the \mlx is the ability to sample the thermal data at a variety of sample rates between 0.5Hz and 512Hz. It was noted in preliminary experimentation that a higher sample rate appeared to result in noisier temperature readings. As our experiments focus on separating objects of interest from a thermal background, it is important to determine if this noise would post an issue for our use case.
+One of the primary features of the \mlx is the ability to sample the thermal data at a variety of sample rates between 0.5~Hz and 512~Hz. It was noted in preliminary experimentation that a higher sample rate appeared to result in noisier temperature readings. As our experiments focus on separating objects of interest from a thermal background, it is important to determine if this noise would post an issue for our use case.
 
 \Fref{fig:noise} plots one of the central pixels of the sensor in a scenario where it is detecting a background, and when it is viewing a person, at the five different sample rates achievable with the current hardware configuration. We can see in these plots that the data becomes significantly more noisy as the sample rate increases, and we can also conclude that the sensor uses a form of data smoothing at lower sample rates, as the variance in data increases with sample rate. If the sample rate were to increase beyond a certain threshold, it is likely that the ability for the sensing system to disambiguate between objects of interest and the background would diminish.
 
 \begin{figure}
   \centering
   \includegraphics[width=0.9\textwidth]{../diagrams/noise-graph2.pdf}
-  \caption{Noise levels of occupants and background at various sampling speeds}
+  \caption{Plot of occupant and background sensor noise at sampling speeds 0.5~Hz -- 8~Hz}
   \label{fig:noise} % TODO: Update graph with newer one with std invo
 \end{figure}
 
-In the 0.5Hz case, the third standard deviation above background ($3\sigma_b$) is $6.4\dc$ below the minimum occupant value ($\mathrm{min}(o)$) detected. As the noise increases, this gap slowly decreases, with $5.75\dc$ for 1Hz, $5.53\dc$ for 2Hz, $4.48\dc$ for 4Hz, and finally $3.15\dc$ for 8Hz. In none of these cases is $3\sigma_b \ge \mathrm{min}(o)$, which would completely rule that sample rate out.
+In the 0.5~Hz case, the third standard deviation above background ($3\sigma_b$) is $6.4~\dc$ below the minimum occupant value ($\mathrm{min}(o)$) detected. As the noise increases, this gap slowly decreases, with $5.75~\dc$ for 1~Hz, $5.53~\dc$ for 2~Hz, $4.48~\dc$ for 4~Hz, and finally $3.15~\dc$ for 8~Hz. In none of these cases is $3\sigma_b \ge \mathrm{min}(o)$, which would completely rule that sample rate out.
 
-Based on the data, noise will not pose any issue as the slowest sampling rate of 0.5Hz is sufficient for the system's needs, and shows a sufficiently large gap between occupant and background temperatures. Higher sample rates are unnecessary as occupancy estimations at a sub-second level present little additional value.
+Based on the data, noise will not pose any issue as the slowest sampling rate of 0.5~Hz is sufficient for the system's needs, and shows a sufficiently large gap between occupant and background temperatures. Higher sample rates are unnecessary as occupancy estimations at a sub-second level present little additional value.
 
 % TODO: Signal to noise ratio calculations
 
@@ -64,7 +64,7 @@ While interesting, this phenomenon has little consequence to the effectiveness o
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{../diagrams/03_hot_water_top_row_modified2.pdf}
-\caption{Measure of top-centre 6 \mlx pixels as hot object moves across (smoothed)}
+\caption{Temperature plot of five of the MLX90620's pixels as a hot object moves across them at a constant velocity}
 \label{fig:hotmotion}
 \end{figure}
 
@@ -77,7 +77,7 @@ With a greater understanding of the prototype's caveats, it is now possible to g
 \begin{figure}
 \centering
 \includegraphics[width=0.97\textwidth]{../diagrams/process-pics.pdf}
-\caption{Visualization of processing steps}
+\caption{Process flow diagram for turning raw sensor input into occupancy estimates}
 \label{fig:methods:flowchart}
 \end{figure}
 
@@ -126,7 +126,7 @@ Linear Regression & Numeric & \texttt{weka.classifiers.functions\newline.LinearR
 
 0-R & Nominal, \newline Numeric & \texttt{weka.classifiers.rules.ZeroR} \\ \hline
 \end{tabular}
-\caption{Weka parameters used for classifications}
+\caption{Weka parameters used for different classifications algorithms}
 \label{tab:methods:params}
 \end{table}
 
@@ -159,7 +159,7 @@ The latter five sub-experiments involved people sitting;
 
 In these experiments people moved slowly and deliberately, making sure there were large pauses between changes of action. The people involved were of average height, wearing various clothing. The room was cooled to 18 degrees for these experiments.
 
-Each experiment was recorded with a thermal-visual synchronization at 1Hz over approximately 60-120 second intervals. Each experiment had 10-15 frames at the beginning where nothing was within the view of the sensor to allow the thermal background to be calculated. Each frame generated from these experiments was manually tagged with the ground truth value of its number of occupants using the tagging script discussed in \Fref{subsec:datalabelling}.
+Each experiment was recorded with a thermal-visual synchronization at 1~Hz over approximately 60-120 second intervals. Each experiment had 10-15 frames at the beginning where nothing was within the view of the sensor to allow the thermal background to be calculated. Each frame generated from these experiments was manually tagged with the ground truth value of its number of occupants using the tagging script discussed in \Fref{subsec:datalabelling}.
 
 The resulting features and ground truth were combined and exported to CSV allowing Weka to analyze them. This data was analyzed with the feature vectors always being considered numeric data and with the ground truth considered both numeric and nominal. We evaluate the dataset against a set of classification algorithms introduced in \Fref{sec:classification} of our Literature Review.
 
@@ -194,20 +194,20 @@ In our sole numeric choice of K*, we found that it achieved a better correlation
 \centering
 \begin{tabular}{|l|r|r|r|}
 \hline
-\textbf{Classifier} & \textbf{RMSE} & \textbf{\%} & \textbf{$r$} \\ \hline
-\multicolumn{4}{|c|}{ThermoSense Actual}                         \\ \hline
+\textbf{Classifier} & \textbf{RMSE} & \textbf{Precision (\%)} & \textbf{Correlation ($r$)} \\ \hline
+\multicolumn{4}{|c|}{\cellcolor{black!15} ThermoSense Actual}                         \\ \hline
 KNN$^1$             & 0.346         &             &              \\ \hline
 Lin Reg             & 0.385         &             & 0.926        \\ \hline
 MLP                 & 0.409         &             & 0.945        \\ \hline
-\multicolumn{4}{|c|}{ThermoSense Replication}                    \\ \hline
+\multicolumn{4}{|c|}{\cellcolor{black!15} ThermoSense Replication}                    \\ \hline
 KNN$^1$             & 0.364         & 65.65       &              \\ \hline
 MLP                 & 0.592         &             & 0.687        \\ \hline
 Lin Reg             & 0.525         &             & 0.589        \\ \hline
 KNN$^1$             & 1.123         &             & 0.377        \\ \hline
-\multicolumn{4}{|c|}{Numeric}                                    \\ \hline
+\multicolumn{4}{|c|}{\cellcolor{black!15} Numeric}                                    \\ \hline
 K*                  & 0.423         &             & 0.760        \\ \hline
 0-R                 & 0.651         &             & -0.118       \\ \hline
-\multicolumn{4}{|c|}{Nominal}                                    \\ \hline
+\multicolumn{4}{|c|}{\cellcolor{black!15} Nominal}                                    \\ \hline
 K*                  & 0.304         & 82.56       &              \\ \hline
 C4.5                & 0.314         & 82.39       &              \\ \hline
 MLP                 & 0.362         & 77.14       &              \\ \hline
@@ -217,7 +217,7 @@ N. Bayes            & 0.405         & 63.59       &              \\ \hline
 \end{tabular}\\
 \parbox{220pt}{
 $^1$: Included zero in training data \\
-\%: Percentage accuracy, for a nominal test \\
+\%: Precision, for a nominal test \\
 $r$: Correlation coefficient, for a numeric test \\
 }
 \caption{Classifier Experiment Set Results}
@@ -229,9 +229,9 @@ $r$: Correlation coefficient, for a numeric test \\
 
 % TODO: Energy efficiency table
 
-A YZXStudio USB 3.0 Power Monitor was used to measure power consumed by the Pre-Processing and Sensing tier together while experimenting, as in a more advanced prototype, they would be envisioned to be run on battery power. This was done by connecting the Arduino's USB cable to the Monitor, and the Monitor to a computer. It was calculated that the average power consumption was 51~mA at 4.92~volts with a sample rate of 1Hz, while continuously outputting data. This power consumption did not vary significantly between sample rates, with the consumption increasing $<$ 0.8~mA with the sample rate being set to 8Hz.
+A YZXStudio USB 3.0 Power Monitor was used to measure power consumed by the Pre-Processing and Sensing tier together while experimenting, as in a more advanced prototype, they would be envisioned to be run on battery power. This was done by connecting the Arduino's USB cable to the Monitor, and the Monitor to a computer. It was calculated that the average power consumption was 51~mA at 4.92~volts with a sample rate of 1~Hz, while continuously outputting data. This power consumption did not vary significantly between sample rates, with the consumption increasing $<$ 0.8~mA with the sample rate being set to 8~Hz.
 
-To determine the draw from the \pir and \iar, we disconnected all sensors from the Arduino, and ran the power measurement again. The same code was run on the Arduino. This time we received a result of 45~mA for 1Hz, and 46~mA for 8Hz. We can then conclude that the sensors themselves draw around 6~mA of power.
+To determine the draw from the \pir and \iar, we disconnected all sensors from the Arduino, and ran the power measurement again. The same code was run on the Arduino. This time we received a result of 45~mA for 1~Hz, and 46~mA for 8~Hz. We can then conclude that the sensors themselves draw around 6~mA of power.
 
 
   \ifcsdef{mainfile}{}{\bibliography{../references/primary}}
