@@ -46,7 +46,7 @@ One of the primary features of the \mlx is the ability to sample the thermal dat
 
 In the 0.5~Hz case, the third standard deviation above background ($3\sigma_b$) is $6.4~\dc$ below the minimum occupant value ($\mathrm{min}(o)$) detected. As the noise increases, this gap slowly decreases, with $5.75~\dc$ for 1~Hz, $5.53~\dc$ for 2~Hz, $4.48~\dc$ for 4~Hz, and finally $3.15~\dc$ for 8~Hz. In none of these cases is $3\sigma_b \ge \mathrm{min}(o)$, which would completely rule that sample rate out.
 
-Based on the data, noise will not pose any issue as the slowest sampling rate of 0.5~Hz is sufficient for the system's needs, and shows a sufficiently large gap between occupant and background temperatures. Higher sample rates are unnecessary as occupancy estimations at a sub-second level present little additional value.
+Based on the data, noise will not pose any issue as the slowest sampling rate of 0.5~Hz is sufficient for the system's needs, and shows a sufficiently large gap between occupant and background temperatures.
 
 % TODO: Signal to noise ratio calculations
 
@@ -262,6 +262,13 @@ With the specific classification techniques that we choose to test, we found qui
 Our worst selected technique, unsurprisingly, was Naive Bayes. It is unsurprising that it performed so poorly, as the ``Naive'' part of the technique is an assumption of independence between the different features input, which is clearly false with our features. All three of our features relate to the same underlying graph and are most definitely correlated with each other.
 
 By using the K* or C4.5 machine learning algorithm, we are confident that the prototype could achieve appropriate levels of accuracy for its occupancy goals.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.93\textwidth]{../diagrams/feature-plots.pdf}
+\caption{Plot of three features against each other with occupancy truth values}
+\label{fig:litreview:taxonomy}
+\end{figure}
 
 \subsection{Energy Efficiency}
 % TODO: Talk about differences between how we measure energy vs how ThermoSense measures energy 
