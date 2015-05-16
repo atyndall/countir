@@ -182,7 +182,31 @@ At each layer of the described three-tier software architecture (pictured in gre
 
 At the Preprocessing Tier, the Arduino, the \tarl \mlx driver is found, which is written in the default Arduino C++ derivative language. The used of a low-level language is important at this tier as careful management of memory usage and algorithmic complexity is required in such a resource-constrained environment.
 
-At Analysis Tier, a general purpose computer is used, and that is where the bulk of \tarl can be found. As the processing environment has become less constrained, the choice of language becomes a possibility. In this instance, Python was chosen as \tarl's language on the Analysis Tier. Python was chosen as it is a high-level language with excellent library support for the functions required of the Analysis Tier, including serial interface, the use of the Raspberry Pi's built in camera, and image analysis. The 2.x branch of Python was chosen over the 3.x branch, despite its age, due a greater maturity in support for several key graphical interface libraries.
+At Analysis Tier, a general purpose computer is used, and that is where the bulk of \tarl can be found. As the processing environment has become less constrained, the choice of language becomes a possibility. In this instance, Python was chosen as \tarl's language on the Analysis Tier. Python was chosen as it is a high-level language with excellent library support for the functions required of the Analysis Tier, including serial interface, the use of the Raspberry Pi's built in camera, and image analysis. The 2.x branch of Python was chosen over the 3.x branch, despite its age, due a greater maturity in support for several key graphical interface libraries. Much of the Analysis tier's code is based upon the ThermoSense implementation, which we describe here.
+
+\subsection{ThermoSense Implementation}
+\label{subsec:thermosenseimplementation}
+The ThermoSense approach combines a \pir, which detects motion, and a \iar which creates a thermal image, to determine occupancy in a sensor fusion. These sensors are fused by leveraging the \pir to determining the $0/>0$ case and the \iar to determine specific occupancy numbers. The specific \iar used subdivides the visible area into an $8\times8$ grid of sections from which temperatures can be derived. This sensor system is attached to the roof on a small embedded controller which is responsible for collecting the thermal data and transmitting it back to another computer for analysis via a low powered wireless networking protocol. 
+
+Machine learning classification, the use of algorithms and training data to generate models that can make predictions on previously unseen data, is a large part of the ThermoSense paper. ThermoSense uses supervised learning algorithms, which require a set of examples with the correct answer.
+
+Supervised classification techniques can be split into two different classes of techniques; numeric and nominal. Numeric techniques provide predictions that are numerical in nature, that is, they return results on a continuous number line. Nominal techniques provide predictions whereby each new data point is predicted to belong to one of a set of predetermined classes, for example, colors of the rainbow.
+
+The training data classification algorithms use is a set of examples that have the corresponding correct answer attached. The set of values that describe each example are known as feature vectors.
+
+Occupants are separated from background radiation through the use of an image subtraction algorithm maintaining per-pixel mean and standard deviation values to update a thermal background map. If no motion is detected, this map is updated using a slow-moving \emwa over a 15 minute time window. If the room remains occupied for a long period, a more complex scaling algorithm is used which considers the coldest points in the room empty, and averages them against the new background, then performs an \emwa with a lower weighting.
+
+This per-pixel average and standard deviation information updated every frame is used to determine several characteristics to be used as feature vectors. The determination of the feature vectors was subject to experimentation, since the differences at each grid element are too susceptible to individual room conditions to be used as feature vectors. Instead, a set of three different features was designed;
+
+\begin{enumerate}
+\item \textbf{Number of active pixels}: The total number of pixels that are considered ``active'' in a given frame
+\item \textbf{Number of connected components}: If each active pixel is joined with its immediate active neighbors, how many ``islands'' of active pixels (termed connected components in graph theory) exist.
+\item \textbf{Size of largest connected component}: The number of active pixels contained within the largest connected component
+\end{enumerate}
+
+These feature vectors were compared against three classification approaches; K-Nearest Neighbors, Linear Regression and an Artificial Neural Network. This final classification is subject to a final averaging process over a four minute window, which was determined by experimentation to accurately remove the presence of independent errors from the raw classification data.
+
+In the ThermoSense system, there exists a \pir whose purpose is to determine if there is currently motion in the detected area. This motion detection is averaged over a time window and is used by the ThermoSense system to provide Presence information to the system. Because of this, it is not necessarily a requirement that cases with zero people are provided to the classification algorithms above, as the \pir alone can determine this information. ThermoSense performed experimentation to determine if the classification was more accurate when instances of empty rooms were provided to the classification algorithm vs. not. They found that generally not providing the empty case to the classification algorithm improved accuracy.
 
 \subsection{Sensing}
 The \mlx itself is its own computer (see \Fref{fig:exps:blockdia}), containing EEPROM storage, RAM and unspecified code to perform ``digital filtering'' on the $16 \times 4$ array of digital active thermopiles. We are able to communicate with the \mlx through the provided \iic interface, which offers commands to read both the EEPROM, and the sensor's RAM directly. 
@@ -246,17 +270,13 @@ From the recording side, the \texttt{Visualizer} class can ``record'' a thermal 
 From the visualization side, \texttt{Visualizer} can leverage the \texttt{pxdisplay} module to create thermal maps that can update in real-time based on the thermal data provided by a \texttt{Manager} class. The class can also generate both images and movie files from thermal recordings using the \texttt{PIL} and \texttt{ffmpeg} libraries.
 
 \subsubsection*{\texttt{Features} class}
+As discussed in \Fref{subsec:thermosenseimplementation}, ThermoSense~\cite{beltran2013thermosense} demonstrated the separation of ``background'' information from ``active'' pixels, and from that information, the extraction of the features necessary for a classifier to correctly determine the number of people in an $8\times8$ thermal image.
 
-In ThermoSense~\cite{beltran2013thermosense}, an algorithm was demonstrated that allowed the separation of ``background'' information from ``active'' pixels, and from that information, the extraction of the features necessary for a classifier to correctly determine the number of people in an $8\times8$ thermal image. This algorithm involved calculating the average and standard deviations of each pixel while it is guaranteed that the image would be empty, and then when motion is detected, considering any pixel ``active'' that reaches a value more than 3 standard deviations above that pixel's average when there was no motion.
+In accordance with the pseudo-code outlined in the ThermoSense paper and our description of the implementation, the algorithm described in \Fref{lst:exps:featcode} was created to extract the three features identified by ThermoSense; number of active pixels, number of connected components and size of largest connected components.
 
-From these ``active'' pixels, it was established that a set of three feature vectors could be generated to correctly classify the number of people in the thermal image. These feature vectors were;
-\begin{enumerate}
-\item \textbf{Number of active pixels}: The total number of pixels that are considered ``active'' in a given frame
-\item \textbf{Number of connected components}: If each active pixel is joined with its immediate active neighbors, how many ``islands'' of active pixels (termed connected components in graph theory) exist.
-\item \textbf{Size of largest connected component}: The number of active pixels contained within the largest connected component
-\end{enumerate}
+Given the scope restriction to a minimum viable implementation, the portion of the ThermoSense code dealing with scaling the thermal background for rooms without motion was not implemented. For connected component determination, we leveraged the \texttt{networkx} graph library.
 
-In accordance with the pseudo-code outlined in the ThermoSense paper, the algorithm described in \Fref{lst:exps:featcode} was created to extract these features. Given the scope restriction to a minimum viable implementation, the portion of the ThermoSense code dealing with scaling the thermal background for rooms without motion was not implemented. For connected components determination, we leveraged the \texttt{networkx} graph library.
+The output of feature information is the extent to which the \texttt{Features} class is involved in machine learning classification. The code used to perform the actual classification step is discussed in \Fref{chap:evaluation}.
 
 \begin{listing}
 \centering

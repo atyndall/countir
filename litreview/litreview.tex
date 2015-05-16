@@ -138,85 +138,11 @@ For approaches presupposing smartphones being present on each occupant, it simil
 
 Finally, we have thermal sensing. It provides both Presence and Count information, as it uses occupants' thermal signatures to determine the presence of people in a room. It does not however provide Identity information, as thermal signatures are not sufficiently unique with the technologies used to distinguished between occupants. Such a sensor system is presented as low-cost and energy efficient within ThermoSense~\cite{beltran2013thermosense}. The system non-invasive by design and can reliably detect occupants with a low Root Mean Squared Error. For our specific accessibility criteria, thermal sensing appears to be the most suitable option.
 
-\section{ThermoSense}
-\label{sec:litreview:thermalsensors}
-Our analysis (\Fref{sec:litreview:sensors:analysis}) concluded that thermal sensors are the best candidates for this project, with the state of the art in the field being the ThermoSense system~\cite{beltran2013thermosense}. As such, we will adopt a similar approach to ThermoSense, including the use of a \iar and machine learning algorithms for occupant detection.
-
-The ThermoSense approach combines a \pir, which detects motion, and a \iar which creates a thermal image, to determine occupancy in a sensor fusion. These sensors are fused by leveraging the \pir to determining the $0/>0$ case and the \iar to determine specific occupancy numbers. The specific \iar used subdivides the visible area into an $8\times8$ grid of sections from which temperatures can be derived. This sensor system is attached to the roof on a small embedded controller which is responsible for collecting the thermal data and transmitting it back to another computer for analysis via a low powered wireless networking protocol. 
-
-Occupants are separated from background radiation through the use of an image subtraction algorithm maintaining per-pixel mean and standard deviation values to update a thermal background map. If no motion is detected, this map is updated using a slow-moving \emwa over a 15 minute time window. If the room remains occupied for a long period, a more complex scaling algorithm is used which considers the coldest points in the room empty, and averages them against the new background, then performs an \emwa with a lower weighting.
-
-\section{Classification Algorithms}
-\label{sec:classification}
-% TODO: Better integration
-% TODO: Do I need equations for these explanations?
-Machine learning classification, the use of algorithms and training data to generate models that can make predictions on previously unseen data, is a large part of the ThermoSense paper. ThermoSense uses supervised learning algorithms, which require a set of examples with the correct answer.
-
-Here we discuss the different classification techniques that ThermoSense uses, as well as discussing other classification techniques that could offer useful comparison benchmarks.
-
-Supervised classification techniques can be split into two different classes of techniques; numeric and nominal. Numeric techniques provide predictions that are numerical in nature, that is, they return results on a continuous number line. Nominal techniques provide predictions whereby each new data point is predicted to belong to one of a set of predetermined classes, for example, colors of the rainbow.
-
-The training data classification algorithms use is a set of examples that have the corresponding correct answer attached. The set of values that describe each example are known as feature vectors.
-
-As previously discussed, the per-pixel average and standard deviation information updated every frame is used to determine several characteristics to be used as feature vectors. The determination of the feature vectors was subject to experimentation, since the differences at each grid element are too susceptible to individual room conditions to be used as feature vectors. Instead, a set of three different features was designed; the number of temperature ``anomalies'' (values above 3 standard deviations) in the space, the number of groups of temperature anomalies (known as connected components), and the size of the largest connected component in the space. These feature vectors were compared against three classification approaches; K-Nearest Neighbors, Linear Regression and an Artificial Neural Network. All three classifiers achieved a Root Mean Squared Error (RMSE) within $0.38\pm0.04$. This final classification is subject to a final averaging process over a four minute window, which was determined by experimentation to accurately remove the presence of independent errors from the raw classification data.
-
-In the ThermoSense system, there exists a \pir whose purpose is to determine if there is currently motion in the detected area. This motion detection is averaged over a time window and is used by the ThermoSense system to provide Presence information to the system. Because of this, it is not necessarily a requirement that cases with zero people are provided to the classification algorithms above, as the \pir alone can determine this information. ThermoSense performed experimentation to determine if the classification was more accurate when instances of empty rooms were provided to the classification algorithm vs. not. They found that generally not providing the empty case to the classification algorithm improved accuracy.
-
-Below we will review the the classification algorithms used by ThermoSense, as well as other common or novel classification algorithms in the field. We will discuss their basic operation, as well as how they are used within the Weka toolkit~\cite{Weka}, a common open-source library of machine learning algorithms.
-
-\subsection{Neural Networks}
-An Artificial Neural Network (ANN) uses neurons as a model for machine learning. A number of input neurons connected to the feature vectors is fed into another network of neurons (the ``hidden layer''), each of which has an activation function which determines what set of inputs will make it fire. This network then connects to a number of output neurons which can be examined to determine the network's predicted result. In the nominal result case, there is one neuron for each possible class (with each neuron being a binary yes/no), and in the numeric result case, there is one neuron without an activation function that outputs a raw numerical estimate. Neural networks can approximate functions of nearly any complexity with sufficient neurons in the correct topology, and are a commonly used classification technique.
-
-ThermoSense uses a neural network with a hidden layer of five neurons, with a sigmoid activation function for the hidden layer and a linear activation function for the output layer. They test only the one, two and three person cases, relying on their \pir to detect the zero person case. They use 70\% of their data for training the neural net, 15\% for testing the net and the final 15\% for validating their results. ThermoSense conducts tests interpreting the number of people as a numeric attribute.
-
-% TODO: Restructure the 'we use' part?
-We use Weka's ``MultilayerPerceptron'' neural network, which creates a hidden layer of $(\mathit{attributes} + \mathit{classes}) / 2$ (three) by default, however we manually reconfigure this to be one hidden layer of five neurons, like ThermoSense. It uses a sigmoid activation function for all neurons, except in the case that a numerical answer is to be predicted, in which case like ThermoSense, it uses a linear activation function for the output layer.
-
-\subsection{k-nearest Neighbors}
-A $k$-nearest Neighbors (KNN) approach uses the topology of the training data as a means to classify future data. For each data point that requires classification, a majority vote of its $k$ nearest neighbors in the training data determines which class it belongs to. KNN is one of the simplest machine learning algorithms, and due to its classification technique, is highly sensitive to classes that overlap. 
-
-ThermoSense uses 5-nearest Neighbors with the distance between features being determined by their Euclidean distance. For determining the class label, higher weightings are given to training points inversely to their distance from the point being classified.
-
-Weka's ``iBk'' function is used to perform a KNN calculation, configuring \texttt{distanceWeighting} to be ``Weight by 1-distance'' and \texttt{KNN} to be 5, to make the classification as similar in function to the ThermoSense approach as is possible. ThermoSense does not specify what validation technique they used, so we elected to use a 10-fold cross-validation.
-
-\subsection{Linear Regression}
-A Linear Regression approach attempts to construct a linear equation to describe the relationship between a dependent variable (in this case, the number of people in the space), and a number of other indicator variables (in this case, the three feature vectors). Generally, the equation takes the form $y = m_1x_1 + ... + m_nx_n + c$, where each of the feature vectors ($x_n$) is multiplied by a weight ($m_n$), and then a final constant ($c$) is added to provide the final prediction.
-
-ThermoSense uses a Linear Regression model of $y = \beta_A A + \beta_S S + \beta $, whereby $A$ is the number of active pixels, $S$ is the size of the largest connected component, and the $\beta$ values represent the corresponding coefficients. They opt to exclude the third feature, the number of connected components, as their testing indicates that excluding it minimizes the Root Mean Squared Error (RMSE) further. 
-
-We use Weka's ``LinearRegression'' function, and exclude the \texttt{numconnected} attribute from the feature vector list, as ThermoSense does, to attempt to match this approach.
-
-\subsection{Naive Bayes}
-A Naive Bayes approaches uses a simple application of Bayes' probability theorem to construct a probability of a given value belonging to a given class taking into account what is already known about the distribution of each of the classes in the data set, and the classification of those points that surround the point needing classification. One of the disadvantages of the Naive Bayes approach (and the source of its naivety) is that it assumes independence between each of the variables used for classification.
-
-In our data, the assumption of independence of variables is not correct, as each of the features are different representations of the same underlying data. However, due to Naive Bayes' ubiquity and simplicity, it can be illuminating to see how well a very common but poorly suited classifier fares with our data set. Within Weka, we use the ``NaiveBayes'' function, which has little by way of configuration, thus is left in its default state.
-
-\subsection{Support Vector Machines}
-Support Vector Machines (SVM) attempt to classify data by trying to find a plane that best separates two classes in a higher dimensional space. They do this by determining ``support vectors,'' which are those data points that lie on the ``edge'' of the separation between classes, and then finding the plane that maximizes the margin between the two classes being tested. SVM is another common classification technique that we elect to investigate.
-
-For our purposes, we use Weka's ``SMO'' function, which implements the Sequential Minimal Optimization algorithm, an efficient and recent method for training SVMs. For datasets with more than two classes (such as ours), the ``one vs. one'' method is used, whereby an SVM is created for each pair of classes, and then a method of majority voting is used to determine which class is the ultimately correct one. % TODO: Need to cite SMO?
-
-\subsection{Decision Trees}
-Decision Tree based approaches use a flow-chart of logical conditions which when met cause a data point to be classified as a specific class. Decision Tree classifiers generally use a partitioning approach whereby they split the data using a specific metric to maximize the tree's effectiveness. The advantages of Decision Trees are that they are considered to be ``white boxes,'' meaning that the result that they generate is human readable. This is useful, as in addition to the classifier providing its prediction of which class suits the data best, the tree can also be inspected to determine if the decisions it has extrapolated appear to be sensible, and even tweaked by humans if necessary.
-
-One quite common algorithm for generating decision trees is C4.5, which is implemented by the ``J48'' function in Weka. C4.5 uses a measure of information gain, a concept rooted in information theory and entropy, to determine when to create splits in the tree. There are few configurable parameters for this approach, and for those we use the Weka defaults.
-
-\subsection{KStar}
-The KStar (K*) algorithm, developed by Cleary and Trigg~\cite{cleary1995k} presents a different approach to $k$-nearest Neighbors type algorithms. With K* the distance used to compare similar points is not the Euclidean distance, but rather an entropic distance, a measure of how much effort is required to convert one example into another. This has several positive effects; it makes the algorithm more robust to missing values, and also it enables the classifier to output either a numeric or nominal result.
-
-We have decided to use K* as one of our classification algorithms as it presents an interesting and different approach to the more well known algorithms above, and also allows the investigation of KNN-like techniques in the numeric area. K* is present in Weka as ``KStar,'' and we will opt to use it in its default state.
-
-\subsection{0-R}
-0-R is our final classification algorithm. 0-R is a simple classifier that on nominal prediction will classify all new data as belonging to the category that was most common in the training data, and on numeric prediction will classify all new data as being the mean of all test data. A 0-R classifier, clearly, is not a serious classification technique, however it is useful in establishing a baseline from which to compare all other classification results.
-
-In Weka, the 0-R classifier is known as ``ZeroR'' and accepts no parameters.
-
+% TODO: Tie these two sections together better
 \section{Research Gap}
 It is clear that ThermoSense's use of the Grid-EYE sensor provides a system that meets our goals of low cost, non-invasiveness, reliability and energy efficiency. However, there is room for improvement in these goals. The TMote Sky, the embedded controller for the ThermoSense design is expensive (estimated to be \$100+), outdated (released in 2006) and does not appear to be easily acquirable within Australia (manufacturer's website is no longer available). Additionally, research has indicated that the Grid-EYE sensor is not available to purchase within Australia, or to order into Australia from other countries.
 
 Because of the difficulty in acquiring ThermoSense's exact components, we believe there is a clear gap within the Australian market for an occupancy sensor that meets these goals, particularly with reference to the newer technologies available. Additionally, as the Grid-EYE cannot be used, an investigation into how well a substitute sensor can meet replicate ThermoSense's results will be necessary.
-
-% ASK: Best way to indicate research gap?
 
 \ifcsdef{mainfile}{}{\bibliography{../references/primary}}
 \end{document}
