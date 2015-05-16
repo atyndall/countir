@@ -121,7 +121,6 @@ The KStar (K*) algorithm, developed by Cleary and Trigg~\cite{cleary1995k} prese
 
 We have decided to use K* as one of our classification algorithms as it presents an interesting and different approach to the more well known algorithms above, and also allows the investigation of KNN-like techniques in the numeric area. K* is present in Weka as ``KStar,'' and we will opt to use it in its default state.
 
-
 \begin{table}[h]
 \centering
 \begin{tabular}{|p{40mm}|p{20mm}|p{70mm}|}
@@ -251,6 +250,27 @@ A YZXStudio USB 3.0 Power Monitor was used to measure power consumed by the Pre-
 
 To determine the draw from the \pir and \iar, we disconnected all sensors from the Arduino, and ran the power measurement again. The same code was run on the Arduino. This time we received a result of 45~mA for 1~Hz, and 46~mA for 8~Hz. We can then conclude that the sensors themselves draw around 6~mA of power.
 
+\section{Discussion}
+
+\subsection{Classification}
+% TODO: Discuss entropy stuff in more detail, get diagrams, etc
+
+As discussed in \Fref{subsec:classification} our prototype achieves positive results. However, our results indicate that there is a fundamental difference between our set of experiments and those performed by ThermoSense. None of our attempts to replicate their results succeeded, with every replicated result being significantly worse than that of ThermoSense. The most likely reason for this is that the differences in the field of view of the \mlx when compared to the Grid-EYE is significant enough to affect the suitability of the algorithms used. In particular the \mlx created far more instances of partial people within the sensed region. This presents a key caveat for any future researchers attempting to reapply ThermoSense's methodology to a different sensor.
+
+With the specific classification techniques that we choose to test, we found quite a variation in their success. Our best techniques, K* and C4.5, were very similar in result and there is quite a gap to the third-best technique, the Multi-Layer Perceptron. We can only speculate as to why this is the case, but it is notable that both K* and C4.5 use entropy measures to make decisions, with K* using them as a distance measure, and C4.5 using them as a means to split the dataset for the decision tree. Perhaps entropy-based learning algorithms are of particular use with our sensor; this is an area worth further investigation.
+
+Our worst selected technique, unsurprisingly, was Naive Bayes. It is unsurprising that it performed so poorly, as the ``Naive'' part of the technique is an assumption of independence between the different features input, which is clearly false with our features. All three of our features relate to the same underlying graph and are most definitely correlated with each other.
+
+By using the K* or C4.5 machine learning algorithm, we are confident that the prototype could achieve appropriate levels of accuracy for its occupancy goals.
+
+\subsection{Energy Efficiency}
+% TODO: Talk about differences between how we measure energy vs how ThermoSense measures energy 
+
+As discussed in \fref{subsec:energy}, the prototype is comparatively power hungry, as the ThermoSense system achieved a power consumption of around 5mA, approximately 10 times less. However, within the scope of this project we restricted our adherence to low-power consumption to an architectural level, rather than committing significant time to reducing this consumption through software means.
+
+Accordingly, while the current prototype is not as energy efficient as the ThermoSense prototype, the Arduino used is not the most energy efficient available, and the software running on it makes no attempt to sleep the hardware while no processing is occurring. We believe that with such measures, our prototype could achieve similar or better energy efficiency than ThermoSense, and have ensured that our architectural decisions will not restrict such energy saving modifications.
+
+We recommend that in future work, further energy saving measures, such as sleeping between sampling, and using lower power draw Arduinos are investigated to determine how much power it is possible to save.
 
   \ifcsdef{mainfile}{}{\bibliography{../references/primary}}
 \end{document}

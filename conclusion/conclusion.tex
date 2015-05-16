@@ -30,40 +30,32 @@ By sensing in the infrared spectrum, many elements of automatic and manual perso
 Through our architectural decisions, we believe that the project's goal of producing a non-invasive sensing system has been achieved.
 
 \subsection{Reliable}
+% TODO: Better summary
 Creating a system that is wholly automated and can detect occupants with a high level of accuracy is important to ensure that climate control and other occupant-driven tasks are reliably executed.
 
-As discussed in the Classification Results (\Fref{chap:evaluation}, \fref{subsec:classification}), the prototype developed achieves accuracies in the 80\% range for select results. However, our results indicate that there is a fundamental difference between our set of experiments and those performed by ThermoSense. None of our attempts to replicate their results succeeded, with every replicated result being significantly worse than that of ThermoSense. The most likely reason for this is that the differences in the field of view of the \mlx when compared to the Grid-EYE is significant enough to affect the suitability of the algorithms used. In particular the \mlx created far more instances of partial people within the sensed region. This presents a key caveat for any future researchers attempting to reapply ThermoSense's methodology to a different sensor.
-
-With the specific classification techniques that we choose to test, we found quite a variation in their success. Our best techniques, K* and C4.5, were very similar in result and there is quite a gap to the third-best technique, the Multi-Layer Perceptron. We can only speculate as to why this is the case, but it is notable that both K* and C4.5 use entropy measures to make decisions, with K* using them as a distance measure, and C4.5 using them as a means to split the dataset for the decision tree. Perhaps entropy-based learning algorithms are of particular use with our sensor; this is an area worth further investigation.
-
-Our worst selected technique, unsurprisingly, was Naive Bayes. It is unsurprising that it performed so poorly, as the ``Naive'' part of the technique is an assumption of independence between the different features input, which is clearly false with our features. All three of our features relate to the same underlying graph and are most definitely correlated with each other.
+As discussed in the \fref{subsec:classification}, the prototype developed achieves accuracies in the 80\% range for the K* and C4.5 machine learning algorithms.
 
 By using the K* or C4.5 machine learning algorithm, we are confident that the prototype could achieve appropriate levels of accuracy for its occupancy goals, and believe that the reliability requirements of our project have been met.
 
 \subsection{Energy Efficient}
 Finally, as the system would hopefully be suitable for use in existing buildings, we aimed to create a system that could operate efficiently on battery power, as retrofitting power on a roof location would further add to the cost of the sensing system.
 
-As discussed in the Energy Efficiency results (\Fref{chap:evaluation}, \fref{subsec:energy}), the prototype is comparatively power hungry, as the ThermoSense system achieved a power consumption of around 5mA, approximately 10 times less. However, within the scope of this project we restricted our adherence to low-power consumption to an architectural level, rather than committing significant time to reducing this consumption through software means.
-
-Accordingly, while the current prototype is not as energy efficient as the ThermoSense prototype, the Arduino used is not the most energy efficient available, and the software running on it makes no attempt to sleep the hardware while no processing is occurring. We believe that with such measures, our prototype could achieve similar or better energy efficiency than ThermoSense, and have ensured that our architectural decisions will not restrict such energy saving modifications.
+As discussed in the Energy Efficiency results (\Fref{chap:evaluation}, \fref{subsec:energy}) % TODO more here
 
 We recommend that in future work, further energy saving measures, such as sleeping between sampling, and using lower power draw Arduinos are investigated to determine how much power it is possible to save.
-
 % TODO: Better conclusion here
 
-\section{Research Limitations}
-While reflecting critically on our research, we found several limitations in the methodology and results, discussed here.
+\section{Future Work}
+This project has attempted to explore the area of thermal sensing and occupancy with some depth, and with the developed software and hardware prototype, has laid the foundation for many more projects that build upon this project's work. Some areas of future research are discussed here;
 
+\subsection{Broader Data Collection}
 Data collection was constrained to one set of ten experiments. Each of these experiments had the sensing system recording at the same height and the same angle. While this data was varied somewhat through half of the experiments involving sitting occupants (thereby increasing their thermal signature from the sensor's perspective), an exploration of how the results differed based on the sensor's viewing angle, as well as the sensor's distance from the ground would have served to improve the result set.
 
-Additionally, exploring how different subsets of the three current features, or possibly new features derived from the thermal capture, affect the accuracy of the machine learning algorithms may demonstrate interesting results.
+\subsection{Different Feature Vectors}
+Exploring how different subsets of the three current features, or possibly new features derived from the thermal capture, affect the accuracy of the machine learning algorithms may demonstrate interesting results. % TODO: Improve
 
-% TODO: affect effect determine
-
-Finally, while the set of explored classification algorithms was significant, there is always room for improvement in that regard. Exploring how different parameters of these algorithms affected the results, and how different algorithms altogether faired would have added significantly to the experimental data. Emerging work in the area of classification algorithm selection and parameter optimization~\cite{thornton2013auto} could assist in determining which algorithm suited the \mlx the most automatically.
-
-\section{Future Directions}
-This project has attempted to explore the area of thermal sensing and occupancy with some depth, and with the developed software and hardware prototype, has laid the foundation for many more projects that build upon this project's work. Some areas of future research are discussed here;
+\subsection{Different Classification Algorithms}
+While the set of explored classification algorithms was significant, there is always room for improvement in that regard. Exploring how different parameters of these algorithms affected the results, and how different algorithms altogether faired would have added significantly to the experimental data. Emerging work in the area of classification algorithm selection and parameter optimization~\cite{thornton2013auto} could assist in determining which algorithm suited the \mlx the most automatically.
 
 \subsection{Sub-pixel localization}
 The  characteristics of the \mlx's individual thermopiles, discussed in \Fref{chap:evaluation}, \fref{subsec:sensitivity}, make potentially possible an algorithm for the calculation of the position and size of an object with a sub-pixel accuracy. By exploiting the fact that an object's detected temperature changes based on its sub-pixel position, either in the center or on the boundary of two pixels, it may be possible to further refine the edges of thermal objects detected, and increase the effective resolution and accuracy of the sensor system.
