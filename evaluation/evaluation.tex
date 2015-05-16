@@ -72,7 +72,7 @@ This phenomena is not anticipated to impact our intended use case, as it only st
 
 \section{Classification Accuracy}
 
-With a greater understanding of the prototype's caveats, it is now possible to gather both thermal and visual data in a synchronized format. This data can be collected and used to determine the effectiveness of the occupant counting algorithms used. Due to the prototype's technical similarly to ThermoSense \cite{beltran2013thermosense}, a similar set of experimental conditions will be used, with a comparison against ThermoSense being used as a benchmark. To this end, several experiments were devised, each of which had its data gathered and processed in accordance with the same general process, outlined in \Fref{fig:methods:flowchart} and discussed in more detail in this section.
+With a greater understanding of the prototype's caveats, it is now possible to gather both thermal and visual data in a synchronized format. This data can be collected and used to determine the effectiveness of the occupant counting algorithms used. Due to the prototype's technical similarly to ThermoSense~\cite{beltran2013thermosense}, a similar set of experimental conditions will be used, with a comparison against ThermoSense being used as a benchmark. To this end, several experiments were devised, each of which had its data gathered and processed in accordance with the same general process, outlined in \Fref{fig:methods:flowchart} and discussed in more detail in this section.
 
 \begin{figure}
 \centering
@@ -97,12 +97,12 @@ The user is then required to press one of the number keys on their keyboard to i
 \subsection{Feature extraction and data conversion}
 % TODO: Explain classification
 
-Once the ground truth data is available, it is now possible to utilize the data to perform various classification tests. For this, we use version 3.7.12 of the open-source Weka toolkit \cite{Weka}, which provides easy access to a variety of machine learning algorithms and the tools necessary to analyze their effectiveness.
+Once the ground truth data is available, it is now possible to utilize the data to perform various classification tests. For this, we use version 3.7.12 of the open-source Weka toolkit~\cite{Weka}, which provides easy access to a variety of machine learning algorithms and the tools necessary to analyze their effectiveness.
 
 We collate and export the ground truth and extracted features from multiple captures to a Comma Seperated Value (CSV) file for processing with Weka. \texttt{weka\_export.py} takes two parameters, a comma-separated list of different experiment directories to pull ground truth and feature data from, and the number of frames at the beginning of each capture that can be considered as ``motionless.'' With this information, a CSV-file file is generated.
 
 \subsection{Running Weka Tests}
-Once the CSV file is generated, it is then possible process this file through Weka. Weka provides a variety of algorithms. We choose algorithms based on those present in the ThermoSense paper \cite{beltran2013thermosense}, as well others that provide a broad spread of classification techniques. These algorithms are discussed in detail in \Fref{sec:classification}. The Weka parameters used for each of these algorithms can be seen in \Fref{tab:methods:params}.
+Once the CSV file is generated, it is then possible process this file through Weka. Weka provides a variety of algorithms. We choose algorithms based on those present in the ThermoSense paper~\cite{beltran2013thermosense}, as well others that provide a broad spread of classification techniques. These algorithms are discussed in detail in \Fref{sec:classification}. The Weka parameters used for each of these algorithms can be seen in \Fref{tab:methods:params}.
 
 \begin{table}[h]
 \centering
