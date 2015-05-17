@@ -241,14 +241,37 @@ $r$: Correlation coefficient, for a numeric test \\
 \label{tab:results:set1}
 \end{table}
 
+\clearpage{}
+
 \subsection{Energy Efficiency}
 \label{subsec:energy}
 
-% TODO: Energy efficiency table
+\begin{table}
+\centering
+\begin{tabular}{|c|c|r|r|}
+\hline
+\multicolumn{2}{|c|}{\textbf{Connected}} & \multicolumn{2}{c|}{\textbf{Power}} \\ \hline
+\textbf{MLX}           & \textbf{PIR}           & \textbf{mA}         & \textbf{V}         \\ \hline
+\cmark                 & \cmark                 & 52                  & 4.92               \\ \hline
+\cmark                 & \xmark                 & 52                  & 4.92               \\ \hline
+\xmark                 & \cmark                 & 46                  & 4.92               \\ \hline
+\xmark                 & \xmark                 & 46                  & 4.92               \\ \hline
+\multicolumn{2}{|c|}{Power Saving$^1$}          & 34                  & 4.92               \\ \hline
+\end{tabular}\\
+\parbox{260pt}{
+$^1$: \texttt{SLEEP\_MODE\_PWR\_DOWN} AVR mode on Arduino\\
+MLX: \mlx\\
+PIR: \pir
+}
+\caption{Energy Consumption Results}
+\label{tab:results:energy}
+\end{table}
 
-A YZXStudio USB 3.0 Power Monitor was used to measure power consumed by the Pre-Processing and Sensing tier together while experimenting, as in a more advanced prototype, they would be envisioned to be run on battery power. This was done by connecting the Arduino's USB cable to the Monitor, and the Monitor to a computer. It was calculated that the average power consumption was 51~mA at 4.92~volts with a sample rate of 1~Hz, while continuously outputting data. This power consumption did not vary significantly between sample rates, with the consumption increasing $<$ 0.8~mA with the sample rate being set to 8~Hz.
+A YZXStudio USB 3.0 Power Monitor was used to measure power consumed by the Pre-Processing and Sensing tier together while experimenting, as in a more advanced prototype, they would be envisioned to be run on battery power. This was done by connecting the Arduino's USB cable to the Monitor, and the Monitor to a computer. It was calculated (see \Fref{tab:results:energy}) that the average power consumption was 52~mA at 4.92~volts with a sample rate of 0.5~Hz, while continuously outputting data over USB Serial. This power consumption did not vary measurably between sample rates.
 
-To determine the draw from the \pir and \iar, we disconnected all sensors from the Arduino, and ran the power measurement again. The same code was run on the Arduino. This time we received a result of 45~mA for 1~Hz, and 46~mA for 8~Hz. We can then conclude that the sensors themselves draw around 6~mA of power.
+To determine the draw from the \pir and \iar, we disconnected all sensors from the Arduino, and ran the power measurement again. The same code was run on the Arduino. This time we received a result of 46~mA  for all sample rates. We found that this power consumption appeared to be from the \mlx, as adding/removing the \pir had negligible effects on power consumption. Power consumption also did not appear to vary depending on the temperature of the objects being detected, or the motion properties of the scene. We can then conclude that the sensors themselves draw around 6~mA of power.
+
+We also ran the Arduino in the most aggressive power saving mode available on the hardware, and measured how much power was consumed with and without sensors attached. It appears that this power saving mode disables all sensor power, as in both cases a draw of 34~mA was measured. This represents a power saving of 12~mA from the base Arduino power consumption.
 
 \section{Discussion}
 
@@ -273,11 +296,19 @@ By using the K* or C4.5 machine learning algorithm, we are confident that the pr
 \subsection{Energy Efficiency}
 % TODO: Talk about differences between how we measure energy vs how ThermoSense measures energy 
 
-As discussed in \fref{subsec:energy}, the prototype is comparatively power hungry, as the ThermoSense system achieved a power consumption of around 5mA, approximately 10 times less. However, within the scope of this project we restricted our adherence to low-power consumption to an architectural level, rather than committing significant time to reducing this consumption through software means.
+As discussed in \fref{subsec:energy}, the prototype is comparatively power hungry, as the ThermoSense system achieved a power consumption of around 5mA, approximately 10 times less. This can be attributed to the TMote Sky being a very energy efficient platform. However, within the scope of this project we restricted our adherence to low-power consumption to an very basic level, rather than committing significant time to reducing this consumption through software or advanced hardware means.
 
-Accordingly, while the current prototype is not as energy efficient as the ThermoSense prototype, the Arduino used is not the most energy efficient available, and the software running on it makes no attempt to sleep the hardware while no processing is occurring. We believe that with such measures, our prototype could achieve similar or better energy efficiency than ThermoSense, and have ensured that our architectural decisions will not restrict such energy saving modifications.
+ThermoSense indicated that for each of their nodes, which consumed approximately 5mA each, there was a combined 6000~mAh of battery capacity available. They indicated that at a sample rate of 0.2~Hz (once every five seconds) their prototype was able to run for approximately three weeks.
 
-We recommend that in future work, further energy saving measures, such as sleeping between sampling, and using lower power draw Arduinos are investigated to determine how much power it is possible to save.
+Our prototype can boot and take one measure in approximately 100~ms, indicating it would need to be awake for 2\% of each five second window to perform a one sample. This calculates to an average power consumption of approximately 35~mA, assuming our current Arduino power draw. With a similar battery capacity, we calculate that our prototype would last approximately one week.
+
+However, we contend that in a real world prototype, a sample rate of 0.01~Hz (once per 100 seconds) would be sufficient, with even slower sample rates being a possibility. Similarly, the Arduino used was not targeted towards the extreme energy efficiency of the TMote Sky. There exist Arduino prototypes that use the same processor (and thereby are fully compatible) that can be constructed easily and reduce base power consumption to 7~mA, without sleep. In sleep mode, the power consumption drops to an impressive 43~\textmu A.
+
+At such a sample rate, the sensor would need to be awake for 0.1\% of the sample window, with a calculated consumption rate of 13~mA when active (7~mA base power + 6~mA for components) and 43~\textmu A when sleeping. The average power consumption of the prototype in this scenario is approximately 60~\textmu A. On a 6000~mAh battery pack, such a prototype is estimated to have more than a decade of power, a longer life than the self-discharge rate of the battery itself.
+
+However, this estimation does not account for the radio that would be included in latter versions of a prototype. A commonly used radio used in such devices is the ZigBee. Dementyev, Hodges and Taylor \etal~\cite{dementyev2013power} suggest that a ZigBee radio would consume approximately 4.2~\textmu A when sleeping and 9.3~mA when awake, with a minimum wake time of around 270~ms to connect to the other nodes on the network. With a minimum data transfer rate of 20~kb/s and approximately 200 bytes of data to transmit each interval, we can set the upper limit of the radio wake time to be 300~ms.
+
+This brings the prototype's power consumption while awake to approximately 23~mA and 65~\textmu A when asleep. Assuming the entire prototype would need to be awake for the radio transmission period, and the wake interval remains 0.01~Hz, the wake period now accounts for 0.3\% of the total period, producing an average power consumption of around 140~\textmu A. With this rate of consumption, we still measure the prototype's battery life in several years.
 
   \ifcsdef{mainfile}{}{\bibliography{../references/primary}}
 \end{document}
