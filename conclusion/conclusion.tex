@@ -23,29 +23,31 @@ Right now we are at the stage where this technology is economical for researcher
 \subsection{Non-Invasive}
 To ensure wide adoption, minimizing privacy concerns is a must. We viewed creating a system with little means by which to  surveil occupants as the best way to minimize such concerns.
 
-As discussed in the Literature Review (\Fref{chap:litreview}, \fref{sec:litreview:sensors:analysis} and \ref{sec:litreview:thermalsensors}), we concluded that the \mlx provides the best trade-off between accuracy and non-invasiveness of those sensing systems studied. It provides this tradeoff from two different angles; the infrared aspect and the low-resolution aspect. 
+As discussed in the Literature Review (\Fref{sec:litreview:sensors:analysis} and \ref{sec:litreview:thermalsensors}), we concluded that the \mlx provides the best trade-off between accuracy and non-invasiveness of those sensing systems studied. It provides this tradeoff from two different angles; the infrared aspect and the low-resolution aspect. 
 
 By sensing in the infrared spectrum, many elements of automatic and manual person identification become more difficult, as many such methods rely on using color information to make such decisions. Similarly, by having the sensor constrained to such a low resolution, it is also quite difficult to perform person or action identification, due to the very little information available.
 
 Through our architectural decisions, we believe that the project's goal of producing a non-invasive sensing system has been achieved.
 
 \subsection{Reliable}
-% TODO: Better summary
 Creating a system that is wholly automated and can detect occupants with a high level of accuracy is important to ensure that climate control and other occupant-driven tasks are reliably executed.
 
-As discussed in the \fref{subsec:classification}, the prototype developed achieves accuracies in the 80\% range for the K* and C4.5 machine learning algorithms.
+As discussed in \Fref{subsec:classification}, we were unable to replicate ThermoSense's RMSEs of 0.346, 0.409 and 0.385 with either $k$-nearest Neighbors, Linear Regression, or Multi-Layer Perceptron respectively. This suggests that the classifiers ThermoSense used were highly sensitive to their sensor's specific properties.
+
+However among our own selected machine learning algorithms, K* and C4.5 achieved accuracies in the 80\% range. These algorithms also improved upon ThermoSense's best RMSE with RMSEs of 0.304 and 0.314 respectively. Both of these algorithms leverage entropy measures as a way of partitioning data, suggesting that entropy-based approaches may be particularly suited to our dataset.
 
 By using the K* or C4.5 machine learning algorithm, we are confident that the prototype could achieve appropriate levels of accuracy for its occupancy goals, and believe that the reliability requirements of our project have been met.
 
 \subsection{Energy Efficient}
 Finally, as the system would hopefully be suitable for use in existing buildings, we aimed to create a system that could operate efficiently on battery power, as retrofitting power on a roof location would further add to the cost of the sensing system.
 
-As discussed in the Energy Efficiency results (\Fref{chap:evaluation}, \fref{subsec:energy}) % TODO more here
+As discussed in the Energy Efficiency results (\Fref{subsec:energy}), with the same sample rate and battery size and while sleeping between samples, our prototype is estimated to last one week compared to ThermoSense's three.
+
+However, we consider the sample rate of once every five seconds used by ThermoSense to be unnecessarily fast, and instead advocate for a sample rate of once every 100 seconds. With such a sample rate, and using a proposed alternative Arduino system with a significantly reduced power draw, we estimate a power draw lower than that of ThermoSense, with the system being to able to last years without charge. % TODO: Fact check
 
 Accordingly, while the current prototype is not as energy efficient as the ThermoSense prototype, the Arduino used is not the most energy efficient available, and the software running on it makes no attempt to sleep the hardware while no processing is occurring. We believe that with such measures, our prototype could achieve similar or better energy efficiency than ThermoSense, and have ensured that our architectural decisions will not restrict such energy saving modifications.
 
 We recommend that in future work, further energy saving measures, such as sleeping between sampling, and using lower power draw Arduinos are investigated to determine how much power it is possible to save.
-% TODO: Better conclusion here
 
 \section{Future Work}
 This project has attempted to explore the area of thermal sensing and occupancy with some depth, and with the developed software and hardware prototype, has laid the foundation for many more projects that build upon this project's work. Some areas of future research are discussed here;
@@ -60,7 +62,7 @@ Exploring how different subsets of the three current features, or possibly new f
 While the set of explored classification algorithms was significant, there is always room for improvement in that regard. Exploring how different parameters of these algorithms affected the results, and how different algorithms altogether faired would have added significantly to the experimental data. Emerging work in the area of classification algorithm selection and parameter optimization~\cite{thornton2013auto} could assist in determining which algorithm suited the \mlx the most automatically.
 
 \subsection{Sub-pixel localization}
-The  characteristics of the \mlx's individual thermopiles, discussed in \Fref{chap:evaluation}, \fref{subsec:sensitivity}, make potentially possible an algorithm for the calculation of the position and size of an object with a sub-pixel accuracy. By exploiting the fact that an object's detected temperature changes based on its sub-pixel position, either in the center or on the boundary of two pixels, it may be possible to further refine the edges of thermal objects detected, and increase the effective resolution and accuracy of the sensor system.
+The  characteristics of the \mlx's individual thermopiles, discussed in \Fref{subsec:sensitivity}, make potentially possible an algorithm for the calculation of the position and size of an object with a sub-pixel accuracy. By exploiting the fact that an object's detected temperature changes based on its sub-pixel position, either in the center or on the boundary of two pixels, it may be possible to further refine the edges of thermal objects detected, and increase the effective resolution and accuracy of the sensor system.
 
 \subsection{Improving Robustness}
 One of the main areas of the project that was deemed out of scope was the introduction of a wireless mesh networking architecture to the project. Future prototypes would consist of an many-to-one relationship between the Sensing/Pre-processing tier and the Analysis tier. Exploring the best way to mesh network these components while maintaining all the pre-existing criteria of the project would be involved and useful.
