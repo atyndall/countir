@@ -192,7 +192,7 @@ In these experiments people moved slowly and deliberately, making sure there wer
 
 Each experiment was recorded with a thermal-visual synchronization at 1~Hz over approximately 60-120 second intervals. Each experiment had 10-15 frames at the beginning where nothing was within the view of the sensor to allow the thermal background to be calculated. Each frame generated from these experiments was manually tagged with the ground truth value of its number of occupants using the tagging script discussed in \Fref{subsec:datalabelling}. A breakdown of the number of frames collected for each occupancy type can be found in \Fref{tab:expbreak}.
 
-The resulting features and ground truth were combined and exported to CSV allowing Weka to analyze them. This data was analyzed with the feature vectors always being considered numeric data and with the ground truth considered both numeric and nominal. We evaluate the dataset against a set of classification algorithms introduced in \Fref{sec:classification} of our Literature Review.
+The resulting features and ground truth were combined and exported to CSV allowing Weka to analyze them. This data was analyzed with the feature vectors always being considered numeric data and with the ground truth considered both numeric and nominal.
 
 \begin{landscape}
  \begin{figure}
@@ -209,9 +209,7 @@ The resulting features and ground truth were combined and exported to CSV allowi
 \subsection{Classification}
 \label{subsec:classification}
 
-Our results (\Fref{tab:results:set1}) show an interesting spread of accuracies between the different tests that were tried. We will analyze the data with reference to two broad categories; those tests replicating ThermoSense, and those tests we ourselves proposed.
-
-As discussed previously, significant care was taken to ensure that the same classification parameters were used between our experiments and those performed in ThermoSense to provide as accurate as possible a comparison between our results. However, there were some ambiguities with the ThermoSense results that have made it more difficult to determine which parameters to choose. In particular, with reference to the $k$-Nearest Neighbours tests (KNN), it was ambiguous within the ThermoSense paper as to if they had elected to use a nominal classification or a numeric classification for this data.
+Significant care was taken to ensure that the same classification parameters were used between our experiments and those performed in ThermoSense to provide as accurate as possible a comparison between our results. However, there were some ambiguities with the ThermoSense results that have made it more difficult to determine which parameters to choose. In particular, with reference to the $k$-Nearest Neighbours tests (KNN), it was ambiguous within the ThermoSense paper as to if they had elected to use a nominal classification or a numeric classification for this data.
 
 Because of this, four tests were performed overall to replicate the ThermoSense results as closely as possible; KNN tests for both numeric and nominal representations of data, a Multi-Layer Perceptron numeric test (MLP) and a Linear Regression numeric test (Lin Reg). With these tests we found that our prototype did not achieve comparable results. ThermoSense reported correlation coefficients ($r$) of around 0.9 for their MLP and Lin Reg tests, however we could not replicate these results, with our best being 0.69 and 0.59 respectively. We were also unable to achieve the low Root Mean Squared Errors (RMSEs) reported by ThermoSense, with their RMSEs for KNN, MLP and Lin Reg being 0.346, 0.385 and 0.409 respectively, while ours were 0.364 (KNN Nominal Case), 1.123 (KNN Numeric Case), 0.592 (MLP) and 0.525 (Lin Reg). Our numeric KNN test performed worse than the 0-R benchmark for numeric tests, indicating a very poor result, with it achieving an RMSE of 1.123 vs. the 0-R's 0.651.
 
