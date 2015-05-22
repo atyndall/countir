@@ -43,18 +43,15 @@ Due to low cost, broad support and ease of development, the \ard platform was se
 
 A solution was found in the form of a \iic level-shifter, the Adafruit ``4-channel I2C-safe Bi-directional Logic Level Converter''~\cite{AdafruitI2C}, which provided a cheap method to bi-directionally communicate between the two devices at their own preferred voltages. The layout of the circuit necessary to link the \ard and the \mlx, including the use of this converter, can be seen in \Fref{fig:circuits:node}.
 
-% TODO: Check PIR settings
 Additionally, as used in the ThermoSense paper, a \pir motion detector~\cite{AdafruitPIR} was also connected to the \ard. This sensor, operating at 5V natively, did not require any complex circuitry to interface with the \ard. It is connected to digital pin 2 on the \ard, where it provides a rising signal (a ``trigger'') in the event that motion is detected, which can be configured to cause an interrupt on the \ard. In the configuration used in this project, the sensor's sensitivity was set to the highest value and the timeout for re-triggering (the trigger reoccurring) was set to the lowest value (approximately 2.5 seconds). Additionally, the continuous re-triggering feature (whereby the sensor produces continuous rising and falling signals for the duration of motion) was disabled using the provided jumpers. 
 
 \subsection{Analysis / Classification}
-% Talk about RPi and prototype board, and prototype iterations
-
 For the Analysis Tier, the Raspberry Pi B+ was chosen, as it is a powerful and inexpensive computer capable of running Linux. The \ard is connected to the Raspberry Pi over USB, which provides it both power and the capacity to transfer data. In turn, the Raspberry Pi is connected to a simple micro-USB rechargeable battery pack, which provides it with power, and subsequently the \ard and sensors.
 
 \subsection{Component Costs}
 \label{subsec:cost}
 
-As being low-cost is one of the project's goals, we have summarized the cost of each of the components of the prototype in \Fref{tab:sensor:cost}. We believe that for a prototype, this cost is sufficiently low. In the envisioned system, there would only be one Raspberry Pi in the system, and it would not require a camera, lowering the cost to around $\$50 + \$135n$ where $n$ is the number of sensors. Similarly, as technology improves, sensor technology expected to continue to fall in price, causing the most expensive component, the infrared sensor, to become increasingly cost-effective.
+As being low-cost is one of the project's goals, we have summarized the cost of each of the components of the prototype in \Fref{tab:sensor:cost}. We believe that for a prototype, this cost is sufficiently low. In the envisioned system, there would only be one Raspberry Pi in the system, and it would not require a camera, lowering the cost to around $\$50 + \$135n$ where $n$ is the number of sensors. Similarly, as technology improves, sensor technology expected to continue to fall in price, causing the most expensive component, the infra-red sensor, to become increasingly cost-effective.
 
 When we compare this to the estimated cost of the ThermoSense system (\Fref{tab:sensor:thermosensecost}), we believe that it achieves a suitably comparable cost for a prototype. When removing the aspects of the prototype that would be unnecessary in the final version, the difference is only \$15.
 
@@ -190,7 +187,7 @@ The ThermoSense approach combines a \pir, which detects motion, and a \iar which
 
 Machine learning classification, the use of algorithms and training data to generate models that can make predictions on previously unseen data, is a large part of the ThermoSense paper. ThermoSense uses supervised learning algorithms, which require a set of examples with the correct answer.
 
-Supervised classification techniques can be split into two different classes of techniques; numeric and nominal. Numeric techniques provide predictions that are numerical in nature, that is, they return results on a continuous number line. Nominal techniques provide predictions whereby each new data point is predicted to belong to one of a set of predetermined classes, for example, colors of the rainbow.
+Supervised classification techniques can be split into two different classes of techniques; numeric and nominal. Numeric techniques provide predictions that are numerical in nature, that is, they return results on a continuous number line. Nominal techniques provide predictions whereby each new data point is predicted to belong to one of a set of predetermined classes, for example, colours of the rainbow.
 
 The training data classification algorithms use is a set of examples that have the corresponding correct answer attached. The set of values that describe each example are known as feature vectors.
 
@@ -200,11 +197,11 @@ This per-pixel average and standard deviation information updated every frame is
 
 \begin{enumerate}
 \item \textbf{Number of active pixels}: The total number of pixels that are considered ``active'' in a given frame
-\item \textbf{Number of connected components}: If each active pixel is joined with its immediate active neighbors, how many ``islands'' of active pixels (termed connected components in graph theory) exist.
+\item \textbf{Number of connected components}: If each active pixel is joined with its immediate active neighbours, how many ``islands'' of active pixels (termed connected components in graph theory) exist.
 \item \textbf{Size of largest connected component}: The number of active pixels contained within the largest connected component
 \end{enumerate}
 
-These feature vectors were compared against three classification approaches; K-Nearest Neighbors, Linear Regression and an Artificial Neural Network. This final classification is subject to a final averaging process over a four minute window, which was determined by experimentation to accurately remove the presence of independent errors from the raw classification data.
+These feature vectors were compared against three classification approaches; K-Nearest Neighbours, Linear Regression and an Artificial Neural Network. This final classification is subject to a final averaging process over a four minute window, which was determined by experimentation to accurately remove the presence of independent errors from the raw classification data.
 
 In the ThermoSense system, there exists a \pir whose purpose is to determine if there is currently motion in the detected area. This motion detection is averaged over a time window and is used by the ThermoSense system to provide Presence information to the system. Because of this, it is not necessarily a requirement that cases with zero people are provided to the classification algorithms above, as the \pir alone can determine this information. ThermoSense performed experimentation to determine if the classification was more accurate when instances of empty rooms were provided to the classification algorithm vs. not. They found that generally not providing the empty case to the classification algorithm improved accuracy.
 
@@ -260,7 +257,7 @@ Finally, \texttt{ManagerPlaybackEmulator} is a simple class which can take a pre
 
 The \texttt{pxdisplay} module is a set of functions that utilize the \texttt{pygame} library to create a simple live-updating window containing a thermal map representation of the thermal data. One can generate any number of \texttt{pxdisplay} objects, which leverage the \texttt{multithreading} library and \texttt{multithreading.Queue} to allow thermal data to be sent to the display.
 
-The class also provides a set of functions to set a ``hotest'' and ``coldest'' temperature and have RGB colors assigned from red to green to blue for each temperature value that falls between those two extremes.
+The class also provides a set of functions to set a ``hotest'' and ``coldest'' temperature and have RGB colours assigned from red to green to blue for each temperature value that falls between those two extremes.
 
 \subsubsection*{\texttt{Visualizer} class}
 The \texttt{Visualizer} class is the natural compliment to the \texttt{Manager} series of classes. The functions contained within can be provided with a Queue object (generated by a \texttt{Manager} class) and can perform a variety of visualization and storage functions.
@@ -284,8 +281,6 @@ The output of feature information is the extent to which the \texttt{Features} c
 \caption{Annotated and abbreviated image subtraction and feature extraction code from the Thermal Array Library}
 \label{lst:exps:featcode}
 \end{listing}
-
-% TODO Talk about ground truth generation script
 
 \section{Summary}
 We believe that the hardware and software architecture presented here lays a solid foundation on which experimental data can be collected. The hardware architecture, as discussed, as been specifically selected to ensure that there is a transition path from the current USB Serial Pre-Processing/Analysis connection to one which does this wirelessly. The software library, TArL, has been written to be robust and general, so that its functionality is both useful in the current situation, and also for future experiments with this and other prototypes.

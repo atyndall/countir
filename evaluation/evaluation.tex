@@ -10,11 +10,11 @@ In this chapter we devise a set of experiments to test the sensor system's prope
 In order to best utilize the \mlx, we must first understand the properties it exhibits, and their potential effects on our ability to perform occupancy measurements. These properties can be broadly separated into three different categories; bias, noise and sensitivity.
 
 \subsection{Bias}
-When detecting no infrared radiation (IR), the sensor should indicate a near-zero temperature, as the sensor's method of determining temperature involves measuring IR. If in such conditions the temperatures indicated are non-uniform, that suggests that the sensor has some level of bias in its measurements. We attempted to investigate the possibility of such bias by performing thermal captures of the night sky. While this does not completely eliminate the IR, it does remove a significant proportion of it.
+When detecting no infra-red radiation (IR), the sensor should indicate a near-zero temperature, as the sensor's method of determining temperature involves measuring IR. If in such conditions the temperatures indicated are non-uniform, that suggests that the sensor has some level of bias in its measurements. We attempted to investigate the possibility of such bias by performing thermal captures of the night sky. While this does not completely eliminate the IR, it does remove a significant proportion of it.
 
-To test this, the thermal sensor was exposed to the night sky at a capture rate of 1~Hz for 4 minutes, with the sensing results combined to create a set of means and standard deviations for the pixels at ``rest''. The average temperature detected was $11.78~\dc$, with the standard deviation remaining less than $0.51~\dc$ over the entire exposure period. The resultant mean thermal map (\Fref{fig:meanplot}) shows that the four center pixels maintain a similar temperature around $9~\dc$, with temperatures beginning to deviate as they became further from that point.
+To test this, the thermal sensor was exposed to the night sky at a capture rate of 1~Hz for 4 minutes, with the sensing results combined to create a set of means and standard deviations for the pixels at ``rest''. The average temperature detected was $11.78~\dc$, with the standard deviation remaining less than $0.51~\dc$ over the entire exposure period. The resultant mean thermal map (\Fref{fig:meanplot}) shows that the four centre pixels maintain a similar temperature around $9~\dc$, with temperatures beginning to deviate as they became further from that point.
 
-The most likely cause of bias is related to the physical structure of the sensor. The \mlx is a rectangular sensor which has been placed inside a circular tube. Due to this physical arrangement, the sides of this rectangular sensor will be significantly closer to these edges than the center. If the sensor's casing is at an ambient temperature higher than the measurement data (as they likely were in this case) thermal radiation from the sensor package itself could provide significant enough to cause the edges to appear warmer than the observed area of the sky. This effect could be controlled for by cooling the sensor package to below that of the ambient temperature being measured, however, this is not a concern in this project, as the method of calculating a thermal background will compensate for any such bias provided it remains relatively constant, which if our hypothesis is correct, it should.
+The most likely cause of bias is related to the physical structure of the sensor. The \mlx is a rectangular sensor which has been placed inside a circular tube. Due to this physical arrangement, the sides of this rectangular sensor will be significantly closer to these edges than the centre. If the sensor's casing is at an ambient temperature higher than the measurement data (as they likely were in this case) thermal radiation from the sensor package itself could provide significant enough to cause the edges to appear warmer than the observed area of the sky. This effect could be controlled for by cooling the sensor package to below that of the ambient temperature being measured, however, this is not a concern in this project, as the method of calculating a thermal background will compensate for any such bias provided it remains relatively constant, which if our hypothesis is correct, it should.
 
 \begin{figure}
 \centering
@@ -41,21 +41,19 @@ One of the primary features of the \mlx is the ability to sample the thermal dat
   \centering
   \includegraphics[width=0.9\textwidth]{../diagrams/noise-graph3.pdf}
   \caption{Plot of occupant and background sensor noise at sampling speeds 0.5~Hz -- 8~Hz}
-  \label{fig:noise} % TODO: Update graph with newer one with std invo
+  \label{fig:noise}
 \end{figure}
 
 In the 0.5~Hz case, the third standard deviation above background ($3\sigma_b$) is $6.4~\dc$ below the minimum occupant value ($\mathrm{min}(o)$) detected. As the noise increases, this gap slowly decreases, with $5.75~\dc$ for 1~Hz, $5.53~\dc$ for 2~Hz, $4.48~\dc$ for 4~Hz, and finally $3.15~\dc$ for 8~Hz. In none of these cases is $3\sigma_b \ge \mathrm{min}(o)$, which would completely rule that sample rate out.
 
 Based on the data, noise will not pose any issue as the slowest sampling rate of 0.5~Hz is sufficient for the system's needs, and shows a sufficiently large gap between occupant and background temperatures.
 
-% TODO: Signal to noise ratio calculations
-
 \subsection{Sensitivity}
 \label{subsec:sensitivity}
 
-The \mlx is a sensor composed of 64 independent non-contact digital thermopiles, which measure infrared radiation to determine the temperature of objects. While they are bundled in one package, the sensor's block diagram discussed previously (\Fref{fig:exps:blockdia}) shows that they are in fact wholly independent sensors placed in a grid structure. This has important effects on the properties of the data that the \mlx produces. 
+The \mlx is a sensor composed of 64 independent non-contact digital thermopiles, which measure infra-red radiation to determine the temperature of objects. While they are bundled in one package, the sensor's block diagram discussed previously (\Fref{fig:exps:blockdia}) shows that they are in fact wholly independent sensors placed in a grid structure. This has important effects on the properties of the data that the \mlx produces. 
 
-\Fref{fig:hotmotion} shows a smoothed temperatures graph of six of the sensor's central pixels as a hot object is moved from left to right at an approximately constant speed. One of the most interesting phenomena in this graph is the variability of the object's detected temperature as it moves ``between'' two different pixels; there is a noticeable drop in the objects detected temperature. Each pixel appears to exhibit a bell-curve like line, with the detected temperature increasing from the baseline and peaking as the object enters the center of the pixel, and the detected temperature similarly decreasing as the object leaves the center. 
+\Fref{fig:hotmotion} shows a smoothed temperatures graph of six of the sensor's central pixels as a hot object is moved from left to right at an approximately constant speed. One of the most interesting phenomena in this graph is the variability of the object's detected temperature as it moves ``between'' two different pixels; there is a noticeable drop in the objects detected temperature. Each pixel appears to exhibit a bell-curve like line, with the detected temperature increasing from the baseline and peaking as the object enters the centre of the pixel, and the detected temperature similarly decreasing as the object leaves the centre. 
 
 This phenomenon has several possible causes. One likely explanation is that each individual pixel detects objects radiating at larger angles of incidence to be colder than they actually are: As the object enters a pixel's effective field of view, it will radiate into the pixel at an angle that is at the edge of the pixel's ability to sense, with this angle slowing decreasing until the hot object is directly radiating into the pixel's sensor, causing a peak in the temperature reading. As the object leaves the individual element's field of view, the same happens in reverse.
 
@@ -87,14 +85,12 @@ When the script runs, it creates a folder with the name specified, storing both 
 
 \subsection{Data labeling}
 \label{subsec:datalabelling}
-Once this data capture is complete, the data is copied to a computer with GUI support for labeling. The utility \texttt{tagging.py} is used for this stage. This script is passed the path to the capture directory, and the number of frames at the beginning of the capture that are guaranteed to contain no motion. This utility will display frame by frame each visual and thermal capture together, as well as the computed feature vectors (based on a background map created from the first $n$ frames without motion).
+Once this data capture is complete, the data is copied to a computer with GUI support for labelling. The utility \texttt{tagging.py} is used for this stage. This script is passed the path to the capture directory, and the number of frames at the beginning of the capture that are guaranteed to contain no motion. This utility will display frame by frame each visual and thermal capture together, as well as the computed feature vectors (based on a background map created from the first $n$ frames without motion).
 
 The user is then required to press one of the number keys on their keyboard to indicate the number of people present in this frame. This number will be recorded in a file called \texttt{truth} in the capture's directory. The next frame will then be displayed, and the process continues. This utility enables the quick input of the ground truth of each capture, which is necessary for the classification stage.
 
 \subsection{Feature extraction and data conversion}
-% TODO: Explain classification
-
-Once the ground truth data is available, it is now possible to utilize the data to perform various classification tests. For this, we use version 3.7.12 of the open-source Weka toolkit~\cite{Weka}, which provides easy access to a variety of machine learning algorithms and the tools necessary to analyze their effectiveness.
+Once the ground truth data is available, it is now possible to utilize the data to perform various classification tests. For this, we use version 3.7.12 of the open-source Weka toolkit~\cite{Weka}, which provides easy access to a variety of machine learning algorithms and the tools necessary to analyse their effectiveness.
 
 We collate and export the ground truth and extracted features from multiple captures to a Comma Seperated Value (CSV) file for processing with Weka. \texttt{weka\_export.py} takes two parameters, a comma-separated list of different experiment directories to pull ground truth and feature data from, and the number of frames at the beginning of each capture that can be considered as ``motionless.'' With this information, a CSV-file file is generated.
 
@@ -105,7 +101,7 @@ Firstly, they use a neural network with a hidden layer of five neurons, with a s
 
 We use Weka's ``MultilayerPerceptron'' neural network to recreate this, which creates a hidden layer of $(\mathit{attributes} + \mathit{classes}) / 2$ (three) by default, however we manually reconfigure this to be one hidden layer of five neurons, like ThermoSense. It uses a sigmoid activation function for all neurons, except in the case that a numerical answer is to be predicted, in which case like ThermoSense, it uses a linear activation function for the output layer.
 
-Secondly, they use a $k$-Nearest Neighbors (where $k=5$) with the distance between features being determined by their Euclidean distance. For determining the class label, higher weightings are given to training points inversely to their distance from the point being classified.
+Secondly, they use a $k$-Nearest Neighbours (where $k=5$) with the distance between features being determined by their Euclidean distance. For determining the class label, higher weightings are given to training points inversely to their distance from the point being classified.
 
 Weka's ``iBk'' function is used to perform a KNN calculation, configuring \texttt{distanceWeighting} to be ``Weight by 1-distance'' and \texttt{KNN} to be 5, to make the classification as similar in function to the ThermoSense approach as is possible. ThermoSense does not specify what validation technique they used, so we elected to use a 10-fold cross-validation.
 
@@ -113,13 +109,13 @@ Thirdly, they use a Linear Regression model of $y = \beta_A A + \beta_S S + \bet
 
 We use Weka's ``LinearRegression'' function, and exclude the \texttt{numconnected} attribute from the feature vector list, as ThermoSense does, to attempt to match this approach.
 
-In addition to the above three techniques, we also use nominal versions, in addition to our own techniques (detailed in \label{tab:methods:params}). Our techniques are predominantly well known, and as with the ThermoSense techniques above, are described in more detail in \Fref{chap:appendix:classification}. The one algorithm that isn't particularly well known that we have chosen is the K* algorithm, which we describe in further detail here:
+In addition to the above three techniques, we use our own techniques (detailed in \label{tab:methods:params}). Our techniques are predominantly well known, and are described in more detail in \Fref{chap:appendix:classification}. The one algorithm that isn't particularly well known that we have chosen is the K* algorithm, which we describe in further detail here:
 
-The KStar (K*) algorithm, developed by Cleary and Trigg~\cite{cleary1995k} presents a different approach to $k$-nearest Neighbors type algorithms. With K* the distance used to compare similar points is not the Euclidean distance, but rather an entropic distance, a measure of how much effort is required to convert one example into another. This has several positive effects; it makes the algorithm more robust to missing values, and also it enables the classifier to output either a numeric or nominal result.
+The KStar (K*) algorithm, developed by Cleary and Trigg~\cite{cleary1995k} presents a different approach to $k$-nearest Neighbours type algorithms. With K* the distance used to compare similar points is not the Euclidean distance, but rather an entropic distance, a measure of how much effort is required to convert one example into another. This has several positive effects; it makes the algorithm more robust to missing values, and also it enables the classifier to output either a numeric or nominal result.
 
 We have decided to use K* as one of our classification algorithms as it presents an interesting and different approach to the more well known algorithms above, and also allows the investigation of KNN-like techniques in the numeric area. K* is present in Weka as ``KStar,'' and we will opt to use it in its default state.
 
-\begin{table}[h]
+\begin{table}
 \centering
 \begin{tabular}{|p{40mm}|p{20mm}|p{70mm}|}
 \hline
@@ -127,7 +123,7 @@ We have decided to use K* as one of our classification algorithms as it presents
 
 {Neural Network \newline (ANN)} & {Nominal, \newline Numeric} & \texttt{weka.classifiers.functions\newline.MultilayerPerceptron \newline -L 0.3 -M 0.2 -N 500 -V 15 \newline -S 0 -E 20 -H 5} \\ \hline
 
-{$k$-nearest Neighbors \newline (KNN)} & Nominal, \newline Numeric & \texttt{weka.classifiers.lazy.IBk \newline -K 5 -W 0 -F \newline -A "weka.core.neighboursearch\newline.LinearNNSearch -A \textbackslash"weka.core\newline.EuclideanDistance \newline -R first-last\textbackslash""} \\ \hline
+{$k$-nearest Neighbours \newline (KNN)} & Nominal, \newline Numeric & \texttt{weka.classifiers.lazy.IBk \newline -K 5 -W 0 -F \newline -A "weka.core.neighboursearch\newline.LinearNNSearch -A \textbackslash"weka.core\newline.EuclideanDistance \newline -R first-last\textbackslash""} \\ \hline
 
 Naive Bayes & Nominal & \texttt{weka.classifiers.bayes.NaiveBayes} \\ \hline
 
@@ -135,7 +131,7 @@ Naive Bayes & Nominal & \texttt{weka.classifiers.bayes.NaiveBayes} \\ \hline
 
 {C4.5 \newline Decision Tree} & Nominal & \texttt{weka.classifiers.trees.J48 \newline -C 0.25 -M 2} \\ \hline
 
-K* & Nominal, \newline Numeric & \texttt{weka.classifiers.lazy.KStar \newline -B 20 -M a} \\ \hline % TODO: Check that entropy distance
+K* & Nominal, \newline Numeric & \texttt{weka.classifiers.lazy.KStar \newline -B 20 -M a} \\ \hline
 
 Linear Regression & Numeric & \texttt{weka.classifiers.functions\newline.LinearRegression \newline -S 0 -R 1.0E-8} \\ \hline
 
@@ -155,9 +151,8 @@ As the data we are using is based on real experiments, the number of frames whic
 In our first set of experiments, a scene was devised in accordance with \Fref{fig:exps:3setup} that attempted to sense people from above, as did ThermoSense. The prototype was set up on the ceiling, pointing down at a slight angle to both prevent the interference of the mounting pole (see \Fref{fig:pictures:protoact}) and to increase thermal mass detected. For ease of use, the prototype was powered by mains power, and was networked with a laptop for command input and data collection via Ethernet. This set of experiments involved between one and three people being present in the scene, moving in and out in various ways in accordance with the following scripts.
 
 The first four sub-experiments involved people standing;
-% ASK: Adequate description
 \begin{itemize}
-\item Sub-exp 1: One person walks in, stands in center, walks out of frame.
+\item Sub-exp 1: One person walks in, stands in centre, walks out of frame.
 \item Sub-exp 2: One person walks in, joined by another person, both stand there, one leaves, then another leaves.
 \item Sub-exp 3: One person walks in, joined by one, joined by another, all three stand there, one leaves, then another, then another.
 \item Sub-exp 4: Two people walk in simultaneously, both stand there, both leave simultaneously.
@@ -165,7 +160,7 @@ The first four sub-experiments involved people standing;
 
 The latter five sub-experiments involved people sitting;
 \begin{itemize}
-\item Sub-exp 5: One person walks in, sits in center, moves to right, walks out of frame.
+\item Sub-exp 5: One person walks in, sits in centre, moves to right, walks out of frame.
 \item Sub-exp 6: One person walks in, joined by another person, both sit there, they stand and switch chairs, one leaves, then another leaves.
 \item Sub-exp 7, 8: One person walks in, joined by one, joined by another, they all sit there, one leaves, one shuffles position, then another leaves, then another. (x2)
 \item Sub-exp 9: Two people walk in, both sit there simultaneously, both leave simultaneously.
@@ -173,7 +168,11 @@ The latter five sub-experiments involved people sitting;
 
 In these experiments people moved slowly and deliberately, making sure there were large pauses between changes of action. The people involved were of average height, wearing various clothing. The room was cooled to 18 degrees for these experiments.
 
-\begin{table}
+Each experiment was recorded with a thermal-visual synchronization at 1~Hz over approximately 60-120 second intervals. Each experiment had 10-15 frames at the beginning where nothing was within the view of the sensor to allow the thermal background to be calculated. Each frame generated from these experiments was manually tagged with the ground truth value of its number of occupants using the tagging script discussed in \Fref{subsec:datalabelling}. A breakdown of the number of frames collected for each occupancy type can be found in \Fref{tab:expbreak}.
+
+The resulting features and ground truth were combined and exported to CSV allowing Weka to analyse them. This data was analysed with the feature vectors always being considered numeric data and with the ground truth considered both numeric and nominal.
+
+\begin{table}[b]
 \centering
 \begin{tabular}{|r|r|r|r|}
 \hline
@@ -188,18 +187,14 @@ Total              & 1051               & 100.0                 & 100.0         
 \label{tab:expbreak}
 \end{table}
 
-Each experiment was recorded with a thermal-visual synchronization at 1~Hz over approximately 60-120 second intervals. Each experiment had 10-15 frames at the beginning where nothing was within the view of the sensor to allow the thermal background to be calculated. Each frame generated from these experiments was manually tagged with the ground truth value of its number of occupants using the tagging script discussed in \Fref{subsec:datalabelling}. A breakdown of the number of frames collected for each occupancy type can be found in \Fref{tab:expbreak}.
-
-The resulting features and ground truth were combined and exported to CSV allowing Weka to analyze them. This data was analyzed with the feature vectors always being considered numeric data and with the ground truth considered both numeric and nominal.
-
-\begin{landscape}
  \begin{figure}
  \centering
- \includegraphics[height=\textheight]{../diagrams/third-exp-setup2.pdf}
+ \includegraphics[width=\textwidth]{../diagrams/third-exp-setup2.pdf}
  \caption{Classifier Experiment Set Setup (measurements approximate)}
  \label{fig:exps:3setup}
  \end{figure}
-\end{landscape}
+
+ \clearpage{}
 
 \section{Results}
 \label{sec:results}
@@ -248,7 +243,7 @@ $^2$: Excludes number of connected components feature \\
 \%: Precision, measuring a nominal test result \\
 $r$: Correlation coefficient, measuring a numeric test result \\
 }
-\caption{Classifier Experiment Set Results}
+\caption{Results of Classification Experiment Set classification replicating ThermoSense algorithms and using self-selected algorithm}
 \label{tab:results:set1}
 \end{table}
 
@@ -274,7 +269,7 @@ $^1$: \texttt{SLEEP\_MODE\_PWR\_DOWN} AVR mode on Arduino\\
 MLX: \mlx\\
 PIR: \pir
 }
-\caption{Energy Consumption Results}
+\caption{Energy consumption of sensing system in aggregate and per component}
 \label{tab:results:energy}
 \end{table}
 
@@ -291,13 +286,13 @@ As discussed in \Fref{subsec:classification} our prototype achieves positive res
 
 With the specific classification techniques that we choose to test, we found quite a variation in their success. Our best techniques, K* and C4.5, were very similar in result and there is quite a gap to the third-best technique, the Multi-Layer Perceptron. We can only speculate as to why this is the case, but it is notable that both K* and C4.5 use entropy measures to make decisions,.
 
-Examining the plots of the Euclidean distance for the features found in \Fref{fig:featplots}, it is apparent there is no obvious separation between the different classes, with the three sets of values overlapping significantly. This explains $k$-Nearest Neighbors (KNN) and Support Vector Machine's (SVM) poor performance with our data.
+Examining the plots of the Euclidean distance for the features found in \Fref{fig:featplots}, it is apparent there is no obvious separation between the different classes, with the three sets of values overlapping significantly. This explains $k$-Nearest Neighbours (KNN) and Support Vector Machine's (SVM) poor performance with our data.
 
-In the case of KNN, a selection of the nearest neighbors are not in many cases going to be indicative of the feature vector's class membership. A similar idea applies in the case of SVM, the aforementioned plots suggest that there may be no clear hyperplane through which the different classes of data can be separated.
+In the case of KNN, a selection of the nearest neighbours are not in many cases going to be indicative of the feature vector's class membership. A similar idea applies in the case of SVM, the aforementioned plots suggest that there may be no clear hyperplane through which the different classes of data can be separated.
 
 The success of entropy-based methods suggests that the separation of classes is less of an issue when distance is measured with entropy, as in the case of K*, or when entropy is used to divide the dataset, as in the case of C4.5. In \Fref{fig:correctplots} we can see a comparison of the predictions of the SVM algorithm against that of K*. For the central part of the graph (20 $<$ Active pixels $<$ 35), the predictive power of both algorithms appears quite similar. However in the left and right parts of the graph, we can see that SVM fails to correctly separate the classes. This suggests that SVM's use of support vectors to split the feature space is ill-suited to the overlapping features of the dataset, and that K*'s entropy-based approach is able to find more suitable splits.
 
-Due to the white box nature of decision trees, it is possible for us to further example the tree generated by the C4.5 algorithm  to determine how sensible the branches are. We can see from \Fref{lst:tree} that C4.5 considers the number of active pixels to be the strongest indicator of the number of occupants. This makes intuitive sense, as the number of active pixes should be the most general descriptor of the number of occupants. This is followed by the size of largest connected component, and the number of connected components. Overall the decisions made by the C4.5 tree appear sensible, although in some places it appears the tree had very few cases to make a decision with, which could be rectified with an increase in the size of the dataset.
+Due to the white box nature of decision trees, it is possible for us to further example the tree generated by the C4.5 algorithm  to determine how sensible the branches are. We can see from \Fref{lst:tree} that C4.5 considers the number of active pixels to be the strongest indicator of the number of occupants. This makes intuitive sense, as the number of active pixels should be the most general descriptor of the number of occupants. This is followed by the size of largest connected component, and the number of connected components. Overall the decisions made by the C4.5 tree appear sensible, although in some places it appears the tree had very few cases to make a decision with, which could be rectified with an increase in the size of the dataset.
 
 Our worst selected technique, unsurprisingly, was Naive Bayes. It is unsurprising that it performed so poorly, as the ``Naive'' part of the technique is an assumption of independence between the different features input, which is clearly false with our features. All three of our features relate to the same underlying graph and are most definitely correlated with each other.
 
@@ -376,13 +371,12 @@ numactive > 20
 \begin{tabular}{l|r|r|r|r|r|r|r|}
 \cline{2-8}
                                          & \textbf{Radio} & \textbf{Sleep} & \textbf{Wake} & \textbf{Wake} & \textbf{Sample} & \textbf{Avg}  & \textbf{Life}   \\ \cline{1-1}
-\multicolumn{1}{|l|}{\textbf{Prototype}} &                & \textbf{(mA)}  & \textbf{(mA)} & \textbf{(ms)} & \textbf{(Hz)}   & \textbf{(mA)} & \textbf{(days)} \\ \hline
+\multicolumn{1}{|l|}{\textbf{System}} &                & \textbf{(mA)}  & \textbf{(mA)} & \textbf{(ms)} & \textbf{(Hz)}   & \textbf{(mA)} & \textbf{(days)} \\ \hline
 \multicolumn{1}{|l|}{ThermoSense}        & \cmark         & ?              & ?             & ?             & 0.20            & 4.82          & 86              \\ \hline
-\multicolumn{1}{|l|}{Current}            & \xmark         & 34.000         & 52            & $\infty$      & 0.20            & 52.00         & 8               \\ \hline
-\multicolumn{1}{|l|}{Sleeping}           & \xmark         & 34.000         & 52            & 100           & 0.20            & 34.36         & 12              \\ \hline
+\multicolumn{1}{|l|}{Current}            & \xmark         & 34             & 52            & $\infty$      & 0.20            & 52.00         & 8               \\ \hline
+\multicolumn{1}{|l|}{Sleeping}           & \xmark         & 34             & 52            & 100           & 0.20            & 34.36         & 12              \\ \hline
 \multicolumn{1}{|l|}{Low-Power A}        & \xmark         & 0.043          & 13            & 100           & 0.01            & 0.06          & 7446            \\ \hline
 \multicolumn{1}{|l|}{Low-Power B}        & \cmark         & 0.065          & 23            & 300           & 0.01            & 0.13          & 3114            \\ \hline
-\multicolumn{1}{|l|}{Low-Power C}        & \cmark         & 0.065          & 23            & 300           & 0.20            & 1.44          & 289             \\ \hline
 \end{tabular}
 \parbox{270pt}{
 {\footnotesize
@@ -396,7 +390,7 @@ Sample (Hz): \> Freq. that prototype wakes and performs sample \& transmit\\
 Avg (mA): \> Avg. current given sleep/wake current, sample and wake time\\
 Life (days): \> Est. life of prototype assuming a perfect 10,000~mAh battery
 \end{tabbing}}}
-\caption{Comparison of different products power consumption and their various energy efficiency traits}
+\caption{Comparison of different systems power consumption and their various energy efficiency traits}
 \label{tab:lives}
 \end{table}
 
@@ -412,15 +406,11 @@ Our current prototype (``Current'' in \Fref{tab:lives}) can boot and take one me
 
 If we were to implement a simple sleep measure whereby when not sampling the prototype sleeps (``Sleeping'' in \Fref{tab:lives}) we can achieve some basic power savings. This calculates to an average power consumption of approximately 34~mA, assuming our current Arduino power draw. With a similar battery capacity, we calculate that our prototype would last approximately 12~days.
 
-The high power consumption of our prototype is largely due to the use of off-the-shelf Arduino hardware, which is not built for low-power applications, and the various level shifting circuits required for its operation. Firstly, there exist many indicator lights on the Arduino that are constantly powered, we hypothesize that at our low-power level, they could account for several milliamps. Disabling those lights would lead to a reduction in power usage.
+The high power consumption of our prototype is largely due to the use of off-the-shelf Arduino hardware, which is not designed for low-power applications. Firstly, there exist several unnecessary LEDs that are constantly powered which could account for several milliamps. Secondly, there is a large power loss in our level shifting and voltage conversion circuit. We estimate that the resistors alone could be responsible for 3--4~mA of lost current. This is primarily a result of the 5~V, 3.3~V and 2.6~V requirements of different components. Standardizing the voltage would allow for inefficient conversion circuits to be removed.
 
-Secondly, there is a large power loss in our level shifting and voltage conversion circuit. We estimate that the resistors alone could be responsible for 3--4~mA of lost current. This is primarily a result of the various different voltages that the different components of the prototype run at. Moving to a prototype with a consistent voltage would remove the significant power losses of the conversion circuits.
-
-Hypothesizing a more ideal system, we contend that in a real world prototype a sample rate of 0.01~Hz (once per 100 seconds) would be sufficient, with even slower sample rates being a possibility. There exist Arduino prototypes that use the same processor as ours (and thereby are fully compatible) that can be constructed easily and reduce base power consumption to 7~mA, without sleep. In sleep mode, the power consumption drops to an impressive 43~\textmu A. Such a prototype without a radio (``Low-Power A'' in \Fref{tab:lives}), is estimated to last more than a decade.
+Additionally, there exist Arduino board that use the same processor as ours (and thereby are fully compatible) that can be constructed easily and reduce base power consumption to 7~mA, without sleep. In sleep mode, the power consumption drops to an impressive 43~\textmu A. In a real-world system, we contend that a sample rate of 0.0.1~Hz (once per 100 seconds) would provide sufficiently up-to-date information. A system using this board, at a 0.1~Hz sample rate (``Low-Power A'' in \Fref{tab:lives}), is estimated to last more than a decade.
 
 However, this estimation does not account for the radio that would be included in latter versions of a prototype. A commonly used radio used in such devices is the ZigBee. Dementyev, Hodges and Taylor \etal~\cite{dementyev2013power} suggest that a ZigBee radio would consume approximately 4.2~\textmu A when sleeping and 9.3~mA when awake, with a minimum wake time of around 270~ms to connect to the other nodes on the network. With a minimum data transfer rate of 20~kb/s and approximately 200 bytes of data to transmit each interval, we can set the upper limit of the radio wake time to be 300~ms. Adding the radio does reduce the estimated life significantly (``Low-Power B'' in \Fref{tab:lives}), however it is still approximately eight years.
-
-Massive efficiency gains are being seen from both the reduction of wake time, as well as the reduction in power. To see the gains merely from the reduction in power, we fix prototype's sample rate (``Low-Power C'' in \Fref{tab:lives}) to the original 5 second interval. This still enables the prototype to last around 290 days, which represents a significant increase from the current 8~days.
 
   \ifcsdef{mainfile}{}{\bibliography{../references/primary}}
 \end{document}
