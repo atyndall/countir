@@ -202,16 +202,6 @@ Total              & 1051               & 100.0                 & 100.0         
 \subsection{Classification}
 \label{subsec:classification}
 
-Significant care was taken to ensure that the same classification parameters were used between our experiments and those performed in ThermoSense to provide as accurate as possible a comparison between our results. However, there were some ambiguities with the ThermoSense results that have made it more difficult to determine which parameters to choose. In particular, with reference to the $k$-Nearest Neighbours tests (KNN), it was ambiguous within the ThermoSense paper as to if they had elected to use a nominal classification or a numeric classification for this data.
-
-Because of this, four tests were performed overall to replicate the ThermoSense results as closely as possible; KNN tests for both numeric and nominal representations of data, a Multi-Layer Perceptron numeric test (MLP) and a Linear Regression numeric test (Lin Reg). With these tests we found that our prototype did not achieve comparable results. ThermoSense reported correlation coefficients ($r$) of around 0.9 for their MLP and Lin Reg tests, however we could not replicate these results, with our best being 0.69 and 0.59 respectively. We were also unable to achieve the low Root Mean Squared Errors (RMSEs) reported by ThermoSense, with their RMSEs for KNN, MLP and Lin Reg being 0.346, 0.385 and 0.409 respectively, while ours were 0.364 (KNN Nominal Case), 1.123 (KNN Numeric Case), 0.592 (MLP) and 0.525 (Lin Reg). Our numeric KNN test performed worse than the 0-R benchmark for numeric tests, indicating a exceedingly poor classification result, with it achieving an RMSE of 1.123 vs. the 0-R's 0.651.
-
-For our own proposed nominal classification algorithms, our accuracies were significantly improved, and in some cases exceeded the RMSEs reported by ThermoSense. Within our dataset, the K* and C4.5 algorithms were most accurate, with accuracies of 82.56\% and 82.39\% respectively. They both achieved RMSEs lower than the best achieved by ThermoSense, with their 0.304 and 0.314 a significant improvement on ThermoSense's KNN RMSE of 0.346.
-
-Following down the ranking, our nominal MLP performed next best, with an accuracy of 77.14\%, and an RMSE of 0.362, which is slightly higher than ThermoSense's best result. Following, the Support Vector Machine (SVM) implementation achieved a relatively poor accuracy of 67.18\% with an RMSE of 0.398, and finally the Naive Bayes (N. Bayes) approach, achieved the worst accuracy of 63.59\% with an RMSE of 0.405. None of these techniques however achieved an RMSE or accuracy worse than our 0-R benchmark, which achieved an RMSE of 0.442 and an accuracy of 49.74\%.
-
-In our sole numeric choice of K*, we found that it achieved a better correlation than any ThermoSense technique, with $r = 0.760$. Additionally, its RMSE of 0.423 was also superior.
-
 \begin{table}
 \centering
 \begin{tabular}{|l|r|r|r|}
@@ -246,6 +236,16 @@ $r$: Correlation coefficient, measuring a numeric test result \\
 \caption{Results of Classification Experiment Set classification replicating ThermoSense algorithms and using self-selected algorithm}
 \label{tab:results:set1}
 \end{table}
+
+Significant care was taken to ensure that the same classification parameters were used between our experiments and those performed in ThermoSense to provide as accurate as possible a comparison between our results. However, there were some ambiguities with the ThermoSense results that have made it more difficult to determine which parameters to choose. In particular, with reference to the $k$-Nearest Neighbours tests (KNN), it was ambiguous within the ThermoSense paper as to if they had elected to use a nominal classification or a numeric classification for this data.
+
+Because of this, four tests were performed overall to replicate the ThermoSense results as closely as possible; KNN tests for both numeric and nominal representations of data, a Multi-Layer Perceptron numeric test (MLP) and a Linear Regression numeric test (Lin Reg). With these tests we found that our prototype did not achieve comparable results. ThermoSense reported correlation coefficients ($r$) of around 0.9 for their MLP and Lin Reg tests, however we could not replicate these results, with our best being 0.69 and 0.59 respectively. We were also unable to achieve the low Root Mean Squared Errors (RMSEs) reported by ThermoSense, with their RMSEs for KNN, MLP and Lin Reg being 0.346, 0.385 and 0.409 respectively, while ours were 0.364 (KNN Nominal Case), 1.123 (KNN Numeric Case), 0.592 (MLP) and 0.525 (Lin Reg). Our numeric KNN test performed worse than the 0-R benchmark for numeric tests, indicating a exceedingly poor classification result, with it achieving an RMSE of 1.123 vs. the 0-R's 0.651.
+
+For our own proposed nominal classification algorithms, our accuracies were significantly improved, and in some cases exceeded the RMSEs reported by ThermoSense. Within our dataset, the K* and C4.5 algorithms were most accurate, with accuracies of 82.56\% and 82.39\% respectively. They both achieved RMSEs lower than the best achieved by ThermoSense, with their 0.304 and 0.314 a significant improvement on ThermoSense's KNN RMSE of 0.346.
+
+Following down the ranking, our nominal MLP performed next best, with an accuracy of 77.14\%, and an RMSE of 0.362, which is slightly higher than ThermoSense's best result. Following, the Support Vector Machine (SVM) implementation achieved a relatively poor accuracy of 67.18\% with an RMSE of 0.398, and finally the Naive Bayes (N. Bayes) approach, achieved the worst accuracy of 63.59\% with an RMSE of 0.405. None of these techniques however achieved an RMSE or accuracy worse than our 0-R benchmark, which achieved an RMSE of 0.442 and an accuracy of 49.74\%.
+
+In our sole numeric choice of K*, we found that it achieved a better correlation than any ThermoSense technique, with $r = 0.760$. Additionally, its RMSE of 0.423 was also superior.
 
 \clearpage{}
 
@@ -379,6 +379,7 @@ numactive > 20
 \multicolumn{1}{|l|}{Low-Power B}        & \cmark         & 0.065          & 23            & 300           & 0.01            & 0.13          & 3114            \\ \hline
 \end{tabular}
 \parbox{270pt}{
+\vspace*{-13px}
 {\footnotesize
 \begin{tabbing}
 Radio: ~~~~~~~~~~~~\= Does the prototype use radio transmission?\\
@@ -390,27 +391,28 @@ Sample (Hz): \> Freq. that prototype wakes and performs sample \& transmit\\
 Avg (mA): \> Avg. current given sleep/wake current, sample and wake time\\
 Life (days): \> Est. life of prototype assuming a perfect 10,000~mAh battery
 \end{tabbing}}}
+\vspace*{-20px}
 \caption{Comparison of different systems power consumption and their various energy efficiency traits}
 \label{tab:lives}
 \end{table}
 
 As discussed in \fref{subsec:energy}, the prototype initially appears comparatively power hungry, as the ThermoSense system reported a power consumption of around 4.8~mA, approximately 10 times less. However, making fair comparisons is difficult, as their power consumption data is incomplete. The 4.8~mA figure they quote is an average consumption figure taking into account all aspects of the wake/sleep cycle. No breakdown on wake times, sleep and wake current consumption was provided, making direct comparisons on those metrics difficult.
 
-Within the scope of this project, we restricted our adherence to low-power consumption to a basic level, rather than committing significant time to reducing this consumption through software or advanced hardware means.
+For our prototype sensing system, we restricted our adherence to low-power consumption to an architectural level, rather than making specific hardware and software changes. For our comparisons, we have elected to use a 10,000~mAh battery as a measure, as there exist inexpensive such batteries weighing around 300~grams \cite{AdafruitBattery} that provide a good balance between capacity and weight. We propose several different prototype designs in \Fref{tab:lives} and calculate theoretical prototype lifetimes assuming a perfect 10,000~mAh battery.
 
-For our comparisons, we have elected to use a 10,000~mAh battery as a measure, as there exist inexpensive such batteries weighing around 300~grams \cite{AdafruitBattery} that provide a good balance between capacity and weight. We propose several different prototype designs in \Fref{tab:lives} and calculate theoretical prototype lifetimes assuming a perfect 10,000~mAh battery.
-
-ThermoSense (``ThermoSense'' in \Fref{tab:lives}) indicated that for each of their nodes, which consumed approximately 5~mA each, there were two 3000~mAh batteries running in series. They indicated that at a sample rate of 0.2~Hz (once every five seconds) their prototype was able to run for approximately three weeks. Using our 10,000~mAH battery, we estimate that their prototype would be able to run for around 86~days.
+ThermoSense (see \Fref{tab:lives}) indicated that for each of their nodes, which consumed approximately 4.8~mA each, there were two 3000~mAh batteries running in series. They indicated that at a sample rate of 0.2~Hz (once every 5 seconds) their prototype was able to run for approximately three weeks. Using our 10,000~mAH battery, we estimate that this would increase to approximately 86~days.
 
 Our current prototype (``Current'' in \Fref{tab:lives}) can boot and take one measure in approximately 100~ms, indicating it would need to be awake for 2\% of each five second window to perform one sample. Without any sleep, this prototype is always drawing a constant 52~mA, and consequently can only last 8~days.
 
-If we were to implement a simple sleep measure whereby when not sampling the prototype sleeps (``Sleeping'' in \Fref{tab:lives}) we can achieve some basic power savings. This calculates to an average power consumption of approximately 34~mA, assuming our current Arduino power draw. With a similar battery capacity, we calculate that our prototype would last approximately 12~days.
+If we were to implement a simple software-driven sleep cycle (``Sleeping'' in \Fref{tab:lives}) minor power savings would occur. Incorporating sleep would reduce average current to 34~mA, assuming our present Arduino current draw. With the same battery capacity, we would expect battery life to increase to 12~days.
 
-The high power consumption of our prototype is largely due to the use of off-the-shelf Arduino hardware, which is not designed for low-power applications. Firstly, there exist several unnecessary LEDs that are constantly powered which could account for several milliamps. Secondly, there is a large power loss in our level shifting and voltage conversion circuit. We estimate that the resistors alone could be responsible for 3--4~mA of lost current. This is primarily a result of the 5~V, 3.3~V and 2.6~V requirements of different components. Standardizing the voltage would allow for inefficient conversion circuits to be removed.
+The high power consumption of our prototype is largely due to the use of off-the-shelf Arduino hardware which is not designed for low-power applications. Firstly, there exist several unnecessary LEDs that are constantly powered which could account for several milliamps. Secondly, there is a large power loss in our level shifting and voltage conversion circuit. We estimate that the resistors alone could be responsible for 3--4~mA of lost current. This is primarily a result of the 5~V, 3.3~V or 2.6~V requirements of different components. Standardizing the voltage would allow for inefficient conversion circuits to be removed.
 
 Additionally, there exist Arduino board that use the same processor as ours (and thereby are fully compatible) that can be constructed easily and reduce base power consumption to 7~mA, without sleep. In sleep mode, the power consumption drops to an impressive 43~\textmu A. In a real-world system, we contend that a sample rate of 0.0.1~Hz (once per 100 seconds) would provide sufficiently up-to-date information. A system using this board, at a 0.1~Hz sample rate (``Low-Power A'' in \Fref{tab:lives}), is estimated to last more than a decade.
 
 However, this estimation does not account for the radio that would be included in latter versions of a prototype. A commonly used radio used in such devices is the ZigBee. Dementyev, Hodges and Taylor \etal~\cite{dementyev2013power} suggest that a ZigBee radio would consume approximately 4.2~\textmu A when sleeping and 9.3~mA when awake, with a minimum wake time of around 270~ms to connect to the other nodes on the network. With a minimum data transfer rate of 20~kb/s and approximately 200 bytes of data to transmit each interval, we can set the upper limit of the radio wake time to be 300~ms. Adding the radio does reduce the estimated life significantly (``Low-Power B'' in \Fref{tab:lives}), however it is still approximately eight years.
+
+Realistically, the battery lives of any of these prototypes would be less than estimated due to our assumptions about perfect efficiency, including the fact that an average battery would rarely hold its full change for the time-scales discussed. However, these calculations provide us with useful relative comparative power and demonstrate that our prototype has the potential to be competitive with or better than ThermoSense in the realm of energy efficiency.
 
   \ifcsdef{mainfile}{}{\bibliography{../references/primary}}
 \end{document}

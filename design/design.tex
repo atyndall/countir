@@ -48,14 +48,13 @@ Additionally, as used in the ThermoSense paper, a \pir motion detector~\cite{Ada
 \subsection{Analysis / Classification}
 For the Analysis Tier, the Raspberry Pi B+ was chosen, as it is a powerful and inexpensive computer capable of running Linux. The \ard is connected to the Raspberry Pi over USB, which provides it both power and the capacity to transfer data. In turn, the Raspberry Pi is connected to a simple micro-USB rechargeable battery pack, which provides it with power, and subsequently the \ard and sensors.
 
+\clearpage{}
+
 \subsection{Component Costs}
 \label{subsec:cost}
 
-As being low-cost is one of the project's goals, we have summarized the cost of each of the components of the prototype in \Fref{tab:sensor:cost}. We believe that for a prototype, this cost is sufficiently low. In the envisioned system, there would only be one Raspberry Pi in the system, and it would not require a camera, lowering the cost to around $\$50 + \$135n$ where $n$ is the number of sensors. Similarly, as technology improves, sensor technology expected to continue to fall in price, causing the most expensive component, the infra-red sensor, to become increasingly cost-effective.
 
-When we compare this to the estimated cost of the ThermoSense system (\Fref{tab:sensor:thermosensecost}), we believe that it achieves a suitably comparable cost for a prototype. When removing the aspects of the prototype that would be unnecessary in the final version, the difference is only \$15.
-
-\begin{table}[b]
+\begin{table}
 \centering
 \begin{subtable}[b]{0.5\textwidth}
 \centering
@@ -90,6 +89,11 @@ Passive Infrared Sensor & \$10 \\ \hline
 \end{subtable}
 \caption{Breakdown of component costs for minimum viable implementation}
 \end{table}
+
+As being low-cost is one of the project's goals, we have summarized the cost of each of the components of the prototype in \Fref{tab:sensor:cost}. We believe that for a prototype, this cost is sufficiently low. In the envisioned system, there would only be one Raspberry Pi in the system, and it would not require a camera, lowering the cost to around $\$50 + \$135n$ where $n$ is the number of sensors. Similarly, as technology improves, sensor technology expected to continue to fall in price, causing the most expensive component, the infra-red sensor, to become increasingly cost-effective.
+
+When we compare this to the estimated cost of the ThermoSense system (\Fref{tab:sensor:thermosensecost}), we believe that it achieves a suitably comparable cost for a prototype. When removing the aspects of the prototype that would be unnecessary in the final version, the difference is only \$15.
+
 
 \begin{figure}
 \centering
