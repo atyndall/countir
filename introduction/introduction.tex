@@ -1,26 +1,26 @@
 \documentclass[../thesis/thesis.tex]{subfiles}
 \begin{document}
 \chapter{Introduction}
-The proportion of elderly and mobility-impaired people in the Australian population is predicted to grow dramatically over the next century, leaving a large proportion of the population unable to live independently~\cite{chan2009smart}. Human care for these groups is frequently performed on a volunteer basis, with nearly 40\% of such carers committing 40 hours or more per week on caring, and having significantly lower labour force participation as a result~\cite{abs4430}. Given the proportion of carers in the population is only projected to increase as the population ages, serious investments need to be made into technologies that can provide the support the elderly and mobility-imparted need to live independent of human assistance.
+The proportion of elderly and mobility-impaired people in the Australian population is predicted to grow dramatically over the next century, leaving a large proportion of the population unable to live independently~\cite{chan2009smart}. Human care for these groups is frequently performed on a volunteer basis, with nearly 40\% of such carers committing 40 hours or more per week on caring, and having significantly lower labour force participation as a result~\cite{abs4430}. Given the proportion of carers in the population is only projected to increase as the population ages, serious investments need to be made into technologies that can provide the support the elderly and mobility-imparted need to live in an environment where younger human carers may not always be available.
 
-Additionally, the emergence of carbon pricing in many countries to combat anthropogenic climate change, as well as underinvestment in Australian energy infrastructure, are causing rising energy prices~\cite{energyprices}. These prices have a particularly large effect on the elderly and disabled, as these demographics typically have below-average incomes.
+Additionally, the emergence of carbon pricing in many countries to combat anthropogenic climate change, as well as underinvestment in Australian energy infrastructure, are causing rising energy prices~\cite{energyprices}. These prices have a particularly large effect on the elderly and disabled, as these demographics typically have below-average incomes. These prices also forcing medium-to-large office-based businesses to consider means by which to reduce their overall power consumption.
 
 Coinciding with these issues is the booming embedded systems and sensor industries, which are creating increasingly smaller computer and sensing systems. Every iteration, these systems become more powerful, more affordable, and more networked. This phenomena, termed the \iot, has produced sub-\$50 devices such as the Arduino and Raspberry Pi which unlock enormous potential to create computing systems to help combat these and other issues. One can envision a future `smart home for the disabled' which leverages the \iot to offer a variety of services to help reduce financial and physical burdens alike.
 
-Sensing techniques to determine occupancy, the detection of the presence and number of people in an area, are of particular use to the above demographics. Detection can be used to inform various devices to change state depending on the presence or absence of occupants, enabling a variety of useful automations. In particular, such a system could better regulate energy hungry devices to help reduce financial burden and greenhouse gas emissions. Household climate control, which in some regions of Australia accounts for up to 40\% of energy usage~\cite{abs4602} is one area in which occupancy detection can reduce costs. Several papers have found efficiency can be significantly increased, with some some approaches providing annual energy savings of up to 25\%~\cite{beltran2013thermosense}.
+Sensing techniques to determine occupancy, the detection of the presence and number of people in an area, are of particular use to the above demographics. Detection can be used to inform various devices to change state depending on the presence or absence of occupants, enabling a variety of useful automations. In particular, such a system could better regulate energy hungry devices to help reduce financial burden and greenhouse gas emissions. Household climate control, which in some regions of Australia accounts for up to 40\% of energy usage~\cite{abs4602} is one area in which occupancy detection can reduce costs. More finely grained control of an office building's Heating, Ventilating, and Air Conditioning (HVAC) system is another. Several papers have found efficiency in climate control can be significantly increased, with some some approaches providing annual energy savings of up to 25\%~\cite{beltran2013thermosense}.
  
-The field of sensors capable of predicting occupancy is broad. However, in many cases they suffer from problems of installation logistics, difficult assembly, assumptions on user's technology ownership and/or component cost. In the smart home envisioned, accuracy is important, but accessibility is paramount.
+The field of sensors capable of predicting occupancy is broad. However, in many cases they suffer from problems of installation logistics, difficult assembly, assumptions on user's technology ownership and/or component cost. In the smart home/workplace envisioned, accuracy is important, but accessibility is paramount.
 
-In this research project, we construct an \iot-style occupancy detection sensor system that forms part of a theoretical `smart home for the disabled.' This system must meet the following qualitative accessibility criteria;
+In this research project, we construct an \iot-style occupancy detection sensor system that forms part of a theoretical smart home or workplace. This system must meet the following qualitative accessibility criteria;
 
 \begin{itemize}
- \item \emph{Low Cost}: The set of components required should aim to minimise cost, as these devices are intended to be deployed in situations where the serviced user may be financially restricted. 
+ \item \emph{Low Cost}: The set of components required should aim to minimise cost, as these devices are intended to be deployed in situations where the serviced user may be financially restricted, or where many units would be required.
 
  We consider a prototype that costs less than \$300, with an anticipated reduction in cost as technology improves to be sufficiently low cost.
   
  \item \emph{Non-Invasive}: The sensors used in the system should gather as little information as necessary to achieve the detection goal; there are privacy concerns and adoption issues with sensors that are perceived to be invasive.
 
- We consider a sensor that obfuscates the identities and activities of those sensed to be sufficiently non-invasive.
+ We consider a sensor that significantly obfuscates the identities and activities of those sensed to be sufficiently non-invasive.
  
  \item \emph{Reliable}: The system should be able to operate without user intervention or frequent maintenance, and should be able to perform its occupancy detection goal with a high degree of accuracy.
 
@@ -31,16 +31,16 @@ In this research project, we construct an \iot-style occupancy detection sensor 
  In the prototype stage, we consider a device that can run for one week on a battery that can be reasonably mounted on a roof to be sufficiently energy efficient.
 \end{itemize}
 
-Ultimately, this project attempts to answer the following research question: How can one create a complete sensing system to detect occupancy in a low cost, non-invasive, reliable and energy efficient way?
+Ultimately, this project attempts to answer the following research question: How can one create a complete sensing system to detect occupancy in a low cost and non-invasive way, with additional considerations to reliability and energy efficiency?
 
-We take a traditional experimental approach to this research question by dividing the question into a series of sub-questions, resulting experiments and discussion. This occurs over three core chapters:
+We take an experimental approach to this broad research question by dividing the answer into a series of different investigations, design processes, resulting experiments and discussions. This occurs over three core chapters:
 
 \begin{enumerate}
 \item \emph{Literature Review}
 
 An extensive literature review will be performed of the field of occupancy detection to determine which sensors types are most apparently appropriate for occupancy detection given the above criteria. 
 
-The chapter identifies that existing systems do not meet our current needs and that low-resolution thermal sensing appears to offer the best maximization of our criteria.
+In the chapter we identify the state of the art in various sensing categories, and evaluate them against both a set of qualitative and quantitative criteria to come to ultimate conclusions regarding the optimal sensor choice. We determine that low-resolution thermal sensing presents the best accuracy/non-invasiveness trade-off.
 
 \item \emph{Design}
 

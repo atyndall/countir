@@ -24,7 +24,7 @@ In the current prototype, the Analysis Tier merely stores captured data for offl
 \end{table}
 
 \subsection{Sensing}
-As discussed in the Literature Review, using a \iar appear to be the most viable way to achieve the high-level goals of this project. ThermoSense~\cite{beltran2013thermosense}, the primary occupancy sensor in the \iar space, used the low-cost Panasonic \geye sensor for this task. This sensor, costing around \$50, was suggested by ThermoSense to be effective in occupancy detection. However, while still available for sale in the United States, we were unable to order the sensor for shipping to Australia due to supplier-vendor contract agreements outside of our control. Using a sensor with such restrictions in place goes against an implicit criteria of the parts used in the project being relatively easy to acquire.
+As discussed in the Literature Review (\Fref{chap:litreview}), using a \iar appear to be the most viable way to achieve the high-level goals of this project. ThermoSense~\cite{beltran2013thermosense}, the primary occupancy sensor in the \iar space, used the low-cost Panasonic \geye sensor for this task. This sensor, costing around \$50, was suggested by ThermoSense to be effective in occupancy detection. However, while still available for sale in the United States, we were unable to order the sensor for shipping to Australia due to supplier-vendor contract agreements outside of our control. Using a sensor with such restrictions in place goes against an implicit criteria of the parts used in the project being relatively easy to acquire.
 
 This forced us to search for alternative sensors in the space that fulfill similar criteria but were available in Australia. The sensor we chose was the \mlx~\cite{MLXDatasheet}, a \iar with similar overall qualities that differed in several important ways; it provides a $16 \times 4$ grid of thermal information, it has an overall narrower field of view and it sells for approximately \$80. Like the \geye, the \mlx communicates over the 2-wire \iic bus, a low-level bi-directional communication bus widely used and supported in embedded systems.
 
@@ -143,7 +143,7 @@ TArL Python       & 674            \\ \hline
 \hspace{5mm}\texttt{cam}        & 425           \\ \hline
 \hspace{5mm}\texttt{features}   & 191           \\ \hline
 \hspace{5mm}\texttt{pxdisplay}  & 58            \\ \hline
-TArL Arduino  & 492            \\ \hline
+TArL Arduino (C++)  & 492            \\ \hline
 \hspace{5mm}\texttt{mlx90620\_driver}  & 492          \\ \hline
 Analysis Scripts  & 147            \\ \hline
 Capture Scripts   & 234            \\ \hline
@@ -181,13 +181,13 @@ SDK                  & 1.6.4                                 \\ \hline
 
 At each layer of the described three-tier software architecture (pictured in greater detail in \Fref{fig:pictures:protob-arch}), software exists to govern the operation of that tier's functionality. For the sensing tier, the \mlx and \pir's own software is used, while for the other tiers, a bi-lingual software library, \tarl, was developed to provide a suite of functions to enable the easy data collection and analysis of information from the hardware prototype. \tarl is split into two parts:
 
-At the Preprocessing Tier, the Arduino, the \tarl \mlx driver is found, which is written in the default Arduino C++ derivative language. The used of a low-level language is important at this tier as careful management of memory usage and algorithmic complexity is required in such a resource-constrained environment.
+At the Preprocessing Tier, the Arduino, the \tarl \mlx driver is found, which is written in the default Arduino C++ derivative language. The use of a low-level language is important at this tier as careful management of memory usage and processing time is required in such a resource-constrained environment.
 
-At Analysis Tier, a general purpose computer is used, and that is where the bulk of \tarl can be found. As the processing environment has become less constrained, the choice of language becomes a possibility. In this instance, Python was chosen as \tarl's language on the Analysis Tier. Python was chosen as it is a high-level language with excellent library support for the functions required of the Analysis Tier, including serial interface, the use of the Raspberry Pi's built in camera, and image analysis. The 2.x branch of Python was chosen over the 3.x branch, despite its age, due a greater maturity in support for several key graphical interface libraries. Much of the Analysis tier's code is based upon the ThermoSense implementation, which we describe here.
+At Analysis Tier, a general purpose computer is used, and that is where the bulk of \tarl can be found. As the processing environment has become less constrained, the choice of language becomes a possibility. In this instance, Python was chosen as \tarl's language on the Analysis Tier. Python was chosen as it is a high-level language with excellent library support for the functions required of the Analysis Tier, including serial interface, the use of the Raspberry Pi's built in camera, and image analysis. The 2.x branch of Python was chosen over the 3.x branch, despite its age, due a greater maturity in support for several key graphical interface libraries. The core of the Analysis Tier's code is based upon the algorithm detailed by the ThermoSense paper, which provide an overview of here.
 
 \subsection{ThermoSense Implementation}
 \label{subsec:thermosenseimplementation}
-The ThermoSense approach combines a \pir, which detects motion, and a \iar which creates a thermal image, to determine occupancy in a sensor fusion. These sensors are fused by leveraging the \pir to determining the $0/>0$ case and the \iar to determine specific occupancy numbers. The specific \iar used subdivides the visible area into an $8\times8$ grid of sections from which temperatures can be derived. This sensor system is attached to the roof on a small embedded controller which is responsible for collecting the thermal data and transmitting it back to another computer for analysis via a low powered wireless networking protocol. 
+The ThermoSense approach combines a \pir, which detects motion, and a \iar which creates a thermal image, to determine occupancy in a sensor fusion. These sensors are fused by leveraging the \pir to determining the 0 Person / 1+ Person case and the \iar to determine specific occupancy numbers. The specific \iar used subdivides the visible area into an $8\times8$ grid of sections from which temperatures can be derived. This sensor system is attached to the roof on a small embedded controller which is responsible for collecting the thermal data and transmitting it back to another computer for analysis via a low powered wireless networking protocol. 
 
 Machine learning classification, the use of algorithms and training data to generate models that can make predictions on previously unseen data, is a large part of the ThermoSense paper. ThermoSense uses supervised learning algorithms, which require a set of examples with the correct answer.
 
@@ -195,9 +195,9 @@ Supervised classification techniques can be split into two different classes of 
 
 The training data classification algorithms use is a set of examples that have the corresponding correct answer attached. The set of values that describe each example are known as feature vectors.
 
-Occupants are separated from background radiation through the use of an image subtraction algorithm maintaining per-pixel mean and standard deviation values to update a thermal background map. If no motion is detected, this map is updated using a slow-moving \emwa over a 15 minute time window. If the room remains occupied for a long period, a more complex scaling algorithm is used which considers the coldest points in the room empty, and averages them against the new background, then performs an \emwa with a lower weighting.
+Occupants are separated from background infra-red radiation through the use of an image subtraction algorithm maintaining per-pixel mean and standard deviation values to update a thermal background map. If no motion is detected, this map is updated using a slow-moving \emwa over a 15 minute time window. If the room remains occupied for a long period, a more complex scaling algorithm is used which considers the coldest points in the room empty, and averages them against the new background, then performs an \emwa with a lower weighting.
 
-This per-pixel average and standard deviation information updated every frame is used to determine several characteristics to be used as feature vectors. The determination of the feature vectors was subject to experimentation, since the differences at each grid element are too susceptible to individual room conditions to be used as feature vectors. Instead, a set of three different features was designed;
+This per-pixel average and standard deviation information updated every frame is used to determine several characteristics to be used as feature vectors. The determination of the feature vectors was subject to experimentation by the ThermoSense authors, since the differences at each grid element are too susceptible to individual room conditions to be used as feature vectors. Instead, a set of three different features was designed;
 
 \begin{enumerate}
 \item \textbf{Number of active pixels}: The total number of pixels that are considered ``active'' in a given frame
@@ -205,7 +205,7 @@ This per-pixel average and standard deviation information updated every frame is
 \item \textbf{Size of largest connected component}: The number of active pixels contained within the largest connected component
 \end{enumerate}
 
-These feature vectors were compared against three classification approaches; K-Nearest Neighbours, Linear Regression and an Artificial Neural Network. This final classification is subject to a final averaging process over a four minute window, which was determined by experimentation to accurately remove the presence of independent errors from the raw classification data.
+These feature vectors were compared against three classification approaches; K-Nearest Neighbours, Linear Regression and an Artificial Neural Network. This final classification is subject to an averaging process over a four minute window, which was determined by experimentation by the ThermoSense authors to accurately remove the presence of independent errors from the raw classification data.
 
 In the ThermoSense system, there exists a \pir whose purpose is to determine if there is currently motion in the detected area. This motion detection is averaged over a time window and is used by the ThermoSense system to provide Presence information to the system. Because of this, it is not necessarily a requirement that cases with zero people are provided to the classification algorithms above, as the \pir alone can determine this information. ThermoSense performed experimentation to determine if the classification was more accurate when instances of empty rooms were provided to the classification algorithm vs. not. They found that generally not providing the empty case to the classification algorithm improved accuracy.
 
@@ -233,7 +233,7 @@ The basic algorithm to perform this normalization was based upon the provided da
 
 The first of the features introduced was the human-readable format for serial transmission. This allows easy debugging of the sensor with only a rudimentary serial console. When the \ard is powered up, an initialization sequence is output (\Fref{fig:code:initseq}). This specifies several things that are useful to the user; the attached sensor (``DRIVER''), the build of the software (``BUILD'') and the refresh rate of the sensor (``IRHZ''). Several different headers, such as ``ACTIVE'' and ``INIT'' specify the current millisecond time of the processor, thus indicating how long the execution of the initialization process took (33 milliseconds).
 
-Once booted, the user is able to send several one-character commands to the sensor to configure operation. Depending on the input sensor configuration, IR data may be periodically output, or otherwise manually triggered. This IR data is produced in the packet format described in \Fref{fig:code:initseq}.
+Once booted, the user is able to send several one-character commands to the sensor to configure operation. Depending on the input sensor configuration, IR data may be periodically output, or otherwise manually triggered. This IR data is produced in the latter half of \Fref{fig:code:initseq}.
 
 \begin{figure}
  \centering
@@ -255,11 +255,11 @@ The Manager series of classes are the direct interface between \tarl's C++ Ardui
 
 \texttt{OnDemandManager} operates in a similar way to \texttt{Manager}, however it uses a polling model instead of the periodic model of the other classes. Scripts may request thermal/motion data from the class at any interval, and \texttt{OnDemandManager} will poll the Arduino for information and block until this information is parsed and returned.
 
-Finally, \texttt{ManagerPlaybackEmulator} is a simple class which can take a previously created thermal recording from a file, and emulate the \texttt{Manager} class by providing access to thread-safe queues which return this data at the specified Hz rate. This class can be used as a means to playback thermal recordings with the same visualization functions.
+Finally, \texttt{ManagerPlaybackEmulator} is a simple class which can take a previously created thermal recording from a file, and emulate the \texttt{Manager} class by providing access to thread-safe queues which return this data at the specified Hz rate. This class can be used as a means to playback thermal recordings with the same set of visualization functions provided by the \texttt{Visualizer} class.
 
 \subsubsection*{\texttt{pxdisplay} functions}
 
-The \texttt{pxdisplay} module is a set of functions that utilize the \texttt{pygame} library to create a simple live-updating window containing a thermal map representation of the thermal data. One can generate any number of \texttt{pxdisplay} objects, which leverage the \texttt{multithreading} library and \texttt{multithreading.Queue} to allow thermal data to be sent to the display.
+The \texttt{pxdisplay} module provides a set of functions that utilize the \texttt{pygame} library to create a simple live-updating window containing a thermal map representation of the thermal data. One can generate any number of \texttt{pxdisplay} objects, which leverage the \texttt{multithreading} library and \texttt{multithreading.Queue} to allow thermal data to be sent to the display.
 
 The class also provides a set of functions to set a ``hotest'' and ``coldest'' temperature and have RGB colours assigned from red to green to blue for each temperature value that falls between those two extremes.
 
