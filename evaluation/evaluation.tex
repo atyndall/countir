@@ -109,11 +109,11 @@ Thirdly, they use a Linear Regression model of $y = \beta_A A + \beta_S S + \bet
 
 We use Weka's ``LinearRegression'' function, and exclude the number of connected components (\texttt{numconnected}) attribute from the feature vector list, as ThermoSense does, to attempt to match this approach.
 
-In addition to the above three techniques, we use our own techniques (included in \Fref{tab:methods:params}). Our techniques are predominantly well known, and also have their general theory described in Appendix \ref{chap:appendix:classification}. The one algorithm that isn't particularly well known that we have chosen is the KStar (K*) algorithm, which we describe in further detail here:
+In addition to the above three techniques, we use our own techniques (included in \Fref{tab:methods:params}). Our techniques are predominately common in use, with their general theory described in Appendix \ref{chap:appendix:classification}. One algorithm that isn't as common that we have chosen is the KStar (K*) algorithm, which we describe in further detail here:
 
 The K* algorithm, developed by Cleary and Trigg~\cite{cleary1995k} presents a different approach to $k$-nearest Neighbours type algorithms. With K* the distance used to compare similar points is not the Euclidean distance, but rather an entropic distance, a measure of how much effort is required to convert one example into another. This has several positive effects; it makes the algorithm more robust to missing values and enables the classifier to output either a numeric or nominal result.
 
-We decided to use K* as one of our classification algorithms as it presents an interesting and different approach to the more well known algorithms above, and also allows the investigation of KNN-like techniques in the numeric area. K* is present in Weka as ``KStar,'' and we will opt to use it in its default state.
+We decided to use K* as one of our classification algorithms as it presents an interesting and different approach to more commonly used algorithms, and also allows the investigation of KNN-like techniques in the numeric area. K* is present in Weka as ``KStar,'' and we will opt to use it in its default state.
 
 \begin{table}
 \centering
