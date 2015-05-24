@@ -3,18 +3,18 @@
  \chapter{Evaluation}
  \label{chap:evaluation}
 
-In this chapter we devise a set of experiments to test the sensor system's properties and come to conclusions as to their effect on our ability to detect occupants. We then outline a process for taking raw sensor data and performing occupancy predictions with it. Using that process, we then devise a set of occupancy scenarios, and experiment with different machine learning algorithms abilities to determining occupancy from that data.
+In this chapter we devise a set of experiments to test the sensor system's properties and come to conclusions as to their effect on our ability to detect occupants. We then outline a process for taking raw sensor data and performing occupancy predictions with it. Using that process, we then devise a set of occupancy scenarios and test the ability of different machine learning algorithms to determine occupancy from that data.
 
 \section{Sensor Properties}
 
-In order to best utilize the \mlx, we must first understand the properties it exhibits, and their potential effects on our ability to perform occupancy measurements. These properties can be broadly separated into three different categories; bias, noise and sensitivity.
+In order to best utilize the \mlx, we must first understand the properties it exhibits and their potential effects on our ability to perform occupancy measurements. These properties can be broadly separated into three different categories: Bias, Noise and Sensitivity.
 
 \subsection{Bias}
 When detecting no infra-red radiation (IR), the sensor should indicate a near-zero temperature, as the sensor's method of determining temperature involves measuring IR. If in such conditions the temperatures indicated are non-uniform, that suggests that the sensor has some level of bias in its measurements. We attempted to investigate the possibility of such bias by performing thermal captures of the night sky. While this does not completely eliminate the IR, it does remove a significant proportion of it.
 
 To test this, the thermal sensor was exposed to the night sky at a capture rate of 1~Hz for 4 minutes, with the sensing results combined to create a set of means and standard deviations for the pixels at ``rest''. The average temperature detected was $11.78~\dc$, with the standard deviation remaining less than $0.51~\dc$ over the entire exposure period. The resultant mean and standard deviation thermal maps (\Fref{fig:meanplot} and \Fref{fig:stdplot}) shows that the four centre pixels maintain a similar temperature around $9~\dc$, with temperatures beginning to deviate as they became further from that point.
 
-The most likely cause of bias is related to the physical structure of the sensor. The \mlx is a rectangular sensor which has been placed inside a circular tube. Due to this physical arrangement, the sides of this rectangular sensor will be significantly closer to these edges than the centre. If the sensor's casing is at an ambient temperature higher than the measurement data (as they likely were in this case) thermal radiation from the sensor package itself could provide significant enough to cause the edges to appear warmer than the observed area of the sky. This effect could be controlled for by cooling the sensor package to below that of the ambient temperature being measured. However, we determine this is not necessary in our project, as the method of calculating a thermal background will compensate for any such bias provided it remains relatively constant, which we predict it should.
+The most likely cause of bias is related to the physical structure of the sensor. The \mlx is a rectangular sensor which has been placed inside a circular tube. Due to this physical arrangement, the sides of this rectangular sensor will be significantly closer to these edges than the centre. If the sensor's casing is at an ambient temperature higher than the measurement data (as is likely in this case) thermal radiation from the sensor package itself could be significant enough to cause the edges to appear warmer than the observed area of the sky. This effect could be controlled for by cooling the sensor package to below that of the ambient temperature being measured. However, we determine this is not necessary in our project, as the method of calculating a thermal background will compensate for any such bias provided it remains relatively constant, which we predict it should.
 
 \begin{figure}
 \centering
@@ -35,11 +35,11 @@ The most likely cause of bias is related to the physical structure of the sensor
 
 One of the primary features of the \mlx is the ability to sample the thermal data at a variety of sample rates between 0.5~Hz and 512~Hz. It was noted in preliminary experimentation that a higher sample rate appeared to result in noisier temperature readings. As our experiments focus on separating occupants from a thermal background, it is important to determine if this noise could affect our ability to reliably separate occupants from the thermal background.
 
-\Fref{fig:noise} plots one of the central pixels of the sensor in a scenario where it is detecting a background, and when it is viewing a person, at the five different sample rates achievable with the current hardware configuration. We can see in these plots that the data becomes significantly more noisy as the sample rate increases, and we can also conclude that the sensor uses a form of data smoothing at lower sample rates, as the variance in data increases with sample rate. If the sample rate were to increase beyond a certain threshold, it is likely that the ability for the sensing system to disambiguate between objects of interest and the background would diminish.
+\Fref{fig:noise} plots one of the central pixels of the sensor in a scenario where it is detecting a background, and when it is viewing a person, at the five different sample rates achievable with the current hardware configuration. We can see in these plots that the data becomes significantly more noisy as the sample rate increases, and we can also conclude that the sensor uses a form of data smoothing at lower sample rates, as the variance in data increases with sample rate. If the sample rate was to increase beyond a certain threshold, it is likely that the ability for the sensing system to disambiguate between objects of interest and the background would diminish.
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.9\textwidth]{../diagrams/noise-graph3.pdf}
+  \includegraphics[width=0.9\textwidth]{../diagrams/noise-graph4.pdf}
   \caption{Plot of occupant and background sensor noise at sampling speeds 0.5~Hz -- 8~Hz}
   \label{fig:noise}
 \end{figure}
@@ -55,7 +55,7 @@ The \mlx is a sensor composed of 64 independent non-contact digital thermopiles,
 
 \Fref{fig:hotmotion} shows a smoothed temperatures graph of six of the sensor's central pixels as a hot object is moved from left to right at an approximately constant speed. One of the most interesting phenomena in this graph is the variability of the object's detected temperature as it moves ``between'' two different pixels; there is a noticeable drop in the objects detected temperature. Each pixel appears to exhibit a bell-curve like line, with the detected temperature increasing from the baseline and peaking as the object enters the centre of the pixel, and the detected temperature similarly decreasing as the object leaves the centre. 
 
-This phenomenon has several possible causes. One likely explanation is that each individual pixel detects objects radiating at larger angles of incidence to be colder than they actually are: As the object enters a pixel's effective field of view, it will radiate into the pixel at an angle that is at the edge of the pixel's ability to sense, with this angle slowing decreasing until the hot object is directly radiating into the pixel's sensor, causing a peak in the temperature reading. As the object leaves the individual element's field of view, the same happens in reverse.
+This phenomenon has several possible causes. One likely explanation is that each individual pixel detects objects radiating at larger angles of incidence to be colder than they actually are. As the object enters a pixel's effective field of view, it will radiate into the pixel at an angle that is at the edge of the pixel's ability to sense, with this angle slowing decreasing until the hot object is directly radiating into the pixel's sensor, causing a peak in the temperature reading. As the object leaves the individual element's field of view, the same happens in reverse.
 
 This phenomena is not anticipated to impact our intended use case, as it only strongly affects objects at pixel or sub-pixel size. In our experimental conditions the sensor will not be sufficiently distant that humans could be detected as such sizes.
 
@@ -76,16 +76,16 @@ With a greater understanding of the prototype's caveats, it is now possible to g
 \label{fig:methods:flowchart}
 \end{figure}
 
-\subsection{Data Gathering}
+\subsection{Data Collection}
 As the camera and the Arduino are directly plugged into the Raspberry Pi, all data capture is performed on-board through SSH, with the data being then copied off the Pi for later processing. To perform this capture, the main script used is \texttt{cap\_pi\_synced.py}.
 
 \texttt{cap\_pi\_synced.py} takes two parameters on the command line; the name of the capture output, and the number of seconds to capture. The script initializes the \texttt{picamera} library, then passes a reference to it to the \texttt{capture\_synced} function within the \texttt{Visualizer} class. The class will then handle sending commands to the Arduino to capture data in concert with taking still frames with the Raspberry Pi's camera.
 
-When the script runs, it creates a folder with the name specified, storing both the thermal capture inside a file named \texttt{output\_thermal.hcap}, and a sequence of files with the format \texttt{video-\%09d.jpg} corresponding to each visual capture frame.
+When the script runs, it creates a folder with the name specified, storing the thermal capture inside a file named \texttt{output\_thermal.hcap} and a sequence of files with the format \texttt{video-\%09d.jpg} corresponding to each visual capture frame.
 
-\subsection{Data Labeling}
+\subsection{Data Labelling}
 \label{subsec:datalabelling}
-Once this data capture is complete, the data is copied to a computer with GUI support for labelling. The utility \texttt{tagging.py} is used for this stage. This script is passed the path to the capture directory, and the number of frames at the beginning of the capture that are guaranteed to contain no motion. This utility will display frame by frame each visual and thermal capture together, as well as the computed feature vectors (based on a background map created from the first $n$ frames without motion).
+Once this data capture is complete, the data is copied to a computer with GUI support for labelling. The utility \texttt{tagging.py} is used for this stage. This script is passed the path to the capture directory and the number of frames at the beginning of the capture that are guaranteed to contain no motion. This utility will display frame by frame each visual and thermal capture together, as well as the computed feature vectors (based on a background map created from the first $n$ frames without motion).
 
 The user is then required to press one of the number keys on their keyboard to indicate the number of people present in this frame. This number will be recorded in a file called \texttt{truth} in the capture's directory. The next frame will then be displayed, and the process continues. This utility enables the quick input of the ground truth of each capture, which is necessary for the classification stage.
 
@@ -95,25 +95,25 @@ Once the ground truth data is available, it is now possible to utilize the data 
 We collate and export the ground truth and extracted features from multiple captures to a Comma Seperated Value (CSV) file for processing with Weka. \texttt{weka\_export.py} takes two parameters, a comma-separated list of different experiment directories to pull ground truth and feature data from, and the number of frames at the beginning of each capture that can be considered as ``motionless.'' With this information, a CSV-file file is generated.
 
 \subsection{Executing Weka Tests}
-Once the CSV file is generated, it is then possible process this file through Weka. Weka provides a variety of machine learning classification algorithms to choose from. To investigate ThermoSense's results, we replicate their algorithmic implementations in Weka. We discuss the general theory behind of each of these algorithms in Appendix \ref{chap:appendix:classification}. In total, Thermosense uses three machine learning classifiers:
+Once the CSV file is generated, it is then possible to process this file through Weka. Weka provides a variety of machine learning classification algorithms to choose from. To investigate ThermoSense's results, we replicate their algorithmic implementations in Weka. We discuss the general theory behind of each of these algorithms in Appendix \ref{chap:appendix:classification}. In total, Thermosense uses three machine learning classifiers:
 
 Firstly, they use an Artificial Neural Network with a hidden layer of five neurons, with a sigmoid activation function for the hidden layer and a linear activation function for the output layer. They test only the one, two and three person cases, relying on their \pir to detect the zero person case. They use 70\% of their data for training the neural net, 15\% for testing the net and the final 15\% for validating their results. ThermoSense conducts tests interpreting the number of people as a numeric attribute.
 
-We use Weka's ``MultilayerPerceptron'' neural network to recreate this, which creates a hidden layer of $(\mathrm{attributes} + \mathrm{classes}) / 2$ ($= 3$) by default, however we manually reconfigure this to be one hidden layer of five neurons, like ThermoSense. It uses a sigmoid activation function for all neurons, except in the case that a numerical answer is to be predicted, in which case like ThermoSense, it uses a linear activation function for the output layer.
+We use Weka's ``MultilayerPerceptron'' neural network to recreate this, which creates a hidden layer of $((\mathrm{attributes} + \mathrm{classes}) / 2)$ (in our case three neurons) by default, however we manually reconfigure this to be one hidden layer of five neurons, like ThermoSense. It uses a sigmoid activation function for all neurons, except in the case that a numerical answer is to be predicted, in which case, like ThermoSense, it uses a linear activation function for the output layer.
 
-Secondly, they use a $k$-Nearest Neighbours (where $k=5$) with the distance between features being determined by their Euclidean distance. For determining the class label, higher weightings are given to training points inversely to their distance from the point being classified.
+Secondly, they use a $k$-Nearest Neighbours (KNN) where $k=5$, with the distance between features being determined by their Euclidean distance. For determining the class label, higher weightings are given to training points inversely to their distance from the point being classified.
 
 Weka's ``iBk'' function is used to perform a KNN calculation, configuring \texttt{distanceWeighting} to be ``Weight by 1-distance'' and \texttt{KNN} to be 5, to make the classification as similar in function to the ThermoSense approach as is possible. ThermoSense does not specify what validation technique they used, so we elected to use a 10-fold cross-validation.
 
 Thirdly, they use a Linear Regression model of $y = \beta_A A + \beta_S S + \beta $, whereby $A$ is the number of active pixels, $S$ is the size of the largest connected component, and the $\beta$ values represent the corresponding coefficients. They opt to exclude the third feature, the number of connected components, as their testing indicates that excluding it minimizes the Root Mean Squared Error (RMSE) further. 
 
-We use Weka's ``LinearRegression'' function, and exclude the \texttt{numconnected} attribute from the feature vector list, as ThermoSense does, to attempt to match this approach.
+We use Weka's ``LinearRegression'' function, and exclude the number of connected components (\texttt{numconnected}) attribute from the feature vector list, as ThermoSense does, to attempt to match this approach.
 
-In addition to the above three techniques, we use our own techniques (included in \Fref{tab:methods:params}). Our techniques are predominantly well known, and also have their general theory described in Appendix \ref{chap:appendix:classification}. The one algorithm that isn't particularly well known that we have chosen is the K* algorithm, which we describe in further detail here:
+In addition to the above three techniques, we use our own techniques (included in \Fref{tab:methods:params}). Our techniques are predominantly well known, and also have their general theory described in Appendix \ref{chap:appendix:classification}. The one algorithm that isn't particularly well known that we have chosen is the KStar (K*) algorithm, which we describe in further detail here:
 
-The KStar (K*) algorithm, developed by Cleary and Trigg~\cite{cleary1995k} presents a different approach to $k$-nearest Neighbours type algorithms. With K* the distance used to compare similar points is not the Euclidean distance, but rather an entropic distance, a measure of how much effort is required to convert one example into another. This has several positive effects; it makes the algorithm more robust to missing values, and also it enables the classifier to output either a numeric or nominal result.
+The K* algorithm, developed by Cleary and Trigg~\cite{cleary1995k} presents a different approach to $k$-nearest Neighbours type algorithms. With K* the distance used to compare similar points is not the Euclidean distance, but rather an entropic distance, a measure of how much effort is required to convert one example into another. This has several positive effects; it makes the algorithm more robust to missing values and enables the classifier to output either a numeric or nominal result.
 
-We have decided to use K* as one of our classification algorithms as it presents an interesting and different approach to the more well known algorithms above, and also allows the investigation of KNN-like techniques in the numeric area. K* is present in Weka as ``KStar,'' and we will opt to use it in its default state.
+We decided to use K* as one of our classification algorithms as it presents an interesting and different approach to the more well known algorithms above, and also allows the investigation of KNN-like techniques in the numeric area. K* is present in Weka as ``KStar,'' and we will opt to use it in its default state.
 
 \begin{table}
 \centering
@@ -141,11 +141,11 @@ Linear Regression & Numeric & \texttt{weka.classifiers.functions\newline.LinearR
 \label{tab:methods:params}
 \end{table}
 
-To help maximize the efficiency of the classification tasks, we use the Weka's Knowledge Flow interface, which provides a drag-and-drop method of creating complex input and output schemes involving multiple different pre-processing steps and classification algorithms. We generate an encompassing flow that accepts an input CSV file of the raw data, and performs all numeric and nominal classification at once, returning a text file with the results of each of the different classification techniques run. The Knowledge Flow's structure can be seen in Appendix \ref{chap:knowledgeflows}. To further automate this, a Jython script, \texttt{run\_flow.py} is used to call the flow through Weka's Java API. After this is complete, the script then runs a series of regular expressions on the output text data to generate a summary CSV file with the relevant statistical values.
+To help maximize the efficiency of the classification tasks, we use the Weka's Knowledge Flow interface, which provides a drag-and-drop method of creating complex input and output schemes involving multiple different pre-processing steps and classification algorithms. We generate an encompassing flow that accepts an input CSV file of the raw data, and performs all numeric and nominal classification at once, returning a text file with the results of each of the different classification techniques run. The Knowledge Flow's structure can be seen in Appendix \ref{chap:knowledgeflows}. To further automate this a Jython script, \texttt{run\_flow.py} is used to call the flow through Weka's Java API. After this is complete, the script then runs a series of regular expressions on the output text data to generate a summary CSV file with the relevant statistical values.
 
-For those tests that are ``nominal,'' the number of people ground-truth attribute (\texttt{npeople}) was interpreted as nominal using the ``NumericToNominal'' filter, which creates a class for each value detected in \texttt{npeople}'s columns, and thus causes nominal occupancy predictions. For those tests that are ``numeric,'' \texttt{npeople} is left unchanged, as by default all CSV import attributes are interpreted as numeric, thus causing numeric occupancy predictions. For all tests where not specifically stated otherwise, we use 10-fold cross-validation to validate our results.
+For those tests that are ``nominal,'' the number of people ground-truth attribute (\texttt{npeople}) was interpreted as nominal using the ``NumericToNominal'' filter, which creates a class for each value detected in \texttt{npeople}'s columns and thus causes nominal occupancy predictions. For those tests that are ``numeric,'' \texttt{npeople} is left unchanged, as by default all CSV import attributes are interpreted as numeric, thus causing numeric occupancy predictions. For all tests where not specifically stated otherwise, we use 10-fold cross-validation to validate our results.
 
-As the data we are using is based on real experiments, the number of frames which are classified as e ach class may be unbalanced, which could in turn cause a bias in the classification results. We found that in most cases, the data that most unbalanced the set was that of the zero case, as it was the case most present in the data. As ThermoSense previously demonstrated, the use of the \pir alone allows for determining the zero/not-zero case effectively without classification algorithms. Due to this, we rebalance our dataset by excluding all zero cases from the data Weka receives.
+As the data we are using is based on real experiments, the number of frames which are classified as each class may be unbalanced, which could in turn cause a bias in the classification results. We found that in most cases, the data that most unbalanced the set was that of the zero case, as it was the case most present in the data. As ThermoSense previously demonstrated, the use of the \pir alone allows for determining the zero/not-zero case effectively without classification algorithms. Due to this, we rebalance our dataset by excluding all zero cases from the data Weka receives.
 
 \subsection{Classifier Experiment Set}
 In our first set of experiments, a scene was devised in accordance with \Fref{fig:exps:3setup} that attempted to sense people from above, as did ThermoSense. The prototype was set up on the ceiling, pointing down at a slight angle to both prevent the interference of the mounting pole (see \Fref{fig:pictures:protoact}) and to increase thermal mass detected. For ease of use, the prototype was powered by mains power, and had the Raspberry Pi networked with a laptop for command input and data collection via Ethernet. This set of experiments involved between one and three people being present in the scene, moving in and out in various ways in accordance with the following scripts.
@@ -166,9 +166,9 @@ The latter five sub-experiments involved people sitting;
 \item Sub-exp 9: Two people walk in, both sit there simultaneously, both leave simultaneously.
 \end{itemize}
 
-In these experiments people moved slowly and deliberately, making sure there were large pauses between changes of action. The people involved were of average height, wearing various clothing. The room was cooled to 18 degrees for these experiments.
+In these experiments people moved slowly and deliberately, making sure there were large pauses between changes of action. When not otherwise specified, all people entered from the left and exited from the right. The people involved were of average height, wearing various clothing. The room was cooled to 18 degrees for these experiments.
 
-Each experiment was recorded with a thermal-visual synchronization at 1~Hz over approximately 60-120 second intervals. Each experiment had 10-15 frames at the beginning where nothing was within the view of the sensor to allow the thermal background to be calculated. Each frame generated from these experiments was manually tagged with the ground truth value of its number of occupants using the tagging script discussed in \Fref{subsec:datalabelling}. A breakdown of the number of frames collected for each occupancy type can be found in \Fref{tab:expbreak}.
+Each experiment was recorded with a thermal-visual synchronisation at 1~Hz over approximately 60-120 second intervals. Each experiment had 10-15 frames at the beginning where nothing was within the view of the sensor to allow the thermal background to be calculated. Each frame generated from these experiments was manually tagged with the ground truth value of its number of occupants using the tagging script discussed in \Fref{subsec:datalabelling}. A breakdown of the number of frames collected for each occupancy type can be found in \Fref{tab:expbreak}.
 
 The resulting features and ground truth were combined and exported to CSV allowing Weka to analyse them. This data was analysed with the feature vectors always being considered numeric data and with the ground truth considered both numeric and nominal.
 
@@ -212,10 +212,10 @@ KNN$^1$             & 0.346         &             &              \\ \hline
 Lin Reg$^2$         & 0.385         &             & 0.926        \\ \hline
 MLP                 & 0.409         &             & 0.945        \\ \hline
 \multicolumn{4}{|c|}{\cellcolor{black!15} ThermoSense Replication}                    \\ \hline
-KNN$^1$             & 0.364         & 65.65       &              \\ \hline
+KNN (Nom)$^1$       & 0.364         & 65.65       &              \\ \hline
 MLP                 & 0.592         &             & 0.687        \\ \hline
 Lin Reg$^2$         & 0.525         &             & 0.589        \\ \hline
-KNN$^1$             & 1.123         &             & 0.377        \\ \hline
+KNN (Num)$^1$       & 1.123         &             & 0.377        \\ \hline
 \multicolumn{4}{|c|}{\cellcolor{black!15} Numeric}                                    \\ \hline
 K*                  & 0.423         &             & 0.760        \\ \hline
 0-R                 & 0.651         &             & -0.118       \\ \hline
@@ -239,7 +239,7 @@ $r$: Correlation coefficient, measuring a numeric test result \\
 
 Significant care was taken to ensure that the same classification parameters were used between our experiments and those performed in ThermoSense to provide as accurate as possible a comparison between our results. However, there were some ambiguities with the ThermoSense results that have made it more difficult to determine which parameters to choose. In particular, with reference to the $k$-Nearest Neighbours tests (KNN), it was ambiguous within the ThermoSense paper as to if they had elected to use a nominal classification or a numeric classification for this data.
 
-Because of this, four tests were performed overall to replicate the ThermoSense results as closely as possible; KNN tests for both numeric and nominal representations of data, a Multi-Layer Perceptron numeric test (MLP) and a Linear Regression numeric test (Lin Reg). With these tests we found that our prototype did not achieve comparable results. ThermoSense reported correlation coefficients ($r$) of around 0.9 for their MLP and Lin Reg tests, however we could not replicate these results, with our best being 0.69 and 0.59 respectively. We were also unable to achieve the low Root Mean Squared Errors (RMSEs) reported by ThermoSense, with their RMSEs for KNN, MLP and Lin Reg being 0.346, 0.385 and 0.409 respectively, while ours were 0.364 (KNN Nominal Case), 1.123 (KNN Numeric Case), 0.592 (MLP) and 0.525 (Lin Reg). Our numeric KNN test performed worse than the 0-R benchmark for numeric tests, indicating a exceedingly poor classification result, with it achieving an RMSE of 1.123 vs. the 0-R's 0.651.
+Because of this, four tests were performed overall to replicate the ThermoSense results as closely as possible; KNN tests for both numeric and nominal representations of data, a Multi-Layer Perceptron numeric test (MLP) and a Linear Regression numeric test (Lin Reg). With these tests we found that our prototype did not achieve comparable results. ThermoSense reported correlation coefficients ($r$) of around 0.9 for their MLP and Lin Reg tests, however we could not replicate these results, with our best being 0.69 and 0.59 respectively. We were also unable to replicate the low Root Mean Squared Errors (RMSEs) reported by ThermoSense, with their RMSEs for KNN, MLP and Lin Reg being 0.346, 0.385 and 0.409 respectively, while ours were 0.364 (KNN Nominal Case), 1.123 (KNN Numeric Case), 0.592 (MLP) and 0.525 (Lin Reg). Our numeric KNN test performed worse than the 0-R benchmark for numeric tests, indicating an exceedingly poor classification result, with it achieving an RMSE of 1.123 vs. the 0-R's 0.651.
 
 For our own proposed nominal classification algorithms, our accuracies were significantly improved, and in some cases exceeded the RMSEs reported by ThermoSense. Within our dataset, the K* and C4.5 algorithms were most accurate, with accuracies of 82.56\% and 82.39\% respectively. They both achieved RMSEs lower than the best achieved by ThermoSense, with their 0.304 and 0.314 a significant improvement on ThermoSense's KNN RMSE of 0.346.
 
@@ -275,9 +275,9 @@ PIR: \pir
 
 A YZXStudio USB 3.0 Power Monitor was used to measure power consumed by the Pre-Processing and Sensing tier together while experimenting, as in a more advanced prototype, they would be envisioned to be run on battery power. This was done by connecting the Arduino's USB cable to the Monitor, and the Monitor to a computer. It was calculated (see \Fref{tab:results:energy}) that the average power consumption was 52~mA at 4.92~volts with a sample rate of 0.5~Hz, while continuously outputting data over USB Serial. This power consumption did not vary measurably between sample rates.
 
-To determine the draw from the \pir and \iar, we disconnected all sensors from the Arduino, and ran the power measurement again. The same code was run on the Arduino. This time we received a result of 46~mA  for all sample rates. We found that this power consumption appeared to be from the \mlx, as adding/removing the \pir had negligible effects on power consumption. Power consumption also did not appear to vary depending on the temperature of the objects being detected, or the motion properties of the scene. We can then conclude that the sensors themselves draw around 6~mA of power.
+To determine the draw from the \pir and \iar, we disconnected all sensors from the Arduino, and ran the power measurement again. The same code was run on the Arduino. This time we received a result of 46~mA  for all sample rates. We found that this power consumption appeared to be from the \mlx, as adding/removing the \pir had negligible effects on power consumption. Power consumption also did not appear to vary depending on the temperature of the objects being detected, or the motion properties of the scene. We can then conclude that the sensors themselves draw around 6~mA of current.
 
-We also ran the Arduino in the most aggressive power saving mode available on the hardware, and measured how much power was consumed with and without sensors attached. It appears that this power saving mode disables all sensor power, as in both cases a draw of 34~mA was measured. This represents a power saving of 12~mA from the base Arduino power consumption.
+We also ran the Arduino in the most aggressive power saving mode available on the hardware, and measured how much power was consumed with and without sensors attached. It appears that this power saving mode disables all sensor power, as in both cases a draw of 34~mA was measured. This represents a saving of 12~mA from the base Arduino current consumption.
 
 \section{Discussion}
 
@@ -288,7 +288,7 @@ With the specific classification techniques that we choose to test, we found sig
 
 Examining the plots of the Euclidean distance for the features (\Fref{fig:featplots}), it is apparent there is no obvious separation between the different classes, with the three sets of values overlapping significantly. This explains $k$-Nearest Neighbours (KNN) and Support Vector Machine's (SVM) poor performance with our data.
 
-In the case of KNN, a selection of the nearest neighbours may be not indicative of the feature vector's class membership. A similar idea applies in the case of SVM, the aforementioned plots suggest that there may be no clear hyperplane through which the different classes of data can be separated.
+In the case of KNN, a selection of the nearest neighbours may not be indicative of the feature vector's class membership. A similar idea applies in the case of SVM, the aforementioned plots suggest that there may be no clear hyperplane through which the different classes of data can be separated.
 
 The success of entropy-based methods suggests that the separation of classes is less of an issue when distance is measured with entropy, as in the case of K*, or when entropy is used to divide the dataset, as in the case of C4.5. In \Fref{fig:correctplots} we can see a comparison of the predictions of the SVM algorithm against that of K*. For the central part of the graph (20 $<$ Active pixels $<$ 35), the predictive power of both algorithms appears similar. However in the left and right parts of the graph, we can see that SVM fails to correctly separate the classes. This suggests that SVM's use of support vectors to split the feature space is ill-suited to the overlapping features of the dataset, and that K*'s entropy-based approach is able to find more suitable splits.
 
@@ -305,6 +305,16 @@ By using the K* or C4.5 machine learning algorithm, we are confident that the pr
 # numactive: Number of active pixels in frame
 # sizeconnected: Number of active pixels in largest connected component
 # numconnected: Number of connected components in frame
+
+# Leaf format:
+# <attribute name> <comparator> <value>:
+#     <classified as class>
+#     (<total number of instances reaching leaf>
+#     /<number of those instances that are misclassified>)
+# e.g. attribute <= 10: 3 (100.0/50.0)
+
+# Fractional measures are caused by the distribution of samples with
+# missing values
 
 numactive <= 20
 |   sizeconnected <= 10
@@ -417,7 +427,7 @@ The high power consumption of our prototype is largely due to the use of off-the
 
 Contemplating a more real-world prototype, there exist Arduino board that use the same processor as ours (and thereby are fully compatible) that can be constructed easily and reduce base power consumption to 7~mA, without sleep. In sleep mode, the power consumption drops to an impressive 43~\textmu A. A commonly used radio used in such devices is the ZigBee. Dementyev, Hodges and Taylor~\etal~\cite{dementyev2013power} suggest that a ZigBee radio would consume approximately 4.2~\textmu A when sleeping and 9.3~mA when awake, with a minimum wake time of around 270~ms to connect to the other nodes on the network. With a minimum data transfer rate of 20~kb/s and approximately 200 bytes of data to transmit each interval, we can set the upper limit of the radio wake time to be 300~ms. Using this radio, board and eliminating our voltage conversion issues (``LowPwr A'' in \Fref{tab:lives}) would increase the prototype's lifetime to around 438~days, a significant improvement over ThermoSense.
 
-Additionally, in a real-world system, we contend that a sample rate of 0.0.1~Hz (once per 100 seconds) would provide sufficiently up-to-date information. Doing so provides an order of magnitude more battery life (``LowPwr B'' in \Fref{tab:lives}), with it being able to last more than 12~years.
+Additionally, in a real-world system, we contend that a sample rate of 0.01~Hz (once per 100 seconds) would provide sufficiently up-to-date information. Doing so provides an order of magnitude more battery life (``LowPwr B'' in \Fref{tab:lives}), with it being able to last more than 12~years.
 
 Realistically, the battery lives of any of these prototypes would be less than estimated due to our assumptions about perfect efficiency, including the fact that an average battery would rarely hold its full charge for the time-scales discussed. However, these calculations provide us with useful relative comparative power and demonstrate that our prototype has the potential to be competitive with or better than ThermoSense in the realm of energy efficiency.
 
