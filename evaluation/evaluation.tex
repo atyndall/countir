@@ -66,8 +66,10 @@ This phenomena is not anticipated to impact our intended use case, as it only st
 \label{fig:hotmotion}
 \end{figure}
 
+\clearpage{}
+
 \section{Classification}
-With a greater understanding of the prototype's caveats, it is now possible to gather both thermal and visual data in a synchronized format. This data can be collected and used to determine the effectiveness of the machine learning classification algorithms used. Due to the prototype's technical similarly to ThermoSense~\cite{beltran2013thermosense}, a similar set of experimental conditions will be used, with a comparison against ThermoSense being used as a benchmark. To this end, several experiments were devised, each of which had its data gathered and processed in accordance with the same general process, outlined in \Fref{fig:methods:flowchart} and discussed in more detail in this section.
+With deeper understanding of the prototype's caveats, it is now possible to proceed to the data collection stage. Both thermal and visual data can be collected determine the effectiveness of the machine learning classification algorithms used. Due to the prototype's technical similarly to ThermoSense~\cite{beltran2013thermosense}, a similar set of experimental conditions will be used, with a comparison against ThermoSense being used as a benchmark. To this end, several experiments were devised, each of which had its data gathered and processed in accordance with the same general process, outlined in \Fref{fig:methods:flowchart} and discussed in more detail in this section.
 
 \begin{figure}
 \centering
@@ -172,7 +174,7 @@ Each experiment was recorded with a thermal-visual synchronisation at 1~Hz over 
 
 The resulting features and ground truth were combined and exported to CSV allowing Weka to analyse them. This data was analysed with the feature vectors always being considered numeric data and with the ground truth considered both numeric and nominal.
 
-\begin{table}[b]
+\begin{table}
 \centering
 \begin{tabular}{|r|r|r|r|}
 \hline
@@ -183,7 +185,7 @@ The resulting features and ground truth were combined and exported to CSV allowi
 3                  & 64                 & 6.1                   & 10.5                  \\ \hline
 Total              & 1051               & 100.0                 & 100.0                 \\ \hline
 \end{tabular}
-\caption{Breakdown of Classification Experiment Set data by true number of occupants}
+\caption{Breakdown of experimental data by occupant ground truth}
 \label{tab:expbreak}
 \end{table}
 
@@ -399,25 +401,25 @@ numactive > 20
 {\footnotesize
 \begin{tabbing}
 Radio: ~~~~~~~~~~~~\= Does the model use radio transmission?\\
-Sleep (mA): \> Current consumption in sleep state\\
-Wake (mA): \> Current consumption in wake state\\
+Sleep (mA): \> Milliamp current consumption in sleep state\\
+Wake (mA): \> Milliamp current consumption in wake state\\
 Volts (V): \> Voltage requirement of model\\
-Wake (ms): \> Min. time model must be awake to sample \& transmit once\\
+Wake (ms): \> Min. millisecond time model must be awake to sample \& transmit once\\
            \> ($\infty$ = never sleeps)\\
 Sample (Hz): \> Freq. that model wakes and performs sample \& transmit\\
-Avg (mW): \> Avg. power given sleep/wake current, voltage, sample and wake time\\
-Life (days): \> Est. life of model assuming a perfect 50~Wh battery
+Avg (mW): \> Avg. milliwatt power given sleep/wake current, voltage, sample and wake time\\
+Life (days): \> Est. life of model assuming a perfect 50~watt-hour~(Wh) battery
 \end{tabbing}}}
 \vspace*{-20px}
 \caption{Comparison of different systems power consumption and their various energy efficiency traits}
 \label{tab:lives}
 \end{table}
 
-As discussed in \fref{subsec:energy}, the prototype initially appears comparatively power hungry, as the ThermoSense system reported a power consumption of $\sim$4.8~mA, approximately $10\times$ less. However, making fair comparisons is difficult, as their data is incomplete. The 4.8~mA figure they quote is an average consumption figure taking into account all aspects of the wake/sleep cycle. No breakdown on wake times, sleep or wake current was provided, making direct comparisons on those metrics difficult. We examined the datasheets of their components and estimate a voltage of 3.3~V to generate our average~milliwatts~(mW) figure.
+As discussed in \fref{subsec:energy}, the prototype initially appears comparatively power hungry, as the ThermoSense system reported a power consumption of $\sim$4.8~mA, approximately $10\times$ less. However, making fair comparisons is difficult, as their data is incomplete. The 4.8~mA figure they quote is an average consumption figure taking into account all aspects of the wake/sleep cycle. No breakdown on wake times, sleep or wake current was provided, making direct comparisons on those metrics difficult. We examined the datasheets of their components and estimate a voltage of 3.3~V to generate our average milliwatt figure.
 
 For our prototype sensing system, we restricted our adherence to low-power consumption to an architectural level, rather than making specific hardware and software changes. For our comparisons, we have elected to use a 50~watt-hour~(Wh) battery as a measure, as there exist inexpensive batteries in that class weighing around 300~grams \cite{AdafruitBattery} that provide a good balance between capacity and weight. We propose several different prototype designs in \Fref{tab:lives} and calculate theoretical prototype lifetimes assuming a perfect 50~Wh battery.
 
-ThermoSense indicated that for each of their nodes, which consumed approximately 4.8~mA each, there were two 3~amp-hour~(Ah) batteries running in series. They indicated that at a sample rate of 0.2~Hz (once every 5 seconds) their prototype was able to run for approximately 21~days. Using our 50~Wh battery (``ThermoS.'' in \Fref{tab:lives}), we estimate that this would increase to approximately 131~days.
+ThermoSense indicated that for each of their nodes, which consumed approximately 4.8~mA each, there were two 3~(Ah) batteries running in series. They indicated that at a sample rate of 0.2~Hz (once every 5 seconds) their prototype was able to run for approximately 21~days. Using our 50~Wh battery (``ThermoS.'' in \Fref{tab:lives}), we estimate that this would increase to approximately 131~days.
 
 Our current prototype (``Existing'' in \Fref{tab:lives}) can boot and take one measure in approximately 100~ms, indicating it would need to be awake for 2\% of each five second window to perform one sample. Without any sleep, this prototype is always drawing a constant 52~mA, and consequently can only last 8~days.
 
