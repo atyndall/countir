@@ -4,23 +4,23 @@
 
 The smart-home economy continues to grow, with automation being one of the main areas driving growth. The ability to detect occupants present within a space is an important smart-automation feature, with the implications for climate control energy efficiency alone being highly significant.
 
-This project has created an prototype occupancy detection system for such a smart home environment that meets four criteria; Low Cost, Non-Invasive, Energy Efficient and Reliable. This prototype was based upon the ceiling-mounted thermal imaging approach of ThermoSense~\cite{beltran2013thermosense}, which after extensive analysis proved to be the best option given our criteria.
+This project has created a prototype occupancy detection system for such a smart home environment that meets four criteria; Low Cost, Non-Invasive, Energy Efficient and Reliable. This prototype was based upon the ceiling-mounted thermal imaging approach of ThermoSense~\cite{beltran2013thermosense}, which after extensive analysis proved to be the best option given our criteria.
 
 \section{Evaluation of Criteria}
 
 \subsection{Low Cost}
 One of our primary goals was to create a system that was inexpensive enough that it would be suitable for both office environments with tens or hundreds of rooms, as well as in smart homes for the disabled and elderly, both of which are areas where per-unit cost is an issue.
 
-As discussed in the Design chapter (\fref{subsec:cost}), the cost of our proposed sensing system is around \$185, on par with the ThermoSense system and below our original \$300 goal. Compared with most thermal sensing systems, this is significantly less expensive, as devices incorporating thermal imaging can cost in the hundreds, thousands or even tens of thousands of dollars. We admit that \$185 is still expensive for such a sensing system, when taking into consideration that many would be needed for one home. However, while this is the cost of such components today, this is by no means the cost of them tomorrow. Prices for all of the components involved in this design are falling rapidly, in particular that of the thermal sensor: In the future work section we discuss a sensor that takes the price per pixel from the \$1.25 for the \mlx to a mere \$0.07.
+As discussed in the Design chapter (\fref{subsec:cost}), the cost of our proposed sensing system is around \$185, on par with the ThermoSense system and below our original \$300 goal. Compared with most thermal sensing systems, this is significantly less expensive, as devices incorporating thermal imaging can cost in the hundreds, thousands or even tens of thousands of dollars. We admit that \$185 is still expensive for such a sensing system, when taking into consideration that many would be needed for one home. However, while this is the cost of such components today, this is by no means the cost of them tomorrow. Prices for all of the components involved in this design are falling rapidly, in particular the price of the thermal sensor: In the future work section we discuss a sensor that takes the price per pixel from the \$1.25 for the \mlx to a mere \$0.07.
 
 Right now we are at the stage where this technology is economical for researchers to investigate, but a future where it becomes economical for consumers is approaching fast. We believe by selecting the components that we have at the current price point, we have met the project's goal of low cost.
 
 \subsection{Non-Invasive}
-To ensure wide adoption, minimizing privacy concerns is a must. We viewed creating a system with little means by which to  surveil occupants as the best way to minimize such concerns.
+To ensure wide adoption, minimizing privacy concerns is necessary. We viewed creating a system with little means by which to  surveil occupants as the best way to minimize such concerns.
 
 As discussed in the Literature Review (\Fref{sec:litreview:sensors:analysis}), we concluded that the \mlx provides the best trade-off between accuracy and non-invasiveness of those sensing systems studied. It provides this trade-off from two different angles; the infra-red aspect and the low-resolution aspect. 
 
-By sensing in the infra-red spectrum, many elements of automatic and manual person identification become more difficult, as many such methods rely on using colour information to make such decisions. Similarly, by having the sensor constrained to such a low resolution, it is also presents significant difficulty to performing person or action identification, due to the little identifiable information available.
+By sensing in the infra-red spectrum, many elements of automatic and manual person identification become more difficult, as many such methods rely on using colour information to make such decisions. Similarly, by having the sensor constrained to such a low resolution, it also presents significant difficulty to performing person or action identification, due to the little identifiable information available.
 
 Through our architectural decisions, we believe that the project's goal of producing a non-invasive sensing system has been achieved.
 
@@ -31,10 +31,10 @@ As discussed in \Fref{subsec:classification}, we were unable to replicate Thermo
 
 However among our own selected machine learning algorithms, K* and C4.5 achieved accuracies in the 80\%+ range, exceeding our original goal of 75\%. These algorithms also improved upon ThermoSense's best RMSE with RMSEs of 0.304 and 0.314 respectively. Both of these algorithms leverage entropy measures as a way of partitioning data, suggesting that entropy-based approaches may be particularly suited to our dataset.
 
-By using the K* or C4.5 machine learning algorithm, we are confident that the prototype could achieve appropriate levels of accuracy for its occupancy goals, and believe that the reliability requirements of our project have been met.
+Using the K* or C4.5 machine learning algorithm, we are confident that this prototype could achieve appropriate levels of accuracy for its occupancy goals, and believe that the reliability requirements of our project have been met.
 
 \subsection{Energy Efficient}
-Finally, as the system would hopefully be suitable for use in existing buildings, we aimed to create a system that could operate efficiently on battery power, as retrofitting power on a roof location would further add to the cost of the sensing system.
+Finally, as the system would hopefully be suitable for use in existing buildings, we aimed to create a system that could operate efficiently on battery power, as retrofitting power on a ceiling location would further add to the cost of the sensing system.
 
 As discussed in the Energy Efficiency results (\Fref{subsec:energy}), with the same sample rate and battery size and while sleeping between samples, our current prototype is estimated to last 8~days, slightly exceeding our originally proposed goal. However, this is compared to ThermoSense's 131~days.
 
@@ -45,23 +45,21 @@ To that end, we consider the sample rate of once every five seconds used by Ther
 We recommend that in future work, further energy saving measures, such as sleeping between sampling, and using lower power draw Arduinos are investigated to determine how much power it is possible to save.
 
 \section{Future Work}
-This project has attempted to explore the area of thermal sensing and occupancy with some depth, and with the developed software and hardware prototype, has laid the foundation for many more projects that build upon this project's work. Some areas of future research are discussed here;
+This project has attempted to explore the area of thermal sensing and occupancy with some depth, and with the developed software and hardware prototype, has laid the foundation for many more projects that build upon this project's work. Some areas of future research are discussed here.
 
 \subsection{Broader Data Collection}
-Classification dataset collection was constrained to one set of ten experiments. Each of these experiments had the sensing system recording at the same height and the same angle. While this data was varied somewhat through half of the experiments involving sitting occupants (thereby increasing their thermal signature from the sensor's perspective), an exploration of how the results differed based on the sensor's viewing angle, as well as the sensor's distance from the ground would have served to improve the result set.
+Classification dataset collection was constrained to one set of ten experiments. Each of these experiments had the sensing system recording at the same height and the same angle. This data did contain some elements of variability, such as both sitting and standing occupants. However, further exploration of how the results differ based on the sensor's viewing angle or distance from the ground would provide valuable information.
 
 Priorities for new experiments include exploring more than three people, investigating classification using classes that encompass ranges of people (e.g. ``1-2 persons'', ``2-4 persons'', ``4-8 persons'', ``8+ Person''), and investigating how placing the sensing system at different angles affects the accuracy of the collected data.
 
 \subsection{Different Feature Vectors}
-Exploring how different subsets of the three current features, or possibly new features derived from the thermal capture, affect the accuracy of the machine learning algorithms may demonstrate interesting results.
-
-We believe that experimenting with features that represent the abstract ``shape'', or ``roundness'' of connected components is a particularly promising area of research.
+Exploring how different subsets of the three current features, or possibly new features derived from the thermal capture, affect the accuracy of the machine learning algorithms may demonstrate interesting results. We believe that experimenting with features that represent the abstract ``shape'', or ``roundness'' of connected components is a particularly promising area of research.
 
 \subsection{Different Classification Algorithms}
-While the set of explored classification algorithms was significant, there is always room for improvement in that regard. Exploring how different parameters of these algorithms affected the results, and how different algorithms altogether faired would have added significantly to the experimental data. Emerging work in the area of classification algorithm selection and parameter optimisation~\cite{thornton2013auto} could assist in determining which algorithm suited our approach automatically.
+While the set of explored classification algorithms was significant, there is always room for improvement in this regard. Exploring how different parameters of these algorithms affected the results, and how different algorithms altogether faired would have added significantly to the experimental data. Emerging work in the area of classification algorithm selection and parameter optimisation~\cite{thornton2013auto} could assist in automatically determining the best classification algorithm for our sensor.
 
 \subsection{Sub-Pixel Localisation}
-The  characteristics of the \mlx's individual thermopiles, discussed in \Fref{subsec:sensitivity}, make potentially possible an algorithm for the calculation of the position and size of an object with a sub-pixel accuracy. By exploiting the fact that an object's detected temperature changes based on its sub-pixel position, either in the centre or on the boundary of two pixels, it may be possible to further refine the edges of thermal objects detected, and increase the effective resolution and accuracy of the sensor system.
+The  characteristics of the \mlx's individual thermopiles, discussed in \Fref{subsec:sensitivity}, potentially make possible an algorithm for the calculation of the position and size of an object with a sub-pixel accuracy. The variability in measured temperatures for an object is related to its distance to pixel edges. By exploiting this, it may be possible to further refine the edges of thermal objects detected and increase the effective resolution of the sensor system.
 
 \subsection{Improving Robustness}
 One of the main areas of the project that was deemed out of scope was the introduction of a wireless mesh networking architecture to the project. Future prototypes would consist of an many-to-one relationship between the Sensing/Pre-processing tier and the Analysis tier. Exploring the best way to mesh network these components while maintaining all the pre-existing criteria of the project would be involved and useful.
@@ -71,12 +69,12 @@ Similarly, the current prototype uses a breadboard design that increases the siz
 \subsection{Field-Of-View Modifications}
 Several different techniques could be used to improve upon the field-of-view limitations of the \mlx, and exploring them and their cost/complexity implications would be useful. The first of these is applying a lens to the sensor, effectively expanding the field-of-view, but at the cost of distorting the image. Compensating for this distortion while maintaining accuracy presents an intriguing problem.
 
-In another direction, using a motor with the \mlx to ``sweep'' a room, and thereby constructing a larger image of the space could also resolve the field-of-view issues. However, this approach also presents problems in stitching the images together in a sensible way, the distortion caused by rotating the sensor, as well as handing cases in which a fast-moving object is represented multiple times in the stitched image.
+In another direction, using a motor with the \mlx to ``sweep'' a room, and thereby constructing a larger image of the space could also resolve the field-of-view issues. However, this approach also presents problems in stitching the images together in a sensible way. Problems include the lens distortion caused by rotating the sensor and cases where a fast-moving object may be represented multiple times in a stitched capture.
 
 \subsection{New Sensors}
-During this project, an updated version of our sensor, the MLX90621, was released. This version (at a similar price point) doubles the field-of-view in both the horizontal and vertical directions, addressing many of the problems encountered with the size of detection area in low-ceiling rooms. This version offers nearly complete backwards compatibility with the older version. Updating the project code-base to support it and re-running the experiments with the increased field-of-view to determine how much of an improvement it is would be interesting.
+During this project, an updated version of our sensor, the MLX90621, was released. This version (at a similar price point) doubles the field-of-view in both the horizontal and vertical directions, addressing many of the problems encountered with the size of detection area in low-ceiling rooms. This version offers nearly complete backwards compatibility with the MLX90620. Updating the project code-base to support it and re-running the experiments with the increased field-of-view to determine how much of an improvement it is would be interesting.
 
-In addition to this, significantly higher resolution sensors are beginning to come to the market. The FLiR Lepton~\cite{flir}, which sells in a development kit for \$350, offers an $80 \times 60$ pixel sensor with a comparable field-of-view to the Grid-EYE. Comparing the \mlx with the FLiR, we see that the price per pixel is \$1.25 for the \mlx, vs. only \$0.07 for the FLiR. Exploring the increases in accuracy achievable though such significant increases in resolution would be useful.
+In addition to this, significantly higher resolution sensors are beginning to come to the market. The FLiR Lepton~\cite{flir}, which sells in a development kit for \$350, offers an $80 \times 60$ pixel sensor with a comparable field-of-view to the Grid-EYE. Comparing the \mlx with the FLiR, we see that the price per pixel is \$1.25 for the \mlx and only \$0.07 for the FLiR. Exploring the accuracy achievable though such significant increases in resolution would be useful.
 
 \section{Summary}
 Fundamentally, in this project we set out to create a sensing system that met our requirements of Low-Cost, Non-Invasiveness, Reliability and Energy Efficiency, and we have indeed created such a sensing system. The work required to achieve this project's goals was extensive, from reviewing the state of occupancy sensing, to developing a hardware prototype and software library, to performing experimentation on the system and its properties, and to validate the reliability and energy efficiency of the prototype with a series of experiments.
