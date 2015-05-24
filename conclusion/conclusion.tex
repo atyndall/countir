@@ -60,7 +60,7 @@ We believe that experimenting with features that represent the abstract ``shape'
 \subsection{Different Classification Algorithms}
 While the set of explored classification algorithms was significant, there is always room for improvement in that regard. Exploring how different parameters of these algorithms affected the results, and how different algorithms altogether faired would have added significantly to the experimental data. Emerging work in the area of classification algorithm selection and parameter optimization~\cite{thornton2013auto} could assist in determining which algorithm suited our approach automatically.
 
-\subsection{Sub-pixel localization}
+\subsection{Sub-Pixel Localization}
 The  characteristics of the \mlx's individual thermopiles, discussed in \Fref{subsec:sensitivity}, make potentially possible an algorithm for the calculation of the position and size of an object with a sub-pixel accuracy. By exploiting the fact that an object's detected temperature changes based on its sub-pixel position, either in the centre or on the boundary of two pixels, it may be possible to further refine the edges of thermal objects detected, and increase the effective resolution and accuracy of the sensor system.
 
 \subsection{Improving Robustness}
@@ -68,7 +68,7 @@ One of the main areas of the project that was deemed out of scope was the introd
 
 Similarly, the current prototype uses a breadboard design that increases the size of the prototype significantly, as well as reduces the physical robustness of the prototype in the long-term. Converting the \mlx and PIR circuit into a printed circuit board that fits onto the Arduino as a shield would both reduce the size of the prototype, as well as improve reliability for the future.
 
-\subsection{Field-of-view modifications}
+\subsection{Field-Of-View Modifications}
 Several different techniques could be used to improve upon the field-of-view limitations of the \mlx, and exploring them and their cost/complexity implications would be useful. The first of these is applying a lens to the sensor, effectively expanding the field-of-view, but at the cost of distorting the image. Compensating for this distortion while maintaining accuracy presents an intriguing problem.
 
 In another direction, using a motor with the \mlx to ``sweep'' a room, and thereby constructing a larger image of the space could also resolve the field-of-view issues. However, this approach also presents problems in stitching the images together in a sensible way, the distortion caused by rotating the sensor, as well as handing cases in which a fast-moving object is represented multiple times in the stitched image.
