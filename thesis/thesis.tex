@@ -113,7 +113,7 @@
 
 % Abbreviation commands for common stuff
 \newcommand{\cdi}{CO\textsubscript{2}\xspace}
-\newcommand{\etal}{et al.\xspace}
+\newcommand{\etal}{et~al.\xspace}
 \newcommand{\iic}{$\textrm{I}^2\textrm{C}$\xspace}
 \newcommand{\geye}{Grid-EYE\xspace}
 \newcommand{\ard}{Arduino\xspace}
@@ -238,11 +238,11 @@
 
 % TODO: Mention both ThermoSense and our RMSE.
 \begin{abstract}
-With the increasing inter-networked and inexpensive nature of embedded systems and systems, occupancy sensing, the detection of the presence and number of people in a given space, is becoming a cost-effective area of research. Knowing the number of occupants in a space can help reduce energy consumption and greenhouse gas emissions in both small homes and in large office buildings through more efficient climate control. The goal of this project was to develop an occupant sensing system that is low-cost, non-invasive, reliable and energy efficient.
+With the increasing inter-networked and inexpensive nature of embedded sensors and systems, occupancy sensing, the detection of the presence and number of people in a given space, is becoming a cost-effective area of research. Knowing the number of occupants in a space can help reduce energy consumption and greenhouse gas emissions in both small homes and in large office buildings through more efficient climate control. The goal of this project was to develop an occupant sensing system that is low-cost, non-invasive, reliable and energy efficient.
 
-After examining the available sensing options, we concluded that a \lrtda would be the most appropriate sensor for our project, as it has non-invasiveness advantages. The key paper in that area, termed Thermosense, used an \lrtda in combination with image subtraction, feature extraction and machine learning classification algorithms to make occupancy predictions with a Root Mean Squared Error (RMSE) of only 0.35 occupants, at an estimated cost of \$170. However, due to component availability issues, ThermoSense could not be directly replicated in the Australian market.
+After examining the available sensing options, we concluded that a \lrtda would be the most appropriate sensor for our project, as it has non-invasiveness advantages. The key paper in this area developed the ``ThermoSense'' system using an \lrtda in combination with image subtraction, feature extraction and machine learning classification algorithms. They made occupancy predictions with a Root Mean Squared Error (RMSE) of only 0.35 occupants, at an estimated cost of \$170. However, due to component availability issues, ThermoSense could not be directly replicated in the Australian market.
 
-We designed our own sensing system for \$185 based using an Arduino, a Raspberry Pi, and a different \lrtda (the MLX90620), which had a narrower, rectangular field of view. This system consumed approximately 51~mA of power when active. We also developed \tarl, a software library that implemented ThermoSense's occupant detection algorithm. We then investigated ThermoSense's classification methods, which used numeric Multi-Layer Perceptron, $k$-Nearest Neighbors and Linear Regression algorithms and found our results differed from theirs significantly in both RMSE and correlation, with both lower. These results suggest that classifiers used may be very sensitive to the specific sensor's properties.
+We designed our own sensing system for \$185 using an Arduino, a Raspberry Pi, and a different \lrtda (the MLX90620), which had a narrower, rectangular field of view. The system consumes $\sim$256~mW when active. We also developed \tarl, a software library that implemented ThermoSense's occupant detection algorithm. We then investigated ThermoSense's classification methods, which used numeric Multi-Layer Perceptron, $k$-Nearest Neighbors and Linear Regression algorithms and found our results differed from theirs significantly in both RMSE and correlation, with both being lower. These results suggest that classifiers used may be very sensitive to the specific sensor's properties.
 
 After further experimentation with our own suite of nominal classification algorithms, we found an approach (K*) that achieved an RMSE of 0.304 and a precision of 82\%, which improves upon ThermoSense's results. We reflected upon our four criteria, and with our choice of sensor, falling component costs, our accuracy results and power consumption statistics, we concluded that our sensing system prototype met our defined criteria.
 \end{abstract}
@@ -275,7 +275,7 @@ Firstly, my supervisors Professor Rachel Cardell-Oliver and Professor Adrian Kea
 
 Secondly, I wish to acknowledge the generous support of the University, the University Alumni, and the Hackett Foundation through the Hackett Foundation Alumni Honours Scholarship, which I was awarded at the beginning of my project. The financial support this scholarship provided has allowed me to commit more of my time to my research over working, and I can safely say that without it, my research would be of a much poorer quality.
 
-Thirdly, to my friends and family, who have provided support and encouragement throughout this project, thank you. I cannot imagine where I would be right now without them. % TODO: Mention specific names
+Thirdly, thank you to my friends and family, who have provided support and encouragement throughout this project. I cannot imagine where I would be right now without them. In particular, thank you to Alyssa for your edits, and Magnus and Mark for spending hours with me making revisions.
 
 Additionally, I would like to acknowledge Alex Beltran, Varick L. Erickson and Alberto E. Cerpa, the authors of ThermoSense~\cite{beltran2013thermosense}. Without their groundwork on thermal occupancy sensing, nothing in this dissertation would be possible.
 
