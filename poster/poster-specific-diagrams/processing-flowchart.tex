@@ -1,0 +1,19 @@
+\documentclass[a4paper]{article} % use larger type; default would be 10pt
+\usepackage[landscape]{geometry}
+
+\usepackage{tikz}
+
+% Tikz initialize
+\usetikzlibrary{shapes, arrows, positioning, fit}
+\tikzstyle{dashbox} = [rectangle, dashed, draw=black]
+\tikzstyle{box} = [rectangle, draw=black, minimum width=2.5cm, minimum height=1cm, text centered, text width=2.5cm]
+\tikzstyle{cbox} = [cloud, cloud puffs=15.7, minimum height=1cm, draw]
+\tikzstyle{line} = [thin,-,>=stealth]
+\tikzstyle{fbox} = [box, dotted, rounded corners=1mm]
+\tikzstyle{fcont} = [rectangle, draw=black, minimum width=6cm, minimum height=2.5cm, text centered, text width=6cm]
+\tikzstyle{circ} = [circle, draw=black, text centered,  minimum width=2cm, text width=2cm]
+
+
+\begin{document}
+\input{../../diagrams/processing-flowchart}
+\end{document}
