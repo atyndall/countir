@@ -1,19 +1,19 @@
 \begin{tikzpicture}[node distance=1.7cm]
 \node (raw) [circ] {Raw \linebreak Data};
-\node (step1) [box, right=of raw, text width=4cm, minimum width=4cm] {1. Image \linebreak Capture on RPi \linebreak \texttt{cap\_pi\_synced.py}};
-\node (frames) [circ, below=of step1] {Captured Images};
-\node (step2) [box, right=of frames] {2. Data Labeling \linebreak \texttt{tagging.py}};
-\node (truth) [circ, below=of step2] {Per-Frame Truth};
-\node (step3) [box, left=of truth] {3. Feature Extraction \linebreak \texttt{weka\_export.py}};
-\node (csv) [circ, below=of step3] {CSV File};
-\node (step4) [box, below=of csv] {4. Weka Classification \linebreak \texttt{run\_flow.py}};
-\node (results) [circ, right=of step4] {Weka Results};
+\node (step1) [box, above=of raw] {1. Image \linebreak Capture on RPi};
+\node (frames) [circ, right=of step1] {Captured Images};
+\node (step2) [box, right=of frames] {2. Data Labeling};
+\node (truth) [circ, right=of step2] {Per-Frame Truth};
+\node (step3) [box, below=of frames] {3. Feature Extraction};
+\node (csv) [circ, right=of step3] {Features};
+\node (step4) [box, below=of truth] {4. Weka Classification};
+\node (results) [circ, right=of step4] {Person Count};
 
 \draw [line,->] (raw) -- (step1);
 \draw [line,->] (step1) -- (frames);
 \draw [line,->] (frames) -- (step2);
 \draw [line,->] (step2) -- (truth);
-\draw [line,->] (truth) -- (step3);
+\draw [line,->] (truth) -- (step4);
 \draw [line,->] (step3) -- (csv);
 \draw [line,->] (csv) -- (step4);
 \draw [line,->] (step4) -- (results);
