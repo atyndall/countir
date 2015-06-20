@@ -107,7 +107,7 @@ Secondly, they use a $k$-Nearest Neighbours (KNN) where $k=5$, with the distance
 
 Weka's ``iBk'' function is used to perform a KNN calculation, configuring \texttt{distanceWeighting} to be ``Weight by 1-distance'' and \texttt{KNN} to be 5, to make the classification as similar in function to the ThermoSense approach as is possible. ThermoSense does not specify what validation technique they used, so we elected to use a 10-fold cross-validation. We limit the scope of our study to $k = 5$.
 
-Thirdly, they use a Linear Regression model of $y = \beta_A A + \beta_S S + \beta $, whereby $A$ is the number of active pixels, $S$ is the size of the largest connected component, and the $\beta$ values represent the corresponding coefficients. They opt to exclude the third feature, the number of connected components, as their testing indicates that excluding it minimizes the Root Mean Squared Error (RMSE) further. 
+Thirdly, they use a Linear Regression model of $y = \beta_A A + \beta_S S + \beta $, whereby $A$ is the number of active pixels, $S$ is the size of the largest connected component, and the $\beta$ values represent the corresponding coefficients. They opt to exclude the third feature, the number of connected components, as their testing indicates that excluding it minimizes the Root-Mean-Square Error (RMSE) further. 
 
 We use Weka's ``LinearRegression'' function, and exclude the number of connected components (\texttt{numconnected}) attribute from the feature vector list, as ThermoSense does, to attempt to match this approach. We limit the scope of our study to Linear Regressions that exclude the number of connected components.
 
@@ -208,16 +208,16 @@ Total              & 1051               & 100.0                 & 100.0         
 \centering
 \begin{tabular}{|l|r|r|r|}
 \hline
-\textbf{Classifier} & \textbf{RMSE} & \textbf{Precision (\%)} & \textbf{Correlation ($r$)} \\ \hline
+\textbf{Classifier} & \textbf{RMSE$^1$} & \textbf{Precision (\%)} & \textbf{Correlation ($r$)} \\ \hline
 \multicolumn{4}{|c|}{\cellcolor{black!15} ThermoSense Actual}                         \\ \hline
-KNN$^1$             & 0.346         &             &              \\ \hline
-Lin Reg$^2$         & 0.385         &             & 0.926        \\ \hline
+KNN$^2$             & 0.346         &             &              \\ \hline
+Lin Reg$^3$         & 0.385         &             & 0.926        \\ \hline
 MLP                 & 0.409         &             & 0.945        \\ \hline
 \multicolumn{4}{|c|}{\cellcolor{black!15} ThermoSense Replication}                    \\ \hline
-KNN (Nom)$^1$       & 0.364         & 65.65       &              \\ \hline
+KNN (Nom)$^2$       & 0.364         & 65.65       &              \\ \hline
 MLP                 & 0.592         &             & 0.687        \\ \hline
-Lin Reg$^2$         & 0.525         &             & 0.589        \\ \hline
-KNN (Num)$^1$       & 1.123         &             & 0.377        \\ \hline
+Lin Reg$^3$         & 0.525         &             & 0.589        \\ \hline
+KNN (Num)$^2$       & 1.123         &             & 0.377        \\ \hline
 \multicolumn{4}{|c|}{\cellcolor{black!15} Numeric}                                    \\ \hline
 K*                  & 0.423         &             & 0.760        \\ \hline
 0-R                 & 0.651         &             & -0.118       \\ \hline
@@ -229,11 +229,12 @@ SVM                 & 0.398         & 67.18       &              \\ \hline
 N. Bayes            & 0.405         & 63.59       &              \\ \hline
 0-R                 & 0.442         & 49.74       &              \\ \hline
 \end{tabular}\\
-\parbox{300pt}{
-$^1$: Includes zero occupant cases in training data \\
-$^2$: Excludes number of connected components feature \\
-\%: Precision, measuring a nominal test result \\
-$r$: Correlation coefficient, measuring a numeric test result \\
+\parbox{300pt}{\footnotesize
+$^1$: Model deviation from occupant ground truth (see Appendix \ref{sec:rmse}) \\
+$^2$: Includes zero occupant cases in training data \\
+$^3$: Excludes number of connected components feature \\
+\%: Precision (see Appendix \ref{sec:precision}), measuring a nominal test result \\
+$r$: Pearson's $r$ (see Appendix \ref{sec:correlation}), measuring a numeric test result \\
 }
 \caption{Results of Classification Experiment Set classification replicating ThermoSense algorithms and using self-selected algorithm}
 \label{tab:results:set1}
@@ -241,13 +242,13 @@ $r$: Correlation coefficient, measuring a numeric test result \\
 
 Significant care was taken to ensure that the same classification parameters were used between our experiments and those performed in ThermoSense to provide as accurate as possible a comparison between our results. However, there were some ambiguities with the ThermoSense results that have made it more difficult to determine which parameters to choose. In particular, with reference to the $k$-Nearest Neighbours tests (KNN), it was ambiguous in the ThermoSense paper as to whether this data used a nominal classification or a numeric classification.
 
-Because of this, four tests were performed overall to replicate the ThermoSense results as closely as possible; KNN tests for both numeric and nominal representations of data, a Multi-Layer Perceptron numeric test (MLP) and a Linear Regression numeric test (Lin Reg). With these tests we found that our prototype did not achieve comparable results. ThermoSense reported correlation coefficients ($r$) of around 0.9 for their MLP and Lin Reg tests, however we could not replicate these results, with our best being 0.69 and 0.59 respectively. We were also unable to replicate the low Root Mean Squared Errors (RMSEs) reported by ThermoSense, with their RMSEs for KNN, MLP and Lin Reg being 0.346, 0.385 and 0.409 respectively, while ours were 0.364 (KNN Nominal Case), 1.123 (KNN Numeric Case), 0.592 (MLP) and 0.525 (Lin Reg). Our numeric KNN test performed worse than the 0-R benchmark for numeric tests, indicating an exceedingly poor classification result, with it achieving an RMSE of 1.123 vs. the 0-R's 0.651.
+Because of this, four tests were performed overall to replicate the ThermoSense results as closely as possible; KNN tests for both numeric and nominal representations of data, a Multi-Layer Perceptron numeric test (MLP) and a Linear Regression numeric test (Lin Reg). With these tests (\Fref{tab:results:set1}) we found that our prototype did not achieve comparable results. ThermoSense reported correlation coefficients ($r$, see Appendix \ref{sec:correlation}) of around 0.9 for their MLP and Lin Reg tests, however we could not replicate these results, with our best being 0.69 and 0.59 respectively. We were also unable to replicate the low Root-Mean-Square Errors (RMSEs) reported by ThermoSense, with their RMSEs for KNN, MLP and Lin Reg being 0.346, 0.385 and 0.409~occupants respectively, while ours were 0.364 (KNN Nominal Case), 1.123 (KNN Numeric Case), 0.592 (MLP) and 0.525~occupants (Lin Reg). Our numeric KNN test performed worse than the 0-R benchmark for numeric tests, indicating an exceedingly poor classification result, with it achieving an RMSE of 1.123~occupants vs. the 0-R's 0.651~occupants.
 
-For our own proposed nominal classification algorithms, our accuracies were significantly improved, and in some cases exceeded the RMSEs reported by ThermoSense. Within our dataset, the K* and C4.5 algorithms were most accurate, with accuracies of 82.56\% and 82.39\% respectively. They both achieved RMSEs lower than the best achieved by ThermoSense, with their 0.304 and 0.314 a significant improvement on ThermoSense's KNN RMSE of 0.346.
+For our own proposed nominal classification algorithms, our accuracies were significantly improved, and in some cases exceeded the RMSEs reported by ThermoSense. Within our dataset, the K* and C4.5 algorithms were most accurate, with accuracy (or precision, see Appendix \ref{sec:precision}) of 82.56\% and 82.39\% respectively. They both achieved RMSEs lower than the best achieved by ThermoSense, with their 0.304 and 0.314~occupants a significant improvement on ThermoSense's KNN RMSE of 0.346~occupants.
 
-Following down the ranking, our nominal MLP performed next best, with an accuracy of 77.14\%, and an RMSE of 0.362, which is slightly higher than ThermoSense's best result. Following, the Support Vector Machine (SVM) implementation achieved a relatively poor accuracy of 67.18\% with an RMSE of 0.398, and finally the Naive Bayes (N. Bayes) approach, achieved the worst accuracy of 63.59\% with an RMSE of 0.405. None of these techniques however achieved an RMSE or accuracy worse than our 0-R benchmark, which achieved an RMSE of 0.442 and an accuracy of 49.74\%.
+Following down the ranking, our nominal MLP performed next best, with an accuracy of 77.14\%, and an RMSE of 0.362~occupants, which is slightly higher than ThermoSense's best result. Following, the Support Vector Machine (SVM) implementation achieved a relatively poor accuracy of 67.18\% with an RMSE of 0.398~occupants, and finally the Naive Bayes (N. Bayes) approach, achieved the worst accuracy of 63.59\% with an RMSE of 0.405~occupants. None of these techniques however achieved an RMSE or accuracy worse than our 0-R benchmark, which achieved an RMSE of 0.442~occupants and an accuracy of 49.74\%.
 
-In our sole numeric choice of K*, we found that it achieved a better correlation than any replicated ThermoSense technique, with $r = 0.760$. Additionally, its RMSE of 0.423 was also superior.
+In our sole numeric choice of K*, we found that it achieved a better correlation than any replicated ThermoSense technique, with $r = 0.760$. Additionally, its RMSE of 0.423~occupants was also superior.
 
 \clearpage{}
 

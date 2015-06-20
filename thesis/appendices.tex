@@ -1,3 +1,38 @@
+\chapter{Statistical Measures}
+
+\section{Root-Mean-Square Error}
+\label{sec:rmse}
+Root-Mean-Square Error (RMSE), or Root-Mean-Square Deviation, is a method of measuring the average error, or deviation, between a model's set of predicted values and the actual correct values (ground truth). The Root-Mean-Square aspect derives from the fact that this model averages the square of each deviation, and then performs a square root of this average to prevent positive and negative deviations from effectively cancelling each other out \cite{willmott2005advantages}.
+
+The basic formula for RMSE involves $n$ model values and $n$ corresponding true results, with the set $\hat{x} = \{\hat{x}_0, ..., \hat{x}_n\}$ of all model results and the set $x = \{x_0, ..., x_n\}$ of corresponding true results.
+
+The ``deviation'' between a given model value $\hat{x}_i$ and a corresponding true value $x_i$ is the difference between these two. The RMSE is the average of these differences values, which are then squared and summated. This aggregate value is then divided by the total number of values, $n$, to give the average. The square root of this average is then calculated to give the final result:
+
+\begin{equation}
+\textrm{RMSE} = \sqrt[2]{ \frac{\Sigma_{i=1}^n (\hat{x}_i - x_i)^2}{n} }
+\end{equation}
+
+\section{Precision and Recall}
+\label{sec:precision}
+Precision and Recall refer to different measures of a model's accuracy, based on the number of True Positives ($TP$), False Positives ($FP$) and/or False Negatives ($FN$) within the prediction space. When discussing ``accuracy'' generally, we are referring to Precision.
+
+Precision and Recall are defined as follows:
+
+\begin{equation}
+\textrm{Precision} = \frac{TP}{TP + FP}
+\end{equation}
+
+\begin{equation}
+\textrm{Recall} = \frac{TP}{TP + FN}
+\end{equation}
+
+\section{Correlation}
+\label{sec:correlation}
+
+Within this document, the standard Pearson product-moment correlation coefficient (referred to as ``$r$'', or ``Pearson's $r$'' in text) is used to measure the correlation between two different variables. Values of $r$ can range between -1 and +1, with either extreme indicating a perfect correlation with a leftwards or rightwards slant, and zero indicating that the different variables have no correlation.
+
+With our machine learning models, an ideal correlation is one of -1 or +1 (as a correlation of -1 can be equated to one of +1 through inversion). Weka's ``correlation'' results are that of Pearson's $r$ \cite{WekaCorrelation}.
+
 \chapter{Classification Algorithms}
 \label{chap:appendix:classification}
 Here we describe the basic operation of the common classification algorithms used to classify our occupancy information. For those algorithms not discussed in detail in \Fref{chap:evaluation}, we also provide information on how to implement them in Weka. Based on information in Han, Kamber and Pei's ``Data Mining: Concepts and Techniques'' \cite{han2011data}.

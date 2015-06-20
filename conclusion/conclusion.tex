@@ -16,7 +16,7 @@ As discussed in the Design chapter (\fref{subsec:cost}), the cost of our propose
 Right now we are at the stage where this technology is economical for researchers to investigate, but a future where it becomes economical for consumers is approaching fast. We believe by selecting the components that we have at the current price point, we have met the project's goal of low cost.
 
 \subsection{Non-Invasive}
-To ensure wide adoption, minimizing privacy concerns is necessary. We viewed creating a system with little means by which to  surveil occupants as the best way to minimize such concerns.
+To ensure wide adoption, minimising privacy concerns is necessary. We viewed creating a system with little means by which to  surveil occupants as the best way to minimise such concerns.
 
 As discussed in the Literature Review (\Fref{sec:litreview:sensors:analysis}), we concluded that the \mlx provides the best trade-off between accuracy and non-invasiveness of those sensing systems studied. It provides this trade-off from two different angles; the infra-red aspect and the low-resolution aspect. 
 
@@ -27,9 +27,9 @@ Through our architectural decisions, we believe that the project's goal of produ
 \subsection{Reliable}
 Creating a system that is wholly automated and can detect occupants with a high level of accuracy is important to ensure that climate control and other occupant-driven tasks are reliably executed.
 
-As discussed in \Fref{subsec:classification}, we were unable to replicate ThermoSense's RMSEs of 0.346, 0.409 and 0.385 with either $k$-nearest Neighbours, Linear Regression, or Multi-Layer Perceptron respectively. This suggests that the classifiers ThermoSense used were highly sensitive to their sensor's specific properties.
+As discussed in \Fref{subsec:classification}, we were unable to replicate ThermoSense's Root-Mean-Square Errors (RMSEs) of 0.346, 0.409 and 0.385~occupants with either $k$-nearest Neighbours, Linear Regression, or Multi-Layer Perceptron respectively. This suggests that the classifiers ThermoSense used were highly sensitive to their sensor's specific properties.
 
-However among our own selected machine learning algorithms, K* and C4.5 achieved accuracies in the 80\%+ range, exceeding our original goal of 75\%. These algorithms also improved upon ThermoSense's best RMSE with RMSEs of 0.304 and 0.314 respectively. Both of these algorithms leverage entropy measures as a way of partitioning data, suggesting that entropy-based approaches may be particularly suited to our dataset.
+However among our own selected machine learning algorithms, K* and C4.5 achieved accuracies in the 80\%+ range, exceeding our original goal of 75\%. These algorithms also improved upon ThermoSense's best RMSE with RMSEs of 0.304 and 0.314~occupants respectively. Both of these algorithms leverage entropy measures as a way of partitioning data, suggesting that entropy-based approaches may be particularly suited to our dataset.
 
 Using the K* or C4.5 machine learning algorithm, we are confident that this prototype could achieve appropriate levels of accuracy for its occupancy goals, and believe that the reliability requirements of our project have been met.
 

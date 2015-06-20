@@ -224,6 +224,11 @@
   \listof{listing}{\listoflistingscaption}%
 }
 
+%TOCless; http://stackoverflow.com/questions/2785260/hide-an-entry-from-toc-in-latex
+\newcommand{\nocontentsline}[3]{}
+\newcommand{\tocless}[2]{\bgroup\let\addcontentsline=\nocontentsline#1{#2}\egroup}
+
+
 % Configure titles
 \title{\thetitle}
 \author{\theauthor}
@@ -240,7 +245,7 @@
 \begin{abstract}
 With the increasing inter-networked and inexpensive nature of embedded sensors and systems, occupancy sensing, the detection of the presence and number of people in a given space, is becoming a cost-effective area of research. Knowing the number of occupants in a space can help reduce energy consumption and greenhouse gas emissions in both small homes and in large office buildings through more efficient climate control. The goal of this project was to develop an occupant sensing system that is low-cost, non-invasive, reliable and energy efficient.
 
-After examining the available sensing options, we concluded that a \lrtda would be the most appropriate sensor for our project, as it has non-invasiveness advantages. The key paper in this area developed the ``ThermoSense'' system using an \lrtda in combination with image subtraction, feature extraction and machine learning classification algorithms. They made occupancy predictions with a Root Mean Squared Error (RMSE) of only 0.35 occupants, at an estimated cost of 170~AUD. However, due to component availability issues, ThermoSense could not be directly replicated in the Australian market.
+After examining the available sensing options, we concluded that a \lrtda would be the most appropriate sensor for our project, as it has non-invasiveness advantages. The key paper in this area developed the ``ThermoSense'' system using an \lrtda in combination with image subtraction, feature extraction and machine learning classification algorithms. They made occupancy predictions with a Root-Mean-Square Error (RMSE) of only 0.35 occupants, at an estimated cost of 170~AUD. However, due to component availability issues, ThermoSense could not be directly replicated in the Australian market.
 
 We designed our own sensing system for 185~AUD using an Arduino, a Raspberry Pi, and a different \lrtda (the MLX90620), which had a narrower, rectangular field of view. The system consumes $\sim$256~mW when active. We also developed \tarl, a software library that implemented ThermoSense's occupant detection algorithm. We then investigated ThermoSense's classification methods, which used numeric Multi-Layer Perceptron, $k$-Nearest Neighbors and Linear Regression algorithms and found our results differed from theirs significantly in both RMSE and correlation, with both being lower. These results suggest that classifiers used are sensitive to the specific sensor's properties.
 
@@ -295,7 +300,8 @@ Finally, I would like to acknowledge Linda Salzman Sagan, ``Tompw'' and ``Holek'
 \subfile{../conclusion/conclusion.tex}
 
 \addcontentsline{toc}{chapter}{Bibliography}
-\bibliography{../references/primary}
+{\small
+\bibliography{../references/primary}}
 
 %TC:ignore
 \appendix
