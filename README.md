@@ -1,7 +1,7 @@
-Honours Project
+CountIR - Honours Project
 =======
 
-Files relating to my 2015-16 Computer Science honours project. Read more about it [here](http://ash.id.au/countir/). Compiled thesis can be found at [thesis/thesis.pdf](thesis/thesis.pdf).
+Files relating to my 2015-16 Computer Science honours project ("CountIR"). Read more about it [here](http://ash.id.au/countir/). Compiled thesis can be found at [thesis/thesis.pdf](thesis/thesis.pdf).
 
 See also [TaRL](http://github.com/atyndall/tarl), the Thermal Array Library that powers the thesis.
 
